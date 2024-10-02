@@ -33,7 +33,7 @@ Kinerja Dosen adalah aplikasi berbasis Laravel 11 yang dirancang untuk mendukung
 
 ## Links
 - Project Management [GSheets](https://docs.google.com/spreadsheets/d/16k5su4XtKeZNrBc8a_TaJlUv2Qr804rjCS-8WJymt-I/edit?usp=sharing).
-- Desain Kasar Website [Figma]([https://laravel.com/docs/session](https://www.figma.com/design/4Mtp972XE8i9YPKyLKC4a1/Untitled?node-id=0-1&t=SgYU39gRTuntAhqc-1)).
+- Desain Kasar Website [Figma](https://www.figma.com/design/4Mtp972XE8i9YPKyLKC4a1/Untitled?node-id=0-1&t=SgYU39gRTuntAhqc-1).
 - Flowcharts [Figma Jamboard](https://www.figma.com/board/6o6JacUdpNeZrcZKgaKD5G/Flowchart-Kinerja-Dosen?node-id=0-1&t=EB9j7kWeaMCQxN2W-1).
 - Desain Kasar Mobile [Figma](https://www.figma.com/design/HnGAjbI4r0ZTPHK9RvJqE7/SIKMA?node-id=1-2&t=IehMVsQUCgAhfifw-1).
 

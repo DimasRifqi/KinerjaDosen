@@ -7,60 +7,39 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Kinerja Dosen
+Kinerja Dosen adalah aplikasi berbasis Laravel 11 yang dirancang untuk mendukung proses administrasi dan pembayaran tunjangan dosen di seluruh perguruan tinggi di Jawa Timur, yang dikelola oleh LLDIKTI Wilayah 7. Aplikasi ini memungkinkan pengguna dari berbagai level untuk melakukan pendaftaran, pengelolaan data, serta pengajuan dan pemantauan tunjangan bulanan dosen.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
+## Dependencies
 - Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Role Pengguna
+- SuperAdmin: Memiliki akses penuh untuk mengelola seluruh aplikasi.
+- LLDIKTI - Keuangan: Bertanggung jawab atas administrasi pembayaran tunjangan.
+- LLDIKTI - Verifikator: Memverifikasi pengajuan tunjangan yang diajukan oleh perguruan tinggi.
+- LLDIKTI - Perencanaan: Mengatur perencanaan anggaran terkait tunjangan dosen.
+- Operator Perguruan Tinggi (OPT): Mengelola pengajuan dan data dosen di perguruan tinggi masing-masing.
+- Auditor: Melakukan audit terkait pengajuan dan pembayaran tunjangan.
+- Dosen: Memiliki akses untuk mengedit data diri dan melihat pengajuan tunjangannya.
 
-## Learning Laravel
+## Teknologi yang Digunakan
+- Framework: Laravel 11
+- Database: MySQL
+- PHP 8.3
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Cara Memulai
+1. Clone repositori ini.
+2. Jalankan perintah composer install.
+3. Setup file .env sesuai dengan konfigurasi database Anda.
+4. Jalankan migrasi dan seed dengan perintah php artisan migrate --seed.
+5. Jalankan aplikasi dengan perintah php artisan serve.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Links
+- Project Management [GSheets](https://docs.google.com/spreadsheets/d/16k5su4XtKeZNrBc8a_TaJlUv2Qr804rjCS-8WJymt-I/edit?usp=sharing).
+- Desain Kasar Website [Figma]([https://laravel.com/docs/session](https://www.figma.com/design/4Mtp972XE8i9YPKyLKC4a1/Untitled?node-id=0-1&t=SgYU39gRTuntAhqc-1)).
+- Flowcharts [Figma Jamboard](https://www.figma.com/board/6o6JacUdpNeZrcZKgaKD5G/Flowchart-Kinerja-Dosen?node-id=0-1&t=EB9j7kWeaMCQxN2W-1).
+- Desain Kasar Mobile [Figma](https://www.figma.com/design/HnGAjbI4r0ZTPHK9RvJqE7/SIKMA?node-id=1-2&t=IehMVsQUCgAhfifw-1).
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Kontribusi
+Kontribusi dalam bentuk pull request dipersilakan. 
+Pastikan untuk membuat branch baru untuk setiap kontributor, mengikuti standar coding yang ditetapkan, dan membuat Commit message yang **Sopan** dan **Deskriptif**.

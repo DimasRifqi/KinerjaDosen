@@ -10,9 +10,6 @@
 ## Kinerja Dosen
 Kinerja Dosen adalah aplikasi berbasis Laravel 11 yang dirancang untuk mendukung proses administrasi dan pembayaran tunjangan dosen di seluruh perguruan tinggi di Jawa Timur, yang dikelola oleh LLDIKTI Wilayah 7. Aplikasi ini memungkinkan pengguna dari berbagai level untuk melakukan pendaftaran, pengelolaan data, serta pengajuan dan pemantauan tunjangan bulanan dosen.
 
-## Dependencies
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-
 ## Role Pengguna
 - SuperAdmin: Memiliki akses penuh untuk mengelola seluruh aplikasi.
 - LLDIKTI - Keuangan: Bertanggung jawab atas administrasi pembayaran tunjangan.

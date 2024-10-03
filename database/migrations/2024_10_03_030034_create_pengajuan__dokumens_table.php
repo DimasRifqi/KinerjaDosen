@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('id_pengajuan')->nullable()->constrained('pengajuan', 'id_pengajuan')->cascadeOnDelete()->cascadeOnUpdate(); // Foreign key to pengajuan table
             $table->string('nama_dokumen');
             $table->string('file_dokumen');
-            $table->timestamps(); // created_at and updated_at fields
+            $table->timestamps(); 
         });
     }
 

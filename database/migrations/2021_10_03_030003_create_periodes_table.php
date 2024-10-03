@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('periode', function (Blueprint $table) {
             $table->id('id_periode');
             $table->string('nama_periode');
-            $table->boolean('tipe_periode'); // true or false to indicate the type
+            $table->boolean('tipe_periode');
             $table->date('masa_periode_awal');
             $table->date('masa_periode_berakhir');
-            $table->boolean('status'); // active or inactive status
-            $table->timestamps(); // created_at and updated_at fields
+            $table->boolean('status')->default(true);
+            $table->timestamps();
         });
     }
 

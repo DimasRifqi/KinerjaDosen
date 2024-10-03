@@ -40,10 +40,21 @@ class AuthApiController extends Controller
             ], 401);
         }
         $token = $user->createToken('auth_token')->plainTextToken;
-            return [
-                'user' => $user,
-                'token'=> $token
-            ];
+            // return [
+            //     'user' => $user,
+            //     'token'=> $token,
+            //     'status'=> 200,
+            //     'message' => 'Sukses login'
+            // ];
+
+            return response()->json([
+            'data' => $user,
+            'token' => $token,
+            'meta' => ['status_code' => 200,
+                        'success' => true,
+                        'message' => 'Success Login',
+                        ]
+            ]);
         } catch (\Throwable $th) {
            return response()->json(['error' => $th]);
         }

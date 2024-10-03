@@ -21,11 +21,11 @@ class DatabaseSeeder extends Seeder
             PangkatDosenSeeder::class,
             JabatanFungsionalSeeder::class,
             RoleSeeder::class,
-            UserSeeder::class,
             ProvinsiSeeder::class,
             KotaSeeder::class,
             UniversitasSeeder::class,
-            ProdiSeeder::class
+            ProdiSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }

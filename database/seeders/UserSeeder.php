@@ -18,7 +18,8 @@ class UserSeeder extends Seeder
             [
                 'id_role' => 1, // Sesuaikan dengan ID role yang ada
                 'id_jabatan_fungsional' => 2, // Sesuaikan dengan ID jabatan fungsional yang ada
-                'id_universitas' => null, // Sesuaikan dengan ID universitas yang ada
+                'id_universitas' => 1, // Sesuaikan dengan ID universitas yang ada
+                'id_prodi' => 1,
                 'id_pangkat_dosen' => 3, // Sesuaikan dengan ID pangkat dosen yang ada
                 'id_gelar_depan' => 1, // Sesuaikan dengan ID gelar depan yang ada
                 'id_gelar_belakang' => 2, // Sesuaikan dengan ID gelar belakang yang ada
@@ -41,7 +42,8 @@ class UserSeeder extends Seeder
             [
                 'id_role' => 2, // Sesuaikan dengan ID role yang ada
                 'id_jabatan_fungsional' => 1, // Sesuaikan dengan ID jabatan fungsional yang ada
-                'id_universitas' => null, // Sesuaikan dengan ID universitas yang ada
+                'id_universitas' => 1, // Sesuaikan dengan ID universitas yang ada
+                'id_prodi' => 1,
                 'id_pangkat_dosen' => 4, // Sesuaikan dengan ID pangkat dosen yang ada
                 'id_gelar_depan' => 2, // Sesuaikan dengan ID gelar depan yang ada
                 'id_gelar_belakang' => 3, // Sesuaikan dengan ID gelar belakang yang ada

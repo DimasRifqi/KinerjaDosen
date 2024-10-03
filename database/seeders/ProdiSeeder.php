@@ -14,15 +14,15 @@ class ProdiSeeder extends Seeder
     public function run(): void
     {
         DB::table('prodi')->insert([
-            ['id_universitas' => '1',
+            [
             'nama_prodi' => 'S1 Antropologi'],
-            ['id_universitas' => '2',
+            [
             'nama_prodi' =>  'S1 Ekonomi'],
-            ['id_universitas' => '2',
+            [
                 'nama_prodi' =>  'D4 Teknik Informatika'],
-            ['id_universitas' => '3',
+            [
                 'nama_prodi' =>  'S1 Sejarah'],
-            ['id_universitas' => '4',
+            [
                 'nama_prodi' =>  'S1 Sastra Jepang'],
         ]);
     }

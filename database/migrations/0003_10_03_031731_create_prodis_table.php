@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('prodi', function (Blueprint $table) {
             $table->id('id_prodi');
-            $table->foreignId('id_universitas')->nullable()->constrained('universitas', 'id_universitas')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('nama_prodi');
             $table->boolean('status')->default(1);
             $table->timestamps();

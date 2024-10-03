@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ProvinsiSeeder::class,
             KotaSeeder::class,
+            UniversitasSeeder::class,
+            ProdiSeeder::class
         ]);
     }
 }

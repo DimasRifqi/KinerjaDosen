@@ -13,5 +13,7 @@ class Jabatan_Fungsional extends Model
     protected $table = 'jabatan_fungsional';
     protected $primaryKey = ['id_jabatan_fungsional'];
 
-    
+    public function user(){
+        return $this->hasMany(User::class, 'id_jabatan_fungsional', 'id_jabatan_fungsional');
+    }
 }

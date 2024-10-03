@@ -11,4 +11,12 @@ class Kota extends Model
     protected $guarded = ['id_kota'];
     protected $table = 'kota';
     protected $primaryKey = ['id_kota'];
+
+    public function provinsi(){
+        return $this->belongsTo(Provinsi::class, 'id_provinsi', 'id_provinsi');
+    }
+
+    public function universitas(){
+        return $this->hasMany(Universitas::class, 'id_kota', 'id_kota');
+    }
 }

@@ -12,4 +12,8 @@ class Prodi extends Model
     protected $guarded = ['id_prodi'];
     protected $table = 'prodi';
     protected $primaryKey = ['id_prodi'];
+
+    public function user(){
+        return $this->hasMany(User::class, 'id_prodi', 'id_prodi');
+    }
 }

@@ -11,4 +11,8 @@ class Pangkat_Dosen extends Model
     protected $guarded = ['id_pangkat_dosen'];
     protected $table = 'pangkat_dosen';
     protected $primaryKey = 'id_pangkat_dosen';
+
+    public function user(){
+        return $this->hasMany(User::class, 'id_pangkat_dosen', 'id_pangkat_dosen');
+    }
 }

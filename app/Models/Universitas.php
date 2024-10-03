@@ -13,4 +13,12 @@ class Universitas extends Model
     protected $table = 'universitas';
     protected $primaryKey = ['id_universitas'];
 
+    public function user(){
+        return $this->hasMany(User::class, 'id_universitas', 'id_universitas');
+    }
+
+    public function kota(){
+        return $this->belongsTo(Kota::class, 'id_kota', 'id_kota');
+    }
+
 }

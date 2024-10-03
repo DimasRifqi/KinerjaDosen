@@ -10,9 +10,6 @@
 ## Kinerja Dosen
 Kinerja Dosen adalah aplikasi berbasis Laravel 11 yang dirancang untuk mendukung proses administrasi dan pembayaran tunjangan dosen di seluruh perguruan tinggi di Jawa Timur, yang dikelola oleh LLDIKTI Wilayah 7. Aplikasi ini memungkinkan pengguna dari berbagai level untuk melakukan pendaftaran, pengelolaan data, serta pengajuan dan pemantauan tunjangan bulanan dosen.
 
-## Dependencies
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-
 ## Role Pengguna
 - SuperAdmin: Memiliki akses penuh untuk mengelola seluruh aplikasi.
 - LLDIKTI - Keuangan: Bertanggung jawab atas administrasi pembayaran tunjangan.
@@ -36,7 +33,7 @@ Kinerja Dosen adalah aplikasi berbasis Laravel 11 yang dirancang untuk mendukung
 
 ## Links
 - Project Management [GSheets](https://docs.google.com/spreadsheets/d/16k5su4XtKeZNrBc8a_TaJlUv2Qr804rjCS-8WJymt-I/edit?usp=sharing).
-- Desain Kasar Website [Figma]([https://laravel.com/docs/session](https://www.figma.com/design/4Mtp972XE8i9YPKyLKC4a1/Untitled?node-id=0-1&t=SgYU39gRTuntAhqc-1)).
+- Desain Kasar Website [Figma](https://www.figma.com/design/4Mtp972XE8i9YPKyLKC4a1/Untitled?node-id=0-1&t=SgYU39gRTuntAhqc-1).
 - Flowcharts [Figma Jamboard](https://www.figma.com/board/6o6JacUdpNeZrcZKgaKD5G/Flowchart-Kinerja-Dosen?node-id=0-1&t=EB9j7kWeaMCQxN2W-1).
 - Desain Kasar Mobile [Figma](https://www.figma.com/design/HnGAjbI4r0ZTPHK9RvJqE7/SIKMA?node-id=1-2&t=IehMVsQUCgAhfifw-1).
 

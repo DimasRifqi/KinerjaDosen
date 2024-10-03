@@ -13,11 +13,22 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_pangkat_dosen')->nullable()->constrained('pangkat_dosen', 'id_pangkat_dosen')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('id_gelar_depan')->nullable()->constrained('gelar_depan', 'id_gelar_depan')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('id_gelar_belakang')->nullable()->constrained('gelar_belakang', 'id_gelar_belakang')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name');
+            $table->string('no_rek')->nullable();
+            $table->string('npwp')->nullable();
+            $table->string('nidn')->nullable();
+            $table->string('file_serdos')->nullable();
+            $table->string('tanggal_lahir')->nullable()->date();
+            $table->string('tempat_lahir')->nullable();
+            $table->enum('status', ['aktif', 'non-aktif', 'pensiun', 'belajar'])->nullable()->default('aktif');
+            $table->string('image')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
+            $table->rememberToken()->nullable();
             $table->timestamps();
         });
 

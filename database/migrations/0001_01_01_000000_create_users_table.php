@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('file_serdos')->nullable();
             $table->string('tanggal_lahir')->nullable()->date();
             $table->string('tempat_lahir')->nullable();
-            $table->enum('status', ['aktif', 'non-aktif', 'pensiun', 'belajar'])->nullable();
+            $table->enum('status', ['aktif', 'non-aktif', 'pensiun', 'belajar'])->nullable()->default('aktif');
             $table->string('image')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

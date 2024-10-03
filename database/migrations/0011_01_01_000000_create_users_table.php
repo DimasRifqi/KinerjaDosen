@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_role')->nullable()->constrained('role', 'id_role')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('id_jabatan_fungsional')->nullable()->constrained('jabatan_fungsional', 'id_jabatan_fungsional')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('id_universitas')->nullable()->constrained('universitas', 'id_universitas')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('id_pangkat_dosen')->nullable()->constrained('pangkat_dosen', 'id_pangkat_dosen')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('id_gelar_depan')->nullable()->constrained('gelar_depan', 'id_gelar_depan')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('id_gelar_belakang')->nullable()->constrained('gelar_belakang', 'id_gelar_belakang')->cascadeOnDelete()->cascadeOnUpdate();

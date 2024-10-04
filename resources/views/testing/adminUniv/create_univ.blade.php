@@ -34,14 +34,14 @@
         @if($univ->isEmpty())
             <p>No Universitas records found.</p>
         @else
-            <table class="table table-bordered">
+            <table class="table table-bordered text-center">
                 <thead>
                     <tr>
                         <th>ID Universitas</th>
                         <th>Nama Universitas</th>
                         <th>Kota</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                        <th class="text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,13 +51,8 @@
                             <td>{{ $uni->nama_universitas }}</td>
                             <td>{{ $uni->kota ? $uni->kota->nama_kota : 'N/A' }}</td>
                             <td>{{ $uni->status ? 'Active' : 'Inactive' }}</td>
-                            <td>
-                                <a href="" class="btn btn-warning btn-sm">Edit</a>
-                                <form action="" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this university?')">Delete</button>
-                                </form>
+                            <td class="text-center">
+                                <a href="{{ route('univ.edit', $uni->id_universitas) }}" class="btn btn-warning btn-sm">Edit</a>
                             </td>
                         </tr>
                     @endforeach

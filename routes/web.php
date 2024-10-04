@@ -28,6 +28,8 @@ Route::put('/periode/update/{id}', [SuperAdminController::class, 'updatePeriode'
     //Universitas
 Route::get('/adminUniv/create_univ', [SuperAdminController::class, 'indexUniv'])->name('index.uni');
 Route::post('/univ/create', [SuperAdminController::class, 'createUniv'])->name('univ.create');
+Route::get('/univ/edit/{id}', [SuperAdminController::class, 'editUniv'])->name('univ.edit');
+Route::put('/univ/update/{id}', [SuperAdminController::class, 'updateUniv'])->name('univ.update');
 
 
 //OP PT

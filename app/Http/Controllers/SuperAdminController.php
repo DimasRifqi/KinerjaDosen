@@ -87,6 +87,23 @@ class SuperAdminController extends Controller
     }
 
     public function editUniv(Request $request, $id){
+        $univ = Universitas::findOrFail($id);
+        $kota = Kota::all();
+
+        return view('testing.adminUniv.edit_univ', compact('univ', 'kota'));
+    }
+
+    public function updateUniv(Request $request, $id){
+        $univ = Universitas::findOrFail($id);
+
+        $validateData = $request->validate([
+            'nama_universitas' => 'required',
+            'id_kota' => 'required',
+            'status' => 'required|boolean'
+        ]);
+
+        $univ->update($validateData);
         
+        return redirect()->route('index.uni')->with('success', 'Universitas berhasil diubah');
     }
 }

@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>jajal - Kinerja Dosen</title>
+    <title>Jajal - Kinerja Dosen</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,18 +10,26 @@
 </head>
 
 <body>
-    <main>
-        @include('layouts.template.header')
-        @include('layouts.template.sidebar')
+    <div class="container-scroller">
+        <div class="container-fluid page-body-wrapper">
 
-        @section('content')
-        @show
+            @include('layouts.template.header')
+            {{-- @include('layouts.template.theme-setting') --}}
+            @include('layouts.template.sidebar')
 
-        @include('layouts.template.footer')
-    </main>
+            <div class="main-panel">
+                @section('content')
+                @show
 
-    @include('layouts.template.common-end')
+                @include('layouts.template.footer')
+            </div>
 
+
+            @include('layouts.template.common-end')
+        </div>
+
+    </div>
+    <!-- container-scroller -->
 </body>
 
 </html>

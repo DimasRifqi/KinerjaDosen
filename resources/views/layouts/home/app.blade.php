@@ -3,21 +3,21 @@
 <head>
     <title>Home - Kinerja Dosen</title>
 
-    @include('layouts.home.common-head')
+    @include('layouts.template.common-head')
 </head>
 
 <body>
     <main>
-        @include('layouts.home.sidebar')
+        @include('layouts.template.header')
 
-        @include('layouts.home.header')
+        @include('layouts.template.sidebar')
 
         @section('main-content')
         @show
 
-        @include('layouts.home.footer')
+        @include('layouts.template.footer')
     </main>
-    @include('layouts.home.common-end')
+    @include('layouts.template.common-end')
 </body>
 
 </html>

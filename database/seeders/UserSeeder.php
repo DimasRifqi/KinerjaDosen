@@ -18,6 +18,29 @@ class UserSeeder extends Seeder
         {
             $users = [
                 [
+                    'id_role' => 1,
+                    'id_jabatan_fungsional' => null,
+                    'id_universitas' => null,
+                    'id_prodi' => null,
+                    'id_pangkat_dosen' => null,
+                    'id_gelar_depan' => null,
+                    'id_gelar_belakang' => null,
+                    'name' => 'SuperAdmin',
+                    'no_rek' => null,
+                    'npwp' => null,
+                    'nidn' => null,
+                    'file_serdos' => null,
+                    'tanggal_lahir' => '1985-01-01',
+                    'tempat_lahir' => 'Surabaya',
+                    'status' => 'aktif',
+                    'image' => null,
+                    'email' => 'superadmin@gmail.com',
+                    'email_verified_at' => now(),
+                    'password' => Hash::make('passwordadmin123'),
+                    'remember_token' => null,
+                ],
+
+                [
                     'id_role' => 5,
                     'id_jabatan_fungsional' => null,
                     'id_universitas' => 1,

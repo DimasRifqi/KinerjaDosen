@@ -147,8 +147,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="foto">Foto</label>
-                        <input type="file" class="form-control" id="foto" name="foto" accept="image/*">
+                        <label for="image">foto</label>
+                        <input type="file" class="form-control" id="image" name="image" accept="image/*">
                     </div>
 
                     <button type="submit" class="btn btn-primary">Simpan</button>

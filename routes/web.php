@@ -22,5 +22,11 @@ Route::get('/template', function () {
 
 //admin
 Route::get('/admin', [SuperAdminController::class, 'index'])->name('admin.index');
+
+//create
 Route::get('/admin/create', [SuperAdminController::class, 'create'])->name('admin.create');
 Route::post('/admin', [SuperAdminController::class, 'store'])->name('admin.store');
+
+//edit
+Route::get('admin/{id}/edit', [SuperAdminController::class, 'edit'])->name('admin.edit');
+Route::put('admin/{id}', [SuperAdminController::class, 'update'])->name('admin.update');

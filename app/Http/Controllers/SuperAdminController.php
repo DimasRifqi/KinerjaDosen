@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Prodi;
 use App\Models\Universitas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SuperAdminController extends Controller
 {
@@ -35,118 +36,145 @@ class SuperAdminController extends Controller
 
     public function store(Request $request)
     {
-        try {
-            $request->validate([
-                'id_role' => 'required|exists:role,id_role',
-                'id_jabatan_fungsional' => 'required|exists:jabatan_fungsional,id_jabatan_fungsional',
-                'id_universitas' => 'required|exists:universitas,id_universitas',
-                'id_prodi' => 'required|exists:prodi,id_prodi',
-                'id_pangkat_dosen' => 'required|exists:pangkat_dosen,id_pangkat_dosen',
-                'id_gelar_depan' => 'nullable|exists:gelar_depan,id_gelar_depan',
-                'id_gelar_belakang' => 'nullable|exists:gelar_belakang,id_gelar_belakang',
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required|string|min:8|confirmed',
-                'tanggal_lahir' => 'nullable|date',
-                'tempat_lahir' => 'nullable|string|max:255',
-                'no_rek' => 'nullable|string',
-                'npwp' => 'nullable|string',
-                'nidn' => 'nullable|string',
-                'file_serdos' => 'nullable|mimes:pdf|max:2048',
-                'status' => 'nullable|in:aktif,non-aktif,pensiun,belajar',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            ]);
-            $fileName = $request->image ? 'image-' . uniqid() . '.' . $request->image->extension() : null;
-            if ($fileName) {
-                $request->image->move(public_path('img/foto_users'), $fileName);
-            }
 
-            $serdosFileName = $request->file_serdos ? 'serdos-' . uniqid() . '.' . $request->file_serdos->extension() : null;
-            if ($serdosFileName) {
-                $request->file_serdos->move(public_path('file/file_serdos'), $serdosFileName);
-            }
+        $request->validate([
+            'id_role' => 'required|exists:role,id_role',
+            'id_jabatan_fungsional' => 'required|exists:jabatan_fungsional,id_jabatan_fungsional',
+            'id_universitas' => 'required|exists:universitas,id_universitas',
+            'id_prodi' => 'required|exists:prodi,id_prodi',
+            'id_pangkat_dosen' => 'required|exists:pangkat_dosen,id_pangkat_dosen',
+            'id_gelar_depan' => 'nullable|exists:gelar_depan,id_gelar_depan',
+            'id_gelar_belakang' => 'nullable|exists:gelar_belakang,id_gelar_belakang',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
+            'tanggal_lahir' => 'nullable|date',
+            'tempat_lahir' => 'nullable|string|max:255',
+            'no_rek' => 'nullable|string',
+            'npwp' => 'nullable|string',
+            'nidn' => 'nullable|string',
+            'file_serdos' => 'nullable|mimes:pdf|max:2048',
+            'status' => 'nullable|in:aktif,non-aktif,pensiun,belajar',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-            User::create([
-                'id_role' => $request->id_role,
-                'id_jabatan_fungsional' => $request->id_jabatan_fungsional,
-                'id_universitas' => $request->id_universitas,
-                'id_prodi' => $request->id_prodi,
-                'id_pangkat_dosen' => $request->id_pangkat_dosen,
-                'id_gelar_depan' => $request->id_gelar_depan,
-                'id_gelar_belakang' => $request->id_gelar_belakang,
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => bcrypt($request->password),
-                'tanggal_lahir' => $request->tanggal_lahir,
-                'tempat_lahir' => $request->tempat_lahir,
-                'no_rek' => $request->no_rek,
-                'npwp' => $request->npwp,
-                'nidn' => $request->nidn,
-                'file_serdos' => $serdosFileName,
-                'status' => $request->status ?? 'aktif',
-                'image' => $fileName,
-            ]);
-
-            return redirect()->route('admin.index')->with(['type' => 'success', 'message' => 'Berhasil menambahkan data.']);
-        } catch (\Throwable $th) {
-            return response()->json(['message'=> $th]);
+        $fileName = null;
+        if ($request->hasFile('image')) {
+            $fileName = 'image-' . uniqid() . '.' . $request->image->extension();
+            $request->image->move(public_path('img/foto_users'), $fileName);
         }
-        // $request->validate([
-        //     'id_role' => 'required|exists:role,id_role',
-        //     'id_jabatan_fungsional' => 'required|exists:jabatan_fungsional,id_jabatan_fungsional',
-        //     'id_universitas' => 'required|exists:universitas,id_universitas',
-        //     'id_prodi' => 'required|exists:prodi,id_prodi',
-        //     'id_pangkat_dosen' => 'required|exists:pangkat_dosen,id_pangkat_dosen',
-        //     'id_gelar_depan' => 'nullable|exists:gelar_depan,id_gelar_depan',
-        //     'id_gelar_belakang' => 'nullable|exists:gelar_belakang,id_gelar_belakang',
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|email|unique:users,email',
-        //     'password' => 'required|string|min:8|confirmed',
-        //     'tanggal_lahir' => 'nullable|date',
-        //     'tempat_lahir' => 'nullable|string|max:255',
-        //     'no_rek' => 'nullable|string',
-        //     'npwp' => 'nullable|string',
-        //     'nidn' => 'nullable|string',
-        //     'file_serdos' => 'nullable|mimes:pdf|max:2048',
-        //     'status' => 'nullable|in:aktif,non-aktif,pensiun,belajar',
-        //     'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        // ]);
 
-        // $fileName = $request->image ? 'image-' . uniqid() . '.' . $request->image->extension() : null;
-        // if ($fileName) {
-        //     $request->image->move(public_path('img/foto_users'), $fileName);
-        // }
+        $serdosFileName = $request->file_serdos ? 'serdos-' . uniqid() . '.' . $request->file_serdos->extension() : null;
+        if ($serdosFileName) {
+            $request->file_serdos->move(public_path('file/file_serdos'), $serdosFileName);
+        }
 
-        // $serdosFileName = $request->file_serdos ? 'serdos-' . uniqid() . '.' . $request->file_serdos->extension() : null;
-        // if ($serdosFileName) {
-        //     $request->file_serdos->move(public_path('file/file_serdos'), $serdosFileName);
-        // }
+        User::create([
+            'id_role' => $request->id_role,
+            'id_jabatan_fungsional' => $request->id_jabatan_fungsional,
+            'id_universitas' => $request->id_universitas,
+            'id_prodi' => $request->id_prodi,
+            'id_pangkat_dosen' => $request->id_pangkat_dosen,
+            'id_gelar_depan' => $request->id_gelar_depan,
+            'id_gelar_belakang' => $request->id_gelar_belakang,
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'tempat_lahir' => $request->tempat_lahir,
+            'no_rek' => $request->no_rek,
+            'npwp' => $request->npwp,
+            'nidn' => $request->nidn,
+            'file_serdos' => $serdosFileName,
+            'status' => $request->status ?? 'aktif',
+            'image' => $fileName,
+        ]);
 
-        // User::create([
-        //     'id_role' => $request->id_role,
-        //     'id_jabatan_fungsional' => $request->id_jabatan_fungsional,
-        //     'id_universitas' => $request->id_universitas,
-        //     'id_prodi' => $request->id_prodi,
-        //     'id_pangkat_dosen' => $request->id_pangkat_dosen,
-        //     'id_gelar_depan' => $request->id_gelar_depan,
-        //     'id_gelar_belakang' => $request->id_gelar_belakang,
-        //     'name' => $request->name,
-        //     'email' => $request->email,
-        //     'password' => bcrypt($request->password),
-        //     'tanggal_lahir' => $request->tanggal_lahir,
-        //     'tempat_lahir' => $request->tempat_lahir,
-        //     'no_rek' => $request->no_rek,
-        //     'npwp' => $request->npwp,
-        //     'nidn' => $request->nidn,
-        //     'file_serdos' => $serdosFileName,
-        //     'status' => $request->status ?? 'aktif',
-        //     'image' => $fileName,
-        // ]);
-
-        // return redirect()->route('admin.index')->with(['type' => 'success', 'message' => 'Berhasil menambahkan data.']);
+        return redirect()->route('admin.index')->with(['type' => 'success', 'message' => 'Berhasil menambahkan data.']);
     }
 
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        $roles = Role::all();
+        $jabatanFungsional = Jabatan_Fungsional::all();
+        $universitas = Universitas::all();
+        $prodi = Prodi::all();
+        $pangkatDosen = Pangkat_Dosen::all();
+        $gelarDepan = Gelar_Depan::all();
+        $gelarBelakang = Gelar_Belakang::all();
 
+        return view('testing.admin.edit', compact('user', 'roles', 'jabatanFungsional', 'universitas', 'prodi', 'pangkatDosen', 'gelarDepan', 'gelarBelakang'));
+    }
 
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'id_role' => 'required|exists:role,id_role',
+            'id_jabatan_fungsional' => 'required|exists:jabatan_fungsional,id_jabatan_fungsional',
+            'id_universitas' => 'required|exists:universitas,id_universitas',
+            'id_prodi' => 'required|exists:prodi,id_prodi',
+            'id_pangkat_dosen' => 'required|exists:pangkat_dosen,id_pangkat_dosen',
+            'id_gelar_depan' => 'nullable|exists:gelar_depan,id_gelar_depan',
+            'id_gelar_belakang' => 'nullable|exists:gelar_belakang,id_gelar_belakang',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:8|confirmed',
+            'tanggal_lahir' => 'nullable|date',
+            'tempat_lahir' => 'nullable|string|max:255',
+            'no_rek' => 'nullable|string',
+            'npwp' => 'nullable|string',
+            'nidn' => 'nullable|string',
+            'file_serdos' => 'nullable|mimes:pdf|max:2048',
+            'status' => 'nullable|in:aktif,non-aktif,pensiun,belajar',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $user = User::findOrFail($id);
+
+        // Update Image
+        if ($request->hasFile('image')) {
+            if ($user->image) {
+                Storage::delete('public/img/foto_users/' . $user->image); // Hapus file lama
+            }
+            $fileName = 'image-' . uniqid() . '.' . $request->image->extension();
+            $request->image->storeAs('public/img/foto_users', $fileName);
+            $user->image = $fileName;
+        }
+
+        // Update File Serdos
+        if ($request->hasFile('file_serdos')) {
+            if ($user->file_serdos) {
+                Storage::delete('public/file/file_serdos/' . $user->file_serdos); // Hapus file lama
+            }
+            $serdosFileName = 'serdos-' . uniqid() . '.' . $request->file_serdos->extension();
+            $request->file_serdos->storeAs('public/file/file_serdos', $serdosFileName);
+            $user->file_serdos = $serdosFileName;
+        }
+
+        // Update User Data
+        $user->id_role = $request->id_role;
+        $user->id_jabatan_fungsional = $request->id_jabatan_fungsional;
+        $user->id_universitas = $request->id_universitas;
+        $user->id_prodi = $request->id_prodi;
+        $user->id_pangkat_dosen = $request->id_pangkat_dosen;
+        $user->id_gelar_depan = $request->id_gelar_depan;
+        $user->id_gelar_belakang = $request->id_gelar_belakang;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
+        $user->tanggal_lahir = $request->tanggal_lahir;
+        $user->tempat_lahir = $request->tempat_lahir;
+        $user->no_rek = $request->no_rek;
+        $user->npwp = $request->npwp;
+        $user->nidn = $request->nidn;
+        $user->status = $request->status ?? 'aktif';
+
+        $user->save();
+
+        return redirect()->route('admin.index')->with(['type' => 'success', 'message' => 'Berhasil memperbarui data.']);
+    }
 
 }

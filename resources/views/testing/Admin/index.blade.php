@@ -12,6 +12,8 @@
         <div class="card">
             <div class="card-header">
                 <h3>Daftar Admin</h3>
+                <!-- Tombol untuk membuat data admin baru -->
+                <a href="{{ route('admin.create') }}" class="btn btn-success btn-sm float-right">Tambah Admin</a>
             </div>
             <div class="card-body">
                 <table class="table table-bordered table-striped">
@@ -32,13 +34,13 @@
                                 <td>{{ $user->role->nama_role }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
-                                    <!-- Example action buttons -->
-                                    <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                                    <!-- Tombol Edit yang mengarah ke halaman edit -->
+                                    <a href="{{ route('admin.edit', $user->id) }}" class="btn btn-primary btn-sm">Edit</a>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center">No admin found</td>
+                                <td colspan="5" class="text-center">No admin found</td>
                             </tr>
                         @endforelse
                     </tbody>

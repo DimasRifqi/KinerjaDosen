@@ -14,6 +14,7 @@ Route::get('/index', [AuthApiController::class, 'index']);
 
 
 
+
 Route::group([
     "middleware" => "auth:sanctum"], function(){
     Route::get('/userProfile', [AuthApiController::class, 'userProfile']);

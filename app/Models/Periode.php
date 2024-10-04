@@ -11,7 +11,7 @@ class Periode extends Model
 
     protected $guarded = ['id_periode'];
     protected $table = 'periode';
-    protected $primaryKey = ['id_periode'];
+    protected $primaryKey = 'id_periode';
 
     public function pengajuan(){
         return $this->hasMany(Pengajuan::class, 'id_periode', 'id_periode');

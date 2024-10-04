@@ -10,7 +10,7 @@ class Kota extends Model
     use HasFactory;
     protected $guarded = ['id_kota'];
     protected $table = 'kota';
-    protected $primaryKey = ['id_kota'];
+    protected $primaryKey = 'id_kota';
 
     public function provinsi(){
         return $this->belongsTo(Provinsi::class, 'id_provinsi', 'id_provinsi');

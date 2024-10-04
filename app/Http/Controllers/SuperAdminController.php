@@ -61,12 +61,12 @@ class SuperAdminController extends Controller
         $fileName = null;
         if ($request->hasFile('image')) {
             $fileName = 'image-' . uniqid() . '.' . $request->image->extension();
-            $request->image->move(public_path('img/foto_users'), $fileName);
+            $request->image->move(public_path('storage/img/foto_users'), $fileName);
         }
 
         $serdosFileName = $request->file_serdos ? 'serdos-' . uniqid() . '.' . $request->file_serdos->extension() : null;
         if ($serdosFileName) {
-            $request->file_serdos->move(public_path('file/file_serdos'), $serdosFileName);
+            $request->file_serdos->move(public_path('storage/file/file_serdos'), $serdosFileName);
         }
 
         User::create([
@@ -135,20 +135,20 @@ class SuperAdminController extends Controller
         // Update Image
         if ($request->hasFile('image')) {
             if ($user->image) {
-                Storage::delete('public/img/foto_users/' . $user->image); // Hapus file lama
+                Storage::delete('storage/img/foto_users/' . $user->image); // Hapus file lama
             }
             $fileName = 'image-' . uniqid() . '.' . $request->image->extension();
-            $request->image->storeAs('public/img/foto_users', $fileName);
+            $request->image->storeAs('storage//img/foto_users', $fileName);
             $user->image = $fileName;
         }
 
         // Update File Serdos
         if ($request->hasFile('file_serdos')) {
             if ($user->file_serdos) {
-                Storage::delete('public/file/file_serdos/' . $user->file_serdos); // Hapus file lama
+                Storage::delete('storage/file/file_serdos/' . $user->file_serdos); // Hapus file lama
             }
             $serdosFileName = 'serdos-' . uniqid() . '.' . $request->file_serdos->extension();
-            $request->file_serdos->storeAs('public/file/file_serdos', $serdosFileName);
+            $request->file_serdos->storeAs('storage//file/file_serdos', $serdosFileName);
             $user->file_serdos = $serdosFileName;
         }
 

@@ -6,11 +6,6 @@ use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
 Route::post('/import-csv', [CsvImportController::class, 'import'])->name('import.csv');
 Route::get('/import-csv', [CsvImportController::class, 'index'])->name('index.csv');
 
@@ -21,7 +16,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //OP PT
 Route::get('/index/dosen', [OPPTController::class, 'allDosen'])->name('oppt.index.dosen');
 
-
+Route::get('/template', function () {
+    return view('template.templatehome');
+});
 
 //admin
 Route::get('/admin', [SuperAdminController::class, 'index'])->name('admin.index');

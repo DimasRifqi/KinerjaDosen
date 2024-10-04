@@ -11,7 +11,7 @@ class Gelar_Belakang extends Model
 
     protected $guarded = ['id_gelar_belakang'];
     protected $table = 'gelar_belakang';
-    protected $primaryKey = ['id_gelar_belakang'];
+    protected $primaryKey = 'id_gelar_belakang';
 
     public function user(){
         return $this->hasMany(User::class, 'id_gelar_belakang', 'id_gelar_belakang');

@@ -11,7 +11,7 @@ class Universitas extends Model
 
     protected $guarded = ['id_universitas'];
     protected $table = 'universitas';
-    protected $primaryKey = ['id_universitas'];
+    protected $primaryKey = 'id_universitas';
 
     public function user(){
         return $this->hasMany(User::class, 'id_universitas', 'id_universitas');

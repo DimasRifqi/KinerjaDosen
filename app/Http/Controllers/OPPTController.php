@@ -10,11 +10,10 @@ class OPPTController extends Controller
 {
     public function allDosen(){
         $oppt = Auth::user();
-        $dosen = User::all()
+        $dosen = User::with('universitas')
         ->where('id_role', 5)
-        ->where('id_universitas', $oppt->id_universitas);
-        return response()->json(['Data' => $dosen]);
+        ->where('id_universitas', $oppt->id_universitas)
+        ->get();
+        return response()->json(['Dosen' => $dosen]);
     }
-
-    
 }

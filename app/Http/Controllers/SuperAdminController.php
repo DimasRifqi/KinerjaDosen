@@ -132,27 +132,24 @@ class SuperAdminController extends Controller
 
         $user = User::findOrFail($id);
 
-        // Update Image
         if ($request->hasFile('image')) {
             if ($user->image) {
-                Storage::delete('storage/img/foto_users/' . $user->image); // Hapus file lama
+                Storage::disk('public')->delete('img/foto_users/' . $user->image);
             }
             $fileName = 'image-' . uniqid() . '.' . $request->image->extension();
-            $request->image->storeAs('storage//img/foto_users', $fileName);
+            $request->image->storeAs('img/foto_users', $fileName, 'public');
             $user->image = $fileName;
         }
 
-        // Update File Serdos
         if ($request->hasFile('file_serdos')) {
             if ($user->file_serdos) {
-                Storage::delete('storage/file/file_serdos/' . $user->file_serdos); // Hapus file lama
+                Storage::disk('public')->delete('file/file_serdos/' . $user->file_serdos);
             }
             $serdosFileName = 'serdos-' . uniqid() . '.' . $request->file_serdos->extension();
-            $request->file_serdos->storeAs('storage//file/file_serdos', $serdosFileName);
+            $request->file_serdos->storeAs('file/file_serdos', $serdosFileName, 'public');
             $user->file_serdos = $serdosFileName;
         }
 
-        // Update User Data
         $user->id_role = $request->id_role;
         $user->id_jabatan_fungsional = $request->id_jabatan_fungsional;
         $user->id_universitas = $request->id_universitas;

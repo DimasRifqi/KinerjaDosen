@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('gelar_depan', function (Blueprint $table) {
             $table->id('id_gelar_depan');
             $table->string('nama_gelar_depan');
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

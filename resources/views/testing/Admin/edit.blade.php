@@ -155,7 +155,7 @@
                 <label for="image" class="form-label">Gambar</label>
                 <input type="file" class="form-control" id="image" name="image" accept="image/*">
                 @if($user->image)
-                    <img src="{{ asset('storage/img/foto_users/' . $user->image) }}" alt="User Image" class="mt-2" style="max-width: 100px;">
+                <img src="{{ asset('storage/img/foto_users/' . $user->image) }}" alt="User Image" class="mt-2" style="max-width: 100px;">
                 @endif
             </div>
 
@@ -163,7 +163,7 @@
                 <label for="file_serdos" class="form-label">File Serdos (PDF)</label>
                 <input type="file" class="form-control" id="file_serdos" name="file_serdos" accept="application/pdf">
                 @if($user->file_serdos)
-                    <a href="{{ asset('storage/file/file_serdos/' . $user->file_serdos) }}" target="_blank">Lihat File Serdos</a>
+                <a href="{{ asset('storage/file/file_serdos/' . $user->file_serdos) }}" target="_blank">Lihat File Serdos</a>
                 @endif
             </div>
 

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('id_gelar_depan')->nullable()->constrained('gelar_depan', 'id_gelar_depan')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('id_gelar_belakang')->nullable()->constrained('gelar_belakang', 'id_gelar_belakang')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name');
-            $table->integer('masa_kerja');
+            $table->integer('masa_kerja')->nullable();
             $table->string('no_rek')->nullable();
             $table->string('npwp')->nullable();
             $table->string('nidn')->nullable();

@@ -52,11 +52,7 @@
                     <td>{{ $item->provinsi->nama_provinsi ?? 'N/A' }}</td>
                     <td>
                         <a href="{{ route('kota.edit', $item->id_kota) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <form action="{{ route('kota.destroy', $item->id_kota) }}" method="POST" style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')">Hapus</button>
-                        </form>
+                        
                     </td>
                 </tr>
             @endforeach

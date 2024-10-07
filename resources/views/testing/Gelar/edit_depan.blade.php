@@ -29,7 +29,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Update</button>
-            <a href="{{ route('gelar-depan.index') }}" class="btn btn-secondary">Batal</a>
+            <a href="{{ route('gelar.index') }}" class="btn btn-secondary">Batal</a>
         </form>
     </div>
 

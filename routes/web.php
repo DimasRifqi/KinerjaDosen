@@ -8,6 +8,7 @@ use App\Http\Controllers\CsvImportController;
 use App\Http\Controllers\GelarDepanController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\GelarBelakangController;
+use App\Http\Controllers\KotaController;
 
 Route::post('/import-csv', [CsvImportController::class, 'import'])->name('import.csv');
 Route::get('/import-csv', [CsvImportController::class, 'index'])->name('index.csv');
@@ -48,3 +49,6 @@ Route::get('gelar-belakang/create', [GelarController::class, 'createBelakang'])-
 Route::post('gelar-belakang/store', [GelarController::class, 'storeBelakang'])->name('gelar-belakang.store');
 Route::get('gelar-belakang/{id}/edit', [GelarController::class, 'editBelakang'])->name('gelar-belakang.edit');
 Route::put('gelar-belakang/{id}', [GelarController::class, 'updateBelakang'])->name('gelar-belakang.update');
+
+//kota
+Route::resource('kota', KotaController::class);

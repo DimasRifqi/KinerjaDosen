@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kota;
+use App\Models\Pangkat_Dosen;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Periode;
+use App\Models\Prodi;
 use App\Models\Universitas;
 use Illuminate\Support\Facades\Auth;
 
@@ -105,5 +107,77 @@ class SuperAdminController extends Controller
         $univ->update($validateData);
         
         return redirect()->route('index.uni')->with('success', 'Universitas berhasil diubah');
+    }
+
+    public function indexProdi(){
+        $prodi = Prodi::all();
+
+        return view('testing.adminUniv.create_prodi', compact('prodi'));
+    }
+
+    public function createProdi(Request $request){
+        $validateData = $request->validate([
+            'nama_prodi' => 'required',
+        ]);
+
+        $prodi = Prodi::create([
+            'nama_prodi' => $validateData['nama_prodi']
+        ]);
+
+        return redirect()->back()->with('success', "Prodi berhasil dibuat");
+    }
+
+    public function editProdi(Request $request, $id){
+        $prodi = Prodi::findOrFail($id);
+
+        return view('testing.adminUniv.edit_prodi', compact('prodi'));
+    }
+
+    public function updateProdi(Request $request, $id){
+        $prodi = Prodi::findOrFail($id);
+
+        $validateData = $request->validate([
+            'nama_prodi' => 'required',
+            'status' => 'required'
+        ]);
+
+        $prodi->update($validateData);
+
+        return redirect()->route('index.prodi')->with('success', 'Prodi berhasil diubah');
+    }
+
+    public function indexPangkatDosen(){
+        $pangkat_dosen = Pangkat_Dosen::all();
+
+        return view('testing.adminPangkat.createPangkat', compact('pangkat_dosen'));
+    }
+
+    public function createPangkat(Request $request){
+        $validateData = $request->validate([
+            'nama_pangkat' => 'required'
+        ]);
+
+        $pdos = Pangkat_Dosen::create([
+            'nama_pangkat' => $validateData['nama_pangkat']
+        ]);
+
+        return redirect()->back()->with('success', 'Pangkat berhasil dibuat');
+    }
+
+    public function editPangkat(Request $request, $id){
+        $pangkat_dosen = Pangkat_Dosen::findOrFail($id);
+
+        return view('testing.adminPangkat.editPangkat', compact('pangkat_dosen'));        
+    }
+
+    public function updatePangkat(Request $request, $id){
+        $pdos = Pangkat_Dosen::findOrFail($id);
+
+        $validateData = $request->validate([
+            'nama_pangkat' => 'required'
+        ]);
+
+        $pdos->update($validateData);
+        return redirect()->route('index.pangkat')->with('success', 'Pangkat berhasil diubah');
     }
 }

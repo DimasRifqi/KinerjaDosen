@@ -34,7 +34,7 @@
         @if($univ->isEmpty())
             <p>No Universitas records found.</p>
         @else
-            <table class="table table-bordered text-center">
+            <table class="table table-bordered text-center ">
                 <thead>
                     <tr>
                         <th>ID Universitas</th>

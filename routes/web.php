@@ -2,6 +2,14 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OPPTController;
+use App\Http\Controllers\GelarController;
+use App\Http\Controllers\CsvImportController;
+use App\Http\Controllers\GelarDepanController;
+use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\GelarBelakangController;
+use App\Http\Controllers\JabatanFungsionalController;
+use App\Http\Controllers\KotaController;
 
 Route::get('/', function () {
     return view('welcome');

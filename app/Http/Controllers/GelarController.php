@@ -59,7 +59,7 @@ class GelarController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('gelar-depan.index')->with('success', 'Gelar Depan berhasil diperbarui.');
+        return redirect()->route('gelar.index')->with('success', 'Gelar Depan berhasil diperbarui.');
     }
 
     // Menampilkan form create untuk Gelar Belakang
@@ -105,6 +105,6 @@ class GelarController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('gelar-belakang.index')->with('success', 'Gelar Belakang berhasil diperbarui.');
+        return redirect()->route('gelar.index')->with('success', 'Gelar Belakang berhasil diperbarui.');
     }
 }

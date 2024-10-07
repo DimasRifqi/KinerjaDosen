@@ -41,7 +41,7 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('gelar-depan.edit', $gelar->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{{ route('gelar-depan.edit', $gelar->id_gelar_depan) }}" class="btn btn-warning btn-sm">Edit</a>
                         </td>
                     </tr>
                 @endforeach
@@ -79,7 +79,7 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('gelar-belakang.edit', $gelar->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{{ route('gelar-belakang.edit', $gelar->id_gelar_belakang) }}" class="btn btn-warning btn-sm">Edit</a>
                         </td>
                     </tr>
                 @endforeach

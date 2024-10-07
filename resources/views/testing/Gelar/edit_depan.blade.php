@@ -1,4 +1,4 @@
-<form action="{{ route('gelar-depan.update', $gelarDepan->id) }}" method="POST">
+<form action="{{ route('gelar-depan.update', $gelarDepan->id_gelar_depan) }}" method="POST">
     @csrf
     @method('PUT')
     <div class="mb-3">

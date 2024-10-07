@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             UniversitasSeeder::class,
             ProdiSeeder::class,
             UserSeeder::class,
+            PeriodeSeeder::class
         ]);
     }
 }

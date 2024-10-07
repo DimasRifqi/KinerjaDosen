@@ -211,9 +211,9 @@
             </a>
             <div class="collapse" id="pengajuan">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('datapengajuan') }}">Data
+                    <li class="nav-item"><a class="nav-link" href="{{ route('oppt.pengajuanIndex.dosen') }}">Data
                             Pengajuan</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Pengajuan
+                    <li class="nav-item"><a class="nav-link" href="{{ route('oppt.pengajuan.dosen') }}">Buat
                             Tunjangan</a></li>
                 </ul>
             </div>

@@ -127,14 +127,29 @@ class OPPTController extends Controller
         $dosen = User::all()
         ->where('id_universitas', $oppt->id_universitas);
         $periode = Periode::all();
-        return view('testing.oppt.pengajuan', ['periodes' => $periode, 'dosen' => $dosen]);
+        return view('home.pengajuan.buat_pengajuan', ['periodes' => $periode, 'dosen' => $dosen]);
     }
+
+    //     public function addPengajuan()
+    // {
+    //     $oppt = Auth::user();
+    //     $dosen = User::all()
+    //     ->where('id_universitas', $oppt->id_universitas);
+    //     $periode = Periode::all();
+    //     return view('testing.oppt.pengajuan', ['periodes' => $periode, 'dosen' => $dosen]);
+    // }
 
     public function indexPengajuan()
         {
             $pengajuan = Pengajuan::with('user')->get();
-            return view('testing.oppt.index_pengajuan', compact('pengajuan'));
+            return view('home.pengajuan.index_pengajuan', compact('pengajuan'));
         }
+		
+	//public function indexPengajuan()
+    //  {
+    //        $pengajuan = Pengajuan::with('user')->get();
+    //      return view('testing.oppt.index_pengajuan', compact('pengajuan'));
+    //  }
 
     public function showPengajuan($id){
         $pengajuan = Pengajuan::findOrFail($id);

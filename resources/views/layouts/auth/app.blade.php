@@ -10,7 +10,7 @@
     <main>
         @include('layouts.auth.header')
 
-        @section('content')
+        @section('main-content')
         @show
 
     </main>

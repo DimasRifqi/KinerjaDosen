@@ -48,6 +48,15 @@
                     <a href="{{ route('oppt.editPengajuan.dosen', $pengajuan->id_pengajuan) }}" class="btn btn-info">Edit</a>
                     @endif
 
+                    <form action="{{ route('oppt.deletePengajuan.dosen', $pengajuan->id_pengajuan) }} " method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+
+                    <a href="{{ route('oppt.statusPengajuan.dosen', $pengajuan->id_pengajuan) }}" class="btn btn-warning">
+                        Lihat status dosen
+                    </a>
 
                 </td>
                 @endforeach

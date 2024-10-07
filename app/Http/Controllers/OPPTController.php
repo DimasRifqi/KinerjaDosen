@@ -205,6 +205,64 @@ class OPPTController extends Controller
 
     }
 
+    public function updateDokumen($id, Request $request)
+{
+    try {
+        // Validasi input
+        $request->validate([
+            'SPTJM' => 'nullable|file|mimes:pdf,jpg,jpeg,png',
+            'SPPPTS' => 'nullable|file|mimes:pdf,jpg,jpeg,png',
+            'SPKD' => 'nullable|file|mimes:pdf,jpg,jpeg,png',
+        ]);
+
+        // Inisialisasi dokumen yang diupload
+        $dokumenFiles = [
+            'SPTJM' => $request->file('SPTJM'),
+            'SPPPTS' => $request->file('SPPPTS'),
+            'SPKD' => $request->file('SPKD'),
+        ];
+
+        $dokumenNames = ['SPTJM', 'SPPPTS', 'SPKD'];
+
+        $pengajuan = Pengajuan::findOrFail($id);
+
+        // Loop untuk setiap dokumen yang diupload
+        foreach ($dokumenFiles as $key => $file) {
+            if ($file) {
+                // Cari dokumen lama di database
+                $existingDokumen = Pengajuan_Dokumen::where('id_pengajuan', $pengajuan->id_pengajuan)
+                    ->where('nama_dokumen', $key)
+                    ->first();
+
+                // Hapus file dokumen lama jika ada
+                if ($existingDokumen) {
+                    Storage::disk('public')->delete($existingDokumen->file_dokumen);
+
+                    // Update dengan file baru
+                    $filePath = $file->store('dokumen', 'public');
+                    $existingDokumen->update([
+                        'file_dokumen' => $filePath,
+                    ]);
+                } else {
+                    // Jika dokumen tidak ada, buat baru
+                    $filePath = $file->store('dokumen', 'public');
+                    Pengajuan_Dokumen::create([
+                        'id_pengajuan' => $pengajuan->id_pengajuan,
+                        'nama_dokumen' => $key,
+                        'file_dokumen' => $filePath,
+                    ]);
+                }
+            }
+        }
+
+        return redirect()->back()->with('success', 'Dokumen berhasil diupdate!');
+    } catch (\Throwable $th) {
+        return response()->json(['Message' => $th->getMessage()]);
+    }
+}
+
+
+
     public function showPengajuanSemester($id){
         $pengajuan = Pengajuan::findOrFail($id);
         return view('testing.oppt.show_pengajuan_semester', ['pengajuan' => $pengajuan]);
@@ -290,5 +348,24 @@ class OPPTController extends Controller
         }
     }
 
+    public function deletePengajuan($id){
+        try {
+            $pengajuan = Pengajuan::findOrFail($id);
+            $pengajuan->delete();
+            return redirect()->back();
+        } catch (\Throwable $th) {
+          return response()->json(['error' => $th]);
+        }
+    }
+
+    public function statusPengajuanDosen($id){
+        try {
+            $pengajuan = Pengajuan::with('user')->findOrFail($id);
+            return view('testing.oppt.index_status_pengajuan_dosen', ['pengajuan' => $pengajuan]);
+            //return response()->json(['data' => $pengajuan]);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()]);
+        }
+    }
 
 }

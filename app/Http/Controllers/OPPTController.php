@@ -146,21 +146,27 @@ class OPPTController extends Controller
 
     public function ajukanDosen(Request $request)
     {
-        $request->validate([
-            'id_periode' => 'required|exists:periode,id_periode',
-            'dosen_ids' => 'required|array',
-        ]);
+        try {
+            $request->validate([
+                'id_periode' => 'required|exists:periode,id_periode',
+                'dosen_ids' => 'required|array',
+            ]);
 
-        $pengajuan = Pengajuan::create([
-            'id_periode' => $request->id_periode,
-        ]);
+            $pengajuan = Pengajuan::create([
+                'id_periode' => $request->id_periode,
+            ]);
 
-        $pengajuan->user()->attach($request->dosen_ids, [
-            'status' => 'diajukan',
-            'tanggal_diajukan' => now(),
-        ]);
+            $pengajuan->user()->attach($request->dosen_ids, [
+                'status' => 'diajukan',
+                'tanggal_diajukan' => now(),
+            ]);
 
-        return redirect()->route('oppt.pengajuanIndex.dosen')->with('success', 'Pengajuan berhasil dibuat!');
+            return redirect()->route('oppt.pengajuanIndex.dosen')->with('success', 'Pengajuan berhasil dibuat!');
+            //return response()->json(['Error' => 'jir']);
+        } catch (\Throwable $th) {
+           return response()->json(['Error' => $th]);
+        }
+
     }
 
 
@@ -237,5 +243,52 @@ class OPPTController extends Controller
     }
 
 }
+
+    public function draftPengajuan($id){
+        $pengajuan = Pengajuan::findOrFail($id);
+        if ( $pengajuan->draft == false) {
+            $pengajuan->draft = true;
+        }
+        $pengajuan->save();
+        return redirect()->back();
+    }
+
+    public function editPengajuan($id){
+        $pengajuan = Pengajuan::with('user')->findOrFail($id);
+        $periode = Periode::all();
+        $dosen = User::all();
+       // return response()->json(['data' => $pengajuan]);
+        return view('testing.oppt.edit_pengajuan_dosen', ['pengajuan' => $pengajuan, 'periode' => $periode, 'dosen' => $dosen]);
+    }
+
+    public function updatePengajuan(Request $request, $id) {
+        try {
+            // Validasi request
+            $request->validate([
+                'id_periode' => 'required|exists:periode,id_periode',
+                'dosen_ids' => 'nullable|array',
+            ]);
+
+            // Cari pengajuan berdasarkan ID
+            $pengajuan = Pengajuan::findOrFail($id);
+
+            // Update pengajuan dengan id_periode baru
+            $pengajuan->update([
+                'id_periode' => $request->id_periode,
+            ]);
+
+            // Sinkronisasi dosen yang diajukan
+            $pengajuan->user()->sync($request->dosen_ids, [
+                'status' => 'diajukan',
+                'tanggal_diajukan' => now(),
+            ]);
+
+            // Redirect dengan pesan sukses
+            return redirect()->route('oppt.pengajuanIndex.dosen')->with('success', 'Pengajuan berhasil diperbarui!');
+        } catch (\Throwable $th) {
+            return redirect()->route('oppt.pengajuanIndex.dosen');
+        }
+    }
+
 
 }

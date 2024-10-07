@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
         {
             $users = [
                 [
+                
                     'id_role' => 5,
                     'id_jabatan_fungsional' => null,
                     'id_universitas' => 1,

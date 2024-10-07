@@ -19,6 +19,7 @@
                     <th>Awal Periode</th>
                     <th>Akhir Periode</th>
                     <th>Jenis Periode</th>
+                    <th>Status</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -28,12 +29,25 @@
                   <td>{{ $pengajuan->periode->masa_periode_awal }}</td>
                   <td>{{ $pengajuan->periode->masa_periode_berakhir }}</td>
                   <td>{{ $pengajuan->periode->tipe_periode ? 'Bulanan' : 'Semester' }}</td>
+                  <td>{{ $pengajuan->draft ? 'Aktif' : 'Draft' }}</td>
                   <td>
                     @if ($pengajuan->periode->tipe_periode == true)
                     <a href="{{ route('oppt.pengajuanShow.dosen', $pengajuan->id_pengajuan) }}" class="btn btn-primary">Ajukan Dokumen Bulanan</a>
                     @else
                     <a href="{{ route('oppt.pengajuanSemesterShow.dosen', $pengajuan->id_pengajuan) }}" class="btn btn-success">Ajukan Dokumen Semester</a>
                     @endif
+
+                    <form action="{{ route('oppt.draftPengajuan.dosen', $pengajuan->id_pengajuan) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        @if ($pengajuan->draft == false)
+                        <button type="submit" class="btn btn-success">Set to Sukses</button>
+                        @endif
+                    </form>
+                    @if ($pengajuan->draft == false)
+                    <a href="{{ route('oppt.editPengajuan.dosen', $pengajuan->id_pengajuan) }}" class="btn btn-info">Edit</a>
+                    @endif
+
 
                 </td>
                 @endforeach

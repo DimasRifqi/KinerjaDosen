@@ -8,7 +8,7 @@
                     <div class="col-lg-4 mx-auto">
                         <div class="auth-form-light text-left py-5 px-4 px-sm-5">
                             <!-- Title -->
-                            <h3 class="mb-4">{{ __('Register') }}</h3>
+                            <h3 class="mb-4">{{ __('Daftar') }}</h3>
 
                             <!-- Start Form -->
                             <form method="POST" action="{{ route('register') }}">
@@ -16,7 +16,7 @@
 
                                 <!-- Name Field -->
                                 <div class="form-group">
-                                    <input type="text" id="name" name="name" placeholder="{{ __('Name') }}"
+                                    <input type="text" id="name" name="name" placeholder="{{ __('Nama') }}"
                                         class="form-control form-control-lg @error('name') is-invalid @enderror"
                                         value="{{ old('name') }}" required autofocus>
 
@@ -30,7 +30,7 @@
                                 <!-- Email Field -->
                                 <div class="form-group">
                                     <input type="email" id="email" name="email"
-                                        placeholder="{{ __('Email Address') }}"
+                                        placeholder="{{ __('Alamat Email') }}"
                                         class="form-control form-control-lg @error('email') is-invalid @enderror"
                                         value="{{ old('email') }}" required>
 
@@ -57,14 +57,14 @@
                                 <!-- Confirm Password Field -->
                                 <div class="form-group">
                                     <input type="password" id="password-confirm" name="password_confirmation"
-                                        placeholder="{{ __('Confirm Password') }}" class="form-control form-control-lg"
+                                        placeholder="{{ __('Konfirmasi Password') }}" class="form-control form-control-lg"
                                         required>
                                 </div>
 
                                 <!-- Submit Button -->
                                 <div class="mt-2">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Register') }}
+                                        {{ __('Daftar') }}
                                     </button>
                                 </div>
 

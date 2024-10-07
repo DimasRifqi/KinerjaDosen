@@ -163,45 +163,83 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="{{ route('home') }}">
                 <i class="mdi mdi-grid-large menu-icon"></i>
-                <span class="menu-title">Dashboard</span>
+                <span class="menu-title">Dasbor</span>
             </a>
         </li>
-        <li class="nav-item nav-category">UI Elements</li>
+        <li class="nav-item nav-category">Anggota</li>
         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
-                aria-controls="ui-basic">
-                <i class="menu-icon mdi mdi-floor-plan"></i>
-                <span class="menu-title">UI Elements</span>
+            <a class="nav-link" data-bs-toggle="collapse" href="#dosen" aria-expanded="false"
+                aria-controls="dosen">
+                <i class="menu-icon mdi mdi-account-circle-outline"></i>
+                <span class="menu-title">Dosen</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="ui-basic">
+            <div class="collapse" id="dosen">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Data Dosen</a>
                     </li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Daftar Dosen</a>
                     </li>
                 </ul>
             </div>
         </li>
-        <li class="nav-item nav-category">Forms and Datas</li>
+        {{-- <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false"
+                aria-controls="icons">
+                <i class="menu-icon mdi mdi-layers-outline"></i>
+                <span class="menu-title">Icons</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="icons">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Mdi icons</a>
+                    </li>
+                </ul>
+            </div>
+        </li> --}}
+        <li class="nav-item nav-category">Pengajuan</li>
         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false"
-                aria-controls="form-elements">
+            <a class="nav-link" data-bs-toggle="collapse" href="#pengajuan" aria-expanded="false"
+                aria-controls="pengajuan">
                 <i class="menu-icon mdi mdi-card-text-outline"></i>
-                <span class="menu-title">Form elements</span>
+                <span class="menu-title">Pengajuan Tunjangan</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="form-elements">
+            <div class="collapse" id="pengajuan">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic
-                            Elements</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Data
+                            Pengajuan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Pengajuan
+                            Tunjangan</a></li>
                 </ul>
             </div>
         </li>
+        <li class="nav-item nav-category">Profil</li>
         <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#profil" aria-expanded="false"
+                aria-controls="profil">
+                <i class="menu-icon mdi mdi-card-text-outline"></i>
+                <span class="menu-title">Profil</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="profil">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="#">Lihat Profil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();">Keluar</a>
+                    </li>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </ul>
+            </div>
+        </li>
+        {{-- <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false"
                 aria-controls="charts">
                 <i class="menu-icon mdi mdi-chart-line"></i>
@@ -263,6 +301,6 @@
                 <i class="menu-icon mdi mdi-file-document"></i>
                 <span class="menu-title">Documentation</span>
             </a>
-        </li>
+        </li> --}}
     </ul>
 </nav>

@@ -206,7 +206,7 @@
             <a class="nav-link" data-bs-toggle="collapse" href="#pengajuan" aria-expanded="false"
                 aria-controls="pengajuan">
                 <i class="menu-icon mdi mdi-card-text-outline"></i>
-                <span class="menu-title">Pengajuan Tunjangan</span>
+                <span class="menu-title">Tunjangan</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="pengajuan">

@@ -14,7 +14,7 @@
                         <h4>Hello! let's get started</h4>
                         <h6 class="fw-light">Sign in to continue.</h6>!-->
                         
-                        <h3 class="mb-4">{{ __('Login') }}</h3>
+                        <h3 class="mb-4">{{ __('Masuk') }}</h3>
                         <form class="pt-3" method="POST" action="{{ route('login') }}"> 
                             @csrf
                             <div class="form-group">
@@ -29,7 +29,7 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="password" name="password" class="form-control form-control-lg @error('password') is-invalid @enderror" id="exampleInputPassword1" placeholder="Password"
+                                <input type="password" name="password" class="form-control form-control-lg @error('password') is-invalid @enderror" id="exampleInputPassword1" placeholder="Kata Sandi"
                                 required autocomplete="current-password">
 
                                 @error('password')
@@ -42,24 +42,24 @@
 
                             <div class="my-2 d-flex justify-content-between align-items-center">
                                 <div class="form-check">
-                                    <label class="form-check-label text-muted" for="remember"> {{ __('Remember Me') }}
+                                    <label class="form-check-label text-muted" for="remember"> {{ __('Ingat Saya') }}
                                         <input type="checkbox" class="form-check-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                     </label>
                                 </div>
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
+                                        {{ __('Lupa Kata Sandi?') }}
                                     </a>
                                 @endif
                             </div>
 
                             <div class="mt-2">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
+                                    {{ __('Masuk') }}
                                 </button>
                             </div>
                             <!-- <div class="text-center mt-4 fw-light">
-                                Register sebagai? <a  href="{{ route('register') }}" class="text-primary">{{ __('Register') }}</a>
+                                Register sebagai? <a  href="{{ route('register') }}" class="text-primary">{{ __('Daftar Akun') }}</a>
                             </div> -->
                         </form>
                     </div>

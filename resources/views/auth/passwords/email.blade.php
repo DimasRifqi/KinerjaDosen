@@ -16,7 +16,7 @@
                             <img src="../../images/logo.svg" alt="logo">
                         </div>!-->
                         
-                        <h3 class="mb-4">{{ __('Reset Password') }}</h3>
+                        <h3 class="mb-4">{{ __('Perbarui Kata Sandi') }}</h3>
                         <form class="pt-3" method="POST" action="{{ route('password.email') }}"> 
                             @csrf
                             <div class="form-group">
@@ -32,7 +32,7 @@
 
                             <div class="mt-2">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
+                                    {{ __('Kirim Tautan Ubah Kata Sandi') }}
                                 </button>
                             </div>
                         </form>

@@ -16,9 +16,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //OP PT
 Route::get('/index/dosen', [OPPTController::class, 'allDosen'])->name('oppt.index.dosen');
 
-Route::get('/template', function () {
-    return view('template.templatehome');
-});
+Route::get('/anggota/datadosen', function () {
+    return view('home.anggota.data_dosen');
+})->name('datadosen');
+
+Route::get('/pengajuan/datapengajuan', function () {
+    return view('home.pengajuan.data_pengajuan');
+})->name('datapengajuan');
 
 //admin
 Route::get('/admin', [SuperAdminController::class, 'index'])->name('admin.index');

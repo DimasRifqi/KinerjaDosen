@@ -179,10 +179,10 @@
             <div class="collapse" id="dosen">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Data Dosen</a>
+                        <a class="nav-link" href="{{ route('datadosen') }}">Data Dosen</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Daftar Dosen</a>
+                        <a class="nav-link" href="#">Pendaftaran Dosen</a>
                     </li>
                 </ul>
             </div>
@@ -211,7 +211,7 @@
             </a>
             <div class="collapse" id="pengajuan">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="#">Data
+                    <li class="nav-item"><a class="nav-link" href="{{ route('datapengajuan') }}">Data
                             Pengajuan</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Pengajuan
                             Tunjangan</a></li>

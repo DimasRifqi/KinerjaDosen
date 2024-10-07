@@ -182,7 +182,7 @@
                         <a class="nav-link" href="{{ route('datadosen') }}">Data Dosen</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pendaftaran Dosen</a>
+                        <a class="nav-link" href="{{ route('pendaftarandosen') }}">Pendaftaran Dosen</a>
                     </li>
                 </ul>
             </div>

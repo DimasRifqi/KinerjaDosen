@@ -5,7 +5,7 @@
 <script src="{{ asset('staradmin/vendors/chart.js/Chart.min.js') }}"></script>
 <script src="{{ asset('staradmin/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}"></script>
 <script src="{{ asset('staradmin/vendors/progressbar.js/progressbar.min.js') }}"></script>
-
+<script src="{{ asset('staradmin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>{{-- basic-table.html --}}
 <!-- End plugin js for this page -->
 <!-- inject:js -->
 <script src="{{ asset('staradmin/js/off-canvas.js') }}"></script>

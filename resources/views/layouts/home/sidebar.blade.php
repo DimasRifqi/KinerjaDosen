@@ -179,10 +179,10 @@
             <div class="collapse" id="dosen">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Data Dosen</a>
+                        <a class="nav-link" href="{{ route('datadosen') }}">Data Dosen</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Daftar Dosen</a>
+                        <a class="nav-link" href="{{ route('pendaftarandosen') }}">Pendaftaran Dosen</a>
                     </li>
                 </ul>
             </div>
@@ -206,12 +206,12 @@
             <a class="nav-link" data-bs-toggle="collapse" href="#pengajuan" aria-expanded="false"
                 aria-controls="pengajuan">
                 <i class="menu-icon mdi mdi-card-text-outline"></i>
-                <span class="menu-title">Pengajuan Tunjangan</span>
+                <span class="menu-title">Tunjangan</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="pengajuan">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="#">Data
+                    <li class="nav-item"><a class="nav-link" href="{{ route('datapengajuan') }}">Data
                             Pengajuan</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Pengajuan
                             Tunjangan</a></li>

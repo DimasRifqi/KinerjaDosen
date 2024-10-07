@@ -48,9 +48,17 @@ Route::put('/pangkat/update/{id}', [SuperAdminController::class, 'updatePangkat'
 //OP PT
 Route::get('/index/dosen', [OPPTController::class, 'allDosen'])->name('oppt.index.dosen');
 
-Route::get('/template', function () {
-    return view('template.templatehome');
-});
+Route::get('/anggota/datadosen', function () {
+    return view('home.anggota.data_dosen');
+})->name('datadosen');
+
+Route::get('/anggota/pendaftarandosen', function () {
+    return view('home.anggota.pendaftaran_dosen');
+})->name('pendaftarandosen');
+
+Route::get('/pengajuan/datapengajuan', function () {
+    return view('home.pengajuan.data_pengajuan');
+})->name('datapengajuan');
 
 
 

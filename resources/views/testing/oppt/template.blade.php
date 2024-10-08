@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lampiran Surat Pernyataan Tanggung Jawab Mutlak Pimpinan Perguruan Tinggi</title>
-    <link href="{{ asset('../bootstrap-5.3.3-dist/css/bootstrap.min.css') }}" rel="stylesheet">    <style>
-        .table-bordered td, .table-bordered th { border: 1px solid #dee2e6; }
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     </style>
 </head>
 <body>
@@ -46,11 +45,9 @@
                     
                 </thead>
                 <tbody>
-                    @foreach ($pengajuan->user as $item)
-                    <tr>
-                            
-
-                        <td>1</td>
+                    @foreach ($pengajuan->user as $index => $item)
+                    <tr>                        
+                        <td>{{ $index + 1 }}</td>
                         <td></td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->npwp }}</td>
@@ -66,7 +63,7 @@
                     @endforeach
                     <tr>
                         <td colspan="6"><strong>Jumlah (--harus ada--)</strong></td>
-                        <td><strong>?</strong></td>
+                        <td><strong>{{ $jumlah }}</strong></td>
                         <td><strong>?</strong></td>
                         <td></td>
                     </tr>
@@ -108,6 +105,6 @@
             </ol>
         </div>
     </div>
-    <script src="{{ asset('../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>        .table-bordered td, .table-bordered th { border: 1px solid #dee2e6; }
 </body>
 </html>

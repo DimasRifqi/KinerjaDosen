@@ -371,8 +371,9 @@ class OPPTController extends Controller
     public function fetchDosen($id){        
         try {
             $pengajuan = Pengajuan::findOrFail($id);
+            $jumlah = $pengajuan->user()->wherePivot('status', 'diajukan')->count();
 
-            return view('testing.oppt.template', ['pengajuan' => $pengajuan]);
+            return view('testing.oppt.template', ['pengajuan' => $pengajuan, 'jumlah' => $jumlah]);
         } catch (\Throwable $th) {
             return response()->json(['error' => $th->getMessage()]);
         }

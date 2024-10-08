@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OPPTController;
@@ -141,3 +142,8 @@ Route::get('/template/{id}', [OPPTController::class, 'fetchDosen'])->name('fetch
 
 //PDF
 Route::get('PDF/{id}', [PDFController::class, 'sptjmPDF'])->name('generate.pdf');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
+    Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
+});

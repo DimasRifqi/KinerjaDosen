@@ -9,6 +9,7 @@ use App\Models\Pangkat_Dosen;
 use App\Models\Pengajuan;
 use App\Models\Pengajuan_Dokumen;
 use App\Models\Periode;
+use App\Models\Permohonan;
 use App\Models\Prodi;
 use App\Models\Role;
 use App\Models\Universitas;
@@ -16,9 +17,17 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class OPPTController extends Controller
 {
+
+    public function historyPengajuanDosen($id){
+        $dosen = User::with('pengajuan')->findOrFail($id);
+        //return response()->json(['Data' => $dosen]);
+        return view('testing.oppt.history_dosen_pengajuan', ['dosen'=>$dosen]);
+    }
+
     public function allDosen(){
         $oppt = Auth::user();
         $dosen = User::all()
@@ -363,6 +372,53 @@ class OPPTController extends Controller
             $pengajuan = Pengajuan::with('user')->findOrFail($id);
             return view('testing.oppt.index_status_pengajuan_dosen', ['pengajuan' => $pengajuan]);
             //return response()->json(['data' => $pengajuan]);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()]);
+        }
+    }
+
+    public function createPermohonan(){
+        $oppt = Auth::user();
+        $dosen = User::all()
+        ->where('id_universitas', $oppt->id_universitas);
+        return view('testing.oppt.permohonan.create_permohonan', ['dosen'=>$dosen]);
+    }
+
+    public function storePermohonan(Request $request){
+        $request->validate([
+            'permohonan' => 'required|string',
+            'id' => 'required|exists:users,id',
+        ]);
+       Permohonan::create([
+        'id' => $request->id,
+        'permohonan' => $request->permohonan
+        ]);
+        return redirect()->back();
+    }
+
+    public function indexPermohonan(){
+        $oppt = Auth::user();
+        $dosenIds = User::where('id_universitas', $oppt->id_universitas)->pluck('id')->toArray();
+        $permohonan = Permohonan::with('user')
+            ->whereIn('id', $dosenIds)
+            ->get();
+        return view('testing.oppt.permohonan.index_permohonan', ['permohonan'=>$permohonan]);
+    }
+
+    public function showPermohonan($id){
+        $permohonan = Permohonan::with('user')->findOrFail($id);
+        return view('testing.oppt.permohonan.show_permohonan', ['permohonan'=>$permohonan]);
+    }
+
+    public function fetchDosen($id){
+        try {
+            $pengajuan = Pengajuan::findOrFail($id);
+            $jumlah = $pengajuan->user()->wherePivot('status', 'diajukan')->count();
+
+            $pdf = PDF::loadView('testing.oppt.template', ['pengajuan' => $pengajuan, 'jumlah' => $jumlah]);
+
+            //return view('testing.oppt.template', ['pengajuan' => $pengajuan, 'jumlah' => $jumlah]);
+            return $pdf->download('template.pdf');
         } catch (\Throwable $th) {
             return response()->json(['error' => $th->getMessage()]);
         }

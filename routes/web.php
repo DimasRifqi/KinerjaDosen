@@ -1,11 +1,18 @@
 <?php
 
+use App\Http\Controllers\CsvImportController;
+use App\Http\Controllers\GelarController;
+use App\Http\Controllers\JabatanFungsionalController;
+use App\Http\Controllers\KotaController;
+use App\Http\Controllers\OPPTController;
+use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\VerifikatorController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 Route::post('/import-csv', [CsvImportController::class, 'import'])->name('import.csv');
@@ -42,8 +49,7 @@ Route::put('/pangkat/update/{id}', [SuperAdminController::class, 'updatePangkat'
 
 
 
-//OP PT
-Route::get('/index/dosen', [OPPTController::class, 'allDosen'])->name('oppt.index.dosen');
+
 
 Route::get('/anggota/datadosen', function () {
     return view('home.anggota.data_dosen');
@@ -106,10 +112,13 @@ Route::group(['prefix' => 'jabatan-fungsional'], function () {
     Route::put('/{jabatanFungsional}', [JabatanFungsionalController::class, 'update'])->name('jabatan-fungsional.update');
 });
 
+//OP PT
+Route::get('/index/dosen', [OPPTController::class, 'allDosen'])->name('oppt.index.dosen');
 Route::put('/status/dosen/{id}', [OPPTController::class, 'updateStatusDosen'])->name('oppt.updateStatus.dosen');
 Route::get('/edit/dosen/{id}', [OPPTController::class, 'editDosen'])->name('oppt.edit.dosen');
 Route::put('/update/dosen/{id}', [OPPTController::class, 'updateDosen'])->name('oppt.update.dosen');
 Route::get('/periode', [OPPTController::class, 'indexPeriode'])->name('periode.index');
+Route::get('/history/dosen/{id}', [OPPTController::class, 'historyPengajuanDosen'])->name('oppt.history.dosen');
 
 Route::get('/pengajuan/create', [OPPTController::class, 'addPengajuan'])->name('oppt.pengajuan.dosen');
 Route::post('/pengajuan/store', [OPPTController::class, 'ajukanDosen'])->name('oppt.ajukan.dosen');
@@ -126,3 +135,19 @@ Route::delete('/pengajuan/delete/{id}', [OPPTController::class, 'deletePengajuan
 Route::get('/pengajuan/dosen/{id}', [OPPTController::class, 'statusPengajuanDosen'])->name('oppt.statusPengajuan.dosen');
 
 Route::get('/pengajuan/semester/show/{id}', [OPPTController::class, 'showPengajuanSemester'])->name('oppt.pengajuanSemesterShow.dosen');
+
+Route::get('create/permohonan/dosen', [OPPTController::class, 'createPermohonan'])->name('oppt.createPermohonan.dosen');
+Route::post('store/permohonan/dosen', [OPPTController::class, 'storePermohonan'])->name('oppt.storePermohonan.dosen');
+Route::get('index/permohonan/dosen', [OPPTController::class, 'indexPermohonan'])->name('oppt.indexPermohonan.dosen');
+Route::get('show/permohonan/dosen/{id}', [OPPTController::class, 'showPermohonan'])->name('oppt.showPermohonan.dosen');
+Route::get('/template/{id}', [OPPTController::class, 'fetchDosen'])->name('fetch.dosen');
+
+//Verifikator
+Route::get('/index/pengajuan', [VerifikatorController::class, 'indexPengajuan'])->name('verifikator.pengajuan.index');
+Route::get('/detail/pengajuan/{id}', [VerifikatorController::class, 'detailPengajuan'])->name('verifikator.pengajuan.show');
+Route::put('/update/pengajuan/{id}', [VerifikatorController::class, 'updateStatusPengajuan'])->name('verifikator.pengajuanStatus.update');
+Route::post('/store/pesan/pengajuan/{id}', [VerifikatorController::class, 'storePesanPengajuanDosen'])->name('verifikator.pesanPengajuan.store');
+
+Route::get('/verifikator/index/permohonan', [VerifikatorController::class, 'indexPermohonan'])->name('verifikator.permohonan.index');
+Route::get('/verifikator/index/permohonan/{id}', [VerifikatorController::class, 'showPermohonan'])->name('verifikator.permohonan.show');
+Route::put('/verifikator/index/permohonan/status/{id}', [VerifikatorController::class, 'statusPermohonan'])->name('verifikator.permohonan.status');

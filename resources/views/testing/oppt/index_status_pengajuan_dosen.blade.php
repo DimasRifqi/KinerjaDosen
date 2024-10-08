@@ -24,6 +24,7 @@
                     <th>Tanggal Diajukan</th>
                     <th>Tanggal Disetujui</th>
                     <th>Tanggal Ditolak</th>
+                    <th>Pesan</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,6 +36,7 @@
                         <td>{{ $dosen->pivot->tanggal_diajukan }}</td>
                         <td>{{ $dosen->pivot->tanggal_disetujui ?? '-' }}</td>
                         <td>{{ $dosen->pivot->tanggal_ditolak ?? '-' }}</td>
+                        <td>{{ $dosen['pivot']['pesan'] ?? '-'}}</td>
                     </tr>
                 @endforeach
             </tbody>

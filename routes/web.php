@@ -48,28 +48,28 @@ Route::put('/pangkat/update/{id}', [SuperAdminController::class, 'updatePangkat'
 //OP PT
 Route::get('/index/dosen', [OPPTController::class, 'allDosen'])->name('oppt.index.dosen');
 
-Route::get('/anggota/datadosen', function () {
+Route::get('/anggota/dosen/datadosen', function () {
     return view('home.anggota.data_dosen');
 })->name('datadosen');
 
-Route::get('/anggota/pendaftarandosen', function () {
-    return view('home.anggota.pendaftaran_dosen');
+Route::get('/anggota/dosen/pendaftarandosen', function () {
+    return view('home.anggota.dosen.pendaftaran_dosen');
 })->name('pendaftarandosen');
 
-Route::get('/anggota/pendaftaranoppt', function () {
-    return view('home.anggota.pendaftaran_oppt');
+Route::get('/anggota/operator/pendaftaranoppt', function () {
+    return view('home.anggota.operator.pendaftaran_oppt');
 })->name('pendaftaranoppt');
 
-Route::get('/anggota/pendaftaranverifikator', function () {
-    return view('home.anggota.pendaftaran_verifikator');
+Route::get('/anggota/lldikti/pendaftaranverifikator', function () {
+    return view('home.anggota.lldikti.pendaftaran_verifikator');
 })->name('pendaftaranverifikator');
 
-Route::get('/anggota/pendaftarankeuangan', function () {
-    return view('home.anggota.pendaftaran_keuangan');
+Route::get('/anggota/lldikti/pendaftarankeuangan', function () {
+    return view('home.anggota.lldikti.pendaftaran_keuangan');
 })->name('pendaftarankeuangan');
 
-Route::get('/anggota/pendaftaranperencanaan', function () {
-    return view('home.anggota.pendaftaran_perencanaan');
+Route::get('/anggota/lldikti/pendaftaranperencanaan', function () {
+    return view('home.anggota.lldikti.pendaftaran_perencanaan');
 })->name('pendaftaranperencanaan');
 
 Route::get('/pengajuan/datapengajuan', function () {

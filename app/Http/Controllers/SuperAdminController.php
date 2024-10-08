@@ -46,7 +46,7 @@ class SuperAdminController extends Controller
         $gelarDepan = Gelar_Depan::all();
         $gelarBelakang = Gelar_Belakang::all();
 
-        return view('home.anggota.pendaftaran_dosen', compact('roles', 'jabatanFungsional', 'universitas', 'prodi', 'pangkatDosen', 'gelarDepan', 'gelarBelakang'));
+        return view('home.anggota.dosen.pendaftaran_dosen', compact('roles', 'jabatanFungsional', 'universitas', 'prodi', 'pangkatDosen', 'gelarDepan', 'gelarBelakang'));
     } ///view page pendaftaran dosen
 
     public function store(Request $request)

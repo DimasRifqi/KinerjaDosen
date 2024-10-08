@@ -56,13 +56,10 @@ Route::get('/anggota/pendaftarandosen', function () {
     return view('home.anggota.pendaftaran_dosen');
 })->name('pendaftarandosen');
 
-Route::get('/tunjangan/komponen/data_periode', function () {
-    return view('home.tunjangan.komponen.data_periode');
-})->name('dataperiode');
 
-Route::get('/tunjangan/komponen/buat_periode', function () {
-    return view('home.tunjangan.komponen.buat_periode');
-})->name('buatperiode');
+
+
+
 
 
 

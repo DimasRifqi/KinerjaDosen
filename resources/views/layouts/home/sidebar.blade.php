@@ -227,8 +227,10 @@
             </a>
             <div class="collapse" id="komponen">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('dataperiode') }}">Data Periode</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('buatperiode') }}">Buat Periode</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('periode.index') }}">Data Periode</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('index.periode') }}">Buat Periode</a>
+                    </li>
                 </ul>
             </div>
         </li>

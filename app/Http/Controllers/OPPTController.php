@@ -126,8 +126,14 @@ class OPPTController extends Controller
     public function indexPeriode()
     {
         $periode = Periode::all();
-        return view('testing.oppt.periode', ['periode' => $periode]);
+        return view('home.tunjangan.komponen.data_periode', ['periode' => $periode]);
     }
+
+    // public function indexPeriode()
+    // {
+    //     $periode = Periode::all();
+    //     return view('testing.oppt.periode', ['periode' => $periode]);
+    // }
 
     public function addPengajuan()
     {

@@ -180,8 +180,15 @@ class SuperAdminController extends Controller
     public function indexPeriode(){
         $periode = Periode::all();
 
-        return view('testing.adminPeriode.create_periode', compact('periode'));
+        return view('home.tunjangan.komponen.buat_periode', compact('periode'));
     }
+
+    // public function indexPeriode(){
+    //     $periode = Periode::all();
+
+    //     return view('testing.adminPeriode.create_periode', compact('periode'));
+    // }
+
 
     public function CreatePeriode(Request $requset){
         // $superAdmin = Auth::user();

@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lampiran Surat Pernyataan Tanggung Jawab Mutlak Pimpinan Perguruan Tinggi</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
+    <link href="{{ asset('../bootstrap-5.3.3-dist/css/bootstrap.min.css') }}" rel="stylesheet">    <style>
         .table-bordered td, .table-bordered th { border: 1px solid #dee2e6; }
     </style>
 </head>
@@ -28,42 +27,43 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Nomor Sertifikat</th>
-                        <th>Nama Dosen</th>
-                        <th>NPWP</th>
+                        <th rowspan="2">No</th>
+                        <th rowspan="2">Nomor Sertifikat</th>
+                        <th rowspan="2">Nama Dosen</th>
+                        <th rowspan="2">NPWP</th>
                         <th colspan="2">Rekening</th>
                         <th colspan="2">Diusulkan</th>
                         <th>Keterangan</th>
                     </tr>
+                    
                     <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
                         <th>Nomor</th>
                         <th>Nama</th>
                         <th>Ya</th>
                         <th>Tidak</th>
                         <th></th>
                     </tr>
+                    
                 </thead>
                 <tbody>
+                    @foreach ($pengajuan->user as $item)
                     <tr>
+                            
+
                         <td>1</td>
                         <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>*)</td>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->npwp }}</td>
+                        <td>{{ $item->no_rek }}</td>
                         <td>**)</td>
-                        <td>***)</td>
-                        <td>***)</td>
+                        @if ($item->pivot->status == 'diajukan')
+                            <td>&#10004;</td> <!-- This will display a checkmark -->
+                        @else
+                            <td>&#10008;</td>
+                        @endif                        
                         <td>****)</td>
                     </tr>
-                    <tr><td>2</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td>3</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td>5</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    @endforeach
                     <tr>
                         <td colspan="6"><strong>Jumlah (--harus ada--)</strong></td>
                         <td><strong>?</strong></td>
@@ -89,7 +89,9 @@
         </div>
 
         <div class="mt-4">
-            <p>Catatan: lampiran SPTJM ini agar dibuat dengan menggunakan daftar nama dosen yang diperoleh dari laman <a href="http://kinerjadosen.kopertis7.go.id">http://kinerjadosen.kopertis7.go.id</a></p>
+            <p>Catatan: lampiran SPTJM ini agar dibuat dengan menggunakan daftar nama dosen yang diperoleh dari laman 
+                {{-- <a href="http://kinerjadosen.kopertis7.go.id">http://kinerjadosen.kopertis7.go.id</a> --}}
+            </p>
             <p><sup>#)</sup> sesuaikan dengan periode bulan tunjangan yang diajukan pembayaran</p>
             <ul>
                 <li>bulan Januari Tahun 2024</li>
@@ -106,6 +108,6 @@
             </ol>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js') }}"></script>
 </body>
 </html>

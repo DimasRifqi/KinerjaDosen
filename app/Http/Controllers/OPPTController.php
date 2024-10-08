@@ -368,4 +368,14 @@ class OPPTController extends Controller
         }
     }
 
+    public function fetchDosen($id){        
+        try {
+            $pengajuan = Pengajuan::findOrFail($id);
+
+            return view('testing.oppt.template', ['pengajuan' => $pengajuan]);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()]);
+        }
+    }
+
 }

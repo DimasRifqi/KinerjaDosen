@@ -19,7 +19,7 @@ Route::get('/', function () {
 Route::post('/import-csv', [CsvImportController::class, 'import'])->name('import.csv');
 Route::get('/import-csv', [CsvImportController::class, 'index'])->name('index.csv');
 
-Auth::routes();
+Auth::routes(['verify'=>true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -133,5 +133,4 @@ Route::get('/pengajuan/edit/{id}', [OPPTController::class, 'editPengajuan'])->na
 Route::delete('/pengajuan/delete/{id}', [OPPTController::class, 'deletePengajuan'])->name('oppt.deletePengajuan.dosen');
 
 Route::get('/pengajuan/dosen/{id}', [OPPTController::class, 'statusPengajuanDosen'])->name('oppt.statusPengajuan.dosen');
-
 Route::get('/pengajuan/semester/show/{id}', [OPPTController::class, 'showPengajuanSemester'])->name('oppt.pengajuanSemesterShow.dosen');

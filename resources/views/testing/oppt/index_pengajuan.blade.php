@@ -58,6 +58,7 @@
                         Lihat status dosen
                     </a>
 
+                    <a href="{{ route('generate.pdf', $pengajuan->id_pengajuan) }}" class="btn btn-success">PDF</a>
                 </td>
                 @endforeach
             </tbody>

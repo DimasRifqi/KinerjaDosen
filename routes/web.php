@@ -10,6 +10,7 @@ use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\GelarBelakangController;
 use App\Http\Controllers\JabatanFungsionalController;
 use App\Http\Controllers\KotaController;
+use App\Http\Controllers\PDFController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -133,4 +134,10 @@ Route::get('/pengajuan/edit/{id}', [OPPTController::class, 'editPengajuan'])->na
 Route::delete('/pengajuan/delete/{id}', [OPPTController::class, 'deletePengajuan'])->name('oppt.deletePengajuan.dosen');
 
 Route::get('/pengajuan/dosen/{id}', [OPPTController::class, 'statusPengajuanDosen'])->name('oppt.statusPengajuan.dosen');
+
 Route::get('/pengajuan/semester/show/{id}', [OPPTController::class, 'showPengajuanSemester'])->name('oppt.pengajuanSemesterShow.dosen');
+
+Route::get('/template/{id}', [OPPTController::class, 'fetchDosen'])->name('fetch.dosen');
+
+//PDF
+Route::get('PDF/{id}', [PDFController::class, 'sptjmPDF'])->name('generate.pdf');

@@ -56,11 +56,13 @@ Route::get('/anggota/pendaftarandosen', function () {
     return view('home.anggota.pendaftaran_dosen');
 })->name('pendaftarandosen');
 
+Route::get('/profil', function () {
+    return view('home.profil.profil');
+})->name('profil');
 
-
-
-
-
+Route::get('/profil/setelan', function () {
+    return view('home.profil.setelan');
+})->name('setelan');
 
 
 // Route untuk Admin

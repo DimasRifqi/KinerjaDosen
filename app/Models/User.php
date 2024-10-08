@@ -68,7 +68,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function pengajuan()
     {
         return $this->belongsToMany(Pengajuan::class, 'pengajuan_user', 'id', 'id_pengajuan')
-            ->withPivot('status', 'tanggal_diajukan', 'tanggal_disetujui', 'tanggal_ditolak')
+            ->withPivot('status', 'tanggal_diajukan', 'tanggal_disetujui', 'tanggal_ditolak', 'pesan')
             ->withTimestamps();
+    }
+
+    public function permohonan(){
+        return $this->hasMany(Permohonan::class, 'id', 'id');
     }
 }

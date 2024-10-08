@@ -9,6 +9,7 @@
 <body>
     <div class="container mt-5">
         <h1 class="mb-4">Daftar Dosen</h1>
+        <a href="{{ route('oppt.createPermohonan.dosen') }}">Buat Permohonan</a>
 
         @if(session('success'))
             <div class="alert alert-success">
@@ -32,6 +33,7 @@
                         <th>Status</th>
                         <th>Aksi</th>
                         <th>Edit</th>
+                        <th>History</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,6 +70,7 @@
                         <td>
                             <a href="{{ route('oppt.edit.dosen', $item->id)  }}"> Edit</a>
                         </td>
+                        <td><a href="{{ route('oppt.history.dosen', $item->id) }}">History</a></td>
                     </tr>
                     @endforeach
                 </tbody>

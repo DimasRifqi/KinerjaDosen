@@ -33,7 +33,7 @@
                         <td>{{ $dosen->name }}</td>
                         <td>{{ $dosen->email }}</td>
                         <td>{{ $dosen->pivot->status }}</td>
-                        <td>{{ $dosen->pivot->tanggal_diajukan }}</td>
+                        <td>{{ \Carbon\Carbon::parse($dosen->pivot->created_at)->format('d-m-Y') }} </td>
                         <td>{{ $dosen->pivot->tanggal_disetujui ?? '-' }}</td>
                         <td>{{ $dosen->pivot->tanggal_ditolak ?? '-' }}</td>
                         <td>{{ $dosen['pivot']['pesan'] ?? '-'}}</td>

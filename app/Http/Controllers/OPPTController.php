@@ -323,7 +323,8 @@ class OPPTController extends Controller
     public function editPengajuan($id){
         $pengajuan = Pengajuan::with('user')->findOrFail($id);
         $periode = Periode::all();
-        $dosen = User::all();
+        $oppt = Auth::user();
+        $dosen = User::where('id_universitas', $oppt->id_universitas)->get();
        // return response()->json(['data' => $pengajuan]);
         return view('testing.oppt.edit_pengajuan_dosen', ['pengajuan' => $pengajuan, 'periode' => $periode, 'dosen' => $dosen]);
     }

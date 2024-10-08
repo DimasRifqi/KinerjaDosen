@@ -6,6 +6,8 @@
 <script src="{{ asset('staradmin/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}"></script>
 <script src="{{ asset('staradmin/vendors/progressbar.js/progressbar.min.js') }}"></script>
 <script src="{{ asset('staradmin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>{{-- basic-table.html --}}
+<script src="{{ asset('staradmin/vendors/typeahead.js/typeahead.bundle.min.js') }}"></script> {{-- assets pendaftaran --}}
+<script src="{{ asset('staradmin/vendors/select2/select2.min.js') }}"></script> {{-- assets pendaftaran --}}
 <!-- End plugin js for this page -->
 <!-- inject:js -->
 <script src="{{ asset('staradmin/js/off-canvas.js') }}"></script>
@@ -17,6 +19,9 @@
 <!-- Custom js for this page-->
 <script src="{{ asset('staradmin/js/dashboard.js') }}"></script>
 <script src="{{ asset('staradmin/js/Chart.roundedBarCharts.js') }}"></script>
+<script src="{{ asset('staradmin/js/file-upload.js') }}"></script>
+<script src="{{ asset('staradmin/js/typeahead.js') }}"></script>
+<script src="{{ asset('staradmin/js/select2.js') }}"></script>
 <!-- End custom js for this page-->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>

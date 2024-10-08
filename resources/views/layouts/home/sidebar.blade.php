@@ -172,7 +172,7 @@
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#dosen" aria-expanded="false"
                 aria-controls="dosen">
-                <i class="menu-icon mdi mdi-account-circle-outline"></i>
+                <i class="menu-icon mdi mdi-account-box"></i>
                 <span class="menu-title">Dosen</span>
                 <i class="menu-arrow"></i>
             </a>
@@ -201,12 +201,12 @@
                 </ul>
             </div>
         </li> --}}
-        <li class="nav-item nav-category">Pengajuan</li>
+        <li class="nav-item nav-category">Tunjangan</li>
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#pengajuan" aria-expanded="false"
                 aria-controls="pengajuan">
-                <i class="menu-icon mdi mdi-card-text-outline"></i>
-                <span class="menu-title">Tunjangan</span>
+                <i class="menu-icon mdi mdi-file-document"></i>
+                <span class="menu-title">Pengajuan</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="pengajuan">
@@ -214,7 +214,21 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('oppt.pengajuanIndex.dosen') }}">Data
                             Pengajuan</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('oppt.pengajuan.dosen') }}">Buat
-                            Tunjangan</a></li>
+                            Pengajuan</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#komponen" aria-expanded="false"
+                aria-controls="komponen">
+                <i class="menu-icon mdi mdi-card-text-outline"></i>
+                <span class="menu-title">Komponen</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="komponen">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="{{ route('dataperiode') }}">Data Periode</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('buatperiode') }}">Buat Periode</a></li>
                 </ul>
             </div>
         </li>
@@ -222,7 +236,7 @@
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#profil" aria-expanded="false"
                 aria-controls="profil">
-                <i class="menu-icon mdi mdi-card-text-outline"></i>
+                <i class="menu-icon mdi mdi-account-circle-outline"></i>
                 <span class="menu-title">Profil</span>
                 <i class="menu-arrow"></i>
             </a>

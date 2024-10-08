@@ -34,3 +34,29 @@
         allowClear: true
     });
 </script>
+
+<style>
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 2.2 !important;
+        /* Adjust line height */
+        padding: 5px 10px !important;
+        /* Adjust padding */
+    }
+
+    .select2-container .select2-selection--single {
+        height: auto !important;
+        /* Make sure the height is auto-adjusted */
+        padding: 0px !important;
+        /* Remove extra padding */
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 100% !important;
+        /* Ensure arrow icon is vertically centered */
+    }
+
+    .select2-container--default .select2-selection--single {
+        display: flex;
+        align-items: center;
+    }
+</style>

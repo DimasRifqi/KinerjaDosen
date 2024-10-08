@@ -19,8 +19,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Pilih Dosen</label>
-                                <select class="js-example-basic-single w-100">
-                                    <option value="AL">Mohon Pilih Satu</option>
+                                <select class="js-example-basic-multiple w-100" multiple="multiple">
+                                    <option value="AL">Mohon Pilih</option>
                                     @foreach ($dosen as $dosen)
                                         <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
                                     @endforeach

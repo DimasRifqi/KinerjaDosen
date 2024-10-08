@@ -19,25 +19,25 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Super Admin
-    //Periode
+//Periode
 Route::get('/admin/create_periode', [SuperAdminController::class, 'indexPeriode'])->name('index.periode');
 Route::post('/periode/create', [SuperAdminController::class, 'CreatePeriode'])->name('periode.create');
 Route::get('/periode/edit/{id}', [SuperAdminController::class, 'editPeriode'])->name('periode.edit');
 Route::put('/periode/update/{id}', [SuperAdminController::class, 'updatePeriode'])->name('periode.update');
 
-    //Universitas
+//Universitas
 Route::get('/admin/createUniv', [SuperAdminController::class, 'indexUniv'])->name('index.uni');
 Route::post('/univ/create', [SuperAdminController::class, 'createUniv'])->name('univ.create');
 Route::get('/univ/edit/{id}', [SuperAdminController::class, 'editUniv'])->name('univ.edit');
 Route::put('/univ/update/{id}', [SuperAdminController::class, 'updateUniv'])->name('univ.update');
 
-    //Prodi
+//Prodi
 Route::get('/admin/createProdi', [SuperAdminController::class, 'indexProdi'])->name('index.prodi');
 Route::post('/prodi/create', [SuperAdminController::class, 'createProdi'])->name('prodi.create');
 Route::get('/prodi/edit/{id}', [SuperAdminController::class, 'editProdi'])->name('prodi.edit');
 Route::put('/prodi/update/{id}', [SuperAdminController::class, 'updateProdi'])->name('prodi.update');
 
-    //Pangkat
+//Pangkat
 Route::get('/admin/createPangkat', [SuperAdminController::class, 'indexPangkatDosen'])->name('index.pangkat');
 Route::post('/pangkat/create', [SuperAdminController::class, 'createPangkat'])->name('pangkat.create');
 Route::get('/pangkat/edit/{id}', [SuperAdminController::class, 'editPangkat'])->name('pangkat.edit');
@@ -56,11 +56,13 @@ Route::get('/anggota/pendaftarandosen', function () {
     return view('home.anggota.pendaftaran_dosen');
 })->name('pendaftarandosen');
 
-Route::get('/pengajuan/datapengajuan', function () {
-    return view('home.pengajuan.data_pengajuan');
-})->name('datapengajuan');
+Route::get('/tunjangan/komponen/data_periode', function () {
+    return view('home.tunjangan.komponen.data_periode');
+})->name('dataperiode');
 
-
+Route::get('/tunjangan/komponen/buat_periode', function () {
+    return view('home.tunjangan.komponen.buat_periode');
+})->name('buatperiode');
 
 
 

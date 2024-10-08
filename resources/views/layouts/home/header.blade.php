@@ -87,12 +87,12 @@
             </li>
         </ul>
         <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <form class="search-form" action="#">
                     <i class="icon-search"></i>
                     <input type="search" class="form-control" placeholder="Search Here" title="Search here">
                 </form>
-            </li>
+            </li> --}}
             <li class="nav-item dropdown">
                 <a class="nav-link count-indicator" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
                     <i class="icon-bell"></i>
@@ -140,18 +140,12 @@
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                     <div class="dropdown-header text-center">
                         <img class="img-md rounded-circle" src="images/faces/face8.jpg" alt="Profile image">
-                        <p class="mb-1 mt-3 font-weight-semibold">Allen Moreno</p>
-                        <p class="fw-light text-muted mb-0">allenmoreno@gmail.com</p>
+                        <p class="mb-1 mt-3 font-weight-semibold">Lorem ipsum</p>
+                        <p class="fw-light text-muted mb-0">loremipsum@gmail.com</p>
                     </div>
                     <a class="dropdown-item"><i
-                            class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My
-                        Profile <span class="badge badge-pill badge-danger">1</span></a>
-                    <a class="dropdown-item"><i
-                            class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i>
-                        Messages</a>
-                    <a class="dropdown-item"><i
-                            class="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2"></i>
-                        Activity</a>
+                            class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i>
+                        Profil Saya {{-- <span class="badge badge-pill badge-danger">1</span> --}}</a>
                     <a class="dropdown-item"><i
                             class="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i>
                         FAQ</a>

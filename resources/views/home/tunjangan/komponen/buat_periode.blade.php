@@ -115,7 +115,7 @@
                                         class="form-control" placeholder="dd/mm/yyyy"
                                         value="{{ old('masa_periode_akhir') }}" required>
                                 </div>
-                                <button type="submit" class="btn btn-primary mb-2">Create Periode</button>
+                                <button type="submit" class="btn btn-primary mb-2">Buat Periode</button>
                             </form>
                         </div>
                     </div>

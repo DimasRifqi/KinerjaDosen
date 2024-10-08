@@ -58,28 +58,36 @@
                                                 {{ $pengajuan->draft ? 'Aktif' : 'Draft' }}
                                             </td>
                                             <td>
-                                                @if ($pengajuan->periode->tipe_periode == true)
-                                                    <a href="{{ route('oppt.pengajuanShow.dosen', $pengajuan->id_pengajuan) }}"
-                                                        class="btn btn-primary">Ajukan Dokumen Bulanan</a>
-                                                @else
-                                                    <a href="{{ route('oppt.pengajuanSemesterShow.dosen', $pengajuan->id_pengajuan) }}"
-                                                        class="btn btn-success">Ajukan Dokumen Semester</a>
-                                                @endif
-
-                                                <form
-                                                    action="{{ route('oppt.draftPengajuan.dosen', $pengajuan->id_pengajuan) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    @if ($pengajuan->draft == false)
-                                                        <button type="submit" class="btn btn-success">Set to
-                                                            Sukses</button>
+                                                <div class="py-2">
+                                                    @if ($pengajuan->periode->tipe_periode == true)
+                                                        <a href="{{ route('oppt.pengajuanShow.dosen', $pengajuan->id_pengajuan) }}"
+                                                            class="btn btn-outline-primary btn-rounded">Ajukan Dokumen
+                                                            Bulanan</a>
+                                                    @else
+                                                        <a href="{{ route('oppt.pengajuanSemesterShow.dosen', $pengajuan->id_pengajuan) }}"
+                                                            class="btn btn-outline-info btn-rounded">Ajukan Dokumen
+                                                            Semester</a>
                                                     @endif
-                                                </form>
-                                                @if ($pengajuan->draft == false)
-                                                    <a href="{{ route('oppt.editPengajuan.dosen', $pengajuan->id_pengajuan) }}"
-                                                        class="btn btn-info">Edit</a>
-                                                @endif
+                                                </div>
+
+                                                <div class="py-1">
+                                                    <form {{-- kasih modal peringatan apakah anda yakin --}}
+                                                        action="{{ route('oppt.draftPengajuan.dosen', $pengajuan->id_pengajuan) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        @if ($pengajuan->draft == false)
+                                                            <button type="submit" class="btn btn-warning">Set to
+                                                                Sukses</button>
+                                                        @endif
+                                                    </form>
+                                                </div>
+                                                <div>
+                                                    @if ($pengajuan->draft == false)
+                                                        <a href="{{ route('oppt.editPengajuan.dosen', $pengajuan->id_pengajuan) }}"
+                                                            class="btn btn-info">Edit</a>
+                                                    @endif
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

@@ -212,8 +212,14 @@ class SuperAdminController extends Controller
     public function editPeriode($id){
         $periode = Periode::findOrFail($id);
 
-        return view('testing.adminPeriode.edit_periode', compact('periode'));
+        return view('home.tunjangan.komponen.edit_periode', compact('periode'));
     }
+
+    // public function editPeriode($id){
+    //     $periode = Periode::findOrFail($id);
+
+    //     return view('testing.adminPeriode.edit_periode', compact('periode'));
+    // }
 
     public function updatePeriode(Request $request, $id){
         $periode = Periode::findOrFail($id);

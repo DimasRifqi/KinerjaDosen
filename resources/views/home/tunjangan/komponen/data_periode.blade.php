@@ -36,9 +36,9 @@
                                         <th>
                                             Status
                                         </th>
-                                        <th>
+                                        {{-- <th>
                                             Aksi
-                                        </th>
+                                        </th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -52,8 +52,8 @@
                                             <td>{{ $p->masa_periode_awal }}</td>
                                             <td>{{ $p->masa_periode_berakhir }}</td>
                                             <td>{{ $p->status ? 'Aktif' : 'Non-Aktif' }}</td>
-                                            <td><a href="{{ route('oppt.pengajuan.dosen', $p->id_periode) }}">Ajukan</a>
-                                            </td>
+                                            {{-- <td><a href="{{ route('oppt.pengajuan.dosen', $p->id_periode) }}">Ajukan</a>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>

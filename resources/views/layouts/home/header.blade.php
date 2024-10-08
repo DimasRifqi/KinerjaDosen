@@ -143,17 +143,20 @@
                         <p class="mb-1 mt-3 font-weight-semibold">Lorem ipsum</p>
                         <p class="fw-light text-muted mb-0">loremipsum@gmail.com</p>
                     </div>
-                    <a class="dropdown-item"><i
+                    <a class="dropdown-item" href="{{ route('profil') }}"><i
                             class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i>
                         Profil Saya {{-- <span class="badge badge-pill badge-danger">1</span> --}}</a>
-                    <a class="dropdown-item"><i
+                    <a class="dropdown-item" href="{{ route('faq') }}"><i
                             class="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i>
                         FAQ</a>
+                    <a class="dropdown-item" href="{{ route('setelan') }}"><i
+                            class="dropdown-item-icon mdi mdi-settings text-primary me-2"></i>
+                        Setelan</a>
                     <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
                         <i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>
-                        Log Out
+                        Keluar
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf

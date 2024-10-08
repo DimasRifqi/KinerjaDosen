@@ -17,10 +17,16 @@ use Illuminate\Support\Facades\Storage;
 
 class SuperAdminController extends Controller
 {
+    // public function index()
+    // {
+    //     $admin = User::all();
+    //     return view('testing.admin.index', compact('admin'));
+    // }
+
     public function index()
     {
         $admin = User::all();
-        return view('testing.admin.index', compact('admin'));
+        return view('home.anggota.dosen.data_dosen', compact('admin'));
     }
 
     public function create()

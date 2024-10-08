@@ -56,6 +56,22 @@ Route::get('/anggota/pendaftarandosen', function () {
     return view('home.anggota.pendaftaran_dosen');
 })->name('pendaftarandosen');
 
+Route::get('/anggota/pendaftaranoppt', function () {
+    return view('home.anggota.pendaftaran_oppt');
+})->name('pendaftaranoppt');
+
+Route::get('/anggota/pendaftaranverifikator', function () {
+    return view('home.anggota.pendaftaran_verifikator');
+})->name('pendaftaranverifikator');
+
+Route::get('/anggota/pendaftarankeuangan', function () {
+    return view('home.anggota.pendaftaran_keuangan');
+})->name('pendaftarankeuangan');
+
+Route::get('/anggota/pendaftaranperencanaan', function () {
+    return view('home.anggota.pendaftaran_perencanaan');
+})->name('pendaftaranperencanaan');
+
 Route::get('/pengajuan/datapengajuan', function () {
     return view('home.pengajuan.data_pengajuan');
 })->name('datapengajuan');

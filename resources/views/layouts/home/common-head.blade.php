@@ -30,6 +30,8 @@
 <!-- Plugin css for this page -->
 <link rel="stylesheet" href="{{ asset('staradmin/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
 <link rel="stylesheet" href="{{ asset('staradmin/js/select.dataTables.min.css') }}">
+<link rel="stylesheet" href="{{ asset('staradmin/vendors/select2/select2.min.css') }}"> {{-- css pendaftaran --}}
+<link rel="stylesheet" href="{{ asset('staradmin/vendors/select2-bootstrap-theme/select2-bootstrap.min.css') }}"> {{-- css pendaftaran --}}
 <!-- End plugin css for this page -->
 <!-- inject:css -->
 <link rel="stylesheet" href="{{ asset('staradmin/css/vertical-layout-light/style.css') }}">

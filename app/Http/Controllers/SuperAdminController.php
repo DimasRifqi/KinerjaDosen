@@ -23,6 +23,19 @@ class SuperAdminController extends Controller
         return view('testing.admin.index', compact('admin'));
     }
 
+    // public function create()
+    // {
+    //     $roles = Role::all();
+    //     $jabatanFungsional = Jabatan_Fungsional::all();
+    //     $universitas = Universitas::all();
+    //     $prodi = Prodi::all();
+    //     $pangkatDosen = Pangkat_Dosen::all();
+    //     $gelarDepan = Gelar_Depan::all();
+    //     $gelarBelakang = Gelar_Belakang::all();
+
+    //     return view('testing.admin.create', compact('roles', 'jabatanFungsional', 'universitas', 'prodi', 'pangkatDosen', 'gelarDepan', 'gelarBelakang'));
+    // }
+
     public function create()
     {
         $roles = Role::all();
@@ -33,8 +46,8 @@ class SuperAdminController extends Controller
         $gelarDepan = Gelar_Depan::all();
         $gelarBelakang = Gelar_Belakang::all();
 
-        return view('testing.admin.create', compact('roles', 'jabatanFungsional', 'universitas', 'prodi', 'pangkatDosen', 'gelarDepan', 'gelarBelakang'));
-    }
+        return view('home.anggota.pendaftaran_dosen', compact('roles', 'jabatanFungsional', 'universitas', 'prodi', 'pangkatDosen', 'gelarDepan', 'gelarBelakang'));
+    } ///view page pendaftaran dosen
 
     public function store(Request $request)
     {

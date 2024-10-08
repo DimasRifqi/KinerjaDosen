@@ -19,17 +19,19 @@ use Illuminate\Support\Facades\Storage;
 
 class OPPTController extends Controller
 {
-    public function allDosen(){
+    public function allDosen()
+    {
         $oppt = Auth::user();
         $dosen = User::all()
 
-        // ->where('id_role', 5)
-        ->where('id_universitas', $oppt->id_universitas);
+            // ->where('id_role', 5)
+            ->where('id_universitas', $oppt->id_universitas);
         //return response()->json(['dosen' => $dosen]);
         return view('testing.oppt.index_dosen', ['dosen' => $dosen]);
     }
 
-    public function updateStatusDosen(Request $request, $id) {
+    public function updateStatusDosen(Request $request, $id)
+    {
         $dosen = User::findOrFail($id);
         $request->validate([
             'status' => 'required|in:aktif,non-aktif,pensiun,belajar',
@@ -41,7 +43,8 @@ class OPPTController extends Controller
         return redirect()->back()->with('success', 'Status dosen berhasil diperbarui.');
     }
 
-    public function editDosen($id){
+    public function editDosen($id)
+    {
         $dosen = User::findOrFail($id);
         $gelar_depan = Gelar_Depan::all();
         $gelar_belakang = Gelar_Belakang::all();
@@ -50,14 +53,18 @@ class OPPTController extends Controller
         $universitas = Universitas::all();
         $prodi = Prodi::all();
 
-        return view('testing.oppt.edit_dosen',
-        ['dosen' => $dosen,
-         'gelar_depan' => $gelar_depan,
-        'gelar_belakang' => $gelar_belakang,
-         'jabatan_fungsional' => $jabatan_fungsional,
-     'pangkat_dosen' => $pangkat_dosen,
-      'universitas' => $universitas,
-     'prodi' => $prodi]);
+        return view(
+            'testing.oppt.edit_dosen',
+            [
+                'dosen' => $dosen,
+                'gelar_depan' => $gelar_depan,
+                'gelar_belakang' => $gelar_belakang,
+                'jabatan_fungsional' => $jabatan_fungsional,
+                'pangkat_dosen' => $pangkat_dosen,
+                'universitas' => $universitas,
+                'prodi' => $prodi
+            ]
+        );
     }
 
 
@@ -100,43 +107,66 @@ class OPPTController extends Controller
         if ($request->hasFile('file_serdos')) {
             $fileSerdosPath = $request->file('file_serdos')->store('files/serdos', 'public');
             if ($dosen->file_serdos) {
-                    Storage::disk('public')->delete($dosen->file_serdos);
-                }
-                $dosen->file_serdos = $fileSerdosPath;
+                Storage::disk('public')->delete($dosen->file_serdos);
             }
-
-            if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('images/dosen', 'public');
-                if ($dosen->image) {
-                    Storage::disk('public')->delete($dosen->image);
-                }
-                $dosen->image = $imagePath;
-            }
-            $dosen->save();
-            return redirect()->back();
+            $dosen->file_serdos = $fileSerdosPath;
         }
 
-        public function indexPeriode(){
-            $periode = Periode::all();
-            return view('testing.oppt.periode', ['periode' => $periode]);
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images/dosen', 'public');
+            if ($dosen->image) {
+                Storage::disk('public')->delete($dosen->image);
+            }
+            $dosen->image = $imagePath;
         }
+        $dosen->save();
+        return redirect()->back();
+    }
 
-        public function addPengajuan()
+    public function indexPeriode()
+    {
+        $periode = Periode::all();
+        return view('home.tunjangan.komponen.data_periode', ['periode' => $periode]);
+    }
+
+    // public function indexPeriode()
+    // {
+    //     $periode = Periode::all();
+    //     return view('testing.oppt.periode', ['periode' => $periode]);
+    // }
+
+    public function addPengajuan()
     {
         $oppt = Auth::user();
         $dosen = User::all()
-        ->where('id_universitas', $oppt->id_universitas);
+            ->where('id_universitas', $oppt->id_universitas);
         $periode = Periode::all();
-        return view('testing.oppt.pengajuan', ['periodes' => $periode, 'dosen' => $dosen]);
+        return view('home.tunjangan.pengajuan.buat_pengajuan', ['periodes' => $periode, 'dosen' => $dosen]);
     }
 
-    public function indexPengajuan()
-        {
-            $pengajuan = Pengajuan::with('user')->get();
-            return view('testing.oppt.index_pengajuan', compact('pengajuan'));
-        }
+    //     public function addPengajuan()
+    // {
+    //     $oppt = Auth::user();
+    //     $dosen = User::all()
+    //     ->where('id_universitas', $oppt->id_universitas);
+    //     $periode = Periode::all();
+    //     return view('testing.oppt.pengajuan', ['periodes' => $periode, 'dosen' => $dosen]);
+    // }
 
-    public function showPengajuan($id){
+    public function indexPengajuan()
+    {
+        $pengajuan = Pengajuan::with('user')->get();
+        return view('home.tunjangan.pengajuan.index_pengajuan', compact('pengajuan'));
+    }
+
+    //public function indexPengajuan()
+    //  {
+    //        $pengajuan = Pengajuan::with('user')->get();
+    //      return view('testing.oppt.index_pengajuan', compact('pengajuan'));
+    //  }
+
+    public function showPengajuan($id)
+    {
         $pengajuan = Pengajuan::findOrFail($id);
         $jumlahDokumen = $pengajuan->pengajuan_dokumen->count();
 
@@ -164,46 +194,47 @@ class OPPTController extends Controller
             return redirect()->route('oppt.pengajuanIndex.dosen')->with('success', 'Pengajuan berhasil dibuat!');
             //return response()->json(['Error' => 'jir']);
         } catch (\Throwable $th) {
-           return response()->json(['Error' => $th]);
+            return response()->json(['Error' => $th]);
         }
-
     }
 
 
 
     public function ajukanDokumen(Request $request, $id)
-    {   try {
-        $request->validate([
-            'SPTJM' => 'required|file|mimes:pdf,jpg,jpeg,png',
-            'SPPPTS' => 'required|file|mimes:pdf,jpg,jpeg,png',
-            'SPKD' => 'required|file|mimes:pdf,jpg,jpeg,png',
-        ]);
-
-        $dokumenFiles = [
-            'SPTJM' => $request->file('SPTJM'),
-            'SPPPTS' => $request->file('SPPPTS'),
-            'SPKD' => $request->file('SPKD'),
-        ];
-
-        $dokumenNames = ['SPTJM', 'SPPPTS', 'SPKD'];
-
-        $pengajuan = Pengajuan::findOrFail($id);
-        foreach ($dokumenFiles as $key => $file) {
-            $filePath = $file->store('dokumen', 'public');
-
-            Pengajuan_Dokumen::create([
-                'id_pengajuan' => $pengajuan->id_pengajuan,
-                'nama_dokumen' => $dokumenNames[array_search($key, array_keys($dokumenFiles))],
-                'file_dokumen' => $filePath,
+    {
+        try {
+            $request->validate([
+                'SPTJM' => 'required|file|mimes:pdf,jpg,jpeg,png',
+                'SPPPTS' => 'required|file|mimes:pdf,jpg,jpeg,png',
+                'SPKD' => 'required|file|mimes:pdf,jpg,jpeg,png',
             ]);
+
+            $dokumenFiles = [
+                'SPTJM' => $request->file('SPTJM'),
+                'SPPPTS' => $request->file('SPPPTS'),
+                'SPKD' => $request->file('SPKD'),
+            ];
+
+            $dokumenNames = ['SPTJM', 'SPPPTS', 'SPKD'];
+
+            $pengajuan = Pengajuan::findOrFail($id);
+            foreach ($dokumenFiles as $key => $file) {
+                $filePath = $file->store('dokumen', 'public');
+
+                Pengajuan_Dokumen::create([
+                    'id_pengajuan' => $pengajuan->id_pengajuan,
+                    'nama_dokumen' => $dokumenNames[array_search($key, array_keys($dokumenFiles))],
+                    'file_dokumen' => $filePath,
+                ]);
+            }
+
+            return redirect()->back()->with('success', 'Pengajuan berhasil dibuat dengan dokumen!');
+        } catch (\Throwable $th) {
+            return response()->json(['Message' => $th]);
         }
-
-        return redirect()->back()->with('success', 'Pengajuan berhasil dibuat dengan dokumen!');
-    } catch (\Throwable $th) {
-       return response()->json(['Message' => $th]);
     }
 
-    }
+    
 
     public function updateDokumen($id, Request $request)
 {
@@ -269,57 +300,60 @@ class OPPTController extends Controller
     }
 
     public function ajukanDokumenSemester(Request $request, $id)
-    {   try {
-        $request->validate([
-            'SPTJM' => 'required|file|mimes:pdf,jpg,jpeg,png',
-            'SPPPTS' => 'required|file|mimes:pdf,jpg,jpeg,png',
-            'SPKD' => 'required|file|mimes:pdf,jpg,jpeg,png',
-        ]);
-
-        $dokumenFiles = [
-            'SPTJM' => $request->file('SPTJM'),
-            'SPPPTS' => $request->file('SPPPTS'),
-            'SPKD' => $request->file('SPKD'),
-        ];
-
-        $dokumenNames = ['SPTJM', 'SPPPTS', 'SPKD'];
-
-        $pengajuan = Pengajuan::findOrFail($id);
-        foreach ($dokumenFiles as $key => $file) {
-            $filePath = $file->store('dokumen', 'public');
-
-            Pengajuan_Dokumen::create([
-                'id_pengajuan' => $pengajuan->id_pengajuan,
-                'nama_dokumen' => $dokumenNames[array_search($key, array_keys($dokumenFiles))],
-                'file_dokumen' => $filePath,
+    {
+        try {
+            $request->validate([
+                'SPTJM' => 'required|file|mimes:pdf,jpg,jpeg,png',
+                'SPPPTS' => 'required|file|mimes:pdf,jpg,jpeg,png',
+                'SPKD' => 'required|file|mimes:pdf,jpg,jpeg,png',
             ]);
-        }
 
-        return redirect()->back()->with('success', 'Pengajuan berhasil dibuat dengan dokumen!');
-    } catch (\Throwable $th) {
-       return response()->json(['Message' => $th]);
+            $dokumenFiles = [
+                'SPTJM' => $request->file('SPTJM'),
+                'SPPPTS' => $request->file('SPPPTS'),
+                'SPKD' => $request->file('SPKD'),
+            ];
+
+            $dokumenNames = ['SPTJM', 'SPPPTS', 'SPKD'];
+
+            $pengajuan = Pengajuan::findOrFail($id);
+            foreach ($dokumenFiles as $key => $file) {
+                $filePath = $file->store('dokumen', 'public');
+
+                Pengajuan_Dokumen::create([
+                    'id_pengajuan' => $pengajuan->id_pengajuan,
+                    'nama_dokumen' => $dokumenNames[array_search($key, array_keys($dokumenFiles))],
+                    'file_dokumen' => $filePath,
+                ]);
+            }
+
+            return redirect()->back()->with('success', 'Pengajuan berhasil dibuat dengan dokumen!');
+        } catch (\Throwable $th) {
+            return response()->json(['Message' => $th]);
+        }
     }
 
-}
-
-    public function draftPengajuan($id){
+    public function draftPengajuan($id)
+    {
         $pengajuan = Pengajuan::findOrFail($id);
-        if ( $pengajuan->draft == false) {
+        if ($pengajuan->draft == false) {
             $pengajuan->draft = true;
         }
         $pengajuan->save();
         return redirect()->back();
     }
 
-    public function editPengajuan($id){
+    public function editPengajuan($id)
+    {
         $pengajuan = Pengajuan::with('user')->findOrFail($id);
         $periode = Periode::all();
         $dosen = User::all();
-       // return response()->json(['data' => $pengajuan]);
+        // return response()->json(['data' => $pengajuan]);
         return view('testing.oppt.edit_pengajuan_dosen', ['pengajuan' => $pengajuan, 'periode' => $periode, 'dosen' => $dosen]);
     }
 
-    public function updatePengajuan(Request $request, $id) {
+    public function updatePengajuan(Request $request, $id)
+    {
         try {
             // Validasi request
             $request->validate([

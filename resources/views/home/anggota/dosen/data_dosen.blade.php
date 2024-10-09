@@ -40,7 +40,7 @@
                                             <td>
                                                 <!-- Tombol Edit yang mengarah ke halaman edit -->
                                                 <a href="{{ route('admin.edit', $user->id) }}"
-                                                    class="btn btn-primary btn-sm">Edit</a>
+                                                    class="btn btn-warning btn-sm">Edit</a>
                                             </td>
                                         </tr>
                                     @empty

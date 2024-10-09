@@ -61,7 +61,7 @@
                                                             <td>
                                                                 <!-- Edit button (Redirect to Edit Page) -->
                                                                 <a href="{{ route('pangkat.edit', $pangkat->id_pangkat_dosen) }}"
-                                                                    class="btn btn-primary btn-sm">Edit</a>
+                                                                    class="btn btn-warning btn-sm">Edit</a>
                                                             </td>
                                                         </tr>
                                                     @endforeach

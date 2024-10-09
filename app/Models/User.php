@@ -40,6 +40,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function role(){
         return $this->belongsTo(Role::class, 'id_role', 'id_role');
     }
+    public function hasRole($roleId)
+    {
+        return $this->id_role == $roleId;
+    }
 
     public function jabatan_fungsional(){
         return $this->belongsTo(Jabatan_Fungsional::class, 'id_jabatan_fungsional', 'id_jabatan_fungsional');

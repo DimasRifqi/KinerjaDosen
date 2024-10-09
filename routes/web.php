@@ -73,6 +73,13 @@ Route::get('/profil/setelan', function () {
     return view('home.profil.setelan');
 })->name('setelan');
 
+Route::get('/tunjangan/pengajuan/datapengajuan/ajukanbulanan', function () {
+    return view('home.tunjangan.pengajuan.ajukan_bulanan');
+});
+
+Route::get('/tunjangan/pengajuan/datapengajuan/ajukansemester', function () {
+    return view('home.tunjangan.pengajuan.ajukan_semester');
+});
 
 // Route untuk Admin
 Route::prefix('admin')->group(function () {

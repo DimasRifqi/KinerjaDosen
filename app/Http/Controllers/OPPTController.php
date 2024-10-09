@@ -171,8 +171,17 @@ class OPPTController extends Controller
         $jumlahDokumen = $pengajuan->pengajuan_dokumen->count();
 
         //return response()->json(['JumDOk' => $jumlahDokumen]);
-        return view('testing.oppt.show_pengajuan', ['pengajuan' => $pengajuan]);
+        return view('home.tunjangan.pengajuan.ajukan_bulanan', ['pengajuan' => $pengajuan]);
     }
+
+    // public function showPengajuan($id)
+    // {
+    //     $pengajuan = Pengajuan::findOrFail($id);
+    //     $jumlahDokumen = $pengajuan->pengajuan_dokumen->count();
+
+    //     //return response()->json(['JumDOk' => $jumlahDokumen]);
+    //     return view('testing.oppt.show_pengajuan', ['pengajuan' => $pengajuan]);
+    // }
 
     public function ajukanDosen(Request $request)
     {
@@ -296,8 +305,13 @@ class OPPTController extends Controller
 
     public function showPengajuanSemester($id){
         $pengajuan = Pengajuan::findOrFail($id);
-        return view('testing.oppt.show_pengajuan_semester', ['pengajuan' => $pengajuan]);
+        return view('home.tunjangan.pengajuan.ajukan_semester', ['pengajuan' => $pengajuan]);
     }
+
+    // public function showPengajuanSemester($id){
+    //     $pengajuan = Pengajuan::findOrFail($id);
+    //     return view('testing.oppt.show_pengajuan_semester', ['pengajuan' => $pengajuan]);
+    // }
 
     public function ajukanDokumenSemester(Request $request, $id)
     {

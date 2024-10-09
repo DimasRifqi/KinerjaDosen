@@ -15,4 +15,8 @@ class Pengajuan_Dokumen extends Model
     public function pengajuan(){
         return $this->belongsTo(Pengajuan::class, 'id_pengajuan', 'id_pengajuan');
     }
+
+    // public function user(){
+    //     return $this->belongsTo(User::class, 'id_user', 'id');
+    // }
 }

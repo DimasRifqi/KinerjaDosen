@@ -294,44 +294,148 @@ class OPPTController extends Controller
 
 
 
-    public function showPengajuanSemester($id){
-        $pengajuan = Pengajuan::findOrFail($id);
-        return view('testing.oppt.show_pengajuan_semester', ['pengajuan' => $pengajuan]);
-    }
-
-    public function ajukanDokumenSemester(Request $request, $id)
+    public function showPengajuanSemester($id)
     {
-        try {
-            $request->validate([
-                'SPTJM' => 'required|file|mimes:pdf,jpg,jpeg,png',
-                'SPPPTS' => 'required|file|mimes:pdf,jpg,jpeg,png',
-                'SPKD' => 'required|file|mimes:pdf,jpg,jpeg,png',
-            ]);
+        // Retrieve the pengajuan by its ID
+        $pengajuan = Pengajuan::findOrFail($id);
 
-            $dokumenFiles = [
-                'SPTJM' => $request->file('SPTJM'),
-                'SPPPTS' => $request->file('SPPPTS'),
-                'SPKD' => $request->file('SPKD'),
-            ];
+        // Check if there are any shared documents for this pengajuan
+        $sharedDocuments = Pengajuan_Dokumen::where('id_pengajuan', $id)
+                            ->whereNull('id_user') // Shared documents will not have id_user
+                            ->get();
 
-            $dokumenNames = ['SPTJM', 'SPPPTS', 'SPKD'];
-
-            $pengajuan = Pengajuan::findOrFail($id);
-            foreach ($dokumenFiles as $key => $file) {
-                $filePath = $file->store('dokumen', 'public');
-
-                Pengajuan_Dokumen::create([
-                    'id_pengajuan' => $pengajuan->id_pengajuan,
-                    'nama_dokumen' => $dokumenNames[array_search($key, array_keys($dokumenFiles))],
-                    'file_dokumen' => $filePath,
-                ]);
-            }
-
-            return redirect()->back()->with('success', 'Pengajuan berhasil dibuat dengan dokumen!');
-        } catch (\Throwable $th) {
-            return response()->json(['Message' => $th]);
+        // Prepare an array to check if each dosen has uploaded documents
+        $dosenDocuments = [];
+        foreach ($pengajuan->user as $dosen) {
+            $dosenDocuments[$dosen->id] = Pengajuan_Dokumen::where('id_pengajuan', $id)
+                                    ->where('id_user', $dosen->id)
+                                    ->get();
         }
+        // dd($sharedDocuments);
+        return view('testing.oppt.show_pengajuan_semester', [
+            'pengajuan' => $pengajuan,
+            'sharedDocuments' => $sharedDocuments,
+            'dosenDocuments' => $dosenDocuments,
+        ]);
     }
+
+
+    
+    public function ajukanDokumenSemester(Request $request)
+{
+    try {
+        $request->validate([
+            'id_pengajuan' => 'required|exists:pengajuan,id_pengajuan',
+            'shared_sppts' => 'nullable|file|mimes:pdf,jpg,jpeg,png',
+            'shared_spkd' => 'nullable|file|mimes:pdf,jpg,jpeg,png',
+            // Validation for each dosen
+            'sptjm.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png',
+            'spkk.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png',
+        ]);
+        
+        // Handle shared documents
+        $sharedFiles = [
+            'SP PTS' => $request->file('shared_sppts'),
+            'SPKD' => $request->file('shared_spkd'),
+        ];
+        
+        foreach ($sharedFiles as $key => $file) {
+            if ($file) {
+                // Store or update logic for shared documents
+                $existingDocument = Pengajuan_Dokumen::where('id_pengajuan', $request->input('id_pengajuan'))
+                    ->whereNull('id_user') // Shared documents will not have id_user
+                    ->where('nama_dokumen', $key)
+                    ->first();
+                
+                if ($existingDocument) {
+                    // Update existing document
+                    $filePath = $file->store('dokumen/sharedSemester', 'public');
+                    $existingDocument->update(['file_dokumen' => $filePath]);
+                } else {
+                    // Create new document if it doesn't exist
+                    $filePath = $file->store('dokumen/sharedSemester', 'public');
+                    Pengajuan_Dokumen::create([
+                        'id_pengajuan' => $request->input('id_pengajuan'),
+                        'nama_dokumen' => $key,
+                        'file_dokumen' => $filePath,
+                    ]);
+                }
+            }
+        }
+        
+        // Handle documents for each dosen
+        foreach ($request->input('dosen_ids', []) as $dosenId) {
+            $filePaths = [
+                'sptjm_dosen' => $request->file("sptjm.$dosenId"),
+                'spkk' => $request->file("spkk.$dosenId"),
+            ];
+            
+            foreach ($filePaths as $key => $file) {
+                if ($file) { // Check if the file was uploaded
+                    // Find existing document for dosen
+                    $existingDocument = Pengajuan_Dokumen::where('id_pengajuan', $request->input('id_pengajuan'))
+                        ->where('id_user', $dosenId)
+                        ->where('nama_dokumen', $key)
+                        ->first();
+                    
+                    if ($existingDocument) {
+                        // Update existing document
+                        $filePath = $file->store('dokumen/dosen/' . $dosenId, 'public');
+                        $existingDocument->update(['file_dokumen' => $filePath]);
+                    } else {
+                        // Create new document if it doesn't exist
+                        $filePath = $file->store('dokumen/dosen/' . $dosenId, 'public');
+                        Pengajuan_Dokumen::create([
+                            'id_pengajuan' => $request->input('id_pengajuan'),
+                            'id_user' => $dosenId, // Associate with dosen
+                            'nama_dokumen' => $key, // E.g., 'Sptjm'
+                            'file_dokumen' => $filePath,
+                        ]);
+                    }
+                }
+            }
+        }
+        
+        return redirect()->route('oppt.pengajuanIndex.dosen')->with('success', 'Dokumen telah dikirim');
+    } catch (\Throwable $th) {
+        return response()->json(['Message' => $th->getMessage()]);
+    }
+}
+
+
+// public function ajukanDokumenSemester(Request $request, $id)
+// {
+//     try {
+//         $request->validate([
+//             'SPTJM' => 'required|file|mimes:pdf,jpg,jpeg,png',
+//             'SPPPTS' => 'required|file|mimes:pdf,jpg,jpeg,png',
+//             'SPKD' => 'required|file|mimes:pdf,jpg,jpeg,png',
+//         ]);
+
+//         $dokumenFiles = [
+//             'SPTJM' => $request->file('SPTJM'),
+//             'SPPPTS' => $request->file('SPPPTS'),
+//             'SPKD' => $request->file('SPKD'),
+//         ];
+
+//         $dokumenNames = ['SPTJM', 'SPPPTS', 'SPKD'];
+
+//         $pengajuan = Pengajuan::findOrFail($id);
+//         foreach ($dokumenFiles as $key => $file) {
+//             $filePath = $file->store('dokumen', 'public');
+
+//             Pengajuan_Dokumen::create([
+//                 'id_pengajuan' => $pengajuan->id_pengajuan,
+//                 'nama_dokumen' => $dokumenNames[array_search($key, array_keys($dokumenFiles))],
+//                 'file_dokumen' => $filePath,
+//             ]);
+//         }
+
+//         return redirect()->back()->with('success', 'Pengajuan berhasil dibuat dengan dokumen!');
+//     } catch (\Throwable $th) {
+//         return response()->json(['Message' => $th]);
+//     }
+// }
 
     public function draftPengajuan($id)
     {
@@ -412,5 +516,7 @@ class OPPTController extends Controller
             return response()->json(['error' => $th->getMessage()]);
         }
     }
+
+
 
 }

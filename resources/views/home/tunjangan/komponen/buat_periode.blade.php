@@ -42,7 +42,7 @@
                                         <tr>
                                             <td>{{ $item->id_periode }}</td>
                                             <td>{{ $item->nama_periode }}</td>
-                                            <td>{{ $item->tipe_periode ? 'Semester' : 'Bulanan' }}</td>
+                                            <td>{{ $item->tipe_periode ? 'Bulanan' : 'Semester' }}</td>
                                             <td>{{ $item->masa_periode_awal }}</td>
                                             <td>{{ $item->masa_periode_berakhir }}</td>
                                             <td>{{ $item->status ? 'Active' : 'Inactive' }}</td>
@@ -97,9 +97,9 @@
                                     <label for="tipe_periode">Tipe Periode</label>
                                     <select class="form-control" name="tipe_periode" id="tipe_periode" required>
                                         <option>Mohon Pilih Satu</option>
-                                        <option value="1" {{ old('tipe_periode') == 1 ? 'selected' : '' }}>Semester
+                                        <option value="1" {{ old('tipe_periode') == 1 ? 'selected' : '' }}>Bulanan
                                         </option>
-                                        <option value="0" {{ old('tipe_periode') == 0 ? 'selected' : '' }}>Bulanan
+                                        <option value="0" {{ old('tipe_periode') == 0 ? 'selected' : '' }}>Semester
                                         </option>
                                     </select>
                                 </div>

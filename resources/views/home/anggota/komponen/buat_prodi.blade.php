@@ -100,7 +100,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-label">Pilih Status</label>
-                                                <select class="js-example-basic-multiple w-100" multiple="multiple">
+                                                <select class="js-example-basic-single w-100">
                                                     <option value="1" selected>Active</option>
                                                 </select>
                                             </div>

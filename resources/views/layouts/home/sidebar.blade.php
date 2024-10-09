@@ -203,6 +203,9 @@
                         <a class="nav-link" href="#">Universitas</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ route('index.prodi') }}">Program Studi</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#">Jabatan</a>
                     </li>
                     <li class="nav-item">

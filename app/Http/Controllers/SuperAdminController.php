@@ -295,8 +295,14 @@ class SuperAdminController extends Controller
     public function indexProdi(){
         $prodi = Prodi::all();
 
-        return view('testing.adminUniv.create_prodi', compact('prodi'));
+        return view('home.anggota.komponen.buat_prodi', compact('prodi'));
     }
+
+    // public function indexProdi(){
+    //     $prodi = Prodi::all();
+
+    //     return view('testing.adminUniv.create_prodi', compact('prodi'));
+    // }
 
     public function createProdi(Request $request){
         $validateData = $request->validate([

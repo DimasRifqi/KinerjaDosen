@@ -184,6 +184,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('pendaftarandosen') }}">Pendaftaran Dosen</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('index.pangkat') }}">Buat Pangkat Dosen</a>
+                    </li>
                 </ul>
             </div>
         </li>

@@ -45,35 +45,37 @@
                                         <p class="card-description">
                                             No Periode records found. </p>
                                     @else
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th> ID </th>
-                                                    <th> Nama Periode </th>
-                                                    <th> Tipe Periode </th>
-                                                    <th> Masa Periode Awal </th>
-                                                    <th> Masa Periode Berakhir </th>
-                                                    <th> Status </th>
-                                                    <th> Edit </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($periode as $item)
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
                                                     <tr>
-                                                        <td>{{ $item->id_periode }}</td>
-                                                        <td>{{ $item->nama_periode }}</td>
-                                                        <td>{{ $item->tipe_periode ? 'Semester' : 'Bulanan' }}</td>
-                                                        <td>{{ $item->masa_periode_awal }}</td>
-                                                        <td>{{ $item->masa_periode_berakhir }}</td>
-                                                        <td>{{ $item->status ? 'Active' : 'Inactive' }}</td>
-                                                        <td>
-                                                            <a href="{{ route('periode.edit', $item->id_periode) }}"
-                                                                class="btn btn-warning btn-sm">Edit</a>
-                                                        </td>
+                                                        <th> ID </th>
+                                                        <th> Nama Periode </th>
+                                                        <th> Tipe Periode </th>
+                                                        <th> Masa Periode Awal </th>
+                                                        <th> Masa Periode Berakhir </th>
+                                                        <th> Status </th>
+                                                        <th> Edit </th>
                                                     </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($periode as $item)
+                                                        <tr>
+                                                            <td>{{ $item->id_periode }}</td>
+                                                            <td>{{ $item->nama_periode }}</td>
+                                                            <td>{{ $item->tipe_periode ? 'Semester' : 'Bulanan' }}</td>
+                                                            <td>{{ $item->masa_periode_awal }}</td>
+                                                            <td>{{ $item->masa_periode_berakhir }}</td>
+                                                            <td>{{ $item->status ? 'Active' : 'Inactive' }}</td>
+                                                            <td>
+                                                                <a href="{{ route('periode.edit', $item->id_periode) }}"
+                                                                    class="btn btn-warning btn-sm">Edit</a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     @endif
                                 </div>
                             </div>

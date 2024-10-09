@@ -24,30 +24,32 @@
                                     <h4 class="card-title">Detail Pengajuan Bulanan</h4>
                                     <p class="card-description">
                                         Tidak ada pengajuan yang tercatat. </p>
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th> ID Pengajuan </th>
-                                                <th> ID Periode </th>
-                                                <th> Awal Periode </th>
-                                                <th> Akhir Periode </th>
-                                                <th colspan="2" class="text-center">Dosen</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>{{ $pengajuan->id_pengajuan }}</td>
-                                                <td>{{ $pengajuan->periode->nama_periode }}</td>
-                                                <td>{{ $pengajuan->periode->masa_periode_awal }}</td>
-                                                <td>{{ $pengajuan->periode->masa_periode_berakhir }}</td>
-                                                <td colspan="2">
-                                                    @foreach ($pengajuan->user as $item)
-                                                        {{ $item->name }}, <br>
-                                                    @endforeach
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th> ID Pengajuan </th>
+                                                    <th> ID Periode </th>
+                                                    <th> Awal Periode </th>
+                                                    <th> Akhir Periode </th>
+                                                    <th colspan="2" class="text-center">Dosen</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>{{ $pengajuan->id_pengajuan }}</td>
+                                                    <td>{{ $pengajuan->periode->nama_periode }}</td>
+                                                    <td>{{ $pengajuan->periode->masa_periode_awal }}</td>
+                                                    <td>{{ $pengajuan->periode->masa_periode_berakhir }}</td>
+                                                    <td colspan="2">
+                                                        @foreach ($pengajuan->user as $item)
+                                                            {{ $item->name }}, <br>
+                                                        @endforeach
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                     @php
                                         // Hitung jumlah dokumen yang sudah diupload
                                         $jumlahDokumen = $pengajuan->pengajuan_dokumen->count();

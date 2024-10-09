@@ -18,36 +18,38 @@
                 <a href="{{ route('admin.create') }}" class="btn btn-success btn-sm float-right">Tambah Admin</a>
             </div>
             <div class="card-body">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Role</th>
-                            <th>Email</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($admin as $index => $user)
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
                             <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->role->nama_role }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>
-                                    <!-- Tombol Edit yang mengarah ke halaman edit -->
-                                    <a href="{{ route('admin.edit', $user->id) }}"
-                                        class="btn btn-primary btn-sm">Edit</a>
-                                </td>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Role</th>
+                                <th>Email</th>
+                                <th>Action</th>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5" class="text-center">No admin found</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @forelse($admin as $index => $user)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->role->nama_role }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>
+                                        <!-- Tombol Edit yang mengarah ke halaman edit -->
+                                        <a href="{{ route('admin.edit', $user->id) }}"
+                                            class="btn btn-primary btn-sm">Edit</a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center">No admin found</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

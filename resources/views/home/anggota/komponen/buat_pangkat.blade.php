@@ -44,28 +44,30 @@
                                         <p class="card-description">
                                             No Data Pangkat Dosen records found. </p>
                                     @else
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th> ID </th>
-                                                    <th> Nama Pangkat </th>
-                                                    <th> Aksi </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($pangkat_dosen as $pangkat)
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
                                                     <tr>
-                                                        <td>{{ $pangkat->id_pangkat_dosen }}</td>
-                                                        <td>{{ $pangkat->nama_pangkat }}</td>
-                                                        <td>
-                                                            <!-- Edit button (Redirect to Edit Page) -->
-                                                            <a href="{{ route('pangkat.edit', $pangkat->id_pangkat_dosen) }}"
-                                                                class="btn btn-primary btn-sm">Edit</a>
-                                                        </td>
+                                                        <th> ID </th>
+                                                        <th> Nama Pangkat </th>
+                                                        <th> Aksi </th>
                                                     </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($pangkat_dosen as $pangkat)
+                                                        <tr>
+                                                            <td>{{ $pangkat->id_pangkat_dosen }}</td>
+                                                            <td>{{ $pangkat->nama_pangkat }}</td>
+                                                            <td>
+                                                                <!-- Edit button (Redirect to Edit Page) -->
+                                                                <a href="{{ route('pangkat.edit', $pangkat->id_pangkat_dosen) }}"
+                                                                    class="btn btn-primary btn-sm">Edit</a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     @endif
                                 </div>
                             </div>

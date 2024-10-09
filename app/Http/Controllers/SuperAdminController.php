@@ -332,7 +332,7 @@ class SuperAdminController extends Controller
     public function indexPangkatDosen(){
         $pangkat_dosen = Pangkat_Dosen::all();
 
-        return view('home.anggota.dosen.buat_pangkat', compact('pangkat_dosen'));
+        return view('home.anggota.komponen.buat_pangkat', compact('pangkat_dosen'));
     }
 
     // public function indexPangkatDosen(){

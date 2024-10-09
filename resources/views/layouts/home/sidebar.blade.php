@@ -184,8 +184,32 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('pendaftarandosen') }}">Pendaftaran Dosen</a>
                     </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#komponen_anggota" aria-expanded="false"
+                aria-controls="komponen_anggota">
+                <i class="menu-icon mdi mdi-card-text-outline"></i>
+                <span class="menu-title">Komponen</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="komponen_anggota">
+                <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('index.pangkat') }}">Buat Pangkat Dosen</a>
+                        <a class="nav-link" href="{{ route('index.pangkat') }}">Pangkat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Universitas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Jabatan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Gelar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Kota</a>
                     </li>
                 </ul>
             </div>

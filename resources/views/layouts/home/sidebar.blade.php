@@ -308,9 +308,10 @@
             </a>
             <div class="collapse" id="komponen">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('periode.index') }}">Data Periode</a>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('periode.index') }}">(obselete)
+                            {{-- was Data Periode, but now is replaced --}}</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('index.periode') }}">Buat Periode</a>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('index.periode') }}">Periode</a>
                     </li>
                 </ul>
             </div>

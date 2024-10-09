@@ -363,8 +363,17 @@ class OPPTController extends Controller
         $periode = Periode::all();
         $dosen = User::all();
         // return response()->json(['data' => $pengajuan]);
-        return view('testing.oppt.edit_pengajuan_dosen', ['pengajuan' => $pengajuan, 'periode' => $periode, 'dosen' => $dosen]);
+        return view('home.tunjangan.pengajuan.sunting_pengajuan', ['pengajuan' => $pengajuan, 'periode' => $periode, 'dosen' => $dosen]);
     }
+
+    // public function editPengajuan($id)
+    // {
+    //     $pengajuan = Pengajuan::with('user')->findOrFail($id);
+    //     $periode = Periode::all();
+    //     $dosen = User::all();
+    //     // return response()->json(['data' => $pengajuan]);
+    //     return view('testing.oppt.edit_pengajuan_dosen', ['pengajuan' => $pengajuan, 'periode' => $periode, 'dosen' => $dosen]);
+    // }
 
     public function updatePengajuan(Request $request, $id)
     {

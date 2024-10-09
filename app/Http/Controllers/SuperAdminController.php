@@ -254,8 +254,15 @@ class SuperAdminController extends Controller
         $univ = Universitas::all();
         $kota = Kota::all();
 
-        return view('testing.adminUniv.create_univ', compact('univ', 'kota'));
+        return view('home.anggota.komponen.buat_univ', compact('univ', 'kota'));
     }
+
+    // public function indexUniv(){
+    //     $univ = Universitas::all();
+    //     $kota = Kota::all();
+
+    //     return view('testing.adminUniv.create_univ', compact('univ', 'kota'));
+    // }
 
     public function createUniv(Request $request){
         $validateData = $request->validate([

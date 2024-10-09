@@ -12,8 +12,7 @@
                             @method('PUT')
                             <div class="form-group">
                                 <label for="id_periode" class="form-label">Periode</label>
-                                <select class="js-example-basic-single w-100" name="id_periode" id="id_periode" required>
-                                    <option value="AL">Pilih Periode</option>
+                                <select class="form-control" name="id_periode" id="id_periode" required>
                                     @foreach ($periode as $periode)
                                         <option value="{{ $periode->id_periode }}"
                                             {{ $periode->id_periode == $pengajuan->id_periode ? 'selected' : '' }}>

@@ -8,11 +8,11 @@
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab"
-                            aria-controls="overview" aria-selected="true">Detail Program Studi</a>
+                            aria-controls="overview" aria-selected="true">Detail Universitas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#audiences" role="tab"
-                            aria-selected="false">Buat Program Studi</a>
+                            aria-selected="false">Buat Universitas</a>
                     </li>
                 </ul>
             </div>
@@ -39,31 +39,33 @@
                                         </div>
                                     @endif
 
-                                    <h4 class="card-title">Data Program Studi</h4>
-                                    @if ($prodi->isEmpty())
+                                    <h4 class="card-title">Data Universitas</h4>
+                                    @if ($univ->isEmpty())
                                         <p class="card-description">
-                                            No Data Program Studi records found. </p>
+                                            No Data Universitas records found. </p>
                                     @else
                                         <div class="table-responsive">
                                             <table class="table table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th> ID Prodi </th>
-                                                        <th> Nama Prodi </th>
-                                                        <th> Status </th>
-                                                        <th> Aksi </th>
+                                                        <th>ID Universitas</th>
+                                                        <th>Nama Universitas</th>
+                                                        <th>Kota</th>
+                                                        <th>Status</th>
+                                                        <th>Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($prodi as $item)
+                                                    @foreach ($univ as $uni)
                                                         <tr>
-                                                            <td>{{ $item->id_prodi }}</td>
-                                                            <td>{{ $item->nama_prodi }}</td>
-                                                            <td>{{ $item->status ? 'Active' : 'Inactive' }}</td>
+                                                            <td>{{ $uni->id_universitas }}</td>
+                                                            <td>{{ $uni->nama_universitas }}</td>
+                                                            <td>{{ $uni->kota ? $uni->kota->nama_kota : 'N/A' }}</td>
+                                                            <td>{{ $uni->status ? 'Active' : 'Inactive' }}</td>
                                                             <td>
-                                                                <!-- Edit and Delete actions -->
-                                                                <a href="{{ route('prodi.edit', $item->id_prodi) }}"
-                                                                    class="btn btn-sm btn-warning">Edit</a>
+                                                            <td>
+                                                                <a href="{{ route('univ.edit', $uni->id_universitas) }}"
+                                                                    class="btn btn-warning btn-sm">Edit</a>
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -89,19 +91,23 @@
                         <div class="col-md-6 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Buat Program Studi Baru</h4>
+                                    <h4 class="card-title">Buat Universitas Baru</h4>
                                     <div class="row">
-                                        <form action="{{ route('prodi.create') }}" method="POST">
+                                        <form action="{{ route('univ.create') }}" method="POST">
                                             @csrf
                                             <div class="form-group">
-                                                <label for="nama_prodi">Nama Prodi:</label>
-                                                <input type="text" name="nama_prodi" id="nama_prodi" class="form-control"
-                                                    value="{{ old('nama_prodi') }}" required>
+                                                <label for="nama_univ">Nama Universitas:</label>
+                                                <input type="text" name="nama_univ" id="nama_univ" class="form-control"
+                                                    value="{{ old('nama_universitas') }}" required>
                                             </div>
                                             <div class="form-group">
-                                                <label>Pilih Status</label>
-                                                <select name="status" id="status" class="form-control" required>
-                                                    <option value="1" selected>Active</option>
+                                                <label name="id_kota" id="id_kota" class="form-label" required>Pilih
+                                                    Kota</label>
+                                                <select class="js-example-basic-multiple w-100" multiple="multiple">
+                                                    @foreach ($kota as $city)
+                                                        <option value="{{ $city->id_kota }}">{{ $city->nama_kota }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <button type="submit" class="btn btn-primary mb-2">Buat</button>

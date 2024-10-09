@@ -197,10 +197,10 @@
             <div class="collapse" id="komponen_anggota">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('index.pangkat') }}">Pangkat</a>
+                        <a class="nav-link" href="#">Kota</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Universitas</a>
+                        <a class="nav-link" href="{{ route('index.uni') }}">Universitas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('index.prodi') }}">Program Studi</a>
@@ -209,10 +209,10 @@
                         <a class="nav-link" href="#">Jabatan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Gelar</a>
+                        <a class="nav-link" href="{{ route('index.pangkat') }}">Pangkat</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Kota</a>
+                        <a class="nav-link" href="#">Gelar</a>
                     </li>
                 </ul>
             </div>

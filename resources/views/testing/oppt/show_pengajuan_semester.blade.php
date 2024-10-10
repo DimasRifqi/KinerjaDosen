@@ -66,7 +66,7 @@
                 @else
                     <div class="mb-3">
                         <label for="sp_pts" class="form-label">Surat Pernyataan Pimpinan PTS (PDF)</label>
-                        <input type="file" class="form-control" name="sp_pts">
+                        <input type="file" class="form-control" name="shared_sppts">
                     </div>
                 @endif
 
@@ -78,7 +78,7 @@
                 @else
                     <div class="mb-3">
                         <label for="spkd" class="form-label">Surat Pernyataan Kesediaan Dokumen (PDF)</label>
-                        <input type="file" class="form-control" name="spkd">
+                        <input type="file" class="form-control" name="shared_spkd">
                     </div>
                 @endif
 

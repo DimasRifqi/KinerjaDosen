@@ -194,7 +194,10 @@
                         <a class="nav-link" href="{{ route('index.pangkat') }}">Pangkat</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Gelar</a>
+                        <a class="nav-link" href="{{ route('gelar-depan.merge') }}">Gelar Depan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('gelar-belakang.merge') }}">Gelar Belakang</a>
                     </li>
                 </ul>
             </div>

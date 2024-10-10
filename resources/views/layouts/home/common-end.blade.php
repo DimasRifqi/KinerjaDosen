@@ -1,35 +1,19 @@
-<!-- plugins:js -->
-<script src="{{ asset('staradmin/vendors/js/vendor.bundle.base.js') }}"></script>
-<!-- endinject -->
-<!-- Plugin js for this page -->
-<script src="{{ asset('staradmin/vendors/chart.js/Chart.min.js') }}"></script>
-<script src="{{ asset('staradmin/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}"></script>
-<script src="{{ asset('staradmin/vendors/progressbar.js/progressbar.min.js') }}"></script>
-<script src="{{ asset('staradmin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>{{-- basic-table.html --}}
-<script src="{{ asset('staradmin/vendors/typeahead.js/typeahead.bundle.min.js') }}"></script> {{-- assets pendaftaran --}}
-<script src="{{ asset('staradmin/vendors/select2/select2.min.js') }}"></script> {{-- assets pendaftaran --}}
-<!-- End plugin js for this page -->
-<!-- inject:js -->
-<script src="{{ asset('staradmin/js/off-canvas.js') }}"></script>
-<script src="{{ asset('staradmin/js/hoverable-collapse.js') }}"></script>
-<script src="{{ asset('staradmin/js/template.js') }}"></script>
-<script src="{{ asset('staradmin/js/settings.js') }}"></script>
-<script src="{{ asset('staradmin/js/todolist.js') }}"></script>
-<script src="{{ asset('js/register-password.js') }}"></script>
-<!-- endinject -->
-<!-- Custom js for this page-->
-<script src="{{ asset('staradmin/js/dashboard.js') }}"></script>
-<script src="{{ asset('staradmin/js/Chart.roundedBarCharts.js') }}"></script>
-<script src="{{ asset('staradmin/js/file-upload.js') }}"></script>
-<script src="{{ asset('staradmin/js/typeahead.js') }}"></script>
-<script src="{{ asset('staradmin/js/select2.js') }}"></script>
-<!-- End custom js for this page-->
+<!-- Ensure jQuery is loaded first -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<!-- Popper.js for Bootstrap tooltips -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 
+<!-- Only include one version of Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+
+<!-- Or, if using the local version, comment out the CDN and use this -->
+<!-- <script src="{{ asset('staradmin/vendors/js/vendor.bundle.base.js') }}"></script> -->
+
+<!-- Initialize Tooltip after ensuring jQuery and Bootstrap are loaded -->
 <script type="text/javascript">
     $(document).ready(function() {
-        // Initialize single and multiple select boxes with placeholders and allowClear option
+        // Initialize Select2
         $('.js-example-basic-single').select2({
             placeholder: 'Mohon Pilih',
             allowClear: true
@@ -39,31 +23,24 @@
             placeholder: 'Mohon Pilih',
             allowClear: true
         });
+
+        // Initialize Bootstrap tooltip
+        $('[data-bs-toggle="tooltip"]').tooltip();
     });
 </script>
 
-<style>
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        line-height: 2.2 !important;
-        /* Adjust line height */
-        padding: 5px 10px !important;
-        /* Adjust padding */
-    }
+<!-- Other plugin JS files (ensure they load after Bootstrap and jQuery) -->
+<script src="{{ asset('staradmin/vendors/chart.js/Chart.min.js') }}"></script>
+<script src="{{ asset('staradmin/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}"></script>
+<script src="{{ asset('staradmin/vendors/progressbar.js/progressbar.min.js') }}"></script>
+<script src="{{ asset('staradmin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('staradmin/vendors/typeahead.js/typeahead.bundle.min.js') }}"></script>
+<script src="{{ asset('staradmin/vendors/select2/select2.min.js') }}"></script>
 
-    .select2-container .select2-selection--single {
-        height: auto !important;
-        /* Make sure the height is auto-adjusted */
-        padding: 0px !important;
-        /* Remove extra padding */
-    }
-
-    .select2-container--default .select2-selection--single .select2-selection__arrow {
-        height: 100% !important;
-        /* Ensure arrow icon is vertically centered */
-    }
-
-    .select2-container--default .select2-selection--single {
-        display: flex;
-        align-items: center;
-    }
-</style>
+<!-- Other custom JS files -->
+<script src="{{ asset('staradmin/js/off-canvas.js') }}"></script>
+<script src="{{ asset('staradmin/js/hoverable-collapse.js') }}"></script>
+<script src="{{ asset('staradmin/js/template.js') }}"></script>
+<script src="{{ asset('staradmin/js/settings.js') }}"></script>
+<script src="{{ asset('staradmin/js/todolist.js') }}"></script>
+<script src="{{ asset('js/register-password.js') }}"></script>

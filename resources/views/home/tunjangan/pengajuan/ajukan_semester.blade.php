@@ -38,10 +38,13 @@
 
                                                 {{-- Surat Pernyataan Pimpinan PTS (SP PTS) --}}
                                                 @if ($sp_pts)
-                                                    <p>Surat Pernyataan Pimpinan PTS (PDF):
+                                                    <div class="form-group">
+                                                        <label for="sp_pts">Surat Pernyataan Pimpinan PTS (PDF)</label>
                                                         <a href="{{ asset('storage/' . $sp_pts->file_dokumen) }}"
-                                                            target="_blank">View File</a>
-                                                    </p>
+                                                            target="_blank"> <i class="mdi mdi-eye"></i></a>
+                                                        <input type="file" class="form-control form-control-sm"
+                                                            name="shared_sppts">
+                                                    </div>
                                                 @else
                                                     <div class="form-group">
                                                         <label for="sp_pts">Surat Pernyataan Pimpinan PTS
@@ -53,10 +56,14 @@
 
                                                 {{-- Surat Pernyataan Kesediaan Dokumen --}}
                                                 @if ($spkd)
-                                                    <p>Surat Pernyataan Kesediaan Dokumen (PDF):
+                                                    <div class="form-group">
+                                                        <label for="sp_pts">Surat Pernyataan Kesediaan Dokumen
+                                                            (PDF)</label>
                                                         <a href="{{ asset('storage/' . $spkd->file_dokumen) }}"
-                                                            target="_blank">View File</a>
-                                                    </p>
+                                                            target="_blank"><i class="mdi mdi-eye"></i></a>
+                                                        <input type="file" class="form-control form-control-sm"
+                                                            name="shared_spkd">
+                                                    </div>
                                                 @else
                                                     <div class="form-group">
                                                         <label for="spkd" class="form-label">Surat Pernyataan Kesediaan

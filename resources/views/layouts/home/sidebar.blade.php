@@ -188,7 +188,7 @@
                         <a class="nav-link" href="{{ route('index.prodi') }}">Program Studi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Jabatan</a>
+                        <a class="nav-link" href="{{ route('jabatan-fungsional.index') }}">Jabatan</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('index.pangkat') }}">Pangkat</a>

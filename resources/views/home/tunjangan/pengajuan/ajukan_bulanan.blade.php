@@ -78,7 +78,7 @@
 
                                             <div class="form-group">
                                                 <label for="SPTJM">SPTJM (Surat Pertanggung Jawaban Mutlak) (PDF)</label>
-                                                <input type="file" name="SPTJM" class="form-control">
+                                                <input type="file" name="SPTJM" class="form-control form-control-sm">
                                                 @if ($pengajuan->pengajuan_dokumen->where('nama_dokumen', 'SPTJM')->first())
                                                     <small class="form-text">Dokumen yang ada: <a
                                                             href="{{ Storage::url($pengajuan->pengajuan_dokumen->where('nama_dokumen', 'SPTJM')->first()->file_dokumen) }}"
@@ -87,7 +87,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="SPPPTS">SPPPTS (Surat Pernyataan Pimpinan PTS) (PDF)</label>
-                                                <input type="file" name="SPPPTS" class="form-control">
+                                                <input type="file" name="SPPPTS" class="form-control form-control-sm">
                                                 @if ($pengajuan->pengajuan_dokumen->where('nama_dokumen', 'SPPPTS')->first())
                                                     <small class="form-text">Dokumen yang ada: <a
                                                             href="{{ Storage::url($pengajuan->pengajuan_dokumen->where('nama_dokumen', 'SPPPTS')->first()->file_dokumen) }}"
@@ -96,7 +96,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="SPKD">SPKD (Surat Pernyataan Keaslian Dokumen) (PDF)</label>
-                                                <input type="file" name="SPKD" class="form-control">
+                                                <input type="file" name="SPKD" class="form-control form-control-sm">
                                                 @if ($pengajuan->pengajuan_dokumen->where('nama_dokumen', 'SPKD')->first())
                                                     <small class="form-text">Dokumen yang ada: <a
                                                             href="{{ Storage::url($pengajuan->pengajuan_dokumen->where('nama_dokumen', 'SPKD')->first()->file_dokumen) }}"

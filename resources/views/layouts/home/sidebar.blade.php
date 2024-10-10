@@ -212,7 +212,7 @@
                         <a class="nav-link" href="{{ route('admin.index') }}">Data Dosen</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('pendaftarandosen') }}">Pendaftaran Dosen</a>
+                        <a class="nav-link" href="{{ route('admin.create') }}">Pendaftaran Dosen</a>
                     </li>
                 </ul>
             </div>

@@ -195,8 +195,17 @@ class OPPTController extends Controller
         $jumlahDokumen = $pengajuan->pengajuan_dokumen->count();
 
         //return response()->json(['JumDOk' => $jumlahDokumen]);
-        return view('testing.oppt.show_pengajuan', ['pengajuan' => $pengajuan]);
+        return view('home.tunjangan.pengajuan.ajukan_bulanan', ['pengajuan' => $pengajuan]);
     }
+
+    // public function showPengajuan($id)
+    // {
+    //     $pengajuan = Pengajuan::findOrFail($id);
+    //     $jumlahDokumen = $pengajuan->pengajuan_dokumen->count();
+
+    //     //return response()->json(['JumDOk' => $jumlahDokumen]);
+    //     return view('testing.oppt.show_pengajuan', ['pengajuan' => $pengajuan]);
+    // }
 
     public function ajukanDosen(Request $request)
     {
@@ -336,12 +345,37 @@ class OPPTController extends Controller
                                     ->get();
         }
         // dd($sharedDocuments);
-        return view('testing.oppt.show_pengajuan_semester', [
+        return view('home.tunjangan.pengajuan.ajukan_semester', [
             'pengajuan' => $pengajuan,
             'sharedDocuments' => $sharedDocuments,
             'dosenDocuments' => $dosenDocuments,
         ]);
     }
+
+    // public function showPengajuanSemester($id)
+    // {
+    //     // Retrieve the pengajuan by its ID
+    //     $pengajuan = Pengajuan::findOrFail($id);
+
+    //     // Check if there are any shared documents for this pengajuan
+    //     $sharedDocuments = Pengajuan_Dokumen::where('id_pengajuan', $id)
+    //                         ->whereNull('id_user') // Shared documents will not have id_user
+    //                         ->get();
+
+    //     // Prepare an array to check if each dosen has uploaded documents
+    //     $dosenDocuments = [];
+    //     foreach ($pengajuan->user as $dosen) {
+    //         $dosenDocuments[$dosen->id] = Pengajuan_Dokumen::where('id_pengajuan', $id)
+    //                                 ->where('id_user', $dosen->id)
+    //                                 ->get();
+    //     }
+    //     // dd($sharedDocuments);
+    //     return view('testing.oppt.show_pengajuan_semester', [
+    //         'pengajuan' => $pengajuan,
+    //         'sharedDocuments' => $sharedDocuments,
+    //         'dosenDocuments' => $dosenDocuments,
+    //     ]);
+    // }
 
 
 

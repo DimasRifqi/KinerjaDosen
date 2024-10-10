@@ -2,141 +2,160 @@
 
 @section('content')
     <div class="content-wrapper">
-        <div class="home-tab">
-            <div class="d-sm-flex align-items-center justify-content-between border-bottom">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab"
-                            aria-controls="overview" aria-selected="true">Data Pengajuan Semester</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#audiences" role="tab"
-                            aria-selected="false">Buat Pengajuan Semester</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="tab-content tab-content-basic">
-                <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
-                    <div class="row">
-                        <div class="col-lg-12 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Detail Pengajuan Semester</h4>
-                                    <p class="card-description">
-                                        Tidak ada pengajuan yang tercatat. </p>
-                                    <div class="table-responsive">
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th> ID Pengajuan </th>
-                                                    <th> ID Periode </th>
-                                                    <th> Awal Periode </th>
-                                                    <th> Akhir Periode </th>
-                                                    <th colspan="2" class="text-center">Dosen</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>{{ $pengajuan->id_pengajuan }}</td>
-                                                    <td>{{ $pengajuan->periode->nama_periode }}</td>
-                                                    <td>{{ $pengajuan->periode->masa_periode_awal }}</td>
-                                                    <td>{{ $pengajuan->periode->masa_periode_berakhir }}</td>
-                                                    <td colspan="2">
-                                                        @foreach ($pengajuan->user as $item)
-                                                            {{ $item->name }}, <br>
-                                                        @endforeach
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    @php
-                                        // Hitung jumlah dokumen yang sudah diupload
-                                        $jumlahDokumen = $pengajuan->pengajuan_dokumen->count();
-                                    @endphp
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+        <form action="{{ route('oppt.pengajuanSemesterStore.dosen') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" name='id_pengajuan' value="{{ $pengajuan->id_pengajuan }}">
+
+            <div class="home-tab">
+                <div class="d-sm-flex align-items-center justify-content-between border-bottom">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview"
+                                role="tab" aria-controls="overview" aria-selected="true">Untuk Semua Dosen</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#audiences" role="tab"
+                                aria-selected="false">Untuk Tiap Dosen</a>
+                        </li>
+                    </ul>
                 </div>
-            </div>
-        </div>
+                <div class="tab-content tab-content-basic">
+                    <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Dokumen Untuk Semua Dosen</h4>
+                                        <div class="row">
+                                            <div>
+                                                @php
+                                                    $sp_pts = $sharedDocuments
+                                                        ->where('nama_dokumen', 'SP PTS')
+                                                        ->first();
+                                                    $spkd = $sharedDocuments->where('nama_dokumen', 'SPKD')->first();
+                                                @endphp
 
-        <div class="home-tab">
-            <div class="tab-content tab-content-basic">
-                <div class="tab-pane fade show" id="audiences" role="tabpanel" aria-labelledby="audiences">
-                    <div class="row justify-content-center">
-                        <div class="col-md-6 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Perbarui Dokumen</h4>
-                                    <div class="row">
-                                        @if ($jumlahDokumen < 4)
-                                            <form
-                                                action="{{ route('oppt.pengajuanDokumenStore.dosen', $pengajuan->id_pengajuan) }}"
-                                                method="POST" enctype="multipart/form-data">
-                                                @csrf
-                                                @method('PUT') <!-- Menggunakan metode PUT untuk update -->
+                                                {{-- Surat Pernyataan Pimpinan PTS (SP PTS) --}}
+                                                @if ($sp_pts)
+                                                    <p>Surat Pernyataan Pimpinan PTS (PDF):
+                                                        <a href="{{ asset('storage/' . $sp_pts->file_dokumen) }}"
+                                                            target="_blank">View File</a>
+                                                    </p>
+                                                @else
+                                                    <div class="form-group">
+                                                        <label for="sp_pts">Surat Pernyataan Pimpinan PTS
+                                                            (PDF)</label>
+                                                        <input type="file" class="form-control form-control-sm"
+                                                            name="shared_sppts">
+                                                    </div>
+                                                @endif
 
-                                                <div class="form-group">
-                                                    <label for="SPTJM">SPTJM (Surat Pertanggung Jawaban Mutlak)
-                                                        (PDF)</label>
-                                                    <input type="file" class="form-control" name="SPTJM" required>
-                                                </div>
+                                                {{-- Surat Pernyataan Kesediaan Dokumen --}}
+                                                @if ($spkd)
+                                                    <p>Surat Pernyataan Kesediaan Dokumen (PDF):
+                                                        <a href="{{ asset('storage/' . $spkd->file_dokumen) }}"
+                                                            target="_blank">View File</a>
+                                                    </p>
+                                                @else
+                                                    <div class="form-group">
+                                                        <label for="spkd" class="form-label">Surat Pernyataan Kesediaan
+                                                            Dokumen (PDF)</label>
+                                                        <input type="file" class="form-control form-control-sm"
+                                                            name="shared_spkd">
+                                                    </div>
+                                                @endif
 
-                                                <div class="form-group">
-                                                    <label for="SPPPTS" class="form-label">SPPPTS (Surat Pernyataan
-                                                        Pimpinan PTS)
-                                                        (PDF)</label>
-                                                    <input type="file" class="form-control" name="SPPPTS" required>
-                                                </div>
+                                                <button type="submit" class="btn btn-primary mb-2">Ajukan </button>
 
-                                                <div class="form-group">
-                                                    <label for="SPKD" class="form-label">SPKD (Surat Pernyataan Keaslian
-                                                        Dokumen)
-                                                        (PDF)</label>
-                                                    <input type="file" class="form-control" name="SPKD" required>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="SPKD" class="form-label">SPKD (Surat Pernyataan Keaslian
-                                                        Dokumen)
-                                                        (PDF)</label>
-                                                    <input type="file" class="form-control" name="SPKD" required>
-                                                </div>
-
-                                                <button type="submit" class="btn btn-primary mb-2">Ajukan Periode</button>
-                                            </form>
-                                        @else
-                                            <!-- Tampilkan link download untuk dokumen yang sudah diupload -->
-                                            <div class="alert alert-info mt-3">
-                                                Anda telah mengupload 4 dokumen. Silakan download dokumen berikut:
+                                                @if (session('success'))
+                                                    <div class="alert alert-success mt-3">
+                                                        {{ session('success') }}
+                                                    </div>
+                                                @endif
                                             </div>
-                                            <ul class="list-group">
-                                                @foreach ($pengajuan->pengajuan_dokumen as $dokumen)
-                                                    <li class="list-group-item">
-                                                        <a href="{{ Storage::url($dokumen->file_dokumen) }}"
-                                                            target="_blank">
-                                                            {{ $dokumen->nama_dokumen }}
-                                                        </a>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        @endif
-                                        @if (session('success'))
-                                            <div class="alert alert-success mt-3">
-                                                {{ session('success') }}
-                                            </div>
-                                        @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
-        </div>
 
+            <div class="home-tab">
+                <div class="tab-content tab-content-basic">
+                    <div class="tab-pane fade show" id="audiences" role="tabpanel" aria-labelledby="audiences">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6 grid-margin stretch-card">
+                                @foreach ($pengajuan->user as $dosen)
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Dokumen {{ $dosen->name }}</h4>
+                                            <div class="row">
+                                                <div>
+
+                                                    @php
+                                                        $documents = $dosenDocuments[$dosen->id] ?? null;
+                                                    @endphp
+
+                                                    {{-- SPTJM Dosen --}}
+                                                    @if ($documents && $documents->where('nama_dokumen', 'sptjm_dosen')->first())
+                                                        <p>Surat Pernyataan Pimpinan PTS (PDF):
+                                                            <a href="{{ asset('storage/' . $documents->where('nama_dokumen', 'sptjm_dosen')->first()->file_dokumen) }}"
+                                                                target="_blank">View File</a>
+                                                            <input type="file" class="form-control form-control-sm"
+                                                                name="sptjm[{{ $dosen->id }}]"
+                                                                placeholder="Upload SPTJM Dosen (PDF)">
+
+                                                        </p>
+                                                    @else
+                                                        <div class="form-group">
+                                                            <label for="sptjm_{{ $dosen->id }}">SPTJM Dosen (PDF)
+                                                            </label>
+                                                            <input type="file" class="form-control form-control-sm"
+                                                                name="sptjm[{{ $dosen->id }}]">
+                                                        </div>
+                                                    @endif
+
+                                                    {{-- Surat Pernyataan Kesediaan Dokumen --}}
+                                                    @if ($documents && $documents->where('nama_dokumen', 'spkk')->first())
+                                                        <p>SPTJM Pemenuhan Kewajiban Khusus (SPKK)
+                                                            <a href="{{ asset('storage/' . $documents->where('nama_dokumen', 'spkk')->first()->file_dokumen) }}"
+                                                                target="_blank">View File</a>
+                                                        </p>
+                                                    @else
+                                                        <div class="form-group">
+                                                            <label for="spkk_{{ $dosen->id }}" class="form-label">SPTJM
+                                                                Pemenuhan Kewajiban Khusus (PDF)</label>
+                                                            <input type="file" class="form-control form-control-sm"
+                                                                name="spkk[{{ $dosen->id }}]">
+                                                        </div>
+                                                    @endif
+                                                    <input type="hidden" name="dosen_ids[]" value="{{ $dosen->id }}">
+
+                                                    <button type="submit" class="btn btn-primary mb-2">Ajukan </button>
+
+                                                    @if (session('success'))
+                                                        <div class="alert alert-success mt-3">
+                                                            {{ session('success') }}
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </form>
 
 
     </div>

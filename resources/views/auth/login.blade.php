@@ -29,9 +29,13 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="password" name="password" class="form-control form-control-lg @error('password') is-invalid @enderror" id="exampleInputPassword1" placeholder="Kata Sandi"
-                                required autocomplete="current-password">
-
+                                <div class="input-group">
+                                    <input type="password" name="password" class="form-control form-control-lg @error('password') is-invalid @enderror" id="password" placeholder="Kata Sandi"
+                                    required autocomplete="current-password">
+                                    <span class="input-group-text" onclick="togglePassword()">
+                                        <i class="mdi mdi-eye" id="togglePasswordIcon"></i>
+                                    </span>
+                                </div>
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

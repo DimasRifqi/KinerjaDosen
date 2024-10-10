@@ -11,4 +11,5 @@
 <script src="{{ asset('staradmin/js/template.js') }}"></script>
 <script src="{{ asset('staradmin/js/settings.js') }}"></script>
 <script src="{{ asset('staradmin/s/todolist.js') }}"></script>
+<script src="{{ asset('js/login-password.js') }}"></script>
 <!-- endinject -->

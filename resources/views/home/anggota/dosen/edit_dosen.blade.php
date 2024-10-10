@@ -1,15 +1,16 @@
 @extends('layouts.home.app')
 
 @section('content')
-    <div class="content-wrapper">
+<div class="content-wrapper">
         <div class="row">
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Pendaftaran Dosen</h4>
+                        <h4 class="card-title">Edit Data Dosen</h4>
 
-                        <form class="forms-sample" action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data">
+                        <form class="forms-sample" action="{{ route('oppt.update.dosen', $dosen->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
 
                             <div class="form-group">
                                 <div class="row">
@@ -18,24 +19,34 @@
                                             <label for="id_gelar_depan">Gelar Depan</label>
                                             <select class="form-control js-example-basic-multiple w-100" multiple="multiple" id="id_gelar_depan" name="id_gelar_depan">
                                                 <option value="">Pilih Gelar Depan</option>
-                                                @foreach($gelarDepan as $gelar)
-                                                    <option value="{{ $gelar->id_gelar_depan }}">{{ $gelar->nama_gelar_depan }}</option>
+                                                @foreach($gelar_depan as $gelar)
+                                                    <option value="{{ $gelar->id_gelar_depan }}" {{ $dosen->id_gelar_depan == $gelar->id_gelar_depan ? 'selected' : '' }}>
+                                                        {{ $gelar->nama_gelar_depan }}
+                                                    </option>
                                                 @endforeach
                                             </select>
+                                            @error('id_gelar_depan')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
+
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="name" class="col-form-label">Nama Lengkap</label>
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="Nama Lengkap" required>
+                                            <input type="text" name="name" class="form-control" value="{{ old('name', $dosen->name) }}" required>
+                                            @error('name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
+
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="id_gelar_belakang">Gelar Belakang</label>
                                             <select class="form-control js-example-basic-multiple w-100" multiple="multiple" id="id_gelar_belakang" name="id_gelar_belakang">
-                                                <option value="">Pilih Gelar Depan</option>
-                                                    @foreach($gelarDepan as $gelar)
+                                                <option value="">Pilih Gelar Belakang</option>
+                                                    @foreach($gelar_depan as $gelar)
                                                         <option value="{{ $gelar->id_gelar_depan }}">{{ $gelar->nama_gelar_depan }}</option>
                                                     @endforeach
                                             </select>
@@ -46,41 +57,58 @@
 
                             <div class="form-group">
                                 <label for="tempat_lahir">Tempat Lahir</label>
-                                <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Tempat Lahir">
+                                <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Tempat Lahir" value="{{ old('tempat_lahir', $dosen->tempat_lahir) }}">
+                                @error('tempat_lahir')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label for="tanggal_lahir">Tanggal Lahir</label>
-                                <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir">
+                                <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir', $dosen->tanggal_lahir) }}">
+                                @error('tanggal_lahir')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label for="nidn">NUPTK</label>
-                                <input type="text" class="form-control" id="nidn" name="nidn" placeholder="NUPTK">
+                                <input type="text" class="form-control" id="nidn" name="nidn" placeholder="NUPTK"  value="{{ old('nidn', $dosen->nidn) }}">
                             </div>
 
                             <div class="form-group">
                                 <label for="id_jabatan_fungsional">Jabatan Fungsional</label>
-                                <select class="form-control" id="id_jabatan_fungsional" name="id_jabatan_fungsional" required>
-                                    <option value="">Pilih Jabatan Fungsional</option>
-                                    @foreach($jabatanFungsional as $jabatan)
-                                        <option value="{{ $jabatan->id_jabatan_fungsional }}">{{ $jabatan->nama_jabatan }}</option>
+                                <select class="form-control" id="id_jabatan_fungsional" name="id_jabatan_fungsional">
+                                <option value="">Pilih Jabatan Fungsional</option>
+                                    @foreach($jabatan_fungsional as $jabatan)
+                                        <option value="{{ $jabatan->id_jabatan_fungsional }}" {{ $dosen->id_jabatan_fungsional == $jabatan->id_jabatan_fungsional ? 'selected' : '' }}>
+                                            {{ $jabatan->nama_jabatan }}
+                                        </option>
                                     @endforeach
                                 </select>
+                                @error('id_jabatan_fungsional')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label for="id_pangkat_dosen">Pangkat Dosen</label>
-                                <select class="form-control" id="id_pangkat_dosen" name="id_pangkat_dosen" required>
+                                <select class="form-control" id="id_pangkat_dosen" name="id_pangkat_dosen">
                                     <option value="">Pilih Pangkat Dosen</option>
-                                    @foreach($pangkatDosen as $pangkat)
-                                        <option value="{{ $pangkat->id_pangkat_dosen }}">{{ $pangkat->nama_pangkat }}</option>
+                                    @foreach($pangkat_dosen as $pangkat)
+                                        <option value="{{ $pangkat->id_pangkat_dosen }}" {{ $dosen->id_pangkat_dosen == $pangkat->id_pangkat_dosen ? 'selected' : '' }}>
+                                            {{ $pangkat->nama_pangkat }}
+                                        </option>
                                     @endforeach
                                 </select>
+                                @error('id_pangkat_dosen')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
 
+                            <!-- gabisa edit prodi tp bisa edit univ??? -->
                             <div class="form-group">
-                                <label for="id_prodi">Program Studi</label>
+                                <label for="id_prodi">Program Studi</label> 
                                 <select class="form-control" id="id_prodi" name="id_prodi" required>
                                     <option value="">Pilih Program Studi</option>
                                     @foreach($prodi as $progdi)

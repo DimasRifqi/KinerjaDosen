@@ -73,7 +73,7 @@
 
                             <div class="form-group">
                                 <label for="nidn">NUPTK</label>
-                                <input type="text" class="form-control" id="nidn" name="nidn" placeholder="NUPTK"  value="{{ old('nidn', $dosen->nidn) }}">
+                                <input type="text" class="form-control" id="nidn" name="nidn" placeholder="NUPTK"  value="{{ old('nidn', $dosen->nidn) }}" required>
                             </div>
 
                             <div class="form-group">
@@ -119,39 +119,44 @@
 
                             <div class="form-group">
                                 <label for="id_universitas">Universitas</label>
-                                <select class="form-control" id="id_universitas" name="id_universitas" required>
+                                <select class="form-control" id="id_universitas" name="id_universitas">
                                     <option value="">Pilih Universitas</option>
-                                    @foreach($universitas as $univ)
-                                        <option value="{{ $univ->id_universitas }}">{{ $univ->nama_universitas }}</option>
+                                    @foreach($universitas as $uni)
+                                        <option value="{{ $uni->id_universitas }}" {{ $dosen->id_universitas == $uni->id_universitas ? 'selected' : '' }}>
+                                            {{ $uni->nama_universitas }}
+                                        </option>
                                     @endforeach
                                 </select>
+                                @error('id_universitas')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="image">File upload</label>
-                                <input type="file" class="file-upload-default" accept="image/*">
-                                <div class="input-group col-xs-12">
-                                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image" id="image" name="image[]"  accept="image/*">
-                                    <span class="input-group-append">
-                                    <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                                    </span>
-                                </div>
+                                <label for="image">Foto Profil</label>
+                                <input type="file" name="image" class="form-control">
+                                @if ($dosen->image)
+                                    <p>Foto saat ini: <img src="{{ asset('storage/'.$dosen->image) }}" alt="Foto Dosen" width="150"></p>
+                                @endif
+                                @error('image')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="file_serdos">File Sertifikasi Dose</label>
-                                <input type="file" class="file-upload-default" accept=".pdf">
-                                <div class="input-group col-xs-12">
-                                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload File" id="file_serdos" name="file_serdos[]"  accept=".pdf">
-                                    <span class="input-group-append">
-                                    <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                                    </span>
-                                </div>
+                                <label for="file_serdos">File Serdos (PDF)</label>
+                                <input type="file" name="file_serdos" class="form-control">
+                                @if ($dosen->file_serdos)
+                                    <p>File saat ini: <a href="{{ asset('storage/'.$dosen->file_serdos) }}" target="_blank">Lihat File</a></p>
+                                @endif
+                                @error('file_serdos')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             
                             <div class="form-group">
                                 <label for="npwp">NPWP</label>
-                                <input type="text" class="form-control" id="npwp" name="npwp" placeholder="NPWP">
+                                <input type="text" class="form-control" id="npwp" name="npwp" placeholder="NPWP" value="{{ old('npwp', $dosen->npwp) }}" required>
                             </div>
 
                             <div class="form-group">

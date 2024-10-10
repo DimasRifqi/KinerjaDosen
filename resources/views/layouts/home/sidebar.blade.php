@@ -162,13 +162,43 @@
 <!-- partial:partials/_sidebar.html -->
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
-        <li class="nav-item">
+        <li class="nav-item {{-- {{ Request::routeIs('team.*') ? 'active' : '' }} --}}">
             <a class="nav-link" href="{{ route('home') }}">
                 <i class="mdi mdi-grid-large menu-icon"></i>
                 <span class="menu-title">Dasbor</span>
             </a>
         </li>
         <li class="nav-item nav-category">Anggota</li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#komponen_anggota" aria-expanded="false"
+                aria-controls="komponen_anggota">
+                <i class="menu-icon mdi mdi-card-text-outline"></i>
+                <span class="menu-title">Komponen</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="komponen_anggota">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('kota.index') }}">Kota</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('index.uni') }}">Universitas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('index.prodi') }}">Program Studi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Jabatan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('index.pangkat') }}">Pangkat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Gelar</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#dosen" aria-expanded="false"
                 aria-controls="dosen">
@@ -179,10 +209,64 @@
             <div class="collapse" id="dosen">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('datadosen') }}">Data Dosen</a>
+                        <a class="nav-link" href="{{ route('admin.index') }}">Data Dosen</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('pendaftarandosen') }}">Pendaftaran Dosen</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#lldikti" aria-expanded="false"
+                aria-controls="lldikti">
+                <i class="menu-icon mdi mdi-home-variant"></i>
+                <span class="menu-title">LLDIKTI</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="lldikti">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Data Admin LLDIKTI</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pendaftaran Admin LLDIKTI</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#operator" aria-expanded="false"
+                aria-controls="operator">
+                <i class="menu-icon mdi mdi-library"></i>
+                <span class="menu-title">Operator</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="operator">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Data Operator</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pendaftaran Operator</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#auditor" aria-expanded="false"
+                aria-controls="auditor">
+                <i class="menu-icon mdi mdi-library-books"></i>
+                <span class="menu-title">Auditor</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auditor">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Data Auditor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pendaftaran Auditor</a>
                     </li>
                 </ul>
             </div>
@@ -227,9 +311,10 @@
             </a>
             <div class="collapse" id="komponen">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('periode.index') }}">Data Periode</a>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('periode.index') }}">(obselete)
+                            {{-- was Data Periode, but now is replaced --}}</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('index.periode') }}">Buat Periode</a>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('index.periode') }}">Periode</a>
                     </li>
                 </ul>
             </div>
@@ -245,6 +330,7 @@
             <div class="collapse" id="profil">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"><a class="nav-link" href="{{ route('profil') }}">Lihat Profil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('faq') }}">FAQ</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('setelan') }}">Setelan</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}"
                             onclick="event.preventDefault();

@@ -11,8 +11,15 @@ class KotaController extends Controller
     public function index()
     {
         $kota = Kota::with('provinsi')->get(); // Mengambil semua data kota beserta provinsi
-        return view('testing.Kota.index', compact('kota'));
+        $provinsi = Provinsi::all(); // Mengambil data provinsi untuk dipilih di dropdown
+        return view('home.anggota.komponen.buat_kota', compact('kota', 'provinsi'));
     }
+
+    // public function index()
+    // {
+    //     $kota = Kota::with('provinsi')->get(); // Mengambil semua data kota beserta provinsi
+    //     return view('testing.Kota.index', compact('kota'));
+    // }
 
     // Menampilkan form untuk membuat kota baru (Create - Form)
     public function create()

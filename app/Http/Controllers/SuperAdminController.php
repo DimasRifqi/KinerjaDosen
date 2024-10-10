@@ -17,10 +17,16 @@ use Illuminate\Support\Facades\Storage;
 
 class SuperAdminController extends Controller
 {
+    // public function index()
+    // {
+    //     $admin = User::all();
+    //     return view('testing.admin.index', compact('admin'));
+    // }
+
     public function index()
     {
         $admin = User::all();
-        return view('testing.admin.index', compact('admin'));
+        return view('home.anggota.dosen.data_dosen', compact('admin'));
     }
 
     // public function create()
@@ -225,8 +231,14 @@ class SuperAdminController extends Controller
     public function editPeriode($id){
         $periode = Periode::findOrFail($id);
 
-        return view('testing.adminPeriode.edit_periode', compact('periode'));
+        return view('home.tunjangan.komponen.edit_periode', compact('periode'));
     }
+
+    // public function editPeriode($id){
+    //     $periode = Periode::findOrFail($id);
+
+    //     return view('testing.adminPeriode.edit_periode', compact('periode'));
+    // }
 
     public function updatePeriode(Request $request, $id){
         $periode = Periode::findOrFail($id);
@@ -255,8 +267,15 @@ class SuperAdminController extends Controller
         $univ = Universitas::all();
         $kota = Kota::all();
 
-        return view('testing.adminUniv.create_univ', compact('univ', 'kota'));
+        return view('home.anggota.komponen.buat_univ', compact('univ', 'kota'));
     }
+
+    // public function indexUniv(){
+    //     $univ = Universitas::all();
+    //     $kota = Kota::all();
+
+    //     return view('testing.adminUniv.create_univ', compact('univ', 'kota'));
+    // }
 
     public function createUniv(Request $request){
         $validateData = $request->validate([
@@ -296,8 +315,14 @@ class SuperAdminController extends Controller
     public function indexProdi(){
         $prodi = Prodi::all();
 
-        return view('testing.adminUniv.create_prodi', compact('prodi'));
+        return view('home.anggota.komponen.buat_prodi', compact('prodi'));
     }
+
+    // public function indexProdi(){
+    //     $prodi = Prodi::all();
+
+    //     return view('testing.adminUniv.create_prodi', compact('prodi'));
+    // }
 
     public function createProdi(Request $request){
         $validateData = $request->validate([
@@ -333,8 +358,14 @@ class SuperAdminController extends Controller
     public function indexPangkatDosen(){
         $pangkat_dosen = Pangkat_Dosen::all();
 
-        return view('testing.adminPangkat.createPangkat', compact('pangkat_dosen'));
+        return view('home.anggota.komponen.buat_pangkat', compact('pangkat_dosen'));
     }
+
+    // public function indexPangkatDosen(){
+    //     $pangkat_dosen = Pangkat_Dosen::all();
+
+    //     return view('testing.adminPangkat.createPangkat', compact('pangkat_dosen'));
+    // }
 
     public function createPangkat(Request $request){
         $validateData = $request->validate([

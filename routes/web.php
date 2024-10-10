@@ -21,7 +21,7 @@ use App\Http\Controllers\PDFController;
 Route::post('/import-csv', [CsvImportController::class, 'import'])->name('import.csv');
 Route::get('/import-csv', [CsvImportController::class, 'index'])->name('index.csv');
 
-Auth::routes(['verify'=>true]);
+Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -53,12 +53,11 @@ Route::put('/pangkat/update/{id}', [SuperAdminController::class, 'updatePangkat'
 
 
 
+// Route::get('/anggota/datadosen', function () {
+//     return view('home.anggota.dosen.data_dosen');
+// })->name('datadosen');
 
-Route::get('/anggota/dosen/datadosen', function () {
-    return view('home.anggota.data_dosen');
-})->name('datadosen');
-
-Route::get('/anggota/dosen/pendaftarandosen', function () {
+Route::get('/anggota/pendaftarandosen', function () {
     return view('home.anggota.dosen.pendaftaran_dosen');
 })->name('pendaftarandosen');
 
@@ -86,10 +85,21 @@ Route::get('/pengajuan/datapengajuan', function () {
     return view('home.pengajuan.data_pengajuan');
 })->name('datapengajuan');
 
+Route::get('/profil/faq', function () {
+    return view('home.profil.faq');
+})->name('faq');
+
 Route::get('/profil/setelan', function () {
     return view('home.profil.setelan');
 })->name('setelan');
 
+Route::get('/tunjangan/pengajuan/datapengajuan/ajukanbulanan', function () {
+    return view('home.tunjangan.pengajuan.ajukan_bulanan');
+});
+
+Route::get('/tunjangan/pengajuan/datapengajuan/ajukansemester', function () {
+    return view('home.tunjangan.pengajuan.ajukan_semester');
+});
 
 // Route untuk Admin
 Route::prefix('admin')->group(function () {

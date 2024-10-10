@@ -28,15 +28,16 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        // Initialize single select box
-        $('.js-example-basic-single').select2();
+        // Initialize single and multiple select boxes with placeholders and allowClear option
+        $('.js-example-basic-single').select2({
+            placeholder: 'Mohon Pilih',
+            allowClear: true
+        });
 
-        // Initialize multiple select box
-        $('.js-example-basic-multiple').select2();
-    });
-    $('.js-example-basic-single').select2({
-        placeholder: 'Select a state',
-        allowClear: true
+        $('.js-example-basic-multiple').select2({
+            placeholder: 'Mohon Pilih',
+            allowClear: true
+        });
     });
 </script>
 

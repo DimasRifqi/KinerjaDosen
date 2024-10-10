@@ -181,8 +181,17 @@ class OPPTController extends Controller
         $jumlahDokumen = $pengajuan->pengajuan_dokumen->count();
 
         //return response()->json(['JumDOk' => $jumlahDokumen]);
-        return view('testing.oppt.show_pengajuan', ['pengajuan' => $pengajuan]);
+        return view('home.tunjangan.pengajuan.ajukan_bulanan', ['pengajuan' => $pengajuan]);
     }
+
+    // public function showPengajuan($id)
+    // {
+    //     $pengajuan = Pengajuan::findOrFail($id);
+    //     $jumlahDokumen = $pengajuan->pengajuan_dokumen->count();
+
+    //     //return response()->json(['JumDOk' => $jumlahDokumen]);
+    //     return view('testing.oppt.show_pengajuan', ['pengajuan' => $pengajuan]);
+    // }
 
     public function ajukanDosen(Request $request)
     {
@@ -306,8 +315,13 @@ class OPPTController extends Controller
 
     public function showPengajuanSemester($id){
         $pengajuan = Pengajuan::findOrFail($id);
-        return view('testing.oppt.show_pengajuan_semester', ['pengajuan' => $pengajuan]);
+        return view('home.tunjangan.pengajuan.ajukan_semester', ['pengajuan' => $pengajuan]);
     }
+
+    // public function showPengajuanSemester($id){
+    //     $pengajuan = Pengajuan::findOrFail($id);
+    //     return view('testing.oppt.show_pengajuan_semester', ['pengajuan' => $pengajuan]);
+    // }
 
     public function ajukanDokumenSemester(Request $request, $id)
     {
@@ -357,13 +371,20 @@ class OPPTController extends Controller
     {
         $pengajuan = Pengajuan::with('user')->findOrFail($id);
         $periode = Periode::all();
-
         $oppt = Auth::user();
-        $dosen = User::where('id_universitas', $oppt->id_universitas)->get();
-       // return response()->json(['data' => $pengajuan]);
-
-        return view('testing.oppt.edit_pengajuan_dosen', ['pengajuan' => $pengajuan, 'periode' => $periode, 'dosen' => $dosen]);
+        $dosen = User::all();
+        // return response()->json(['data' => $pengajuan]);
+        return view('home.tunjangan.pengajuan.sunting_pengajuan', ['pengajuan' => $pengajuan, 'periode' => $periode, 'dosen' => $dosen]);
     }
+
+    // public function editPengajuan($id)
+    // {
+    //     $pengajuan = Pengajuan::with('user')->findOrFail($id);
+    //     $periode = Periode::all();
+    //     $dosen = User::all();
+    //     // return response()->json(['data' => $pengajuan]);
+    //     return view('testing.oppt.edit_pengajuan_dosen', ['pengajuan' => $pengajuan, 'periode' => $periode, 'dosen' => $dosen]);
+    // }
 
     public function updatePengajuan(Request $request, $id)
     {

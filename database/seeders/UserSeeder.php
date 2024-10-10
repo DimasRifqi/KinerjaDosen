@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
                     'image' => null,
                     'email' => 'superadmin@gmail.com',
                     'email_verified_at' => now(),
-                    'password' => Hash::make('passwordadmin123'),
+                    'password' => Hash::make('super123'),
                     'remember_token' => null,
                 ],
 

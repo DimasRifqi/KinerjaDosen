@@ -53,6 +53,26 @@ Route::get('/anggota/lldikti/pendaftaranperencanaan', function () {
     return view('home.anggota.lldikti.pendaftaran_perencanaan');
 })->name('pendaftaranperencanaan');
 
+Route::get('/anggota/dosen/editdosen', function () {
+    return view('home.anggota.dosen.edit_dosen');
+})->name('editdosen');
+
+Route::get('/anggota/operator/editoperator', function () {
+    return view('home.anggota.operator.edit_operator');
+})->name('editoperator');
+
+Route::get('/anggota/lldikti/editkeuangan', function () {
+    return view('home.anggota.lldikti.edit_keuangan');
+})->name('editkeuangan');
+
+Route::get('/anggota/lldikti/editperencanaan', function () {
+    return view('home.anggota.lldikti.edit_perencanaan');
+})->name('editperencanaan');
+
+Route::get('/anggota/lldikti/editverifikator', function () {
+    return view('home.anggota.lldikti.edit_verifikator');
+})->name('editverifikator');
+
 Route::get('/pengajuan/datapengajuan', function () {
     return view('home.pengajuan.data_pengajuan');
 })->name('datapengajuan');

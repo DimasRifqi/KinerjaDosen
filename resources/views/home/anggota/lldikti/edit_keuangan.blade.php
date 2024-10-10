@@ -5,8 +5,12 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-            <h4 class="card-title">Pendaftaran Verifikator LLDIKTI Wilayah 7</h4>
-                <form class="forms-sample">
+            <h4 class="card-title">Edit Data Pengguna Keuangan LLDIKTI Wilayah 7</h4>
+
+                <form action="{{ route('admin.update', $user->id) }}" method="POST" enctype="multipart/form-data" class="forms-sample">
+                @csrf
+                @method('PUT')
+                
                 <div class="form-group">
                     <label for="name" class="col-form-label">Nama Lengkap</label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Nama Lengkap" required>

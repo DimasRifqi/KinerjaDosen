@@ -16,9 +16,20 @@
                                 <input type="text" class="form-control" id="exampleInputUsername1"
                                     placeholder="Username">
                             </div>
+
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                                <label for="tempat_lahir">Tempat Lahir</label>
+                                <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Tempat Lahir">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tanggal_lahir">Tanggal Lahir</label>
+                                <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nidn">NUPTK</label>
+                                <input type="text" class="form-control" id="nidn" name="nidn" placeholder="NUPTK">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Password</label>
@@ -35,6 +46,80 @@
                                     <input type="checkbox" class="form-check-input">
                                     Remember me
                                 </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="id_universitas">Universitas</label>
+                                <select class="form-control" id="id_universitas" name="id_universitas" required>
+                                    <option value="">Pilih Universitas</option>
+                                    @foreach($universitas as $univ)
+                                        <option value="{{ $univ->id_universitas }}">{{ $univ->nama_universitas }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="image">File upload</label>
+                                <input type="file" class="file-upload-default" accept="image/*">
+                                <div class="input-group col-xs-12">
+                                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image" id="image" name="image[]"  accept="image/*">
+                                    <span class="input-group-append">
+                                    <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="file_serdos">File Sertifikasi Dose</label>
+                                <input type="file" class="file-upload-default" accept=".pdf">
+                                <div class="input-group col-xs-12">
+                                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload File" id="file_serdos" name="file_serdos[]"  accept=".pdf">
+                                    <span class="input-group-append">
+                                    <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="npwp">NPWP</label>
+                                <input type="text" class="form-control" id="npwp" name="npwp" placeholder="NPWP">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bank">bank</label>
+                                <select class="form-control" id="bbank" name="bank">
+                                    <option value="bri">BRI</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="no_rek">No Rekening</label>
+                                <input type="text" class="form-control" id="no_rek" name="no_rek" placeholder="No Rekening">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">Kata Sandi</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                                    <span class="input-group-text" onclick="togglePassword('password', 'togglePasswordIcon1')">
+                                        <i class="mdi mdi-eye" id="togglePasswordIcon1"></i> <!-- Icon mata untuk password -->
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password_confirmation">Konfirmasi Kata Sandi</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Password" required>
+                                    <span class="input-group-text" onclick="togglePassword('password_confirmation', 'togglePasswordIcon2')">
+                                        <i class="mdi mdi-eye" id="togglePasswordIcon2"></i> <!-- Icon mata untuk konfirmasi password -->
+                                    </span>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary me-2">Submit</button>
                             <button class="btn btn-light">Cancel</button>

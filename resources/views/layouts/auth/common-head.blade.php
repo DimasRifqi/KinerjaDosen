@@ -26,5 +26,6 @@
 <!-- End plugin css for this page -->
 <!-- inject:css -->
 <link rel="stylesheet" href="{{ asset('staradmin/css/vertical-layout-light/style.css') }}">
+<link rel="stylesheet" href="{{ asset('css/login-password.css') }}">
 <!-- endinject -->
 <link rel="shortcut icon" href="{{ asset('staradmin/images/favicon.png') }}"/>

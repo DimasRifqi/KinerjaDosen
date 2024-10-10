@@ -43,6 +43,30 @@ class OPPTController extends Controller
         return redirect()->back()->with('success', 'Status dosen berhasil diperbarui.');
     }
 
+    // public function editDosen($id)
+    // {
+    //     $dosen = User::findOrFail($id);
+    //     $gelar_depan = Gelar_Depan::all();
+    //     $gelar_belakang = Gelar_Belakang::all();
+    //     $jabatan_fungsional = Jabatan_Fungsional::all();
+    //     $pangkat_dosen = Pangkat_Dosen::all();
+    //     $universitas = Universitas::all();
+    //     $prodi = Prodi::all();
+
+    //     return view(
+    //         'testing.oppt.edit_dosen',
+    //         [
+    //             'dosen' => $dosen,
+    //             'gelar_depan' => $gelar_depan,
+    //             'gelar_belakang' => $gelar_belakang,
+    //             'jabatan_fungsional' => $jabatan_fungsional,
+    //             'pangkat_dosen' => $pangkat_dosen,
+    //             'universitas' => $universitas,
+    //             'prodi' => $prodi
+    //         ]
+    //     );
+    // }
+
     public function editDosen($id)
     {
         $dosen = User::findOrFail($id);
@@ -54,7 +78,7 @@ class OPPTController extends Controller
         $prodi = Prodi::all();
 
         return view(
-            'testing.oppt.edit_dosen',
+            'home.anggota.dosen.edit_dosen',   ////view page edit dosen
             [
                 'dosen' => $dosen,
                 'gelar_depan' => $gelar_depan,

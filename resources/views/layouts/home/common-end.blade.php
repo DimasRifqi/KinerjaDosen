@@ -15,6 +15,7 @@
 <script src="{{ asset('staradmin/js/template.js') }}"></script>
 <script src="{{ asset('staradmin/js/settings.js') }}"></script>
 <script src="{{ asset('staradmin/js/todolist.js') }}"></script>
+<script src="{{ asset('js/register-password.js') }}"></script>
 <!-- endinject -->
 <!-- Custom js for this page-->
 <script src="{{ asset('staradmin/js/dashboard.js') }}"></script>

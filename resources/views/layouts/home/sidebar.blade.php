@@ -230,7 +230,7 @@
                         <a class="nav-link" href="#">Data Admin LLDIKTI</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pendaftaran Admin LLDIKTI</a>
+                        <a class="nav-link" href="{{ route('pendaftaranlldikti') }}">Pendaftaran Admin LLDIKTI</a>
                     </li>
                 </ul>
             </div>
@@ -248,7 +248,7 @@
                         <a class="nav-link" href="#">Data Operator</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pendaftaran Operator</a>
+                        <a class="nav-link" href="{{ route('pendaftaranoppt') }}">Pendaftaran Operator</a>
                     </li>
                 </ul>
             </div>
@@ -266,7 +266,7 @@
                         <a class="nav-link" href="#">Data Auditor</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pendaftaran Auditor</a>
+                        <a class="nav-link" href="{{ route('pendaftaranauditor') }}">Pendaftaran Auditor</a> 
                     </li>
                 </ul>
             </div>

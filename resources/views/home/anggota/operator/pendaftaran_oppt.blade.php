@@ -21,6 +21,17 @@
                         @endforeach
                     </select>
                 </div>
+
+                <div class="form-group">
+                        <label for="image">Foto</label>
+                        <input type="file" class="file-upload-default" accept="image/*">
+                        <div class="input-group col-xs-12">
+                            <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image" id="image" name="image[]"  accept="image/*">
+                            <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                            </span>
+                        </div>
+                    </div>
                 
                 <div class="form-group">
                     <label for="email">Email</label>

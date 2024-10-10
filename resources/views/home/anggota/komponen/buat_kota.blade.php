@@ -8,11 +8,11 @@
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab"
-                            aria-controls="overview" aria-selected="true">Detail Pangkat</a>
+                            aria-controls="overview" aria-selected="true">Detail Kota</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#audiences" role="tab"
-                            aria-selected="false">Buat Pangkat</a>
+                            aria-selected="false">Buat Kota</a>
                     </li>
                 </ul>
             </div>
@@ -39,28 +39,29 @@
                                         </div>
                                     @endif
 
-                                    <h4 class="card-title">Data Pangkat</h4>
-                                    @if ($pangkat_dosen->isEmpty())
+                                    <h4 class="card-title">Data Kota</h4>
+                                    @if ($kota->isEmpty())
                                         <p class="card-description">
-                                            No Data Pangkat Dosen records found. </p>
+                                            No Data Kota records found. </p>
                                     @else
                                         <div class="table-responsive">
                                             <table class="table table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th> ID </th>
-                                                        <th> Nama Pangkat </th>
-                                                        <th> Aksi </th>
+                                                        <th>ID</th>
+                                                        <th>Nama Kota</th>
+                                                        <th>Provinsi</th>
+                                                        <th>Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($pangkat_dosen as $pangkat)
+                                                    @foreach ($kota as $item)
                                                         <tr>
-                                                            <td>{{ $pangkat->id_pangkat_dosen }}</td>
-                                                            <td>{{ $pangkat->nama_pangkat }}</td>
+                                                            <td>{{ $item->id_kota }}</td>
+                                                            <td>{{ $item->nama_kota }}</td>
+                                                            <td>{{ $item->provinsi->nama_provinsi ?? 'N/A' }}</td>
                                                             <td>
-                                                                <!-- Edit button (Redirect to Edit Page) -->
-                                                                <a href="{{ route('pangkat.edit', $pangkat->id_pangkat_dosen) }}"
+                                                                <a href="{{ route('kota.edit', $item->id_kota) }}"
                                                                     class="btn btn-warning btn-sm">Edit</a>
                                                             </td>
                                                         </tr>
@@ -87,17 +88,25 @@
                         <div class="col-md-6 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Buat Pangkat Dosen Baru</h4>
+                                    <h4 class="card-title">Buat Kota Baru</h4>
                                     <div class="row">
-                                        <form action="{{ route('pangkat.create') }}" method="POST">
+                                        <form action="{{ route('kota.store') }}" method="POST">
                                             @csrf
                                             <div class="form-group">
-                                                <label for="nama_pangkat">Nama Pangkat</label>
-                                                <input type="text" name="nama_pangkat" id="nama_pangkat"
-                                                    class="form-control" placeholder="" value="{{ old('nama_pangkat') }}"
-                                                    required>
+                                                <label for="nama_kota">Nama Kota</label>
+                                                <input type="text" name="nama_kota" id="nama_kota" class="form-control"
+                                                    value="{{ old('nama_kota') }}" required>
                                             </div>
-                                            <button type="submit" class="btn btn-primary mb-2">Buat Pangkat</button>
+                                            <div class="form-group">
+                                                <label>Pilih Provinsi</label>
+                                                <select name="status" id="status" class="form-control" required>
+                                                    @foreach ($provinsi as $prov)
+                                                        <option value="{{ $prov->id_provinsi }}">{{ $prov->nama_provinsi }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary mb-2">Buat</button>
                                         </form>
                                     </div>
                                 </div>
@@ -108,8 +117,6 @@
             </div>
 
         </div>
-
-
 
     </div>
 @endsection

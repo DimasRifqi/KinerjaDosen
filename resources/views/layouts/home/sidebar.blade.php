@@ -170,24 +170,6 @@
         </li>
         <li class="nav-item nav-category">Anggota</li>
         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#dosen" aria-expanded="false"
-                aria-controls="dosen">
-                <i class="menu-icon mdi mdi-account-box"></i>
-                <span class="menu-title">Dosen</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="dosen">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.index') }}">Data Dosen</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('pendaftarandosen') }}">Pendaftaran Dosen</a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#komponen_anggota" aria-expanded="false"
                 aria-controls="komponen_anggota">
                 <i class="menu-icon mdi mdi-card-text-outline"></i>
@@ -197,7 +179,7 @@
             <div class="collapse" id="komponen_anggota">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Kota</a>
+                        <a class="nav-link" href="{{ route('kota.index') }}">Kota</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('index.uni') }}">Universitas</a>
@@ -213,6 +195,24 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Gelar</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#dosen" aria-expanded="false"
+                aria-controls="dosen">
+                <i class="menu-icon mdi mdi-account-box"></i>
+                <span class="menu-title">Dosen</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="dosen">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.index') }}">Data Dosen</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('pendaftarandosen') }}">Pendaftaran Dosen</a>
                     </li>
                 </ul>
             </div>

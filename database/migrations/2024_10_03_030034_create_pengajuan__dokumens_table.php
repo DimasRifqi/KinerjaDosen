@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('pengajuan_dokumen', function (Blueprint $table) {
             $table->id('id_pengajuan_dokumen');
-            $table->foreignId('id_pengajuan')->nullable()->constrained('pengajuan', 'id_pengajuan')->cascadeOnDelete()->cascadeOnUpdate(); // Foreign key to pengajuan table
-            $table->string('nama_dokumen');
-            $table->string('file_dokumen');
+            $table->foreignId('id_pengajuan')->nullable()->constrained('pengajuan', 'id_pengajuan')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('id_user')->nullable()->constrained('users', 'id')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('nama_dokumen')->nullable();
+            $table->string('file_dokumen')->nullable();
             $table->timestamps(); 
         });
     }

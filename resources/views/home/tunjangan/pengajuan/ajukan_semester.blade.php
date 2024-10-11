@@ -1,5 +1,6 @@
 @extends('layouts.home.app')
-
+@section('title', 'Pengajuan Tunjangan Semester')
+@section('userTypeOnPage', 'SuperAdmin, Verifikator, Perencanaan, Keuangan, OPPT')
 @section('content')
     <div class="content-wrapper">
 
@@ -131,7 +132,7 @@
                                                         <p>SPTJM Pemenuhan Kewajiban Khusus (SPKK)
                                                             <a href="{{ asset('storage/' . $documents->where('nama_dokumen', 'spkk')->first()->file_dokumen) }}"
                                                                 target="_blank">View File</a>
-                                                                <input type="file" class="form-control form-control-sm"
+                                                            <input type="file" class="form-control form-control-sm"
                                                                 name="spkk[{{ $dosen->id }}]">
                                                         </p>
                                                     @else
@@ -142,7 +143,8 @@
                                                                 name="spkk[{{ $dosen->id }}]">
                                                         </div>
                                                     @endif
-                                                    <input type="hidden" name="dosen_ids[]" value="{{ $dosen->id }}">
+                                                    <input type="hidden" name="dosen_ids[]"
+                                                        value="{{ $dosen->id }}">
 
                                                     <button type="submit" class="btn btn-primary mb-2">Ajukan </button>
 

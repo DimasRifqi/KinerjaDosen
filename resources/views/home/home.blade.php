@@ -1,7 +1,8 @@
 @extends('layouts.home.app')
-
+@section('title', 'Beranda')
+@section('userTypeOnPage', 'SuperAdmin, Verifikator, Perencanaan, Keuangan, dosen, Auditor, OPPT')
 @section('content')
-@include('sweetalert::alert')
+    @include('sweetalert::alert')
     {{-- start laravelUI --}}
     {{-- <div class="container">
         <div class="row justify-content-center">

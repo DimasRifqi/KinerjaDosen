@@ -1,6 +1,7 @@
 @extends('layouts.home.app')
 
 @section('content')
+@include('sweetalert::alert')
     {{-- start laravelUI --}}
     {{-- <div class="container">
         <div class="row justify-content-center">

@@ -3,76 +3,8 @@
 @section('content')
     <div class="content-wrapper">
         <div class="row">
-            <div class="col-lg-12 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Semua Periode</h4>
-                        @if ($periode->isEmpty())
-                            <p class="card-description">
-                                No Periode records found. </p>
-                        @else
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            ID
-                                        </th>
-                                        <th>
-                                            Nama Periode
-                                        </th>
-                                        <th>
-                                            Tipe Periode
-                                        </th>
-                                        <th>
-                                            Masa Periode Awal
-                                        </th>
-                                        <th>
-                                            Masa Periode Berakhir
-                                        </th>
-                                        <th>
-                                            Status
-                                        </th>
-                                        <th>
-                                            Edit
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($periode as $item)
-                                        <tr>
-                                            <td>{{ $item->id_periode }}</td>
-                                            <td>{{ $item->nama_periode }}</td>
-                                            <td>{{ $item->tipe_periode ? 'Bulanan' : 'Semester' }}</td>
-                                            <td>{{ $item->masa_periode_awal }}</td>
-                                            <td>{{ $item->masa_periode_berakhir }}</td>
-                                            <td>{{ $item->status ? 'Active' : 'Inactive' }}</td>
-                                            <td>
-                                                <a href="{{ route('periode.edit', $item->id_periode) }}"
-                                                    class="btn btn-warning btn-sm">Edit</a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        @endif
-
-                        <!-- Display Validation Errors -->
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        <!-- Display Success Message -->
-                        @if (session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
+            <div class="col-lg-12 grid-margin">
+                <div class="home-tab">
 
                     <div class="d-sm-flex align-items-center justify-content-between border-bottom">
                         <ul class="nav nav-tabs" role="tablist">
@@ -203,30 +135,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="tipe_periode">Tipe Periode</label>
-                                    <select class="form-control" name="tipe_periode" id="tipe_periode" required>
-                                        <option>Mohon Pilih Satu</option>
-                                        <option value="1" {{ old('tipe_periode') == 1 ? 'selected' : '' }}>Bulanan
-                                        </option>
-                                        <option value="0" {{ old('tipe_periode') == 0 ? 'selected' : '' }}>Semester
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="masa_periode_awal">Masa Periode Awal</label>
-                                    <input type="date" name="masa_periode_awal" id="masa_periode_awal"
-                                        class="form-control" placeholder="dd/mm/yyyy"
-                                        value="{{ old('masa_periode_awal') }}" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Masa Periode Akhir</label>
-                                    <input type="date" name="masa_periode_akhir" id="masa_periode_akhir"
-                                        class="form-control" placeholder="dd/mm/yyyy"
-                                        value="{{ old('masa_periode_akhir') }}" required>
-                                </div>
-                                <button type="submit" class="btn btn-primary mb-2">Create Periode</button>
-                            </form>
+                            </div>
                         </div>
                     </div>
 

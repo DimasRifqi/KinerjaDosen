@@ -94,6 +94,10 @@ Route::get('/tunjangan/pengajuan/datapengajuan/ajukansemester', function () {
     return view('home.tunjangan.pengajuan.ajukan_semester');
 });
 
+Route::get('/anggota/komponen/gelar_depan', function () {
+    return view('home.anggota.komponen.buat_gelar_depan');
+});
+
 Route::group(['middleware' => ['auth', 'role:1']], function() {
     // Route untuk Admin
     Route::prefix('admin')->group(function () {
@@ -109,6 +113,7 @@ Route::group(['middleware' => ['auth', 'role:1']], function() {
         Route::get('/', [GelarController::class, 'index'])->name('gelar.index');
 
         Route::prefix('depan')->group(function () {
+            Route::get('/', [GelarController::class, 'indexDepan'])->name('gelar-depan.merge');
             Route::get('/create', [GelarController::class, 'createDepan'])->name('gelar-depan.create');
             Route::post('/store', [GelarController::class, 'storeDepan'])->name('gelar-depan.store');
             Route::get('/{id}/edit', [GelarController::class, 'editDepan'])->name('gelar-depan.edit');
@@ -117,6 +122,7 @@ Route::group(['middleware' => ['auth', 'role:1']], function() {
 
         // Routes untuk Gelar Belakang
         Route::prefix('belakang')->group(function () {
+            Route::get('/', [GelarController::class, 'indexBelakang'])->name('gelar-belakang.merge');
             Route::get('/create', [GelarController::class, 'createBelakang'])->name('gelar-belakang.create');
             Route::post('/store', [GelarController::class, 'storeBelakang'])->name('gelar-belakang.store');
             Route::get('/{id}/edit', [GelarController::class, 'editBelakang'])->name('gelar-belakang.edit');

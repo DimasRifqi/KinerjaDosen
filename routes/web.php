@@ -1,16 +1,17 @@
 <?php
 
+use App\Http\Controllers\AuthApiController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CsvImportController;
+use App\Http\Controllers\GelarController;
+use App\Http\Controllers\JabatanFungsionalController;
+use App\Http\Controllers\KotaController;
+use App\Http\Controllers\OPPTController;
+use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\VerifikatorController;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\OPPTController;
-use App\Http\Controllers\GelarController;
-use App\Http\Controllers\CsvImportController;
-use App\Http\Controllers\SuperAdminController;
-use App\Http\Controllers\JabatanFungsionalController;
-use App\Http\Controllers\KotaController;
 use App\Http\Controllers\PDFController;
 
 // Route::get('/', function () {
@@ -191,7 +192,7 @@ Route::group(['middleware' => ['auth', 'role:7|1']], function() {
 
     Route::get('/pengajuan/semester/show/{id}', [OPPTController::class, 'showPengajuanSemester'])->name('oppt.pengajuanSemesterShow.dosen');
     Route::post('/pengajuan/semester/store/', [OPPTController::class, 'ajukanDokumenSemester'])->name('oppt.pengajuanSemesterStore.dosen');
-    
+
     Route::get('/template/{id}', [OPPTController::class, 'fetchDosen'])->name('fetch.dosen');
 
     //PDF
@@ -223,3 +224,7 @@ Route::post('/store/pesan/pengajuan/{id}', [VerifikatorController::class, 'store
 Route::get('/verifikator/index/permohonan', [VerifikatorController::class, 'indexPermohonan'])->name('verifikator.permohonan.index');
 Route::get('/verifikator/index/permohonan/{id}', [VerifikatorController::class, 'showPermohonan'])->name('verifikator.permohonan.show');
 Route::put('/verifikator/index/permohonan/status/{id}', [VerifikatorController::class, 'statusPermohonan'])->name('verifikator.permohonan.status');
+
+Route::get('/userProfile', [AuthApiController::class, 'userProfile']);
+Route::get('/pengajuan', [AuthApiController::class, 'pengajuan']);
+Route::get('/auditor', [AuthApiController::class, 'auditor']);

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pengajuan;
+use App\Models\Pengajuan_User;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthApiController extends Controller
@@ -86,4 +89,39 @@ class AuthApiController extends Controller
             'data' => $user
         ], 200);
     }
+
+    public function pengajuan(){
+        try {
+           $user = Auth::user();
+            $pengajuan = Pengajuan_User::with('pengajuan', 'pengajuan.periode')->where('id', $user->id)->get();
+
+            return response()->json([
+                'data' => $pengajuan,
+            'meta' => ['status_code' => 200,
+                        'success' => true,
+                        'message' => 'Success tampilkan data pengajuan ',
+                        ]
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json(['err' => $th->getMessage()]);
+        }
+    }
+
+    public function auditor(){
+        try {
+           $user = Auth::user();
+            $pengajuan = Pengajuan::with('user', 'periode', 'pengajuan_dokumen')->get();
+
+            return response()->json([
+                'data' => $pengajuan,
+            'meta' => ['status_code' => 200,
+                        'success' => true,
+                        'message' => 'Success tampilkan data pengajuan ',
+                        ]
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json(['err' => $th->getMessage()]);
+        }
+    }
+
 }

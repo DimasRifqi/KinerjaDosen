@@ -10,8 +10,14 @@ class JabatanFungsionalController extends Controller
     public function index()
     {
         $jabatanFungsional = Jabatan_Fungsional::all();
-        return view('testing.jabatan_fungsional.index', compact('jabatanFungsional'));
+        return view('home.anggota.komponen.buat_jabatan', compact('jabatanFungsional'));
     }
+
+    // public function index()
+    // {
+    //     $jabatanFungsional = Jabatan_Fungsional::all();
+    //     return view('testing.jabatan_fungsional.index', compact('jabatanFungsional'));
+    // }
 
     public function create()
     {

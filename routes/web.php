@@ -1,16 +1,17 @@
 <?php
 
+use App\Http\Controllers\AuthApiController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CsvImportController;
+use App\Http\Controllers\GelarController;
+use App\Http\Controllers\JabatanFungsionalController;
+use App\Http\Controllers\KotaController;
+use App\Http\Controllers\OPPTController;
+use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\VerifikatorController;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\OPPTController;
-use App\Http\Controllers\GelarController;
-use App\Http\Controllers\CsvImportController;
-use App\Http\Controllers\SuperAdminController;
-use App\Http\Controllers\JabatanFungsionalController;
-use App\Http\Controllers\KotaController;
 use App\Http\Controllers\PDFController;
 
 // Route::get('/', function () {
@@ -85,6 +86,10 @@ Route::get('/tunjangan/pengajuan/datapengajuan/ajukansemester', function () {
     return view('home.tunjangan.pengajuan.ajukan_semester');
 });
 
+Route::get('/anggota/komponen/gelar_depan', function () {
+    return view('home.anggota.komponen.buat_gelar_depan');
+});
+
 Route::group(['middleware' => ['auth', 'role:1']], function() {
     // Route untuk Admin
     Route::prefix('admin')->group(function () {
@@ -100,6 +105,7 @@ Route::group(['middleware' => ['auth', 'role:1']], function() {
         Route::get('/', [GelarController::class, 'index'])->name('gelar.index');
 
         Route::prefix('depan')->group(function () {
+            Route::get('/', [GelarController::class, 'indexDepan'])->name('gelar-depan.merge');
             Route::get('/create', [GelarController::class, 'createDepan'])->name('gelar-depan.create');
             Route::post('/store', [GelarController::class, 'storeDepan'])->name('gelar-depan.store');
             Route::get('/{id}/edit', [GelarController::class, 'editDepan'])->name('gelar-depan.edit');
@@ -108,6 +114,7 @@ Route::group(['middleware' => ['auth', 'role:1']], function() {
 
         // Routes untuk Gelar Belakang
         Route::prefix('belakang')->group(function () {
+            Route::get('/', [GelarController::class, 'indexBelakang'])->name('gelar-belakang.merge');
             Route::get('/create', [GelarController::class, 'createBelakang'])->name('gelar-belakang.create');
             Route::post('/store', [GelarController::class, 'storeBelakang'])->name('gelar-belakang.store');
             Route::get('/{id}/edit', [GelarController::class, 'editBelakang'])->name('gelar-belakang.edit');
@@ -183,7 +190,7 @@ Route::group(['middleware' => ['auth', 'role:7|1']], function() {
 
     Route::get('/pengajuan/semester/show/{id}', [OPPTController::class, 'showPengajuanSemester'])->name('oppt.pengajuanSemesterShow.dosen');
     Route::post('/pengajuan/semester/store/', [OPPTController::class, 'ajukanDokumenSemester'])->name('oppt.pengajuanSemesterStore.dosen');
-    
+
     Route::get('/template/{id}', [OPPTController::class, 'fetchDosen'])->name('fetch.dosen');
 
     //PDF
@@ -193,12 +200,13 @@ Route::group(['middleware' => ['auth', 'role:7|1']], function() {
     Route::post('store/permohonan/dosen', [OPPTController::class, 'storePermohonan'])->name('oppt.storePermohonan.dosen');
     Route::get('index/permohonan/dosen', [OPPTController::class, 'indexPermohonan'])->name('oppt.indexPermohonan.dosen');
     Route::get('show/permohonan/dosen/{id}', [OPPTController::class, 'showPermohonan'])->name('oppt.showPermohonan.dosen');
+
     Route::get('/template/{id}', [OPPTController::class, 'fetchDosen'])->name('fetch.dosen');
 
 });
 
 
-Route::group(['middleware' => ['auth', 'role:5']], function() {
+Route::group(['middleware' => ['auth']], function() {
     // Profile Routes
     Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
     Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
@@ -215,3 +223,7 @@ Route::post('/store/pesan/pengajuan/{id}', [VerifikatorController::class, 'store
 Route::get('/verifikator/index/permohonan', [VerifikatorController::class, 'indexPermohonan'])->name('verifikator.permohonan.index');
 Route::get('/verifikator/index/permohonan/{id}', [VerifikatorController::class, 'showPermohonan'])->name('verifikator.permohonan.show');
 Route::put('/verifikator/index/permohonan/status/{id}', [VerifikatorController::class, 'statusPermohonan'])->name('verifikator.permohonan.status');
+
+Route::get('/userProfile', [AuthApiController::class, 'userProfile']);
+Route::get('/pengajuan', [AuthApiController::class, 'pengajuan']);
+Route::get('/auditor', [AuthApiController::class, 'auditor']);

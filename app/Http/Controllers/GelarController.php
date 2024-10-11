@@ -8,6 +8,20 @@ use Illuminate\Http\Request;
 
 class GelarController extends Controller
 {
+    // merge gelar depan
+    public function indexDepan()
+    {
+        $gelarD = Gelar_Depan::all();
+        return view('home.anggota.komponen.buat_gelar_depan', compact('gelarD'));
+    }
+
+    // merge gelar belakang
+    public function indexBelakang()
+    {
+        $gelarB = Gelar_Belakang::all();
+        return view('home.anggota.komponen.buat_gelar_belakang', compact('gelarB'));
+    }
+
     // Menampilkan halaman index
     public function index()
     {

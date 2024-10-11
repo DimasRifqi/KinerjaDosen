@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthApiController;
 use App\Http\Controllers\CsvImportController;
 use App\Http\Controllers\GelarController;
 use App\Http\Controllers\JabatanFungsionalController;
@@ -151,3 +152,7 @@ Route::post('/store/pesan/pengajuan/{id}', [VerifikatorController::class, 'store
 Route::get('/verifikator/index/permohonan', [VerifikatorController::class, 'indexPermohonan'])->name('verifikator.permohonan.index');
 Route::get('/verifikator/index/permohonan/{id}', [VerifikatorController::class, 'showPermohonan'])->name('verifikator.permohonan.show');
 Route::put('/verifikator/index/permohonan/status/{id}', [VerifikatorController::class, 'statusPermohonan'])->name('verifikator.permohonan.status');
+
+Route::get('/userProfile', [AuthApiController::class, 'userProfile']);
+Route::get('/pengajuan', [AuthApiController::class, 'pengajuan']);
+Route::get('/auditor', [AuthApiController::class, 'auditor']);

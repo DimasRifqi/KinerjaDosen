@@ -208,7 +208,6 @@ Route::group(['middleware' => ['auth', 'role:7|1']], function() {
     Route::post('store/permohonan/dosen', [OPPTController::class, 'storePermohonan'])->name('oppt.storePermohonan.dosen');
     Route::get('index/permohonan/dosen', [OPPTController::class, 'indexPermohonan'])->name('oppt.indexPermohonan.dosen');
     Route::get('show/permohonan/dosen/{id}', [OPPTController::class, 'showPermohonan'])->name('oppt.showPermohonan.dosen');
-
     Route::get('/template/{id}', [OPPTController::class, 'fetchDosen'])->name('fetch.dosen');
 
 });
@@ -232,6 +231,7 @@ Route::get('/verifikator/index/permohonan', [VerifikatorController::class, 'inde
 Route::get('/verifikator/index/permohonan/{id}', [VerifikatorController::class, 'showPermohonan'])->name('verifikator.permohonan.show');
 Route::put('/verifikator/index/permohonan/status/{id}', [VerifikatorController::class, 'statusPermohonan'])->name('verifikator.permohonan.status');
 
+//Tes Api
 Route::get('/userProfile', [AuthApiController::class, 'userProfile']);
 Route::get('/pengajuan', [AuthApiController::class, 'pengajuan']);
 Route::get('/auditor', [AuthApiController::class, 'auditor']);

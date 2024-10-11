@@ -131,6 +131,8 @@
                                                         <p>SPTJM Pemenuhan Kewajiban Khusus (SPKK)
                                                             <a href="{{ asset('storage/' . $documents->where('nama_dokumen', 'spkk')->first()->file_dokumen) }}"
                                                                 target="_blank">View File</a>
+                                                                <input type="file" class="form-control form-control-sm"
+                                                                name="spkk[{{ $dosen->id }}]">
                                                         </p>
                                                     @else
                                                         <div class="form-group">

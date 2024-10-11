@@ -96,13 +96,23 @@ class VerifikatorController extends Controller
 
     public function indexPermohonan(){
         $permohonan = Permohonan::all();
-        return view('testing.verifikator.permohonan.index_permohonan', ['permohonan' => $permohonan]);
+        return view('home.verifikasi.permohonan_dosen', ['permohonan' => $permohonan]);
     }
 
     public function showPermohonan($id){
         $permohonan = Permohonan::with('user')->findOrFail($id);
-        return view('testing.verifikator.permohonan.show_permohonan', ['permohonan' => $permohonan]);
+        return view('home.verifikasi.permohonan_dosen_detail', ['permohonan' => $permohonan]);
     }
+
+    // public function indexPermohonan(){
+    //     $permohonan = Permohonan::all();
+    //     return view('testing.verifikator.permohonan.index_permohonan', ['permohonan' => $permohonan]);
+    // }
+
+    // public function showPermohonan($id){
+    //     $permohonan = Permohonan::with('user')->findOrFail($id);
+    //     return view('testing.verifikator.permohonan.show_permohonan', ['permohonan' => $permohonan]);
+    // }
 
     public function statusPermohonan($id){
         $permohonan = Permohonan::with('user')->findOrFail($id);

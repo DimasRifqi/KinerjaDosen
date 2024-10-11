@@ -95,8 +95,8 @@
                 <div class="tab-content tab-content-basic">
                     <div class="tab-pane fade show" id="audiences" role="tabpanel" aria-labelledby="audiences">
                         <div class="row justify-content-center">
-                            <div class="col-md-6 grid-margin stretch-card">
-                                @foreach ($pengajuan->user as $dosen)
+                            @foreach ($pengajuan->user as $dosen)
+                                <div class="col-md-6 grid-margin stretch-card">
                                     <div class="card">
                                         <div class="card-body">
                                             <h4 class="card-title">Dokumen {{ $dosen->name }}</h4>
@@ -153,9 +153,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
 
-                            </div>
+                                </div>
+                            @endforeach
+
                         </div>
 
                     </div>

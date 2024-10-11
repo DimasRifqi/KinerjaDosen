@@ -100,7 +100,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="image">File upload</label>
+                                <label for="image">Foto</label>
                                 <input type="file" class="file-upload-default" accept="image/*">
                                 <div class="input-group col-xs-12">
                                     <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image" id="image" name="image[]"  accept="image/*">
@@ -111,7 +111,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="file_serdos">File Sertifikasi Dose</label>
+                                <label for="file_serdos">File Sertifikasi Dosen</label>
                                 <input type="file" class="file-upload-default" accept=".pdf">
                                 <div class="input-group col-xs-12">
                                     <input type="text" class="form-control file-upload-info" disabled placeholder="Upload File" id="file_serdos" name="file_serdos[]"  accept=".pdf">

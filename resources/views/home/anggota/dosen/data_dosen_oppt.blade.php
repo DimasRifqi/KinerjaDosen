@@ -41,7 +41,7 @@
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
 
-                                                <td> {{ $item->name }}</td>
+                                                <td>{{ $item->name }}</td>
                                                 <td>{{ $item->email }}</td>
                                                 <td>{{ $item->nidn }}</td>
                                                 <td>{{ $item->universitas->nama_universitas }}</td>

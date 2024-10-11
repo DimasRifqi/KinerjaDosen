@@ -212,6 +212,13 @@
             <div class="collapse" id="dosen">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ route('oppt.index.dosen') }}">Data Dosen (OPPT)</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('oppt.createPermohonan.dosen') }}">Permohonan
+                            Verifikasi</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.index') }}">Data Dosen</a>
                     </li>
                     <li class="nav-item">

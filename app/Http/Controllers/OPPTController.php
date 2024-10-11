@@ -27,8 +27,19 @@ class OPPTController extends Controller
             // ->where('id_role', 5)
             ->where('id_universitas', $oppt->id_universitas);
         //return response()->json(['dosen' => $dosen]);
-        return view('testing.oppt.index_dosen', ['dosen' => $dosen]);
+        return view('home.anggota.dosen.data_dosen_oppt', ['dosen' => $dosen]);
     }
+
+    // public function allDosen()
+    // {
+    //     $oppt = Auth::user();
+    //     $dosen = User::all()
+
+    //         // ->where('id_role', 5)
+    //         ->where('id_universitas', $oppt->id_universitas);
+    //     //return response()->json(['dosen' => $dosen]);
+    //     return view('testing.oppt.index_dosen', ['dosen' => $dosen]);
+    // }
 
     public function updateStatusDosen(Request $request, $id)
     {

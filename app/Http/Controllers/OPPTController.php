@@ -9,6 +9,7 @@ use App\Models\Pangkat_Dosen;
 use App\Models\Pengajuan;
 use App\Models\Pengajuan_Dokumen;
 use App\Models\Periode;
+use App\Models\Permohonan;
 use App\Models\Prodi;
 use App\Models\Role;
 use App\Models\Universitas;
@@ -562,6 +563,36 @@ class OPPTController extends Controller
         } catch (\Throwable $th) {
             return response()->json(['error' => $th->getMessage()]);
         }
+    }
+
+    public function createPermohonan(){
+        $oppt = Auth::user();
+        $dosen = User::all()
+        ->where('id_universitas', $oppt->id_universitas);
+        return view('testing.oppt.permohonan.create_permohonan', ['dosen'=>$dosen]);
+    }
+    public function storePermohonan(Request $request){
+        $request->validate([
+            'permohonan' => 'required|string',
+            'id' => 'required|exists:users,id',
+        ]);
+       Permohonan::create([
+        'id' => $request->id,
+        'permohonan' => $request->permohonan
+        ]);
+        return redirect()->back();
+    }
+    public function indexPermohonan(){
+        $oppt = Auth::user();
+        $dosenIds = User::where('id_universitas', $oppt->id_universitas)->pluck('id')->toArray();
+        $permohonan = Permohonan::with('user')
+            ->whereIn('id', $dosenIds)
+            ->get();
+        return view('testing.oppt.permohonan.index_permohonan', ['permohonan'=>$permohonan]);
+    }
+    public function showPermohonan($id){
+        $permohonan = Permohonan::with('user')->findOrFail($id);
+        return view('testing.oppt.permohonan.show_permohonan', ['permohonan'=>$permohonan]);
     }
 
     public function fetchDosen($id){

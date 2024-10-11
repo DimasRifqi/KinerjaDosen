@@ -599,8 +599,21 @@ class OPPTController extends Controller
         $permohonan = Permohonan::with('user')
             ->whereIn('id', $dosenIds)
             ->get();
-        return view('testing.oppt.permohonan.index_permohonan', ['permohonan'=>$permohonan]);
+        $dosen = User::all()
+            ->where('id_universitas', $oppt->id_universitas);
+
+        return view('home.anggota.dosen.permohonan_verifikasi', ['permohonan'=>$permohonan, 'dosen'=>$dosen]);
     }
+
+    // public function indexPermohonan(){
+    //     $oppt = Auth::user();
+    //     $dosenIds = User::where('id_universitas', $oppt->id_universitas)->pluck('id')->toArray();
+    //     $permohonan = Permohonan::with('user')
+    //         ->whereIn('id', $dosenIds)
+    //         ->get();
+    //     return view('testing.oppt.permohonan.index_permohonan', ['permohonan'=>$permohonan]);
+    // }
+
     public function showPermohonan($id){
         $permohonan = Permohonan::with('user')->findOrFail($id);
         return view('testing.oppt.permohonan.show_permohonan', ['permohonan'=>$permohonan]);

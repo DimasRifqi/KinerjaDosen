@@ -215,7 +215,7 @@
                         <a class="nav-link" href="{{ route('oppt.index.dosen') }}">Data Dosen (OPPT)</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('oppt.createPermohonan.dosen') }}">Permohonan
+                        <a class="nav-link" href="{{ route('oppt.indexPermohonan.dosen') }}">Permohonan
                             Verifikasi</a>
                     </li>
                     <li class="nav-item">

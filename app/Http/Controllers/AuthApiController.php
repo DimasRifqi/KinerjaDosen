@@ -92,8 +92,7 @@ class AuthApiController extends Controller
 
     public function pengajuan(){
         try {
-           $user = Auth::user();
-            $pengajuan = Pengajuan_User::with('pengajuan', 'pengajuan.periode')->where('id', $user->id)->get();
+            $pengajuan = Pengajuan_User::with('pengajuan', 'pengajuan.periode')->get();
 
             return response()->json([
                 'data' => $pengajuan,
@@ -109,7 +108,7 @@ class AuthApiController extends Controller
 
     public function auditor(){
         try {
-           $user = Auth::user();
+           //$user = Auth::user();
             $pengajuan = Pengajuan::with('user', 'periode', 'pengajuan_dokumen')->get();
 
             return response()->json([

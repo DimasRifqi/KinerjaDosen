@@ -182,7 +182,7 @@
                         <a class="nav-link" href="{{ route('kota.index') }}">Kota</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('index.uni') }}">Universitas</a>
+                        <a class="nav-link" href="{{ route('univ.index') }}">Universitas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('index.prodi') }}">Program Studi</a>
@@ -202,6 +202,7 @@
                 </ul>
             </div>
         </li>
+
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#dosen" aria-expanded="false"
                 aria-controls="dosen">
@@ -269,7 +270,7 @@
                         <a class="nav-link" href="#">Data Auditor</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('pendaftaranauditor') }}">Pendaftaran Auditor</a> 
+                        <a class="nav-link" href="{{ route('pendaftaranauditor') }}">Pendaftaran Auditor</a>
                     </li>
                 </ul>
             </div>

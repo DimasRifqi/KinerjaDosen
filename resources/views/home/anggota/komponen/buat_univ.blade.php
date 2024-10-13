@@ -3,7 +3,6 @@
 @section('content')
     <div class="content-wrapper">
         <div class="home-tab">
-
             <div class="d-sm-flex align-items-center justify-content-between border-bottom">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
@@ -22,27 +21,21 @@
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <!-- Display Success Message -->
-                                    @if (session('success'))
-                                        <div class="alert alert-success">
-                                            {{ session('success') }}
-                                        </div>
-                                    @endif
-                                    <!-- Display Validation Errors -->
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
+        
+                                    <div id="success-message" class="alert alert-success" style="display:none;"></div>
+
+                                    <div id="error-message" class="alert alert-danger" style="display:none;">
+                                        <ul id="error-list"></ul>
+                                    </div>
 
                                     <h4 class="card-title">Data Universitas</h4>
+
+                                    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createModal">
+                                        Create Universitas
+                                    </button>
+
                                     @if ($univ->isEmpty())
-                                        <p class="card-description">
-                                            No Data Universitas records found. </p>
+                                        <p class="card-description">No Data Universitas records found.</p>
                                     @else
                                         <div class="table-responsive">
                                             <table class="table table-striped">
@@ -55,7 +48,7 @@
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody id="univ-table-body">
                                                     @foreach ($univ as $uni)
                                                         <tr>
                                                             <td>{{ $uni->id_universitas }}</td>
@@ -63,9 +56,7 @@
                                                             <td>{{ $uni->kota ? $uni->kota->nama_kota : 'N/A' }}</td>
                                                             <td>{{ $uni->status ? 'Active' : 'Inactive' }}</td>
                                                             <td>
-                                                            <td>
-                                                                <a href="{{ route('univ.edit', $uni->id_universitas) }}"
-                                                                    class="btn btn-warning btn-sm">Edit</a>
+                                                                <a href="{{ route('univ.edit', $uni->id_universitas) }}" class="btn btn-warning btn-sm">Edit</a>
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -76,11 +67,99 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="createModalLabel">Create Universitas</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <form id="createUnivForm">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="nama_univ">Nama Universitas</label>
+                                                <input type="text" class="form-control" id="nama_univ" name="nama_univ" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="id_kota">Kota</label>
+                                                <select class="form-control" id="id_kota" name="id_kota" required>
+                                                    @foreach ($kota as $kt)
+                                                        <option value="{{ $kt->id_kota }}">{{ $kt->nama_kota }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+                        <script>
+                            $(document).ready(function() {
+
+                                $('#createUnivForm').on('submit', function(e) {
+                                    e.preventDefault();
+
+                                    $('#success-message').hide();
+                                    $('#error-message').hide();
+                                    $('#error-list').empty();
+
+                                    var formData = $(this).serialize();
+
+                                    $.ajax({
+                                        url: '{{ route("univ.create") }}',
+                                        method: 'POST',
+                                        data: formData,
+                                        success: function(response) {
+
+                                            if(response)(
+                                                location.reload()
+                                            )
+                                            $('#univ-table-body').append(`
+                                                <tr>
+                                                    <td>${response.id_universitas}</td>
+                                                    <td>${response.nama_univ}</td>
+                                                    <td>${response.kota_nama}</td>
+
+                                                    <td>
+                                                        <a href="/univ/edit/${response.id_universitas}" class="btn btn-warning btn-sm">Edit</a>
+                                                    </td>
+                                                </tr>
+                                            `);
+
+                                            $('#success-message').text('Universitas created successfully!').show();
+
+                                            $('#createModal').modal('hide');
+
+                                            $('#createUnivForm')[0].reset();
+                                        },
+                                        error: function(xhr) {
+
+                                            var errors = xhr.responseJSON.errors;
+                                            if (errors) {
+                                                for (var error in errors) {
+                                                    $('#error-list').append(`<li>${errors[error][0]}</li>`);
+                                                }
+                                                $('#error-message').show();
+                                            }
+                                        }
+                                    });
+                                });
+                            });
+                        </script>
+
                     </div>
                 </div>
             </div>
-
         </div>
+
 
         <div class="home-tab">
 

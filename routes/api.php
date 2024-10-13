@@ -26,3 +26,5 @@ Route::group(['prefix' => 'dosen'], function () {
 
 //Route::get('/pengajuan', [AuthApiController::class, 'pengajuan']);
 });
+
+Route::get('/auditor', [AuthApiController::class, 'auditor']);

@@ -23,8 +23,14 @@ class OPPTController extends Controller
     public function historyPengajuanDosen($id){
         $dosen = User::with('pengajuan')->findOrFail($id);
         //return response()->json(['Data' => $dosen]);
-        return view('testing.oppt.history_dosen_pengajuan', ['dosen'=>$dosen]);
+        return view('home.tunjangan.pengajuan.riwayat_pengajuan', ['dosen'=>$dosen]);
     }
+
+    // public function historyPengajuanDosen($id){
+    //     $dosen = User::with('pengajuan')->findOrFail($id);
+    //     //return response()->json(['Data' => $dosen]);
+    //     return view('testing.oppt.history_dosen_pengajuan', ['dosen'=>$dosen]);
+    // }
 
     public function allDosen()
     {

@@ -98,7 +98,23 @@ Route::get('/anggota/komponen/gelar_depan', function () {
     return view('home.anggota.komponen.buat_gelar_depan');
 });
 
-Route::group(['middleware' => ['auth', 'role:1']], function() {
+Route::get('/anggota/lldikti/pendaftaranlldikti', function () {
+    return view('home.anggota.lldikti.pendaftaran_lldikti');
+})->name('pendaftaranlldikti');
+
+Route::get('/anggota/auditor/pendaftaranauditor', function () {
+    return view('home.anggota.auditor.pendaftaran_auditor');
+})->name('pendaftaranauditor');
+
+Route::get('/anggota/lldikti/editlldikti', function () {
+    return view('home.anggota.lldikti.edit_lldikti');
+})->name('editlldikti');
+
+Route::get('/anggota/auditor/editauditor', function () {
+    return view('home.anggota.auditor.edit_auditor');
+})->name('edit_auditor');
+
+Route::group(['middleware' => ['auth', 'role:1']], function () {
     // Route untuk Admin
     Route::prefix('admin')->group(function () {
         Route::get('/', [SuperAdminController::class, 'index'])->name('admin.index');
@@ -169,10 +185,9 @@ Route::group(['middleware' => ['auth', 'role:1']], function() {
     Route::post('/pangkat/create', [SuperAdminController::class, 'createPangkat'])->name('pangkat.create');
     Route::get('/pangkat/edit/{id}', [SuperAdminController::class, 'editPangkat'])->name('pangkat.edit');
     Route::put('/pangkat/update/{id}', [SuperAdminController::class, 'updatePangkat'])->name('pangkat.update');
-
 });
 
-Route::group(['middleware' => ['auth', 'role:7|1']], function() {
+Route::group(['middleware' => ['auth', 'role:7|1']], function () {
 
     //OP PT or admin
     Route::get('/index/dosen', [OPPTController::class, 'allDosen'])->name('oppt.index.dosen');
@@ -209,15 +224,13 @@ Route::group(['middleware' => ['auth', 'role:7|1']], function() {
     Route::get('index/permohonan/dosen', [OPPTController::class, 'indexPermohonan'])->name('oppt.indexPermohonan.dosen');
     Route::get('show/permohonan/dosen/{id}', [OPPTController::class, 'showPermohonan'])->name('oppt.showPermohonan.dosen');
     Route::get('/template/{id}', [OPPTController::class, 'fetchDosen'])->name('fetch.dosen');
-
 });
 
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function () {
     // Profile Routes
     Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
     Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
-
 });
 
 

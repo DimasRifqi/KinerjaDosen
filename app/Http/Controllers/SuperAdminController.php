@@ -322,11 +322,13 @@ class SuperAdminController extends Controller
         $validateData = $request->validate([
             'nama_univ' => 'required',
             'id_kota' => 'required',
+            'tipe' => 'required',
         ]);
 
-        $univ = Universitas::create([
+        Universitas::create([
             'nama_universitas' => $validateData['nama_univ'],
-            'id_kota' => $validateData['id_kota']
+            'id_kota' => $validateData['id_kota'],
+            'tipe' => $validateData['tipe'],
         ]);
 
         return redirect()->back()->with('success', 'Universitas Berhasil Ditambahkan');
@@ -345,12 +347,13 @@ class SuperAdminController extends Controller
         $validateData = $request->validate([
             'nama_universitas' => 'required',
             'id_kota' => 'required',
-            'status' => 'required|boolean'
+            'tipe' => 'required|in:pemerintahan,lldikti,universitas',
+            'status' => 'required|boolean',
         ]);
 
         $univ->update($validateData);
 
-        return redirect()->route('index.uni')->with('success', 'Universitas berhasil diubah');
+        return redirect()->route('univ.index')->with('success', 'Universitas berhasil diubah');
     }
 
     public function indexProdi(){

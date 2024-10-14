@@ -26,6 +26,79 @@
 
         // Initialize Bootstrap tooltip
         $('[data-bs-toggle="tooltip"]').tooltip();
+
+        
+            //  $('#searchInput').on('input', function() {
+            //     var query = $(this).val();
+
+            //     if (query !== '') {
+            //         $.ajax({
+            //             url: "{{ route('search') }}",
+            //             method: 'GET',
+            //             data: { query: query },
+            //             dataType: 'json',
+            //             success: function(data) {
+            //                 if (data.data.length > 0) {
+            //                     updateTable(data);
+            //                 } else {
+            //                     $('#tableKota tbody').html('<tr class="tr"><td colspan="9" class="text-center">Project tidak ditemukan</td></tr>'); // Display "No Projects Available" message
+            //                 }
+            //             },
+            //             error: function(error) {
+            //                 console.error('Error fetching search results:', error);
+            //             }
+            //         });
+            //     }else{
+            //         $.ajax({
+            //             url: "{{ route('kota.index') }}",
+            //             method: 'GET',
+            //             data: {query: ''},
+            //             dataType: 'json',
+            //             success: function(data){
+            //                 updateTable(data);
+            //             }
+            //         })
+            //     }
+
+            //     console.log(data.links);
+                
+            // });
+
+            // function updateTable(response) {
+            //     var tbody = $('.table-responsive table tbody'); // Target the new table's body
+            //     tbody.empty(); // Clear the existing rows
+
+                
+            //     $.each(response.data, function(index, item) {
+            //         var idKota = index + 1;
+            //         var row = '<tr>';
+                    
+            //         // Add each column based on the new table structure
+            //         row += '<td>' + idKota + '</td>';  // ID Kota
+            //         row += '<td>' + item.nama_kota + '</td>';  // Nama Kota
+                    
+            //         // For Provinsi, since it's hardcoded to "Jawa Timur" in the Blade template, you can hardcode it here as well
+            //         row += '<td>Jawa Timur</td>';
+                    
+            //         // Actions: Edit button
+            //         var editAction = '{{ route('kota.edit', ':id') }}';
+            //         editAction = editAction.replace(':id', item.id_kota);
+            //         row += '<td>';
+            //         row += '<a href="' + editAction + '" class="btn btn-warning btn-sm">Edit</a>';
+            //         row += '</td>';
+
+            //         row += '</tr>';
+            //         tbody.append(row); // Add the row to the table body
+            //     });
+
+            //     // Update the pagination links
+                
+            //         $('.pagination').html(response.links);  // Update the pagination links
+
+            //     // console.log(response);
+                
+            // }
+
     });
 </script>
 

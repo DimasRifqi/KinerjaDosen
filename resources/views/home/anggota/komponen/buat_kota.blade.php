@@ -40,16 +40,34 @@
                                         </div>
                                     @endif
 
-                                    <h4 class="card-title">Data Kota</h4>
+                                    <div class="d-flex" style="justify-content: space-between; padding: 10px 20px;">
+                                        <h4>
+                                            Data Kota
+                                        </h4>
+                                         {{-- <div class="search-container">
+                                            <div class="input-group">
+                                                <input class="form-control"
+                                                    style="background: none; border: none; display: flex; align-items: center;"
+                                                    id="searchInput" type="text" placeholder="Search" autocomplete="on">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"
+                                                        style="background: none; border: none; padding-left: 0; display: flex; align-items: center;">
+                                                        <i class="mdi mdi-magnify"
+                                                                style="background: none;"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div> --}}
+                                    </div>
                                     @if ($kota->isEmpty())
                                         <p class="card-description">
                                             No Data Kota records found. </p>
                                     @else
                                         <div class="table-responsive">
-                                            <table class="table table-striped">
+                                            <table class="table table-striped" id="tableKota">
                                                 <thead>
                                                     <tr>
-                                                        <th>ID</th>
+                                                        <th>No</th>
                                                         <th>Nama Kota</th>
                                                         <th>Provinsi</th>
                                                         <th>Aksi</th>
@@ -60,7 +78,7 @@
                                                         <tr>
                                                             <td>{{ $item->id_kota }}</td>
                                                             <td>{{ $item->nama_kota }}</td>
-                                                            <td>{{ $item->provinsi->nama_provinsi ?? 'N/A' }}</td>
+                                                            <td>Jawa Timur</td>
                                                             <td>
                                                                 <a href="{{ route('kota.edit', $item->id_kota) }}"
                                                                     class="btn btn-warning btn-sm">Edit</a>
@@ -69,6 +87,7 @@
                                                     @endforeach
                                                 </tbody>
                                             </table>
+                                            {{ $kota->links() }}
                                         </div>
                                     @endif
                                 </div>

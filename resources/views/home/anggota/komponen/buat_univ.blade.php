@@ -16,13 +16,68 @@
                     </li>
                 </ul>
             </div>
+
+            {{-- modal edit --}}
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Edit Universitas</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editUnivForm">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" id="edit_id_universitas" name="id_universitas">
+
+                                <div class="form-group">
+                                    <label for="edit_nama_univ">Nama Universitas</label>
+                                    <input type="text" class="form-control" id="edit_nama_univ" name="nama_univ"
+                                        required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="edit_id_kota">Kota</label>
+                                    <select class="form-control" id="edit_id_kota" name="id_kota" required>
+                                        <option value="">Pilih Kota</option>
+                                        @foreach ($kota as $kt)
+                                            <option value="{{ $kt->id_kota }}">{{ $kt->nama_kota }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="edit_tipe">Tipe</label>
+                                    <select class="form-control" id="edit_tipe" name="tipe" required>
+                                        <option value="pemerintahan">Pemerintahan</option>
+                                        <option value="lldikti">LLDIKTI</option>
+                                        <option value="universitas">Universitas</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="edit_status">Status</label>
+                                    <select class="form-control" id="edit_status" name="status" required>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="tab-content tab-content-basic">
                 <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
                     <div class="row">
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-        
+
                                     <div id="success-message" class="alert alert-success" style="display:none;"></div>
 
                                     <div id="error-message" class="alert alert-danger" style="display:none;">
@@ -31,7 +86,8 @@
 
                                     <h4 class="card-title">Data Universitas</h4>
 
-                                    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createModal">
+                                    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
+                                        data-bs-target="#createModal">
                                         Create Universitas
                                     </button>
 
@@ -45,6 +101,7 @@
                                                         <th>ID Universitas</th>
                                                         <th>Nama Universitas</th>
                                                         <th>Kota</th>
+                                                        <th>TIpe</th>
                                                         <th>Status</th>
                                                         <th>Aksi</th>
                                                     </tr>
@@ -55,10 +112,21 @@
                                                             <td>{{ $uni->id_universitas }}</td>
                                                             <td>{{ $uni->nama_universitas }}</td>
                                                             <td>{{ $uni->kota ? $uni->kota->nama_kota : 'N/A' }}</td>
+                                                            <td>{{ $uni->tipe }}</td>
                                                             <td>{{ $uni->status ? 'Active' : 'Inactive' }}</td>
                                                             <td>
-                                                                <a href="{{ route('univ.edit', $uni->id_universitas) }}" class="btn btn-warning btn-sm">Edit</a>
+                                                                <button type="button"
+                                                                    class="btn btn-warning btn-sm edit-btn"
+                                                                    data-id="{{ $uni->id_universitas }}"
+                                                                    data-nama="{{ $uni->nama_universitas }}"
+                                                                    data-kota="{{ $uni->id_kota }}"
+                                                                    data-tipe="{{ $uni->tipe }}"
+                                                                    data-status="{{ $uni->status }}"
+                                                                    data-bs-toggle="modal" data-bs-target="#editModal">
+                                                                    Edit
+                                                                </button>
                                                             </td>
+
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -69,12 +137,14 @@
                             </div>
                         </div>
 
-                        <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel"
+                            aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="createModalLabel">Create Universitas</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
 
@@ -82,125 +152,135 @@
                                             @csrf
                                             <div class="form-group">
                                                 <label for="nama_univ">Nama Universitas</label>
-                                                <input type="text" class="form-control" id="nama_univ" name="nama_univ" required>
+                                                <input type="text" class="form-control" id="nama_univ"
+                                                    name="nama_univ" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="id_kota">Kota</label>
                                                 <select class="form-control" id="id_kota" name="id_kota" required>
+                                                    <option value="">Pilih Kota</option>
                                                     @foreach ($kota as $kt)
                                                         <option value="{{ $kt->id_kota }}">{{ $kt->nama_kota }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
 
-                                            <button type="submit" class="btn btn-primary">Save</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-                        <script>
-                            $(document).ready(function() {
-
-                                $('#createUnivForm').on('submit', function(e) {
-                                    e.preventDefault();
-
-                                    $('#success-message').hide();
-                                    $('#error-message').hide();
-                                    $('#error-list').empty();
-
-                                    var formData = $(this).serialize();
-
-                                    $.ajax({
-                                        url: '{{ route("univ.create") }}',
-                                        method: 'POST',
-                                        data: formData,
-                                        success: function(response) {
-
-                                            if(response)(
-                                                location.reload()
-                                            )
-                                            $('#univ-table-body').append(`
-                                                <tr>
-                                                    <td>${response.id_universitas}</td>
-                                                    <td>${response.nama_univ}</td>
-                                                    <td>${response.kota_nama}</td>
-
-                                                    <td>
-                                                        <a href="/univ/edit/${response.id_universitas}" class="btn btn-warning btn-sm">Edit</a>
-                                                    </td>
-                                                </tr>
-                                            `);
-
-                                            $('#success-message').text('Universitas created successfully!').show();
-
-                                            $('#createModal').modal('hide');
-
-                                            $('#createUnivForm')[0].reset();
-                                        },
-                                        error: function(xhr) {
-
-                                            var errors = xhr.responseJSON.errors;
-                                            if (errors) {
-                                                for (var error in errors) {
-                                                    $('#error-list').append(`<li>${errors[error][0]}</li>`);
-                                                }
-                                                $('#error-message').show();
-                                            }
-                                        }
-                                    });
-                                });
-                            });
-                        </script>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="home-tab">
-
-            <div class="tab-content tab-content-basic">
-                <div class="tab-pane fade show" id="audiences" role="tabpanel" aria-labelledby="audiences">
-
-                    <div class="row justify-content-center">
-                        <div class="col-md-6 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Buat Universitas Baru</h4>
-                                    <div class="row">
-                                        <form action="{{ route('univ.create') }}" method="POST">
-                                            @csrf
                                             <div class="form-group">
-                                                <label for="nama_univ">Nama Universitas:</label>
-                                                <input type="text" name="nama_univ" id="nama_univ" class="form-control"
-                                                    value="{{ old('nama_universitas') }}" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label name="id_kota" id="id_kota" class="form-label" required>Pilih
-                                                    Kota</label>
-                                                <select class="form-control">
-                                                    @foreach ($kota as $city)
-                                                        <option value="{{ $city->id_kota }}">{{ $city->nama_kota }}
-                                                        </option>
-                                                    @endforeach
+                                                <label for="tipe">Tipe</label>
+                                                <select class="form-control" id="tipe" name="tipe" required>
+                                                    <option value="">Pilih Tipe</option>
+                                                    <option value="pemerintahan">Pemerintahan</option>
+                                                    <option value="lldikti">LLDIKTI</option>
+                                                    <option value="universitas">Universitas</option>
                                                 </select>
                                             </div>
-                                            <button type="submit" class="btn btn-primary mb-2">Buat</button>
+
+                                            <button type="submit" class="btn btn-success">Save</button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
-
         </div>
 
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            $('#createUnivForm').on('submit', function(e) {
+                e.preventDefault();
+
+                $('#success-message').hide();
+                $('#error-message').hide();
+                $('#error-list').empty();
+
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    url: '{{ route('univ.create') }}',
+                    method: 'POST',
+                    data: formData,
+                    success: function(response) {
+
+                        if (response)(
+                            location.reload()
+                        )
+                        $('#univ-table-body').append(`
+                            <tr>
+                                <td>${response.id_universitas}</td>
+                                <td>${response.nama_univ}</td>
+                                <td>${response.kota_nama}</td>
+                                <td>${response.tipe}</td>
+
+                                <td>
+                                    <a href="/univ/edit/${response.id_universitas}" class="btn btn-warning btn-sm">Edit</a>
+                                </td>
+                            </tr>
+                        `);
+
+                        $('#success-message').text('Universitas created successfully!').show();
+
+                        $('#createModal').modal('hide');
+
+                        $('#createUnivForm')[0].reset();
+                    },
+                    error: function(xhr) {
+
+                        var errors = xhr.responseJSON.errors;
+                        if (errors) {
+                            for (var error in errors) {
+                                $('#error-list').append(`<li>${errors[error][0]}</li>`);
+                            }
+                            $('#error-message').show();
+                        }
+                    }
+                });
+            });
+
+            $('.edit-btn').on('click', function() {
+                var id = $(this).data('id');
+                var nama = $(this).data('nama');
+                var kota = $(this).data('kota');
+                var tipe = $(this).data('tipe');
+                var status = $(this).data('status');
+
+                $('#edit_id_universitas').val(id);
+                $('#edit_nama_univ').val(nama);
+                $('#edit_id_kota').val(kota);
+                $('#edit_tipe').val(tipe);
+                $('#edit_status').val(status);
+
+                $('#editModal').modal('show');
+            });
+
+
+            $('#editUnivForm').on('submit', function(e) {
+                e.preventDefault();
+
+                var formData = $(this).serialize();
+                var id = $('#edit_id_universitas').val();
+
+                $.ajax({
+                    url: '/univ/update/' + id,
+                    method: 'POST',
+                    data: formData,
+                    success: function(response) {
+
+                        location.reload();
+                    },
+                    error: function(xhr) {
+
+                        alert('Terjadi kesalahan');
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

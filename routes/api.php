@@ -19,12 +19,11 @@ Route::group([
     "middleware" => "auth:sanctum"], function(){
     Route::get('/userProfile', [AuthApiController::class, 'userProfile']);
     Route::get('/logout', [AuthApiController::class, 'logout']);
-    //Route::get('/pengajuan', [AuthApiController::class, 'pengajuan']);
+    Route::get('/pengajuan', [AuthApiController::class, 'pengajuan']);
 });
 
 Route::group(['prefix' => 'dosen'], function () {
-
-//Route::get('/pengajuan', [AuthApiController::class, 'pengajuan']);
 });
 
-Route::get('/auditor', [AuthApiController::class, 'auditor']);
+Route::get('/allData', [AuthApiController::class, 'allData']);
+Route::post('/search/dosen', [AuthApiController::class, 'searchDosen']);

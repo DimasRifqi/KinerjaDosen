@@ -42,13 +42,17 @@ Route::get('/anggota/operator/pendaftaranoppt', function () {
     return view('home.anggota.operator.pendaftaran_oppt');
 })->name('pendaftaranoppt');
 
-Route::get('/anggota/lldikti/pendaftaranlldikti', function () {
-    return view('home.anggota.lldikti.pendaftaran_lldikti');
-})->name('pendaftaranlldikti');
+Route::get('/anggota/lldikti/pendaftaranverifikator', function () {
+    return view('home.anggota.lldikti.pendaftaran_verifikator');
+})->name('pendaftaranverifikator');
 
-Route::get('/anggota/auditor/pendaftaranauditor', function () {
-    return view('home.anggota.auditor.pendaftaran_auditor');
-})->name('pendaftaranauditor');
+Route::get('/anggota/lldikti/pendaftarankeuangan', function () {
+    return view('home.anggota.lldikti.pendaftaran_keuangan');
+})->name('pendaftarankeuangan');
+
+Route::get('/anggota/lldikti/pendaftaranperencanaan', function () {
+    return view('home.anggota.lldikti.pendaftaran_perencanaan');
+})->name('pendaftaranperencanaan');
 
 Route::get('/anggota/dosen/editdosen', function () {
     return view('home.anggota.dosen.edit_dosen');
@@ -58,13 +62,17 @@ Route::get('/anggota/operator/editoperator', function () {
     return view('home.anggota.operator.edit_operator');
 })->name('editoperator');
 
-Route::get('/anggota/lldikti/editlldikti', function () {
-    return view('home.anggota.lldikti.edit_lldikti');
-})->name('editlldikti');
+Route::get('/anggota/lldikti/editkeuangan', function () {
+    return view('home.anggota.lldikti.edit_keuangan');
+})->name('editkeuangan');
 
-Route::get('/anggota/auditor/editauditor', function () {
-    return view('home.anggota.auditor.edit_auditor');
-})->name('edit_auditor');
+Route::get('/anggota/lldikti/editperencanaan', function () {
+    return view('home.anggota.lldikti.edit_perencanaan');
+})->name('editperencanaan');
+
+Route::get('/anggota/lldikti/editverifikator', function () {
+    return view('home.anggota.lldikti.edit_verifikator');
+})->name('editverifikator');
 
 Route::get('/pengajuan/datapengajuan', function () {
     return view('home.pengajuan.data_pengajuan');
@@ -200,7 +208,6 @@ Route::group(['middleware' => ['auth', 'role:7|1']], function() {
     Route::post('store/permohonan/dosen', [OPPTController::class, 'storePermohonan'])->name('oppt.storePermohonan.dosen');
     Route::get('index/permohonan/dosen', [OPPTController::class, 'indexPermohonan'])->name('oppt.indexPermohonan.dosen');
     Route::get('show/permohonan/dosen/{id}', [OPPTController::class, 'showPermohonan'])->name('oppt.showPermohonan.dosen');
-
     Route::get('/template/{id}', [OPPTController::class, 'fetchDosen'])->name('fetch.dosen');
 
 });
@@ -224,6 +231,7 @@ Route::get('/verifikator/index/permohonan', [VerifikatorController::class, 'inde
 Route::get('/verifikator/index/permohonan/{id}', [VerifikatorController::class, 'showPermohonan'])->name('verifikator.permohonan.show');
 Route::put('/verifikator/index/permohonan/status/{id}', [VerifikatorController::class, 'statusPermohonan'])->name('verifikator.permohonan.status');
 
+//Tes Api
 Route::get('/userProfile', [AuthApiController::class, 'userProfile']);
 Route::get('/pengajuan', [AuthApiController::class, 'pengajuan']);
 Route::get('/auditor', [AuthApiController::class, 'auditor']);

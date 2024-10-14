@@ -1,5 +1,6 @@
 @extends('layouts.home.app')
-
+@section('title', 'Universitas')
+@section('userTypeOnPage', 'SuperAdmin, Verifikator, Perencanaan, Keuangan')
 @section('content')
     <div class="content-wrapper">
         <div class="home-tab">
@@ -85,7 +86,8 @@
 
                                     <h4 class="card-title">Data Universitas</h4>
 
-                                    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createModal">
+                                    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
+                                        data-bs-target="#createModal">
                                         Create Universitas
                                     </button>
 
@@ -113,7 +115,9 @@
                                                             <td>{{ $uni->tipe }}</td>
                                                             <td>{{ $uni->status ? 'Active' : 'Inactive' }}</td>
                                                             <td>
-                                                                <button type="button" class="btn btn-warning btn-sm edit-btn" data-id="{{ $uni->id_universitas }}"
+                                                                <button type="button"
+                                                                    class="btn btn-warning btn-sm edit-btn"
+                                                                    data-id="{{ $uni->id_universitas }}"
                                                                     data-nama="{{ $uni->nama_universitas }}"
                                                                     data-kota="{{ $uni->id_kota }}"
                                                                     data-tipe="{{ $uni->tipe }}"
@@ -133,12 +137,14 @@
                             </div>
                         </div>
 
-                        <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel"
+                            aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="createModalLabel">Create Universitas</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
 
@@ -146,7 +152,8 @@
                                             @csrf
                                             <div class="form-group">
                                                 <label for="nama_univ">Nama Universitas</label>
-                                                <input type="text" class="form-control" id="nama_univ" name="nama_univ" required>
+                                                <input type="text" class="form-control" id="nama_univ"
+                                                    name="nama_univ" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="id_kota">Kota</label>
@@ -161,12 +168,12 @@
                                             <div class="form-group">
                                                 <label for="tipe">Tipe</label>
                                                 <select class="form-control" id="tipe" name="tipe" required>
-                                                  <option value="">Pilih Tipe</option>
-                                                  <option value="pemerintahan">Pemerintahan</option>
-                                                  <option value="lldikti">LLDIKTI</option>
-                                                  <option value="universitas">Universitas</option>
+                                                    <option value="">Pilih Tipe</option>
+                                                    <option value="pemerintahan">Pemerintahan</option>
+                                                    <option value="lldikti">LLDIKTI</option>
+                                                    <option value="universitas">Universitas</option>
                                                 </select>
-                                              </div>
+                                            </div>
 
                                             <button type="submit" class="btn btn-success">Save</button>
                                         </form>
@@ -179,47 +186,6 @@
                 </div>
             </div>
         </div>
-
-
-        {{-- <div class="home-tab">
-
-            <div class="tab-content tab-content-basic">
-                <div class="tab-pane fade show" id="audiences" role="tabpanel" aria-labelledby="audiences">
-
-                    <div class="row justify-content-center">
-                        <div class="col-md-6 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Buat Universitas Baru</h4>
-                                    <div class="row">
-                                        <form action="{{ route('univ.create') }}" method="POST">
-                                            @csrf
-                                            <div class="form-group">
-                                                <label for="nama_univ">Nama Universitas:</label>
-                                                <input type="text" name="nama_univ" id="nama_univ" class="form-control"
-                                                    value="{{ old('nama_universitas') }}" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label name="id_kota" id="id_kota" class="form-label" required>Pilih
-                                                    Kota</label>
-                                                <select class="js-example-basic-multiple w-100" multiple="multiple">
-                                                    @foreach ($kota as $city)
-                                                        <option value="{{ $city->id_kota }}">{{ $city->nama_kota }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary mb-2">Buat</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div> --}}
 
     </div>
 
@@ -238,12 +204,12 @@
                 var formData = $(this).serialize();
 
                 $.ajax({
-                    url: '{{ route("univ.create") }}',
+                    url: '{{ route('univ.create') }}',
                     method: 'POST',
                     data: formData,
                     success: function(response) {
 
-                        if(response)(
+                        if (response)(
                             location.reload()
                         )
                         $('#univ-table-body').append(`
@@ -270,10 +236,48 @@
                         var errors = xhr.responseJSON.errors;
                         if (errors) {
                             for (var error in errors) {
-                                $('#error-list').append(`<li>${errors[error][0]}</li>`);
+                                $('#error-list').append(<li>${errors[error][0]}</li>);
                             }
                             $('#error-message').show();
                         }
+                    }
+                });
+            });
+
+            $('.edit-btn').on('click', function() {
+                var id = $(this).data('id');
+                var nama = $(this).data('nama');
+                var kota = $(this).data('kota');
+                var tipe = $(this).data('tipe');
+                var status = $(this).data('status');
+
+                $('#edit_id_universitas').val(id);
+                $('#edit_nama_univ').val(nama);
+                $('#edit_id_kota').val(kota);
+                $('#edit_tipe').val(tipe);
+                $('#edit_status').val(status);
+
+                $('#editModal').modal('show');
+            });
+
+
+            $('#editUnivForm').on('submit', function(e) {
+                e.preventDefault();
+
+                var formData = $(this).serialize();
+                var id = $('#edit_id_universitas').val();
+
+                $.ajax({
+                    url: '/univ/update/' + id,
+                    method: 'POST',
+                    data: formData,
+                    success: function(response) {
+
+                        location.reload();
+                    },
+                    error: function(xhr) {
+
+                        alert('Terjadi kesalahan');
                     }
                 });
             });

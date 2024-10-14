@@ -342,35 +342,35 @@ class SuperAdminController extends Controller
     }
 
     public function updateUniv(Request $request, $id)
-{
-    try {
-        $univ = Universitas::findOrFail($id);
+    {
+        try {
+            $univ = Universitas::findOrFail($id);
 
-        $request->validate([
-            'nama_universitas' => 'nullable',
-            'id_kota' => 'nullable',
-            'tipe' => 'nullable|in:pemerintahan,lldikti,universitas',
-            'status' => 'nullable|boolean',
-        ]);
+            $request->validate([
+                'nama_universitas' => 'nullable',
+                'id_kota' => 'nullable',
+                'tipe' => 'nullable|in:pemerintahan,lldikti,universitas',
+                'status' => 'nullable|boolean',
+            ]);
 
-        $univ->nama_universitas = $request->nama_universitas;
-        $univ->id_kota = $request->id_kota;
-        $univ->tipe = $request->tipe;
-        $univ->status = $request->status;
-        $univ->save();
+            $univ->nama_universitas = $request->nama_universitas;
+            $univ->id_kota = $request->id_kota;
+            $univ->tipe = $request->tipe;
+            $univ->status = $request->status;
+            $univ->save();
 
-        return response()->json([
-            'id_universitas' => $univ->id_universitas,
-            'nama_universitas' => $univ->nama_universitas,
-            'id_kota' => $univ->id_kota,
-            'tipe' => $univ->tipe,
-            'status' => $univ->status ? 'Active' : 'Inactive',
-            'nama_kota' => $univ->kota ? $univ->kota->nama_kota : 'N/A'
-        ]);
-    } catch (\Throwable $th) {
-        return response()->json(['err' => $th->getMessage()], 500);
+            return response()->json([
+                'id_universitas' => $univ->id_universitas,
+                'nama_universitas' => $univ->nama_universitas,
+                'id_kota' => $univ->id_kota,
+                'tipe' => $univ->tipe,
+                'status' => $univ->status ? 'Active' : 'Inactive',
+                'nama_kota' => $univ->kota ? $univ->kota->nama_kota : 'N/A'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json(['err' => $th->getMessage()], 500);
+        }
     }
-}
 
 
 

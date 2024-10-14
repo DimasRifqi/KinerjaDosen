@@ -4,8 +4,10 @@
 @section('content')
 <div class="row mt-5">
     <div class="col-md-12 text-center">
-        <img src="path-to-your-photo.jpg" alt="Foto Profil" class="img-fluid mb-5" style="width: 150px; height: 150px; object-fit: cover;">
-        <button type="button" class="btn btn-primary btn-sm">Edit Photo</button>
+        <img src="path-to-your-photo.jpg" alt="Foto Profil" class="img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+    </div>
+    <div class="col-md-12 text-center">
+        <button type="file" class="btn btn-primary btn-sm mb-5" accept="image/*">Edit Photo</button>
     </div>
     <div class="col-md-12 mt-6">
 

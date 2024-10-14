@@ -58,6 +58,10 @@ Route::get('/anggota/dosen/editdosen', function () {
     return view('home.anggota.dosen.edit_dosen');
 })->name('editdosen');
 
+Route::get('/anggota/dosen/editdosenoppt', function () {
+    return view('home.anggota.dosen.edit_dosen_oppt');
+})->name('editdosenoppt');
+
 Route::get('/anggota/operator/editoperator', function () {
     return view('home.anggota.operator.edit_operator');
 })->name('editoperator');

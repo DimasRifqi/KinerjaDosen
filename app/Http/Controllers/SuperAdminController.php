@@ -166,8 +166,22 @@ class SuperAdminController extends Controller
         $gelarDepan = Gelar_Depan::all();
         $gelarBelakang = Gelar_Belakang::all();
 
-        return view('home.anggota.operator.edit_operator', compact('user', 'roles', 'jabatanFungsional', 'universitas', 'prodi', 'pangkatDosen', 'gelarDepan', 'gelarBelakang'));
-    } /////return view edit operator pt
+        return view('home.anggota.dosen.edit_dosen', compact('user', 'roles', 'jabatanFungsional', 'universitas', 'prodi', 'pangkatDosen', 'gelarDepan', 'gelarBelakang'));
+    } /////return view edit dosen superadmin, admin
+
+    // public function edit($id)
+    // {
+    //     $user = User::findOrFail($id);
+    //     $roles = Role::all();
+    //     $jabatanFungsional = Jabatan_Fungsional::all();
+    //     $universitas = Universitas::all();
+    //     $prodi = Prodi::all();
+    //     $pangkatDosen = Pangkat_Dosen::all();
+    //     $gelarDepan = Gelar_Depan::all();
+    //     $gelarBelakang = Gelar_Belakang::all();
+
+    //     return view('home.anggota.operator.edit_operator', compact('user', 'roles', 'jabatanFungsional', 'universitas', 'prodi', 'pangkatDosen', 'gelarDepan', 'gelarBelakang'));
+    // } /////return view edit operator pt
 
     public function update(Request $request, $id)
     {

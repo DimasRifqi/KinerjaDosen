@@ -40,7 +40,7 @@
                                             <td>{{ $user->email }}</td>
                                             <td>
                                                 <!-- Tombol Edit yang mengarah ke halaman edit -->
-                                                <a href="{{ route('oppt.edit.dosen', $user->id) }}"
+                                                <a href="{{ route('admin.edit', $user->id) }}"
                                                     class="btn btn-warning btn-sm">Edit</a>
                                             </td>
                                         </tr>

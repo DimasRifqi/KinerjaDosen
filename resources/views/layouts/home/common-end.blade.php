@@ -33,7 +33,7 @@
 
             //     if (query !== '') {
             //         $.ajax({
-            //             url: "{{ route('search') }}",
+            //             url: "",
             //             method: 'GET',
             //             data: { query: query },
             //             dataType: 'json',

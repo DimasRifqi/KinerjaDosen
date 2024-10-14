@@ -1,5 +1,5 @@
 @extends('layouts.auth.app')
-
+@section('title', 'Lupa Password')
 @section('content')
     <div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper">

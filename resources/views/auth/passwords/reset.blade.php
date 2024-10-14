@@ -1,5 +1,5 @@
 @extends('layouts.auth.app')
-
+@section('title', 'Perbarui Password')
 @section('content')
     <div class="container">
         <div class="row justify-content-center">

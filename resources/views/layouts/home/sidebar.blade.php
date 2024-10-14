@@ -19,6 +19,9 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link"
                             href="{{ route('verifikator.permohonan.index') }}">Dosen</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('oppt.indexPermohonan.dosen') }}">Dosen (OPPT)</a>
+                    </li>
                     <li class="nav-item"> <a class="nav-link" href="#">ChartJs</a></li>
 
                 </ul>
@@ -83,10 +86,6 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('oppt.index.dosen') }}">Data Dosen (OPPT)</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('oppt.indexPermohonan.dosen') }}">Permohonan
-                            Verifikasi</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.index') }}">Data Dosen</a>
@@ -177,9 +176,9 @@
             </a>
             <div class="collapse" id="komponen">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('periode.index') }}">(obselete)
-                            {{-- was Data Periode, but now is replaced --}}</a>
-                    </li>
+                    {{-- <li class="nav-item"><a class="nav-link" href="{{ route('periode.index') }}">(obselete) Data
+                            Periode</a>
+                    </li> --}}
                     <li class="nav-item"><a class="nav-link" href="{{ route('index.periode') }}">Periode</a>
                     </li>
                 </ul>

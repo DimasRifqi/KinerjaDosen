@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title></title>
+    <title>@yield('title') - Kinerja Dosen</title>
 
     @include('layouts.auth.common-head')
 </head>

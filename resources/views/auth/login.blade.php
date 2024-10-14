@@ -1,5 +1,5 @@
 @extends('layouts.auth.app')
-
+@section('title', 'Masuk')
 @section('content')
 
 <div class="container-scroller">

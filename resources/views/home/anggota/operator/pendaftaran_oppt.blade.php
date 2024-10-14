@@ -17,9 +17,9 @@
                     <label for="id_universitas">Universitas</label>
                     <select class="form-control" id="id_universitas" name="id_universitas" required>
                         <option value="">Pilih Universitas</option>
-                        @foreach($universitas as $univ)
-                            <option value="{{ $univ->id_universitas }}">{{ $univ->nama_universitas }}</option>
-                        @endforeach
+                            <option value="UDINUS">UDINUS</option>
+                            <option value="UDINUS">UDINUS</option>
+                            <option value="UDINUS">UDINUS</option>
                     </select>
                 </div>
 

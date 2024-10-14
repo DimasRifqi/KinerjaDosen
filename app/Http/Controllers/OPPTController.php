@@ -20,6 +20,12 @@ use Illuminate\Support\Facades\Storage;
 
 class OPPTController extends Controller
 {
+    public function historyPengajuanDosen($id){
+        $dosen = User::with('pengajuan')->findOrFail($id);
+        //return response()->json(['Data' => $dosen]);
+        return view('testing.oppt.history_dosen_pengajuan', ['dosen'=>$dosen]);
+    }
+
     public function allDosen()
     {
         $oppt = Auth::user();

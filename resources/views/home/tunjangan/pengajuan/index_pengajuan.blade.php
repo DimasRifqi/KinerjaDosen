@@ -89,6 +89,10 @@
                                                             class="btn btn-info">Edit</a>
                                                     @endif
                                                 </div>
+
+                                                <div>
+                                                    <a href="{{ route('oppt.statusPengajuan.dosen', $pengajuan->id_pengajuan) }}" class="btn btn-dark">Detail Status</a>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

@@ -83,7 +83,7 @@
         <ul class="navbar-nav">
             <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
                 <h1 class="welcome-text">Halo <span class="text-black fw-bold">CharLimit11</span></h1>
-                <h3 class="welcome-sub-text">Sebagai (USERTYPE) </h3>
+                <h3 class="welcome-sub-text">Sebagai @yield('userTypeOnPage')</h3>
             </li>
         </ul>
         <ul class="navbar-nav ms-auto">

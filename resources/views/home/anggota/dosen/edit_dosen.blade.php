@@ -1,12 +1,13 @@
 @extends('layouts.home.app')
-
+@section('title', 'Sunting Dosen')
+@section('userTypeOnPage', 'SuperAdmin, Verifikator, Perencanaan, Keuangan')
 @section('content')
 <div class="content-wrapper">
         <div class="row">
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Edit Data Dosen</h4>
+                        <h4 class="card-title">Sunting Data Dosen</h4>
 
                         <form class="forms-sample" action="{{ route('oppt.update.dosen', $dosen->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf

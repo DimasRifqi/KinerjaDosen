@@ -1,5 +1,6 @@
 @extends('layouts.home.app')
-
+@section('title', 'Data Dosen')
+@section('userTypeOnPage', 'SuperAdmin, Verifikator, Perencanaan, Keuangan')
 @section('content')
     <div class="content-wrapper">
         <div class="row">
@@ -8,7 +9,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Data User</h4>
                         <p class="card-description">
-                            ini seharusnya data dosen saja </p>
+                            Lorem ipsum dolor sit </p>
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>

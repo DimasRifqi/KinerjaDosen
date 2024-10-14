@@ -14,8 +14,16 @@ class VerifikatorController extends Controller
         ->where('draft', true)
         ->get();
       //  return response()->json(['data' => $pengajuan]);
-        return view('testing.verifikator.index_pengajuan', ['pengajuan' => $pengajuan]);
+        return view('home.verifikasi.tunjangan.pengajuan_tunjangan', ['pengajuan' => $pengajuan]);
     }
+
+    // public function indexPengajuan(){
+    //     $pengajuan = Pengajuan::with('user')
+    //     ->where('draft', true)
+    //     ->get();
+    //   //  return response()->json(['data' => $pengajuan]);
+    //     return view('testing.verifikator.index_pengajuan', ['pengajuan' => $pengajuan]);
+    // }
 
     public function detailPengajuan($id){
         $pengajuan = Pengajuan::with('user.universitas', 'pengajuan_dokumen')
@@ -96,13 +104,23 @@ class VerifikatorController extends Controller
 
     public function indexPermohonan(){
         $permohonan = Permohonan::all();
-        return view('testing.verifikator.permohonan.index_permohonan', ['permohonan' => $permohonan]);
+        return view('home.verifikasi.permohonan_dosen', ['permohonan' => $permohonan]);
     }
 
     public function showPermohonan($id){
         $permohonan = Permohonan::with('user')->findOrFail($id);
-        return view('testing.verifikator.permohonan.show_permohonan', ['permohonan' => $permohonan]);
+        return view('home.verifikasi.permohonan_dosen_detail', ['permohonan' => $permohonan]);
     }
+
+    // public function indexPermohonan(){
+    //     $permohonan = Permohonan::all();
+    //     return view('testing.verifikator.permohonan.index_permohonan', ['permohonan' => $permohonan]);
+    // }
+
+    // public function showPermohonan($id){
+    //     $permohonan = Permohonan::with('user')->findOrFail($id);
+    //     return view('testing.verifikator.permohonan.show_permohonan', ['permohonan' => $permohonan]);
+    // }
 
     public function statusPermohonan($id){
         $permohonan = Permohonan::with('user')->findOrFail($id);

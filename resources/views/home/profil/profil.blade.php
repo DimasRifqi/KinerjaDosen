@@ -1,5 +1,6 @@
 @extends('layouts.home.app')
-
+@section('title', 'Profil')
+@section('userTypeOnPage', 'SuperAdmin, Verifikator, Perencanaan, Keuangan, dosen, Auditor, OPPT')
 @section('content')
 <div class="row mt-5">
     <div class="col-md-12 text-center">

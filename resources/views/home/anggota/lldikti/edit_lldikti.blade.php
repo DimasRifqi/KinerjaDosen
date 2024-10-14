@@ -1,5 +1,6 @@
 @extends('layouts.home.app')
-
+@section('title', 'Buat LLDIKTI Perencanaan')
+@section('userTypeOnPage', 'SuperAdmin, Perencanaan')
 @section('content')
 <div class="content-wrapper">
     <div class="col-12 grid-margin stretch-card">

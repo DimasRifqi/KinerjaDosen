@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Jajal - Kinerja Dosen</title>
+    <title>@yield('title') - Kinerja Dosen</title>
 
     @include('layouts.home.common-head')
 </head>

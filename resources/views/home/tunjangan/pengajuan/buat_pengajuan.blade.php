@@ -1,5 +1,6 @@
 @extends('layouts.home.app')
-
+@section('title', 'Buat Pengajuan Tunjangan')
+@section('userTypeOnPage', 'SuperAdmin, Verifikator, Perencanaan, Keuangan, OPPT')
 @section('content')
     <div class="content-wrapper">
         <div class="row justify-content-center">

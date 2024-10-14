@@ -13,7 +13,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#audiences" role="tab"
-                            aria-selected="false">Buat Permohonan Verifikasi Dosen</a>
+                            aria-selected="false">Buat Permohonan Edit Data Dosen</a>
                     </li>
                 </ul>
             </div>

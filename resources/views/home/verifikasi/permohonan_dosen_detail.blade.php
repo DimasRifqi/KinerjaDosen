@@ -37,6 +37,8 @@
                                         class="btn {{ $permohonan->status ? 'btn-success' : 'btn-warning' }}">
                                         {{ $permohonan->status ? 'Selesai' : 'Proses' }}
                                     </button>
+                                    <a class="btn btn-info" href="{{ route('verifikator.permohonan.index') }}">
+                                        Kembali</a>
                                 </form>
                             </div>
                         </div>

@@ -42,11 +42,13 @@
                                                 <td>{{ $item->user->universitas->nama_universitas ?? '-' }}</td>
                                                 <!-- Asumsi ada relasi universitas -->
                                                 <td>{{ $item->permohonan }}</td>
-                                                <td>{{ $item->status ? 'Selesai' : 'Proses' }}</td>
+                                                <td> <span class="badge bg-{{ $item->status ? 'success' : 'warning' }}">
+                                                        {{ $item->status ? 'Selesai' : 'Proses' }} </span>
+                                                </td>
                                                 <td>{{ $item->created_at->format('d M Y') }}</td>
                                                 <td><a href="{{ route('verifikator.permohonan.show', $item->id_permohonan) }}"
-                                                        class="btn btn-warning btn-sm">
-                                                        Detail</a></td>
+                                                        class="btn btn-info btn-sm">
+                                                        Lanjutkan</a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>

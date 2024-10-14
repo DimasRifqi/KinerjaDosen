@@ -1,6 +1,6 @@
 @extends('layouts.home.app')
 @section('title', 'Sunting Dosen')
-@section('userTypeOnPage', 'SuperAdmin, Verifikator, Perencanaan, Keuangan')
+@section('userTypeOnPage', 'SuperAdmin, OPPT')
 @section('content')
 <div class="content-wrapper">
         <div class="row">
@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Sunting Data Dosen</h4>
 
-                        <form class="forms-sample" action="{{ route('admin.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+                        <form class="forms-sample" action="{{ route('oppt.update.dosen', $dosen->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -20,8 +20,8 @@
                                             <label for="id_gelar_depan">Gelar Depan</label>
                                             <select class="form-control js-example-basic-multiple w-100" multiple="multiple" id="id_gelar_depan" name="id_gelar_depan">
                                                 <option value="">Pilih Gelar Depan</option>
-                                                @foreach($gelarDepan as $gelar)
-                                                    <option value="{{ $gelar->id_gelar_depan }}" {{ $gelar->id_gelar_depan == $user->id_gelar_depan ? 'selected' : '' }}>
+                                                @foreach($gelar_depan as $gelar)
+                                                    <option value="{{ $gelar->id_gelar_depan }}" {{ $dosen->id_gelar_depan == $gelar->id_gelar_depan ? 'selected' : '' }}>
                                                         {{ $gelar->nama_gelar_depan }}
                                                     </option>
                                                 @endforeach
@@ -35,7 +35,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="name" class="col-form-label">Nama Lengkap</label>
-                                            <input type="text" name="name" class="form-control" value="{{ old('name', $user->name) }}" required>
+                                            <input type="text" name="name" class="form-control" value="{{ old('name', $dosen->name) }}" required>
                                             @error('name')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -47,7 +47,7 @@
                                             <label for="id_gelar_belakang">Gelar Belakang</label>
                                             <select class="form-control js-example-basic-multiple w-100" multiple="multiple" id="id_gelar_belakang" name="id_gelar_belakang">
                                                 <option value="">Pilih Gelar Belakang</option>
-                                                    @foreach($gelarDepan as $gelar)
+                                                    @foreach($gelar_depan as $gelar)
                                                         <option value="{{ $gelar->id_gelar_depan }}">{{ $gelar->nama_gelar_depan }}</option>
                                                     @endforeach
                                             </select>
@@ -58,7 +58,7 @@
 
                             <div class="form-group">
                                 <label for="tempat_lahir">Tempat Lahir</label>
-                                <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Tempat Lahir" value="{{ old('tempat_lahir', $user->tempat_lahir) }}">
+                                <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Tempat Lahir" value="{{ old('tempat_lahir', $dosen->tempat_lahir) }}">
                                 @error('tempat_lahir')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -66,7 +66,7 @@
 
                             <div class="form-group">
                                 <label for="tanggal_lahir">Tanggal Lahir</label>
-                                <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir', $user->tanggal_lahir) }}">
+                                <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir', $dosen->tanggal_lahir) }}">
                                 @error('tanggal_lahir')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -74,15 +74,15 @@
 
                             <div class="form-group">
                                 <label for="nidn">NUPTK</label>
-                                <input type="text" class="form-control" id="nidn" name="nidn" placeholder="NUPTK"  value="{{ old('nidn', $user->nidn) }}">
+                                <input type="text" class="form-control" id="nidn" name="nidn" placeholder="NUPTK"  value="{{ old('nidn', $dosen->nidn) }}" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="id_jabatan_fungsional">Jabatan Fungsional</label>
                                 <select class="form-control" id="id_jabatan_fungsional" name="id_jabatan_fungsional">
                                 <option value="">Pilih Jabatan Fungsional</option>
-                                @foreach($jabatanFungsional as $jabatan)
-                                        <option value="{{ $jabatan->id_jabatan_fungsional }}" {{ $jabatan->id_jabatan_fungsional == $user->id_jabatan_fungsional ? 'selected' : '' }}>
+                                    @foreach($jabatan_fungsional as $jabatan)
+                                        <option value="{{ $jabatan->id_jabatan_fungsional }}" {{ $dosen->id_jabatan_fungsional == $jabatan->id_jabatan_fungsional ? 'selected' : '' }}>
                                             {{ $jabatan->nama_jabatan }}
                                         </option>
                                     @endforeach
@@ -96,8 +96,8 @@
                                 <label for="id_pangkat_dosen">Pangkat Dosen</label>
                                 <select class="form-control" id="id_pangkat_dosen" name="id_pangkat_dosen">
                                     <option value="">Pilih Pangkat Dosen</option>
-                                    @foreach($pangkatDosen as $pangkat)
-                                        <option value="{{ $pangkat->id_pangkat_dosen }}" {{ $pangkat->id_pangkat_dosen == $user->id_pangkat_dosen ? 'selected' : '' }}>
+                                    @foreach($pangkat_dosen as $pangkat)
+                                        <option value="{{ $pangkat->id_pangkat_dosen }}" {{ $dosen->id_pangkat_dosen == $pangkat->id_pangkat_dosen ? 'selected' : '' }}>
                                             {{ $pangkat->nama_pangkat }}
                                         </option>
                                     @endforeach
@@ -112,20 +112,18 @@
                                 <label for="id_prodi">Program Studi</label> 
                                 <select class="form-control" id="id_prodi" name="id_prodi" required>
                                     <option value="">Pilih Program Studi</option>
-                                    @foreach($prodi as $program)
-                                        <option value="{{ $program->id_prodi }}" {{ $program->id_prodi == $user->id_prodi ? 'selected' : '' }}>
-                                            {{ $program->nama_prodi }}
-                                        </option>
+                                    @foreach($prodi as $progdi)
+                                        <option value="{{ $progdi->id_prodi }}">{{ $progdi->nama_prodi }}</option>
                                     @endforeach
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <label for="id_universitas">Universitas</label>
-                                <select class="form-control" id="id_universitas" name="id_universitas">
+                                <select class="form-control" id="id_universitas" name="id_universitas" disabled>
                                     <option value="">Pilih Universitas</option>
                                     @foreach($universitas as $uni)
-                                        <option value="{{ $uni->id_universitas }}" {{ $uni->id_universitas == $user->id_universitas ? 'selected' : '' }}>
+                                        <option value="{{ $uni->id_universitas }}" {{ $dosen->id_universitas == $uni->id_universitas ? 'selected' : '' }}>
                                             {{ $uni->nama_universitas }}
                                         </option>
                                     @endforeach
@@ -138,8 +136,8 @@
                             <div class="form-group">
                                 <label for="image">Foto Profil</label>
                                 <input type="file" name="image" class="form-control">
-                                @if($user->image)
-                                    <p>Foto saat ini: <img src="{{ asset('storage/img/foto_users/' . $user->image) }}" alt="Foto Dosen" width="150"></p>
+                                @if ($dosen->image)
+                                    <p>Foto saat ini: <img src="{{ asset('storage/'.$dosen->image) }}" alt="Foto Dosen" width="150"></p>
                                 @endif
                                 @error('image')
                                     <span class="text-danger">{{ $message }}</span>
@@ -149,8 +147,8 @@
                             <div class="form-group">
                                 <label for="file_serdos">File Serdos (PDF)</label>
                                 <input type="file" name="file_serdos" class="form-control">
-                                @if($user->file_serdos)
-                                    <p>File saat ini: <a href="{{ asset('storage/file/file_serdos/' . $user->file_serdos) }}" target="_blank">Lihat File</a></p>
+                                @if ($dosen->file_serdos)
+                                    <p>File saat ini: <a href="{{ asset('storage/'.$dosen->file_serdos) }}" target="_blank">Lihat File</a></p>
                                 @endif
                                 @error('file_serdos')
                                     <span class="text-danger">{{ $message }}</span>
@@ -159,7 +157,7 @@
                             
                             <div class="form-group">
                                 <label for="npwp">NPWP</label>
-                                <input type="text" class="form-control" id="npwp" name="npwp" placeholder="NPWP" value="{{ old('npwp', $user->npwp) }}" required>
+                                <input type="text" class="form-control" id="npwp" name="npwp" placeholder="NPWP" value="{{ old('npwp', $dosen->npwp) }}" required>
                             </div>
 
                             <div class="form-group">
@@ -171,7 +169,7 @@
 
                             <div class="form-group">
                                 <label for="no_rek">No Rekening</label>
-                                <input type="text" class="form-control" id="no_rek" name="no_rek" placeholder="No Rekening" value="{{ old('no_rek', $user->no_rek) }}">
+                                <input type="text" class="form-control" id="no_rek" name="no_rek" placeholder="No Rekening">
                             </div>
 
                             <div class="form-group">
@@ -198,8 +196,8 @@
                                     </span>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary me-2">Perbarui</button>
-                            <button href="{{ route('admin.index') }}" class="btn btn-light">Batalkan</button>
+                            <button type="submit" class="btn btn-primary me-2">Submit</button>
+                            <button class="btn btn-light">Cancel</button>
                         </form>
                     </div>
                 </div>

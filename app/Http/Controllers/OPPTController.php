@@ -90,7 +90,7 @@ class OPPTController extends Controller
         $prodi = Prodi::all();
 
         return view(
-            'home.anggota.dosen.edit_dosen',   ////view page edit dosen
+            'home.anggota.dosen.edit_dosen_oppt',   ////view page edit dosen
             [
                 'dosen' => $dosen,
                 'gelar_depan' => $gelar_depan,

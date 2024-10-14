@@ -236,7 +236,7 @@
                         var errors = xhr.responseJSON.errors;
                         if (errors) {
                             for (var error in errors) {
-                                $('#error-list').append(<li>${errors[error][0]}</li>);
+                                $('#error-list').append(`<li>${errors[error][0]}</li>`);
                             }
                             $('#error-message').show();
                         }

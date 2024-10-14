@@ -14,8 +14,16 @@ class VerifikatorController extends Controller
         ->where('draft', true)
         ->get();
       //  return response()->json(['data' => $pengajuan]);
-        return view('testing.verifikator.index_pengajuan', ['pengajuan' => $pengajuan]);
+        return view('home.verifikasi.tunjangan.pengajuan_tunjangan', ['pengajuan' => $pengajuan]);
     }
+
+    // public function indexPengajuan(){
+    //     $pengajuan = Pengajuan::with('user')
+    //     ->where('draft', true)
+    //     ->get();
+    //   //  return response()->json(['data' => $pengajuan]);
+    //     return view('testing.verifikator.index_pengajuan', ['pengajuan' => $pengajuan]);
+    // }
 
     public function detailPengajuan($id){
         $pengajuan = Pengajuan::with('user.universitas', 'pengajuan_dokumen')

@@ -64,7 +64,7 @@
 
         <!-- Submit Button -->
         <button type="submit" class="btn btn-primary">Update Universitas</button>
-        <a href="{{ route('index.uni') }}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ route('univ.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 

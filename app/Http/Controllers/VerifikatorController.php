@@ -30,8 +30,16 @@ class VerifikatorController extends Controller
         ->where('draft', true)
         ->findOrFail($id);
         //return response()->json(['data' => $pengajuan]);
-        return view('testing.verifikator.detail_pengajuan', ['pengajuan' => $pengajuan]);
+        return view('home.verifikasi.tunjangan.pengajuan_tunjangan_detail', ['pengajuan' => $pengajuan]);
     }
+
+    // public function detailPengajuan($id){
+    //     $pengajuan = Pengajuan::with('user.universitas', 'pengajuan_dokumen')
+    //     ->where('draft', true)
+    //     ->findOrFail($id);
+    //     //return response()->json(['data' => $pengajuan]);
+    //     return view('testing.verifikator.detail_pengajuan', ['pengajuan' => $pengajuan]);
+    // }
 
     public function updateStatusPengajuan(Request $request, $userId)
 {

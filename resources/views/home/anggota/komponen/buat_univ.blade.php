@@ -183,7 +183,7 @@
                                             <div class="form-group">
                                                 <label name="id_kota" id="id_kota" class="form-label" required>Pilih
                                                     Kota</label>
-                                                <select class="js-example-basic-multiple w-100" multiple="multiple">
+                                                <select class="form-control">
                                                     @foreach ($kota as $city)
                                                         <option value="{{ $city->id_kota }}">{{ $city->nama_kota }}
                                                         </option>

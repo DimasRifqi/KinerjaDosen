@@ -1,5 +1,5 @@
 @extends('layouts.home.app')
-@section('title', 'Permohonan Verifikasi Tunjangan')
+@section('title', 'Pengajuan Verifikasi Tunjangan')
 @section('userTypeOnPage', 'SuperAdmin, Verifikator')
 @section('content')
     <div class="content-wrapper">
@@ -7,7 +7,7 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Data Permohonan Verifikasi Tunjangan</h4>
+                        <h4 class="card-title">Data Pengajuan Verifikasi Tunjangan</h4>
                         <p class="card-description">
                             Lorem ipsum dolor sit </p>
                         @if (session('success'))
@@ -18,7 +18,7 @@
 
                         @if ($pengajuan->isEmpty())
                             <div class="alert alert-warning">
-                                Tidak ada permohonan yang tersedia.
+                                Tidak ada Pengajuan yang tersedia.
                             </div>
                         @else
                             <div class="table-responsive">

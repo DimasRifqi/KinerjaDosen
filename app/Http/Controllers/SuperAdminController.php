@@ -319,7 +319,7 @@ class SuperAdminController extends Controller
 
 
     public function indexUniv(){
-        $univ = Universitas::all();
+        $univ = Universitas::paginate(10);
         $kota = Kota::all();
 
         return view('home.anggota.komponen.buat_univ', compact('univ', 'kota'));
@@ -389,7 +389,7 @@ class SuperAdminController extends Controller
 
 
     public function indexProdi(){
-        $prodi = Prodi::all();
+        $prodi = Prodi::paginate(10);
 
         return view('home.anggota.komponen.buat_prodi', compact('prodi'));
     }
@@ -432,7 +432,7 @@ class SuperAdminController extends Controller
     }
 
     public function indexPangkatDosen(){
-        $pangkat_dosen = Pangkat_Dosen::all();
+        $pangkat_dosen = Pangkat_Dosen::paginate(5);
 
         return view('home.anggota.komponen.buat_pangkat', compact('pangkat_dosen'));
     }

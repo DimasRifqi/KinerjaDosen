@@ -11,14 +11,14 @@ class GelarController extends Controller
     // merge gelar depan
     public function indexDepan()
     {
-        $gelarD = Gelar_Depan::all();
+        $gelarD = Gelar_Depan::paginate(5);
         return view('home.anggota.komponen.buat_gelar_depan', compact('gelarD'));
     }
 
     // merge gelar belakang
     public function indexBelakang()
     {
-        $gelarB = Gelar_Belakang::all();
+        $gelarB = Gelar_Belakang::paginate(5);
         return view('home.anggota.komponen.buat_gelar_belakang', compact('gelarB'));
     }
 

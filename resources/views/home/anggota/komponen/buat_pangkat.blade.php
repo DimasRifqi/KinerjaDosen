@@ -57,7 +57,7 @@
                                                 <tbody>
                                                     @foreach ($pangkat_dosen as $pangkat)
                                                         <tr>
-                                                            <td>{{ $pangkat->id_pangkat_dosen }}</td>
+                                                            <td>{{ $pangkat_dosen->firstItem() + $loop->index }}</td>
                                                             <td>{{ $pangkat->nama_pangkat }}</td>
                                                             <td>
                                                                 <!-- Edit button (Redirect to Edit Page) -->
@@ -68,6 +68,7 @@
                                                     @endforeach
                                                 </tbody>
                                             </table>
+                                            {{ $pangkat_dosen->links() }}
                                         </div>
                                     @endif
                                 </div>

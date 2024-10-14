@@ -109,7 +109,7 @@
                                                 <tbody id="univ-table-body">
                                                     @foreach ($univ as $uni)
                                                         <tr>
-                                                            <td>{{ $uni->id_universitas }}</td>
+                                                            <td>{{ $univ->firstItem() + $loop->index }}</td>
                                                             <td>{{ $uni->nama_universitas }}</td>
                                                             <td>{{ $uni->kota ? $uni->kota->nama_kota : 'N/A' }}</td>
                                                             <td>{{ $uni->tipe }}</td>
@@ -131,6 +131,7 @@
                                                     @endforeach
                                                 </tbody>
                                             </table>
+                                            {{ $univ->links() }}
                                         </div>
                                     @endif
                                 </div>

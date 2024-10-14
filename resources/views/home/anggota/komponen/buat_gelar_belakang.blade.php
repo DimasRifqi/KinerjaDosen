@@ -59,7 +59,7 @@
                                                 <tbody>
                                                     @foreach ($gelarB as $key => $gelar)
                                                         <tr>
-                                                            <td>{{ $key + 1 }}</td>
+                                                            <td>{{  $gelarB->firstItem() + $loop->index }}</td>
                                                             <td>{{ $gelar->nama_gelar_belakang }}</td>
                                                             <td>
                                                                 @if ($gelar->status == 1)
@@ -76,6 +76,7 @@
                                                     @endforeach
                                                 </tbody>
                                             </table>
+                                            {{ $gelarB->links() }}
                                         </div>
                                     @endif
                                 </div>

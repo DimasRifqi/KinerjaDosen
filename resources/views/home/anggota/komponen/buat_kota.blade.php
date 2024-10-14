@@ -76,7 +76,7 @@
                                                 <tbody>
                                                     @foreach ($kota as $item)
                                                         <tr>
-                                                            <td>{{ $item->id_kota }}</td>
+                                                            <td>{{ $kota->firstItem() + $loop->index }}</td>
                                                             <td>{{ $item->nama_kota }}</td>
                                                             <td>Jawa Timur</td>
                                                             <td>

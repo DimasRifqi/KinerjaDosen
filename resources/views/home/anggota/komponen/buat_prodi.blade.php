@@ -58,7 +58,7 @@
                                                 <tbody>
                                                     @foreach ($prodi as $item)
                                                         <tr>
-                                                            <td>{{ $item->id_prodi }}</td>
+                                                            <td>{{ $prodi->firstItem() + $loop->index }}</td>
                                                             <td>{{ $item->nama_prodi }}</td>
                                                             <td>{{ $item->status ? 'Active' : 'Inactive' }}</td>
                                                             <td>
@@ -70,6 +70,7 @@
                                                     @endforeach
                                                 </tbody>
                                             </table>
+                                            {{ $prodi->links() }}
                                         </div>
                                     @endif
                                 </div>

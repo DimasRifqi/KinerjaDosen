@@ -136,6 +136,7 @@ Route::group(['middleware' => ['auth', 'role:1']], function() {
         Route::post('/', [KotaController::class, 'store'])->name('kota.store');
         Route::get('/{kota}/edit', [KotaController::class, 'edit'])->name('kota.edit');
         Route::put('/{kota}', [KotaController::class, 'update'])->name('kota.update');
+        // Route::get('/search', [KotaController::class, 'search'])->name('search');
     });
 
     Route::group(['prefix' => 'jabatan-fungsional'], function () {

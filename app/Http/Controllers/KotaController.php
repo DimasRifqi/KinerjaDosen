@@ -10,9 +10,14 @@ class KotaController extends Controller
 {
     public function index()
     {
-        $kota = Kota::with('provinsi')->get(); // Mengambil semua data kota beserta provinsi
+        $kota = Kota::with('provinsi')->paginate(10); // Mengambil semua data kota beserta provinsi
         $provinsi = Provinsi::all(); // Mengambil data provinsi untuk dipilih di dropdown
+
         return view('home.anggota.komponen.buat_kota', compact('kota', 'provinsi'));
+        // return response()->json([
+        //     'data' => $kota,
+        //     'provinsi' => $provinsi
+        // ]);
     }
 
     // public function index()
@@ -68,4 +73,26 @@ class KotaController extends Controller
 
         return redirect()->route('kota.index')->with('success', 'Kota berhasil diperbarui.');
     }
+
+    // public function search(Request $request)
+    // {
+    //     // Get the search query from the request
+    //     $query = $request->input('query');
+
+    //     // Check if the query is empty
+    //     if ($query !== '') {
+    //         // Perform the search query on the Kota model
+    //         $kota = Kota::where('nama_kota', 'LIKE', "%$query%")->paginate(10);
+    //     }else{
+    //         $kota = Kota::paginate(10);
+    //     }
+
+    //     // Return the search results
+    //     return response()->json([
+    //         'data' => $kota->items(), // Get the data items
+    //         'links' => $kota->links()->toHtml(), // Get pagination links as HTML
+    //     ]);
+    // }
+
+
 }

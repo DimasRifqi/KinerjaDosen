@@ -109,9 +109,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.index') }}">Data Admin LLDIKTI</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ route('pendaftaranlldikti') }}">Pendaftaran Admin LLDIKTI</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </li>
@@ -145,9 +145,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.index') }}">Data Auditor</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ route('pendaftaranauditor') }}">Pendaftaran Auditor</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </li>

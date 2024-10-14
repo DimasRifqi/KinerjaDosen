@@ -33,7 +33,7 @@
 
                                 <div class="form-group">
                                     <label for="edit_nama_univ">Nama Universitas</label>
-                                    <input type="text" class="form-control" id="edit_nama_univ" name="nama_univ"
+                                    <input type="text" class="form-control" id="edit_nama_univ" name="nama_universitas"
                                         required>
                                 </div>
 
@@ -215,7 +215,7 @@
                         $('#univ-table-body').append(`
                             <tr>
                                 <td>${response.id_universitas}</td>
-                                <td>${response.nama_univ}</td>
+                                <td>${response.nama_universitas}</td>
                                 <td>${response.kota_nama}</td>
                                 <td>${response.tipe}</td>
 

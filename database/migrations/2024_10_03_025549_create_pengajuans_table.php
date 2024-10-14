@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('pengajuan', function (Blueprint $table) {
             $table->id('id_pengajuan');
             $table->foreignId('id_periode')->nullable()->constrained('periode', 'id_periode')->cascadeOnDelete()->cascadeOnUpdate();
-            $
             $table->boolean('draft')->default(false);
             $table->timestamps();
         });

@@ -77,7 +77,7 @@
                                 <input type="text" class="form-control" id="nidn" name="nidn" placeholder="NUPTK"  value="{{ old('nidn', $user->nidn) }}">
                             </div>
 
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="id_jabatan_fungsional">Jabatan Fungsional</label>
                                 <select class="form-control" id="id_jabatan_fungsional" name="id_jabatan_fungsional">
                                 <option value="">Pilih Jabatan Fungsional</option>
@@ -90,7 +90,7 @@
                                 @error('id_jabatan_fungsional')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                            </div>
+                            </div> -->
 
                             <div class="form-group">
                                 <label for="id_pangkat_dosen">Pangkat Dosen</label>

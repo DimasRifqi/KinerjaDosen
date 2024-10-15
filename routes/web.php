@@ -174,10 +174,13 @@ Route::group(['middleware' => ['auth', 'role:1']], function () {
     Route::put('/periode/update/{id}', [SuperAdminController::class, 'updatePeriode'])->name('periode.update');
 
     //Universitas
-    Route::get('/admin/createUniv', [SuperAdminController::class, 'indexUniv'])->name('univ.index');
-    Route::post('/univ/create', [SuperAdminController::class, 'createUniv'])->name('univ.create');
-    Route::get('/univ/edit/{id}', [SuperAdminController::class, 'editUniv'])->name('univ.edit');
-    Route::put('/univ/update/{id}', [SuperAdminController::class, 'updateUniv'])->name('univ.update');
+    Route::prefix('univ')->name('univ.')->group(function () {
+        Route::get('/index', [SuperAdminController::class, 'indexUniv'])->name('index');
+        Route::post('/create', [SuperAdminController::class, 'createUniv'])->name('create');
+        Route::get('/edit/{id}', [SuperAdminController::class, 'editUniv'])->name('edit');
+        Route::put('/update/{id}', [SuperAdminController::class, 'updateUniv'])->name('update');
+    });
+
 
 
     //Prodi

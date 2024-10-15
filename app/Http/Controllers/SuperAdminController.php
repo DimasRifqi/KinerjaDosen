@@ -335,6 +335,7 @@ class SuperAdminController extends Controller
 
                 $query->where('status', $statusFilter);
             })
+            ->orderBy('created_at', 'desc') 
             ->paginate(10);
 
 
@@ -359,13 +360,13 @@ class SuperAdminController extends Controller
 
     public function createUniv(Request $request){
         $validateData = $request->validate([
-            'nama_univ' => 'required',
+            'nama_universitas' => 'required',
             'id_kota' => 'required',
             'tipe' => 'required',
         ]);
 
         Universitas::create([
-            'nama_universitas' => $validateData['nama_univ'],
+            'nama_universitas' => $validateData['nama_universitas'],
             'id_kota' => $validateData['id_kota'],
             'tipe' => $validateData['tipe'],
         ]);

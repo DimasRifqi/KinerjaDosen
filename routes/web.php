@@ -3,7 +3,9 @@
 use App\Http\Controllers\AuthApiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CsvImportController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\GelarController;
+use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\JabatanFungsionalController;
 use App\Http\Controllers\KotaController;
 use App\Http\Controllers\OPPTController;
@@ -258,3 +260,24 @@ Route::put('/anggota/dosenstatus/{id}', [VerifikatorController::class, 'statusPe
 Route::get('/userProfile', [AuthApiController::class, 'userProfile']);
 Route::get('/pengajuan', [AuthApiController::class, 'pengajuan']);
 Route::get('/auditor', [AuthApiController::class, 'auditor']);
+
+
+//Informasi dipake oleh admin
+Route::group(['prefix' => 'informasi'], function () {
+    Route::get('index', [InformasiController::class, 'indexInformasi'])->name('admin.informasi.index');
+    Route::post('store', [InformasiController::class, 'storeInformasi'])->name('admin.informasi.store');
+    Route::get('edit/{id}', [InformasiController::class, 'editInformasi'])->name('admin.informasi.edit');
+    Route::put('update/{id}', [InformasiController::class, 'updateInformasi'])->name('admin.informasi.update');
+    Route::delete('delete/{id}', [InformasiController::class, 'deleteInformasi'])->name('admin.informasi.delete');
+});
+
+//Faq dipake oleh admin
+Route::group(['prefix' => 'faq'], function () {
+    Route::get('index', [FaqController::class, 'index'])->name('admin.faq.index');
+    Route::post('store', [FaqController::class, 'store'])->name('admin.faq.store');
+    Route::get('edit/{id}', [FaqController::class, 'edit'])->name('admin.faq.edit');
+    Route::put('update/{id}', [FaqController::class, 'update'])->name('admin.faq.update');
+    Route::delete('delete/{id}', [FaqController::class, 'destroy'])->name('admin.faq.delete');
+});
+
+

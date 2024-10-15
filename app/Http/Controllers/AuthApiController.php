@@ -67,12 +67,13 @@ class AuthApiController extends Controller
     }
 
     public function userProfile(){
-        $userData = auth()->user();
+        $userId = Auth::id();
+        $userData = User::with('gelar_depan', 'gelar_belakang', 'jabatan_fungsional', 'universitas', 'pangkat_dosen', 'prodi')->where('id', $userId)->get();
+
         return response()->json([
             'status' => true,
             'message' => 'User login profile ',
             'data' => $userData,
-            'id' => auth()->user()->id
         ], 200);
     }
 

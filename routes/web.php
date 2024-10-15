@@ -179,6 +179,7 @@ Route::group(['middleware' => ['auth', 'role:1']], function () {
     Route::get('/univ/edit/{id}', [SuperAdminController::class, 'editUniv'])->name('univ.edit');
     Route::put('/univ/update/{id}', [SuperAdminController::class, 'updateUniv'])->name('univ.update');
 
+
     //Prodi
     Route::get('/admin/createProdi', [SuperAdminController::class, 'indexProdi'])->name('index.prodi');
     Route::post('/prodi/create', [SuperAdminController::class, 'createProdi'])->name('prodi.create');

@@ -91,49 +91,14 @@
                                         Create Universitas
                                     </button>
 
-                                    @if ($univ->isEmpty())
-                                        <p class="card-description">No Data Universitas records found.</p>
-                                    @else
-                                        <div class="table-responsive">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>ID Universitas</th>
-                                                        <th>Nama Universitas</th>
-                                                        <th>Kota</th>
-                                                        <th>TIpe</th>
-                                                        <th>Status</th>
-                                                        <th>Aksi</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="univ-table-body">
-                                                    @foreach ($univ as $uni)
-                                                        <tr>
-                                                            <td>{{ $univ->firstItem() + $loop->index }}</td>
-                                                            <td>{{ $uni->nama_universitas }}</td>
-                                                            <td>{{ $uni->kota ? $uni->kota->nama_kota : 'N/A' }}</td>
-                                                            <td>{{ $uni->tipe }}</td>
-                                                            <td>{{ $uni->status ? 'Active' : 'Inactive' }}</td>
-                                                            <td>
-                                                                <button type="button"
-                                                                    class="btn btn-warning btn-sm edit-btn"
-                                                                    data-id="{{ $uni->id_universitas }}"
-                                                                    data-nama="{{ $uni->nama_universitas }}"
-                                                                    data-kota="{{ $uni->id_kota }}"
-                                                                    data-tipe="{{ $uni->tipe }}"
-                                                                    data-status="{{ $uni->status }}"
-                                                                    data-bs-toggle="modal" data-bs-target="#editModal">
-                                                                    Edit
-                                                                </button>
-                                                            </td>
+                                    <div class="table-responsive" id="pagination-data">
+                                        @if ($univ->isEmpty())
+                                            <p class="card-description">No Data Universitas records found.</p>
+                                        @else
+                                            @include('home.anggota.komponen.univ_pagination')
+                                        @endif
+                                    </div>
 
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                            {{ $univ->links() }}
-                                        </div>
-                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -186,12 +151,33 @@
                     </div>
                 </div>
             </div>
+
+
+
         </div>
 
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).on('click', '.pagination a', function(e) {
+            e.preventDefault();
+            var page = $(this).attr('href').split('page=')[1]; 
+            fetch_data(page);
+        });
 
+        function fetch_data(page) {
+            $.ajax({
+                url: "{{ route('univ.index') }}?page=" + page,
+                success: function(data) {
+                    $('#pagination-data').html(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error: " + xhr.responseText);
+                }
+            });
+        }
+    </script>
     <script>
         $(document).ready(function() {
 

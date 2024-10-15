@@ -318,11 +318,13 @@ class SuperAdminController extends Controller
     }
 
 
-    public function indexUniv(){
+    public function indexUniv(Request $request){
         $univ = Universitas::paginate(10);
         $kota = Kota::all();
-
-        return view('home.anggota.komponen.buat_univ', compact('univ', 'kota'));
+        if ($request->ajax()) {
+            return view('home.anggota.komponen.univ_pagination', compact('univ',))->render();
+        }
+        return view('home.anggota.komponen.buat_univ', compact('univ','kota'));
     }
 
     // public function indexUniv(){

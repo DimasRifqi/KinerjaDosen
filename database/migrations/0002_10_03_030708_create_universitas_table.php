@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('id_universitas');
             $table->foreignId('id_kota')->nullable()->constrained('kota', 'id_kota')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('nama_universitas')->unique();
-            $table->enum('tipe',['pemerintahan','lldikti','universitas'])->nullable();
+            $table->enum('tipe', ['pemerintahan', 'lldikti', 'universitas'])->default('universitas');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

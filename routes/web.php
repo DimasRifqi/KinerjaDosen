@@ -203,7 +203,7 @@ Route::group(['middleware' => ['auth', 'role:3|1']], function () {
     });
 });
 
-Route::group(['middleware' => ['auth', 'role:7']], function () {
+Route::group(['middleware' => ['auth', 'role:7|1']], function () {
 
     //OP PT or admin
     Route::get('/dosen/data_dosen_oppt', [OPPTController::class, 'allDosen'])->name('oppt.index.dosen'); // index/dosen
@@ -216,7 +216,7 @@ Route::group(['middleware' => ['auth', 'role:7']], function () {
     Route::get('/pengajuan/create', [OPPTController::class, 'addPengajuan'])->name('oppt.pengajuan.dosen');
     Route::post('/pengajuan/store', [OPPTController::class, 'ajukanDosen'])->name('oppt.ajukan.dosen');
     Route::get('/pengajuan/index', [OPPTController::class, 'indexPengajuan'])->name('oppt.pengajuanIndex.dosen');
-    Route::get('/pengajuan/show/{id}', [OPPTController::class, 'showPengajuan'])->name('oppt.pengajuanShow.dosen');
+    Route::get('/pengajuan/show/p_s_{id}', [OPPTController::class, 'showPengajuan'])->name('oppt.pengajuanShow.dosen');
     Route::post('/pengajuan/dokumen/store/{id}', [OPPTController::class, 'ajukanDokumen'])->name('oppt.pengajuanDokumenStore.dosen');
     Route::put('/pengajuan/dokumen/update/{id}', [OPPTController::class, 'updateDokumen'])->name('oppt.updateDokumen.dosen');
     Route::put('/draft/pengajuan{id}', [OPPTController::class, 'draftPengajuan'])->name('oppt.draftPengajuan.dosen');

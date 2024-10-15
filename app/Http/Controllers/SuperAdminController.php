@@ -337,7 +337,6 @@ class SuperAdminController extends Controller
 
         $univ = Universitas::with('kota')
             ->when($search, function ($query) use ($search) {
-
                 $query->where('nama_universitas', 'like', "%{$search}%")
                     ->orWhereHas('kota', function ($query) use ($search) {
                         $query->where('nama_kota', 'like', "%{$search}%");
@@ -345,23 +344,25 @@ class SuperAdminController extends Controller
                     ->orWhere('tipe', 'like', "%{$search}%");
             })
             ->when(isset($statusFilter) && ($statusFilter === '0' || $statusFilter === '1'), function ($query) use ($statusFilter) {
-
                 $query->where('status', $statusFilter);
             })
-            ->orderBy('created_at', 'desc') 
+            ->orderBy('created_at', 'desc')
             ->paginate(10);
-
 
         $kota = Kota::all();
 
-
         if ($request->ajax()) {
-
-            return view('home.anggota.komponen.univ_pagination', compact('univ'))->render();
+            if ($univ->isEmpty()) {
+                // Jika tidak ada data, kembalikan view dengan pesan 'Tidak Ada Data'
+                return response()->json(['message' => 'Tidak Ada Data']);
+            } else {
+                return view('home.anggota.komponen.univ_pagination', compact('univ'))->render();
+            }
         }
 
         return view('home.anggota.komponen.buat_univ', compact('univ', 'kota'));
     }
+
 
 
     // public function indexUniv(){

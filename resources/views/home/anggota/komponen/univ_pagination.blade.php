@@ -28,7 +28,7 @@
                 <td>{{ $uni->nama_universitas }}</td>
                 <td>{{ $uni->kota ? $uni->kota->nama_kota : 'N/A' }}</td>
                 <td>{{ $uni->tipe }}</td>
-                <td>{{ $uni->status ? 'Active' : 'Inactive' }}</td>
+                <td>{{ $uni->status ? 'Aktif' : 'Tidak Aktif' }}</td>
                 <td>
                     <button type="button" class="btn btn-warning btn-sm edit-btn"
                         data-id="{{ $uni->id_universitas }}"

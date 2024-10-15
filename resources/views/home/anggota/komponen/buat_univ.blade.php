@@ -93,7 +93,7 @@
                                             <input type="text" class="form-control" name="search" id="search"
                                                 placeholder="Cari berdasarkan nama universitas, kota, tipe"
                                                 value="{{ request()->input('search') }}">
-                                            <button class="btn btn-primary" type="submit">Cari</button>
+                                            <button class="btn btn-primary" type="submit">Cari / Reset</button>
                                         </div>
                                     </form>
 
@@ -104,7 +104,7 @@
 
                                     <div class="table-responsive" id="pagination-data">
                                         @if ($univ->isEmpty())
-                                            <p class="card-description">No Data Universitas records found.</p>
+                                            <p class="card-description">Tidak ada data universitas</p>
                                         @else
                                             @include('home.anggota.komponen.univ_pagination')
                                         @endif
@@ -189,7 +189,7 @@
                     success: function(response) {
                         if (response) {
                             location
-                        .reload(); // Reload halaman setelah universitas berhasil dibuat
+                        .reload();
                         }
                     },
                     error: function(xhr) {
@@ -227,7 +227,7 @@
                 var id = $('#edit_id_universitas').val();
 
                 $.ajax({
-                    url: '/komponen/universitas/update/' + id,
+                    url: '{{ route('univ.update', '') }}/' + id, 
                     method: 'PUT',
                     data: formData,
                     success: function(response) {

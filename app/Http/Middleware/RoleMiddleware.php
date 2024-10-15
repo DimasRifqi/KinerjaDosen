@@ -29,7 +29,7 @@ class RoleMiddleware
             }
         }
 
-        return redirect('/');
+        return redirect('/home');
     }
 
 }

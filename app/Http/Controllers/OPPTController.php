@@ -614,7 +614,7 @@ class OPPTController extends Controller
         $dosen = User::all()
             ->where('id_universitas', $oppt->id_universitas);
 
-        return view('home.anggota.dosen.permohonan_verifikasi', ['permohonan'=>$permohonan, 'dosen'=>$dosen]);
+        return view('home.verifikasi.dosen.permohonan_verifikasi', ['permohonan'=>$permohonan, 'dosen'=>$dosen]);
     }
 
     // public function indexPermohonan(){

@@ -104,11 +104,12 @@
                                             <div class="form-group">
                                                 <label for="nama_gelar_belakang">Nama Gelar Belakang</label>
                                                 <input type="text" id="nama_gelar_belakang" name="nama_gelar_belakang"
-                                                    class="form-control" value="{{ old('nama_gelar_belakang') }}" required>
+                                                    class="form-control" placeholder="Silahkan Masukkan Gelar..."
+                                                    value="{{ old('nama_gelar_belakang') }}" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="status" class="form-label">Status</label>
-                                                <select name="status" id="status" class="form-control" required>
+                                                <select name="status" id="status" class="form-select" required>
                                                     <option value="1">Aktif</option>
                                                     <option value="0">Tidak Aktif</option>
                                                 </select>

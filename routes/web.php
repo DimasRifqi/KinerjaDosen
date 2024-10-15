@@ -26,11 +26,11 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/anggota/dosen/datadosen', function () {
+Route::get('/dosen/datadosen', function () {
     return view('home.anggota.data_dosen');
 })->name('datadosen');
 
-Route::get('/anggota/dosen/pendaftarandosen', function () {
+Route::get('/dosen/pendaftarandosen', function () {
     return view('home.anggota.dosen.pendaftaran_dosen');
 })->name('pendaftarandosen');
 
@@ -38,39 +38,39 @@ Route::get('/profil', function () {
     return view('home.profil.profil');
 })->name('profil');
 
-Route::get('/anggota/operator/pendaftaranoppt', function () {
+Route::get('/operator/pendaftaranoppt', function () {
     return view('home.anggota.operator.pendaftaran_oppt');
 })->name('pendaftaranoppt');
 
-Route::get('/anggota/lldikti/pendaftaranverifikator', function () {
+Route::get('/lldikti/pendaftaranverifikator', function () {
     return view('home.anggota.lldikti.pendaftaran_verifikator');
 })->name('pendaftaranverifikator');
 
-Route::get('/anggota/lldikti/pendaftarankeuangan', function () {
+Route::get('/lldikti/pendaftarankeuangan', function () {
     return view('home.anggota.lldikti.pendaftaran_keuangan');
 })->name('pendaftarankeuangan');
 
-Route::get('/anggota/lldikti/pendaftaranperencanaan', function () {
+Route::get('/lldikti/pendaftaranperencanaan', function () {
     return view('home.anggota.lldikti.pendaftaran_perencanaan');
 })->name('pendaftaranperencanaan');
 
-Route::get('/anggota/dosen/editdosen', function () {
+Route::get('/dosen/editdosen', function () {
     return view('home.anggota.dosen.edit_dosen');
 })->name('editdosen');
 
-Route::get('/anggota/operator/editoperator', function () {
+Route::get('/operator/editoperator', function () {
     return view('home.anggota.operator.edit_operator');
 })->name('editoperator');
 
-Route::get('/anggota/lldikti/editkeuangan', function () {
+Route::get('/lldikti/editkeuangan', function () {
     return view('home.anggota.lldikti.edit_keuangan');
 })->name('editkeuangan');
 
-Route::get('/anggota/lldikti/editperencanaan', function () {
+Route::get('/lldikti/editperencanaan', function () {
     return view('home.anggota.lldikti.edit_perencanaan');
 })->name('editperencanaan');
 
-Route::get('/anggota/lldikti/editverifikator', function () {
+Route::get('/lldikti/editverifikator', function () {
     return view('home.anggota.lldikti.edit_verifikator');
 })->name('editverifikator');
 
@@ -94,108 +94,118 @@ Route::get('/tunjangan/pengajuan/datapengajuan/ajukansemester', function () {
     return view('home.tunjangan.pengajuan.ajukan_semester');
 });
 
-Route::get('/anggota/komponen/gelar_depan', function () {
+Route::get('/komponen/gelar_depan', function () {
     return view('home.anggota.komponen.buat_gelar_depan');
 });
 
-Route::get('/anggota/lldikti/pendaftaranlldikti', function () {
+Route::get('/lldikti/pendaftaranlldikti', function () {
     return view('home.anggota.lldikti.pendaftaran_lldikti');
 })->name('pendaftaranlldikti');
 
-Route::get('/anggota/auditor/pendaftaranauditor', function () {
+Route::get('/auditor/pendaftaranauditor', function () {
     return view('home.anggota.auditor.pendaftaran_auditor');
 })->name('pendaftaranauditor');
 
-Route::get('/anggota/lldikti/editlldikti', function () {
+Route::get('/lldikti/editlldikti', function () {
     return view('home.anggota.lldikti.edit_lldikti');
 })->name('editlldikti');
 
-Route::get('/anggota/auditor/editauditor', function () {
+Route::get('/auditor/editauditor', function () {
     return view('home.anggota.auditor.edit_auditor');
 })->name('edit_auditor');
 
 Route::group(['middleware' => ['auth', 'role:1']], function () {
     // Route untuk Admin
-    Route::prefix('admin')->group(function () {
-        Route::get('/', [SuperAdminController::class, 'index'])->name('admin.index');
-        Route::get('/create', [SuperAdminController::class, 'create'])->name('admin.create');
-        Route::post('/', [SuperAdminController::class, 'store'])->name('admin.store');
-        Route::get('/{id}/edit', [SuperAdminController::class, 'edit'])->name('admin.edit');
-        Route::put('/{id}', [SuperAdminController::class, 'update'])->name('admin.update');
+    Route::prefix('all_user')->group(function () { // admin
+        Route::get('/data_all_user', [SuperAdminController::class, 'index'])->name('admin.index'); // /
+        Route::get('/pendaftaran_all_user', [SuperAdminController::class, 'create'])->name('admin.create'); // /create
+        Route::post('/', [SuperAdminController::class, 'store'])->name('admin.store'); // /
+        Route::get('/{id}/sunting', [SuperAdminController::class, 'edit'])->name('admin.edit'); // /{id}/edit
+        Route::put('/{id}', [SuperAdminController::class, 'update'])->name('admin.update'); // /{id}
     });
 
-    Route::prefix('gelar')->group(function () {
-        // Routes untuk Gelar Depan
-        Route::get('/', [GelarController::class, 'index'])->name('gelar.index');
+    Route::group(['prefix' => 'komponen'], function () {
+        Route::prefix('gelar')->group(function () {
+            // Routes untuk Gelar Depan
+            Route::get('/', [GelarController::class, 'index'])->name('gelar.index');
 
-        Route::prefix('depan')->group(function () {
-            Route::get('/', [GelarController::class, 'indexDepan'])->name('gelar-depan.merge');
-            Route::get('/create', [GelarController::class, 'createDepan'])->name('gelar-depan.create');
-            Route::post('/store', [GelarController::class, 'storeDepan'])->name('gelar-depan.store');
-            Route::get('/{id}/edit', [GelarController::class, 'editDepan'])->name('gelar-depan.edit');
-            Route::put('/{id}', [GelarController::class, 'updateDepan'])->name('gelar-depan.update');
+            Route::prefix('depan')->group(function () {
+                Route::get('/', [GelarController::class, 'indexDepan'])->name('gelar-depan.merge');
+                Route::get('/create', [GelarController::class, 'createDepan'])->name('gelar-depan.create');
+                Route::post('/store', [GelarController::class, 'storeDepan'])->name('gelar-depan.store');
+                Route::get('/{id}/edit', [GelarController::class, 'editDepan'])->name('gelar-depan.edit');
+                Route::put('/{id}', [GelarController::class, 'updateDepan'])->name('gelar-depan.update');
+            });
+
+            // Routes untuk Gelar Belakang
+            Route::prefix('belakang')->group(function () {
+                Route::get('/', [GelarController::class, 'indexBelakang'])->name('gelar-belakang.merge');
+                Route::get('/create', [GelarController::class, 'createBelakang'])->name('gelar-belakang.create');
+                Route::post('/store', [GelarController::class, 'storeBelakang'])->name('gelar-belakang.store');
+                Route::get('/{id}/edit', [GelarController::class, 'editBelakang'])->name('gelar-belakang.edit');
+                Route::put('/{id}', [GelarController::class, 'updateBelakang'])->name('gelar-belakang.update');
+            });
         });
 
-        // Routes untuk Gelar Belakang
-        Route::prefix('belakang')->group(function () {
-            Route::get('/', [GelarController::class, 'indexBelakang'])->name('gelar-belakang.merge');
-            Route::get('/create', [GelarController::class, 'createBelakang'])->name('gelar-belakang.create');
-            Route::post('/store', [GelarController::class, 'storeBelakang'])->name('gelar-belakang.store');
-            Route::get('/{id}/edit', [GelarController::class, 'editBelakang'])->name('gelar-belakang.edit');
-            Route::put('/{id}', [GelarController::class, 'updateBelakang'])->name('gelar-belakang.update');
+        Route::group(['prefix' => 'kota'], function () {
+            Route::get('/', [KotaController::class, 'index'])->name('kota.index'); // /
+            Route::get('/buat', [KotaController::class, 'create'])->name('kota.create'); // /create
+            Route::post('/', [KotaController::class, 'store'])->name('kota.store'); // /
+            Route::get('/{kota}/sunting_k', [KotaController::class, 'edit'])->name('kota.edit'); // /{kota}/edit
+            Route::put('/{kota}', [KotaController::class, 'update'])->name('kota.update'); // /{kota}
+        });
+
+        Route::group(['prefix' => 'jabatan_fungsional'], function () {
+            Route::get('/', [JabatanFungsionalController::class, 'index'])->name('jabatan-fungsional.index');
+            Route::get('/create', [JabatanFungsionalController::class, 'create'])->name('jabatan-fungsional.create');
+            Route::post('/', [JabatanFungsionalController::class, 'store'])->name('jabatan-fungsional.store');
+            Route::get('/{jabatanFungsional}/edit', [JabatanFungsionalController::class, 'edit'])->name('jabatan-fungsional.edit');
+            Route::put('/{jabatanFungsional}', [JabatanFungsionalController::class, 'update'])->name('jabatan-fungsional.update');
+        });
+
+        Route::group(['prefix' => 'universitas'], function () {
+            //Universitas
+            Route::get('/buat_univ', [SuperAdminController::class, 'indexUniv'])->name('univ.index'); // /admin/createUniv
+            Route::post('/create', [SuperAdminController::class, 'createUniv'])->name('univ.create'); // /univ/create
+            Route::get('/sunting/b_u_s_{id}', [SuperAdminController::class, 'editUniv'])->name('univ.edit'); // /univ/edit/{id}
+            Route::put('/update/{id}', [SuperAdminController::class, 'updateUniv'])->name('univ.update'); // /univ/update/{id}
+        });
+
+        Route::group(['prefix' => 'program_studi'], function () {
+            //Prodi
+            Route::get('/buat_prodi', [SuperAdminController::class, 'indexProdi'])->name('index.prodi'); // /admin/createProdi
+            Route::post('/create', [SuperAdminController::class, 'createProdi'])->name('prodi.create'); // /prodi/create
+            Route::get('/sunting/b_pr_s_{id}', [SuperAdminController::class, 'editProdi'])->name('prodi.edit'); // /prodi/edit/{id}
+            Route::put('/update/{id}', [SuperAdminController::class, 'updateProdi'])->name('prodi.update'); // /prodi/update/{id}
+        });
+
+        Route::group(['prefix' => 'pangkat'], function () {
+            //Pangkat
+            Route::get('/buat_pangkat', [SuperAdminController::class, 'indexPangkatDosen'])->name('index.pangkat'); // /admin/createPangkat
+            Route::post('/create', [SuperAdminController::class, 'createPangkat'])->name('pangkat.create'); // /pangkat/create
+            Route::get('/sunting/b_pa_s_{id}', [SuperAdminController::class, 'editPangkat'])->name('pangkat.edit'); // /pangkat/edit/{id}
+            Route::put('/update/{id}', [SuperAdminController::class, 'updatePangkat'])->name('pangkat.update'); // ('/pangkat/update/{id}
         });
     });
 
-    Route::group(['prefix' => 'kota'], function () {
-        Route::get('/', [KotaController::class, 'index'])->name('kota.index');
-        Route::get('/create', [KotaController::class, 'create'])->name('kota.create');
-        Route::post('/', [KotaController::class, 'store'])->name('kota.store');
-        Route::get('/{kota}/edit', [KotaController::class, 'edit'])->name('kota.edit');
-        Route::put('/{kota}', [KotaController::class, 'update'])->name('kota.update');
+    Route::group(['prefix' => 'periode'], function () {
+        //Periode
+        Route::get('/buat_periode', [SuperAdminController::class, 'indexPeriode'])->name('index.periode');
+        Route::post('/create', [SuperAdminController::class, 'CreatePeriode'])->name('periode.create');
+        Route::get('/sunting/b_pe_s{id}', [SuperAdminController::class, 'editPeriode'])->name('periode.edit');
+        Route::put('/update/{id}', [SuperAdminController::class, 'updatePeriode'])->name('periode.update');
     });
-
-    Route::group(['prefix' => 'jabatan-fungsional'], function () {
-        Route::get('/', [JabatanFungsionalController::class, 'index'])->name('jabatan-fungsional.index');
-        Route::get('/create', [JabatanFungsionalController::class, 'create'])->name('jabatan-fungsional.create');
-        Route::post('/', [JabatanFungsionalController::class, 'store'])->name('jabatan-fungsional.store');
-        Route::get('/{jabatanFungsional}/edit', [JabatanFungsionalController::class, 'edit'])->name('jabatan-fungsional.edit');
-        Route::put('/{jabatanFungsional}', [JabatanFungsionalController::class, 'update'])->name('jabatan-fungsional.update');
-    });
-
-    //Periode
-    Route::get('/admin/create_periode', [SuperAdminController::class, 'indexPeriode'])->name('index.periode');
-    Route::post('/periode/create', [SuperAdminController::class, 'CreatePeriode'])->name('periode.create');
-    Route::get('/periode/edit/{id}', [SuperAdminController::class, 'editPeriode'])->name('periode.edit');
-    Route::put('/periode/update/{id}', [SuperAdminController::class, 'updatePeriode'])->name('periode.update');
-
-    //Universitas
-    Route::get('/admin/createUniv', [SuperAdminController::class, 'indexUniv'])->name('univ.index');
-    Route::post('/univ/create', [SuperAdminController::class, 'createUniv'])->name('univ.create');
-    Route::get('/univ/edit/{id}', [SuperAdminController::class, 'editUniv'])->name('univ.edit');
-    Route::put('/univ/update/{id}', [SuperAdminController::class, 'updateUniv'])->name('univ.update');
-
-    //Prodi
-    Route::get('/admin/createProdi', [SuperAdminController::class, 'indexProdi'])->name('index.prodi');
-    Route::post('/prodi/create', [SuperAdminController::class, 'createProdi'])->name('prodi.create');
-    Route::get('/prodi/edit/{id}', [SuperAdminController::class, 'editProdi'])->name('prodi.edit');
-    Route::put('/prodi/update/{id}', [SuperAdminController::class, 'updateProdi'])->name('prodi.update');
-
-    //Pangkat
-    Route::get('/admin/createPangkat', [SuperAdminController::class, 'indexPangkatDosen'])->name('index.pangkat');
-    Route::post('/pangkat/create', [SuperAdminController::class, 'createPangkat'])->name('pangkat.create');
-    Route::get('/pangkat/edit/{id}', [SuperAdminController::class, 'editPangkat'])->name('pangkat.edit');
-    Route::put('/pangkat/update/{id}', [SuperAdminController::class, 'updatePangkat'])->name('pangkat.update');
 });
 
 Route::group(['middleware' => ['auth', 'role:7|1']], function () {
 
     //OP PT or admin
-    Route::get('/index/dosen', [OPPTController::class, 'allDosen'])->name('oppt.index.dosen');
+    Route::get('/dosen/data_dosen_oppt', [OPPTController::class, 'allDosen'])->name('oppt.index.dosen'); // index/dosen
     Route::put('/status/dosen/{id}', [OPPTController::class, 'updateStatusDosen'])->name('oppt.updateStatus.dosen');
-    Route::get('/edit/dosen/{id}', [OPPTController::class, 'editDosen'])->name('oppt.edit.dosen');
+    Route::get('/dosen/data_dosen_oppt/e_d_d_o_{id}', [OPPTController::class, 'editDosen'])->name('oppt.edit.dosen'); // edit/dosen/{id}
     Route::put('/update/dosen/{id}', [OPPTController::class, 'updateDosen'])->name('oppt.update.dosen');
     Route::get('/periode', [OPPTController::class, 'indexPeriode'])->name('periode.index');
-    Route::get('/history/dosen/{id}', [OPPTController::class, 'historyPengajuanDosen'])->name('oppt.history.dosen');
+    Route::get('/dosen/data_dosen_oppt/h_d_d_o_{id}', [OPPTController::class, 'historyPengajuanDosen'])->name('oppt.history.dosen'); // history/dosen/{id}
 
     Route::get('/pengajuan/create', [OPPTController::class, 'addPengajuan'])->name('oppt.pengajuan.dosen');
     Route::post('/pengajuan/store', [OPPTController::class, 'ajukanDosen'])->name('oppt.ajukan.dosen');
@@ -221,7 +231,7 @@ Route::group(['middleware' => ['auth', 'role:7|1']], function () {
 
     Route::get('create/permohonan/dosen', [OPPTController::class, 'createPermohonan'])->name('oppt.createPermohonan.dosen');
     Route::post('store/permohonan/dosen', [OPPTController::class, 'storePermohonan'])->name('oppt.storePermohonan.dosen');
-    Route::get('index/permohonan/dosen', [OPPTController::class, 'indexPermohonan'])->name('oppt.indexPermohonan.dosen');
+    Route::get('anggota/verif_edit_dosen_oppt', [OPPTController::class, 'indexPermohonan'])->name('oppt.indexPermohonan.dosen'); // index/permohonan/dosen
     Route::get('show/permohonan/dosen/{id}', [OPPTController::class, 'showPermohonan'])->name('oppt.showPermohonan.dosen');
     Route::get('/template/{id}', [OPPTController::class, 'fetchDosen'])->name('fetch.dosen');
 });
@@ -235,14 +245,14 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 //Verifikator
-Route::get('/index/pengajuan', [VerifikatorController::class, 'indexPengajuan'])->name('verifikator.pengajuan.index');
-Route::get('/detail/pengajuan/{id}', [VerifikatorController::class, 'detailPengajuan'])->name('verifikator.pengajuan.show');
+Route::get('/tunjangan/verif_tunjangan', [VerifikatorController::class, 'indexPengajuan'])->name('verifikator.pengajuan.index'); // index/pengajuan
+Route::get('/tunjangan/verif_tunjangan/v_t_{id}', [VerifikatorController::class, 'detailPengajuan'])->name('verifikator.pengajuan.show'); // detail/pengajuan/{id}
 Route::put('/update/pengajuan/{id}', [VerifikatorController::class, 'updateStatusPengajuan'])->name('verifikator.pengajuanStatus.update');
 Route::post('/store/pesan/pengajuan/{id}', [VerifikatorController::class, 'storePesanPengajuanDosen'])->name('verifikator.pesanPengajuan.store');
 
-Route::get('/verifikator/index/permohonan', [VerifikatorController::class, 'indexPermohonan'])->name('verifikator.permohonan.index');
-Route::get('/verifikator/index/permohonan/{id}', [VerifikatorController::class, 'showPermohonan'])->name('verifikator.permohonan.show');
-Route::put('/verifikator/index/permohonan/status/{id}', [VerifikatorController::class, 'statusPermohonan'])->name('verifikator.permohonan.status');
+Route::get('/anggota/verif_edit_dosen', [VerifikatorController::class, 'indexPermohonan'])->name('verifikator.permohonan.index'); // verifikator/index/permohonan
+Route::get('/anggota/verif_edit_dosen/d_e_d_{id}', [VerifikatorController::class, 'showPermohonan'])->name('verifikator.permohonan.show'); // verifikator/index/permohonan/{id}
+Route::put('/anggota/dosenstatus/{id}', [VerifikatorController::class, 'statusPermohonan'])->name('verifikator.permohonan.status'); // verifikator/index/permohonan/status/{id}
 
 //Tes Api
 Route::get('/userProfile', [AuthApiController::class, 'userProfile']);

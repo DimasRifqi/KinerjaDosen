@@ -101,7 +101,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Pilih Status</label>
-                                                <select name="status" id="status" class="form-control" required>
+                                                <select name="status" id="status" class="form-select" required>
                                                     <option value="1" selected>Active</option>
                                                 </select>
                                             </div>

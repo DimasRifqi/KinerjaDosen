@@ -38,13 +38,13 @@
                                         {{-- <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>-0.5%</span></p> --}}
                                     </div>
                                     <div>
-                                        <p class="statistics-title">Tunjangan Berlangsung</p>
+                                        <p class="statistics-title">Pengajuan Tunjangan</p>{{-- tooltip "Pengajuan Tunjangan yang Berlangsung Saat Ini" --}}
                                         <h3 class="rate-percentage">7,682</h3>
                                         {{-- <p class="text-success d-flex"><i class="mdi mdi-menu-up"></i><span>+0.1%</span> --}}
                                         </p>
                                     </div>
                                     <div>
-                                        <p class="statistics-title">Verifikasi Data Dosen</p>
+                                        <p class="statistics-title">Verifikasi Dosen</p>{{-- tooltip "Verifikasi Data Dosen yang Berlangsung Saat Ini" --}}
                                         <h3 class="rate-percentage">123115</h3>
                                         {{-- <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span> --}}
                                         </p>

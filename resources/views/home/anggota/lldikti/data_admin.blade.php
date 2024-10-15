@@ -1,13 +1,13 @@
 @extends('layouts.home.app')
-@section('title', 'Data Dosen')
-@section('userTypeOnPage', 'SuperAdmin, Verifikator, Perencanaan, Keuangan')
+@section('title', 'Data Admin LLDIKTI')
+@section('userTypeOnPage', 'SuperAdmin')
 @section('content')
     <div class="content-wrapper">
         <div class="row">
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Data User</h4>
+                        <h4 class="card-title">Data Data Admin LLDIKTI</h4>
                         <p class="card-description">
                             Lorem ipsum dolor sit </p>
                         <div class="table-responsive">
@@ -46,7 +46,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="5" class="text-center">No admin found</td>
+                                            <td colspan="5" class="text-center">No user found</td>
                                         </tr>
                                     @endforelse
                                 </tbody>

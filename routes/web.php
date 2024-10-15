@@ -126,7 +126,7 @@ Route::group(['middleware' => ['auth', 'role:1']], function () {
         Route::put('/{id}', [SuperAdminController::class, 'update'])->name('admin.update'); // /{id}
     });
 
-    
+
 
     Route::group(['prefix' => 'periode'], function () {
         //Periode
@@ -287,5 +287,3 @@ Route::group(['prefix' => 'faq'], function () {
     Route::put('update/{id}', [FaqController::class, 'update'])->name('admin.faq.update');
     Route::delete('delete/{id}', [FaqController::class, 'destroy'])->name('admin.faq.delete');
 });
-
-

@@ -17,12 +17,12 @@
                 </ul>
             </div>
 
-            {{-- modal edit --}}
+            <!-- Modal Edit Universitas -->
             <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="editModalLabel">Edit Universitas</h5>
+                            <h5 class="modal-title" id="editModalLabel">Ubah Universitas</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -64,12 +64,13 @@
                                     </select>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="submit" class="btn btn-warning">Ubah</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+
 
             <div class="tab-content tab-content-basic">
                 <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
@@ -86,54 +87,29 @@
 
                                     <h4 class="card-title">Data Universitas</h4>
 
+                                    <!-- Form Pencarian (terpisah dari filter status) -->
+                                    <form id="searchForm" method="GET">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="search" id="search"
+                                                placeholder="Cari berdasarkan nama universitas, kota, tipe"
+                                                value="{{ request()->input('search') }}">
+                                            <button class="btn btn-primary" type="submit">Cari</button>
+                                        </div>
+                                    </form>
+
                                     <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
                                         data-bs-target="#createModal">
-                                        Create Universitas
+                                        Buat Universitas
                                     </button>
 
-                                    @if ($univ->isEmpty())
-                                        <p class="card-description">No Data Universitas records found.</p>
-                                    @else
-                                        <div class="table-responsive">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>ID Universitas</th>
-                                                        <th>Nama Universitas</th>
-                                                        <th>Kota</th>
-                                                        <th>TIpe</th>
-                                                        <th>Status</th>
-                                                        <th>Aksi</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="univ-table-body">
-                                                    @foreach ($univ as $uni)
-                                                        <tr>
-                                                            <td>{{ $univ->firstItem() + $loop->index }}</td>
-                                                            <td>{{ $uni->nama_universitas }}</td>
-                                                            <td>{{ $uni->kota ? $uni->kota->nama_kota : 'N/A' }}</td>
-                                                            <td>{{ $uni->tipe }}</td>
-                                                            <td>{{ $uni->status ? 'Active' : 'Inactive' }}</td>
-                                                            <td>
-                                                                <button type="button"
-                                                                    class="btn btn-warning btn-sm edit-btn"
-                                                                    data-id="{{ $uni->id_universitas }}"
-                                                                    data-nama="{{ $uni->nama_universitas }}"
-                                                                    data-kota="{{ $uni->id_kota }}"
-                                                                    data-tipe="{{ $uni->tipe }}"
-                                                                    data-status="{{ $uni->status }}"
-                                                                    data-bs-toggle="modal" data-bs-target="#editModal">
-                                                                    Edit
-                                                                </button>
-                                                            </td>
+                                    <div class="table-responsive" id="pagination-data">
+                                        @if ($univ->isEmpty())
+                                            <p class="card-description">No Data Universitas records found.</p>
+                                        @else
+                                            @include('home.anggota.komponen.univ_pagination')
+                                        @endif
+                                    </div>
 
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                            {{ $univ->links() }}
-                                        </div>
-                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -143,7 +119,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="createModalLabel">Create Universitas</h5>
+                                        <h5 class="modal-title" id="createModalLabel">Buat Universitas</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
@@ -152,9 +128,9 @@
                                         <form id="createUnivForm">
                                             @csrf
                                             <div class="form-group">
-                                                <label for="nama_univ">Nama Universitas</label>
-                                                <input type="text" class="form-control" id="nama_univ"
-                                                    name="nama_univ" required>
+                                                <label for="nama_universitas">Nama Universitas</label>
+                                                <input type="text" class="form-control" id="nama_universitas"
+                                                    name="nama_universitas" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="id_kota">Kota</label>
@@ -176,7 +152,7 @@
                                                 </select>
                                             </div>
 
-                                            <button type="submit" class="btn btn-success">Save</button>
+                                            <button type="submit" class="btn btn-primary">Simpan</button>
                                         </form>
                                     </div>
                                 </div>
@@ -186,12 +162,14 @@
                     </div>
                 </div>
             </div>
+
+
+
         </div>
 
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script>
         $(document).ready(function() {
 
@@ -209,31 +187,27 @@
                     method: 'POST',
                     data: formData,
                     success: function(response) {
-
-                        if (response)(
-                            location.reload()
-                        )
+                        if (response) {
+                            location.reload();
+                        }
                         $('#univ-table-body').append(`
-                            <tr>
-                                <td>${response.id_universitas}</td>
-                                <td>${response.nama_universitas}</td>
-                                <td>${response.kota_nama}</td>
-                                <td>${response.tipe}</td>
+                <tr>
+                    <td>${response.id_universitas}</td>
+                    <td>${response.nama_universitas}</td>
+                    <td>${response.kota_nama}</td>
+                    <td>${response.tipe}</td>
 
-                                <td>
-                                    <a href="/univ/edit/${response.id_universitas}" class="btn btn-warning btn-sm">Edit</a>
-                                </td>
-                            </tr>
-                        `);
+                    <td>
+                        <a href="/univ/edit/${response.id_universitas}" class="btn btn-warning btn-sm">Edit</a>
+                    </td>
+                </tr>
+            `);
 
                         $('#success-message').text('Universitas created successfully!').show();
-
                         $('#createModal').modal('hide');
-
                         $('#createUnivForm')[0].reset();
                     },
                     error: function(xhr) {
-
                         var errors = xhr.responseJSON.errors;
                         if (errors) {
                             for (var error in errors) {
@@ -261,7 +235,6 @@
                 $('#editModal').modal('show');
             });
 
-
             $('#editUnivForm').on('submit', function(e) {
                 e.preventDefault();
 
@@ -270,18 +243,54 @@
 
                 $.ajax({
                     url: '/univ/update/' + id,
-                    method: 'POST',
+                    method: 'PUT',
                     data: formData,
                     success: function(response) {
-
                         location.reload();
                     },
                     error: function(xhr) {
-
                         alert('Terjadi kesalahan');
                     }
                 });
             });
+
+            $('#searchForm').on('submit', function(e) {
+                e.preventDefault();
+                fetch_data(1);
+            });
+
+            $('#statusFilter').on('change', function() {
+                fetch_data(1);
+            });
+
+            $(document).on('click', '.pagination a', function(e) {
+                e.preventDefault();
+                var page = $(this).attr('href').split('page=')[1];
+                fetch_data(page);
+            });
+
+            $(document).on('click', '.status-filter-option', function(e) {
+                e.preventDefault();
+                var status = $(this).data('status'); // Ambil nilai status yang dipilih dari dropdown
+                fetch_data(1, status); // Panggil fungsi fetch_data dengan status terpilih
+            });
+
+            // Fungsi untuk mengambil data dari server via AJAX
+            function fetch_data(page, status = '') {
+                var search = $('#search').val(); // Ambil nilai pencarian dari input jika ada
+
+                $.ajax({
+                    url: "{{ route('univ.index') }}?page=" + page + "&search=" + search + "&status=" +
+                        status,
+                    success: function(data) {
+                        $('#pagination-data').html(data); // Render ulang konten tabel
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error: " + xhr
+                        .responseText); // Tampilkan error di console jika ada
+                    }
+                });
+            }
         });
     </script>
 @endsection

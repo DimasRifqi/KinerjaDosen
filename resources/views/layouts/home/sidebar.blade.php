@@ -27,7 +27,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-                <i class="menu-icon mdi mdi-file-document"></i>
+                <i class="menu-icon mdi mdi mdi-file"></i>
                 <span class="menu-title">Tunjangan</span>
                 <i class="menu-arrow"></i>
             </a>
@@ -164,7 +164,7 @@
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#pengajuan" aria-expanded="false"
                 aria-controls="pengajuan">
-                <i class="menu-icon mdi mdi-file-document"></i>
+                <i class="menu-icon mdi mdi-file-outline"></i>
                 <span class="menu-title">Pengajuan</span>
                 <i class="menu-arrow"></i>
             </a>

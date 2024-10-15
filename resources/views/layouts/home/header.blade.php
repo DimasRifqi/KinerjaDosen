@@ -72,17 +72,22 @@
         </div>
         <div>
             <a class="navbar-brand brand-logo" href="{{ url('/') }}">
-                <img src="images/logo.svg" alt="logo" />
+                <img src="{{ asset('images/orang.png') }}" alt="logo" />
             </a>
             <a class="navbar-brand brand-logo-mini" href="{{ url('/') }}">
-                <img src="images/logo-mini.svg" alt="logo" />
+                <img src="{{ asset('images/orang.png') }}" alt="logo" />
             </a>
         </div>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-top">
         <ul class="navbar-nav">
             <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-                <h1 class="welcome-text">Halo <span class="text-black fw-bold">CharLimit11</span></h1>
+                <h1 class="welcome-text">Halo <span class="text-black fw-bold">
+                        {{ auth()->user()->gelar_depan?->gelar ?? '' }}
+                        {{ Str::limit(auth()->user()->name ?? 'Guest', 23) }}
+                        {{ auth()->user()->gelar_belakang?->gelar ?? '' }}
+                    </span>
+                </h1>
                 <h3 class="welcome-sub-text">Sebagai @yield('userTypeOnPage')</h3>
             </li>
         </ul>
@@ -135,13 +140,15 @@
 
             <li class="nav-item dropdown d-none d-lg-block user-dropdown">
                 <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img class="img-xs rounded-circle" src="images/faces/face8.jpg" alt="Profile image">
+                    <img class="img-xs rounded-circle"
+                        src="{{ auth()->user()->profile_image ?? asset('images/orang.png') }}" alt="Profile image">
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                     <div class="dropdown-header text-center">
-                        <img class="img-md rounded-circle" src="images/faces/face8.jpg" alt="Profile image">
-                        <p class="mb-1 mt-3 font-weight-semibold">Lorem ipsum</p>
-                        <p class="fw-light text-muted mb-0">loremipsum@gmail.com</p>
+                        <img class="img-xs rounded-circle"
+                            src="{{ auth()->user()->profile_image ?? asset('images/orang.png') }}" alt="Profile image">
+                        <p class="mb-1 mt-3 font-weight-semibold">{{ auth()->user()->name ?? 'Guest' }}</p>
+                        <p class="fw-light text-muted mb-0">{{ auth()->user()->email ?? 'No Email' }}</p>
                     </div>
                     <a class="dropdown-item" href="{{ route('profil') }}"><i
                             class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i>

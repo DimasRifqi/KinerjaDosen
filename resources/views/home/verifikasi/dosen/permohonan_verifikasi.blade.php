@@ -1,5 +1,5 @@
 @extends('layouts.home.app')
-@section('title', 'Data Dosen')
+@section('title', 'Permohonan Edit Data Dosen')
 @section('userTypeOnPage', 'SuperAdmin, OPPT')
 @section('content')
     <div class="content-wrapper">
@@ -9,7 +9,7 @@
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab"
-                            aria-controls="overview" aria-selected="true">Detail Data Dosen</a>
+                            aria-controls="overview" aria-selected="true">Detail Permohonan Edit Data Dosen</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#audiences" role="tab"
@@ -23,7 +23,7 @@
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Data Dosen</h4>
+                                    <h4 class="card-title">Permohonan Edit Data Dosen</h4>
                                     <p class="card-description">
                                         Lorem ipsum dolor sit </p>
                                     @if (session('success'))
@@ -69,8 +69,8 @@
                                                             <td>{{ $item->permohonan }}</td>
                                                             <td>{{ $item->status ? 'Selesai' : 'Proses' }}</td>
                                                             <td>{{ $item->created_at->format('d M Y') }}</td>
-                                                            <td><a
-                                                                    href="{{ route('oppt.showPermohonan.dosen', $item->id_permohonan) }}">
+                                                            <td><a href="{{ route('oppt.showPermohonan.dosen', $item->id_permohonan) }}"
+                                                                    class="btn btn-warning btn-sm">
                                                                     Detail</a></td>
                                                         </tr>
                                                     @endforeach

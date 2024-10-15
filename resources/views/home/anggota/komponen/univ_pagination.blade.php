@@ -31,4 +31,4 @@
     </tbody>
 </table>
 
-{{ $univ->links() }} 
+{{ $univ->appends(request()->except('page'))->links() }}

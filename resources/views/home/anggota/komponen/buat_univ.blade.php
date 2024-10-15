@@ -17,12 +17,12 @@
                 </ul>
             </div>
 
-            {{-- modal edit --}}
+            <!-- Modal Edit Universitas -->
             <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="editModalLabel">Edit Universitas</h5>
+                            <h5 class="modal-title" id="editModalLabel">Ubah Universitas</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -64,12 +64,13 @@
                                     </select>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="submit" class="btn btn-warning">Ubah</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+
 
             <div class="tab-content tab-content-basic">
                 <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
@@ -86,9 +87,36 @@
 
                                     <h4 class="card-title">Data Universitas</h4>
 
+                                    <!-- Form Pencarian (terpisah dari filter status) -->
+                                    <form id="searchForm" method="GET">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="search" id="search"
+                                                placeholder="Cari berdasarkan nama universitas, kota, tipe"
+                                                value="{{ request()->input('search') }}">
+                                            <button class="btn btn-primary" type="submit">Cari</button>
+                                        </div>
+                                    </form>
+
+                                    <!-- Form Filter Status (Form terpisah untuk filter status saja) -->
+                                    <form id="filterStatusForm" method="GET">
+                                        <div class="input-group mb-3">
+                                            <label for="statusFilter" class="me-2">Filter Status:</label>
+                                            <select class="form-control" id="statusFilter" name="status">
+                                                <option value="">Semua Status</option>
+                                                <option value="1"
+                                                    {{ request()->input('status') == '1' ? 'selected' : '' }}>Active
+                                                </option>
+                                                <option value="0"
+                                                    {{ request()->input('status') == '0' ? 'selected' : '' }}>Inactive
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </form>
+
+
                                     <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
                                         data-bs-target="#createModal">
-                                        Create Universitas
+                                        Buat Universitas
                                     </button>
 
                                     <div class="table-responsive" id="pagination-data">
@@ -108,7 +136,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="createModalLabel">Create Universitas</h5>
+                                        <h5 class="modal-title" id="createModalLabel">Buat Universitas</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
@@ -117,9 +145,9 @@
                                         <form id="createUnivForm">
                                             @csrf
                                             <div class="form-group">
-                                                <label for="nama_univ">Nama Universitas</label>
-                                                <input type="text" class="form-control" id="nama_univ"
-                                                    name="nama_univ" required>
+                                                <label for="nama_universitas">Nama Universitas</label>
+                                                <input type="text" class="form-control" id="nama_universitas"
+                                                    name="nama_universitas" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="id_kota">Kota</label>
@@ -141,7 +169,7 @@
                                                 </select>
                                             </div>
 
-                                            <button type="submit" class="btn btn-success">Save</button>
+                                            <button type="submit" class="btn btn-primary">Simpan</button>
                                         </form>
                                     </div>
                                 </div>
@@ -160,25 +188,6 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).on('click', '.pagination a', function(e) {
-            e.preventDefault();
-            var page = $(this).attr('href').split('page=')[1]; 
-            fetch_data(page);
-        });
-
-        function fetch_data(page) {
-            $.ajax({
-                url: "{{ route('univ.index') }}?page=" + page,
-                success: function(data) {
-                    $('#pagination-data').html(data);
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error: " + xhr.responseText);
-                }
-            });
-        }
-    </script>
-    <script>
         $(document).ready(function() {
 
             $('#createUnivForm').on('submit', function(e) {
@@ -195,31 +204,27 @@
                     method: 'POST',
                     data: formData,
                     success: function(response) {
-
-                        if (response)(
-                            location.reload()
-                        )
+                        if (response) {
+                            location.reload();
+                        }
                         $('#univ-table-body').append(`
-                            <tr>
-                                <td>${response.id_universitas}</td>
-                                <td>${response.nama_universitas}</td>
-                                <td>${response.kota_nama}</td>
-                                <td>${response.tipe}</td>
+                <tr>
+                    <td>${response.id_universitas}</td>
+                    <td>${response.nama_universitas}</td>
+                    <td>${response.kota_nama}</td>
+                    <td>${response.tipe}</td>
 
-                                <td>
-                                    <a href="/univ/edit/${response.id_universitas}" class="btn btn-warning btn-sm">Edit</a>
-                                </td>
-                            </tr>
-                        `);
+                    <td>
+                        <a href="/univ/edit/${response.id_universitas}" class="btn btn-warning btn-sm">Edit</a>
+                    </td>
+                </tr>
+            `);
 
                         $('#success-message').text('Universitas created successfully!').show();
-
                         $('#createModal').modal('hide');
-
                         $('#createUnivForm')[0].reset();
                     },
                     error: function(xhr) {
-
                         var errors = xhr.responseJSON.errors;
                         if (errors) {
                             for (var error in errors) {
@@ -247,7 +252,6 @@
                 $('#editModal').modal('show');
             });
 
-
             $('#editUnivForm').on('submit', function(e) {
                 e.preventDefault();
 
@@ -256,18 +260,48 @@
 
                 $.ajax({
                     url: '/univ/update/' + id,
-                    method: 'POST',
+                    method: 'PUT',
                     data: formData,
                     success: function(response) {
-
                         location.reload();
                     },
                     error: function(xhr) {
-
                         alert('Terjadi kesalahan');
                     }
                 });
             });
+
+            $('#searchForm').on('submit', function(e) {
+                e.preventDefault();
+                fetch_data(1);
+            });
+
+            $('#statusFilter').on('change', function() {
+                fetch_data(1);
+            });
+
+            $(document).on('click', '.pagination a', function(e) {
+                e.preventDefault();
+                var page = $(this).attr('href').split('page=')[1];
+                fetch_data(page);
+            });
+
+            function fetch_data(page) {
+                var search = $('#search').val();
+                var status = $('#statusFilter').val();
+
+                $.ajax({
+                    url: "{{ route('univ.index') }}?page=" + page + "&search=" + search + "&status=" +
+                        status,
+                    success: function(data) {
+                        $('#pagination-data').html(data);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error: " + xhr
+                            .responseText);
+                    }
+                });
+            }
         });
     </script>
 @endsection

@@ -318,14 +318,37 @@ class SuperAdminController extends Controller
     }
 
 
-    public function indexUniv(Request $request){
-        $univ = Universitas::paginate(10);
+    public function indexUniv(Request $request) {
+        $search = $request->input('search');
+        $statusFilter = $request->input('status');
+
+        $univ = Universitas::with('kota')
+            ->when($search, function ($query) use ($search) {
+
+                $query->where('nama_universitas', 'like', "%{$search}%")
+                    ->orWhereHas('kota', function ($query) use ($search) {
+                        $query->where('nama_kota', 'like', "%{$search}%");
+                    })
+                    ->orWhere('tipe', 'like', "%{$search}%");
+            })
+            ->when(isset($statusFilter) && ($statusFilter === '0' || $statusFilter === '1'), function ($query) use ($statusFilter) {
+
+                $query->where('status', $statusFilter);
+            })
+            ->paginate(10);
+
+
         $kota = Kota::all();
+
+
         if ($request->ajax()) {
-            return view('home.anggota.komponen.univ_pagination', compact('univ',))->render();
+
+            return view('home.anggota.komponen.univ_pagination', compact('univ'))->render();
         }
-        return view('home.anggota.komponen.buat_univ', compact('univ','kota'));
+
+        return view('home.anggota.komponen.buat_univ', compact('univ', 'kota'));
     }
+
 
     // public function indexUniv(){
     //     $univ = Universitas::all();

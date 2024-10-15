@@ -251,7 +251,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 //Verifikator
-Route::group(['middleware' => ['auth', 'role:2']], function () {
+Route::group(['middleware' => ['auth', 'role:1|2']], function () {
     Route::prefix('tunjangan')->group(function () {
         Route::get('/verif_tunjangan', [VerifikatorController::class, 'indexPengajuan'])->name('verifikator.pengajuan.index'); // index/pengajuan
         Route::get('/verif_tunjangan/v_t_{id}', [VerifikatorController::class, 'detailPengajuan'])->name('verifikator.pengajuan.show'); // detail/pengajuan/{id}

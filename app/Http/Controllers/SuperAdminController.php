@@ -26,7 +26,7 @@ class SuperAdminController extends Controller
     public function index()
     {
         $admin = User::all();
-        return view('home.anggota.dosen.data_dosen', compact('admin'));
+        return view('home.anggota.all_user.data_all_user', compact('admin'));
     }
 
     public function create()
@@ -39,8 +39,21 @@ class SuperAdminController extends Controller
         $gelarDepan = Gelar_Depan::all();
         $gelarBelakang = Gelar_Belakang::all();
 
-        return view('testing.admin.create', compact('roles', 'jabatanFungsional', 'universitas', 'prodi', 'pangkatDosen', 'gelarDepan', 'gelarBelakang'));
+        return view('home.anggota.all_user.pendaftaran_all_user', compact('roles', 'jabatanFungsional', 'universitas', 'prodi', 'pangkatDosen', 'gelarDepan', 'gelarBelakang'));
     }
+
+    // public function create()
+    // {
+    //     $roles = Role::all();
+    //     $jabatanFungsional = Jabatan_Fungsional::all();
+    //     $universitas = Universitas::all();
+    //     $prodi = Prodi::all();
+    //     $pangkatDosen = Pangkat_Dosen::all();
+    //     $gelarDepan = Gelar_Depan::all();
+    //     $gelarBelakang = Gelar_Belakang::all();
+
+    //     return view('testing.admin.create', compact('roles', 'jabatanFungsional', 'universitas', 'prodi', 'pangkatDosen', 'gelarDepan', 'gelarBelakang'));
+    // }
 
     // public function create()
     // {

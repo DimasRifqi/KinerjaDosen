@@ -28,18 +28,24 @@
                                     value="{{ $permohonan->created_at->format('d M Y') }}" disabled>
                             </div>
                             <div class="form-group">
-                                <label>Status Permohonan</label>
-                                <form action="{{ route('verifikator.permohonan.status', $permohonan->id_permohonan) }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <button type="submit"
-                                        class="btn {{ $permohonan->status ? 'btn-success' : 'btn-warning' }}">
-                                        {{ $permohonan->status ? 'Selesai' : 'Proses' }}
+                                @if ($permohonan->status == false)
+                                    <form action="{{ route('verifikator.permohonan.status', $permohonan->id_permohonan) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-success">
+                                            Selesaikan
+                                        </button>
+                                        <a class="btn btn-info" href="{{ route('verifikator.permohonan.index') }}">
+                                            Kembali</a>
+                                    </form>
+                                @else
+                                    <button disabled type="submit" class="btn btn-inverse-success btn-fw">
+                                        Terselesaikan
                                     </button>
                                     <a class="btn btn-info" href="{{ route('verifikator.permohonan.index') }}">
                                         Kembali</a>
-                                </form>
+                                @endif
                             </div>
                         </div>
                     </div>

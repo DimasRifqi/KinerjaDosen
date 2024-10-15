@@ -119,7 +119,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Pilih Provinsi</label>
-                                                <select name="status" id="status" class="form-control" required>
+                                                <select name="status" id="status" class="form-select" required>
                                                     @foreach ($provinsi as $prov)
                                                         <option value="{{ $prov->id_provinsi }}">{{ $prov->nama_provinsi }}
                                                         </option>

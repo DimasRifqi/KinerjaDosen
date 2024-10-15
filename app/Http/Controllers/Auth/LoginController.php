@@ -44,4 +44,10 @@ class LoginController extends Controller
         //
         Alert::success('Selamat Datang', 'Login berhasil!');
     }
+
+    protected function loggedOut(Request $request)
+    {
+        return redirect('/login');
+    }
+
 }

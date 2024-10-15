@@ -126,6 +126,18 @@ Route::group(['middleware' => ['auth', 'role:1']], function () {
         Route::put('/{id}', [SuperAdminController::class, 'update'])->name('admin.update'); // /{id}
     });
 
+    
+
+    Route::group(['prefix' => 'periode'], function () {
+        //Periode
+        Route::get('/buat_periode', [SuperAdminController::class, 'indexPeriode'])->name('index.periode');
+        Route::post('/create', [SuperAdminController::class, 'CreatePeriode'])->name('periode.create');
+        Route::get('/sunting/b_pe_s{id}', [SuperAdminController::class, 'editPeriode'])->name('periode.edit');
+        Route::put('/update/{id}', [SuperAdminController::class, 'updatePeriode'])->name('periode.update');
+    });
+});
+
+Route::group(['middleware' => ['auth', 'role:3|1']], function () {
     Route::group(['prefix' => 'komponen'], function () {
         Route::prefix('gelar')->group(function () {
             // Routes untuk Gelar Depan
@@ -189,17 +201,9 @@ Route::group(['middleware' => ['auth', 'role:1']], function () {
             Route::put('/update/{id}', [SuperAdminController::class, 'updatePangkat'])->name('pangkat.update'); // ('/pangkat/update/{id}
         });
     });
-
-    Route::group(['prefix' => 'periode'], function () {
-        //Periode
-        Route::get('/buat_periode', [SuperAdminController::class, 'indexPeriode'])->name('index.periode');
-        Route::post('/create', [SuperAdminController::class, 'CreatePeriode'])->name('periode.create');
-        Route::get('/sunting/b_pe_s{id}', [SuperAdminController::class, 'editPeriode'])->name('periode.edit');
-        Route::put('/update/{id}', [SuperAdminController::class, 'updatePeriode'])->name('periode.update');
-    });
 });
 
-Route::group(['middleware' => ['auth', 'role:7|1']], function () {
+Route::group(['middleware' => ['auth', 'role:7']], function () {
 
     //OP PT or admin
     Route::get('/dosen/data_dosen_oppt', [OPPTController::class, 'allDosen'])->name('oppt.index.dosen'); // index/dosen
@@ -247,10 +251,14 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 //Verifikator
-Route::get('/tunjangan/verif_tunjangan', [VerifikatorController::class, 'indexPengajuan'])->name('verifikator.pengajuan.index'); // index/pengajuan
-Route::get('/tunjangan/verif_tunjangan/v_t_{id}', [VerifikatorController::class, 'detailPengajuan'])->name('verifikator.pengajuan.show'); // detail/pengajuan/{id}
-Route::put('/update/pengajuan/{id}', [VerifikatorController::class, 'updateStatusPengajuan'])->name('verifikator.pengajuanStatus.update');
-Route::post('/store/pesan/pengajuan/{id}', [VerifikatorController::class, 'storePesanPengajuanDosen'])->name('verifikator.pesanPengajuan.store');
+Route::group(['middleware' => ['auth', 'role:2']], function () {
+    Route::prefix('tunjangan')->group(function () {
+        Route::get('/verif_tunjangan', [VerifikatorController::class, 'indexPengajuan'])->name('verifikator.pengajuan.index'); // index/pengajuan
+        Route::get('/verif_tunjangan/v_t_{id}', [VerifikatorController::class, 'detailPengajuan'])->name('verifikator.pengajuan.show'); // detail/pengajuan/{id}
+        Route::put('/update/pengajuan/{id}', [VerifikatorController::class, 'updateStatusPengajuan'])->name('verifikator.pengajuanStatus.update');
+        Route::post('/store/pesan/pengajuan/{id}', [VerifikatorController::class, 'storePesanPengajuanDosen'])->name('verifikator.pesanPengajuan.store');
+    });
+});
 
 Route::get('/anggota/verif_edit_dosen', [VerifikatorController::class, 'indexPermohonan'])->name('verifikator.permohonan.index'); // verifikator/index/permohonan
 Route::get('/anggota/verif_edit_dosen/d_e_d_{id}', [VerifikatorController::class, 'showPermohonan'])->name('verifikator.permohonan.show'); // verifikator/index/permohonan/{id}

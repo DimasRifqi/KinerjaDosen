@@ -42,6 +42,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function hasRole($roleId)
     {
+       if (is_array($roleId)) {
+        return in_array($this->id_role, $roleId);
+        }
+
+        // If it's not an array, check if the user's role matches the single role ID
         return $this->id_role == $roleId;
     }
 

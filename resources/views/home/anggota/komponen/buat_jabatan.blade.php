@@ -57,7 +57,7 @@
                                                 <tbody>
                                                     @foreach ($jabatanFungsional as $jabatan)
                                                         <tr>
-                                                            <td>{{ $jabatan->firstItem() + $loop->index }}</td>
+                                                            <td>{{ $jabatanFungsional->firstItem() + $loop->index }}</td>
                                                             <td>{{ $jabatan->nama_jabatan }}</td>
                                                             <td>
                                                                 <a href="{{ route('jabatan-fungsional.edit', $jabatan->id_jabatan_fungsional) }}"

@@ -11,8 +11,14 @@ class UserController extends Controller
     public function editProfile()
     {
         $user = Auth::user(); // Mendapatkan data user yang sedang login
-        return view('testing.users.edit_profile', compact('user'));
+        return view('home.profil.profil_edit', compact('user'));
     }
+
+    // public function editProfile()
+    // {
+    //     $user = Auth::user(); // Mendapatkan data user yang sedang login
+    //     return view('testing.users.edit_profile', compact('user'));
+    // }
 
     public function updateProfile(Request $request)
     {

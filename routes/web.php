@@ -245,7 +245,7 @@ Route::group(['middleware' => ['auth', 'role:7']], function () {
 
 Route::group(['middleware' => ['auth']], function () {
     // Profile Routes
-    Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
+    Route::get('/profil/edit', [UserController::class, 'editProfile'])->name('profile.edit');
     Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
 });
 

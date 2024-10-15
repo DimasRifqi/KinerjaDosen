@@ -1,3 +1,13 @@
+<!-- CSS Override with Higher Specificity to resolve persistent bug of 'dot' element on sidebar -->
+<style>
+    /* Target the active state indicator 'dot' in the sidebar with more specificity */
+    .sidebar .nav .nav-item .nav-link.active::before,
+    .sidebar .nav .nav-item .nav-link[aria-expanded="true"]::before {
+        display: none !important; /* Ensure the 'dot' is hidden */
+        content: none !important;
+    }
+</style>
+
 <!-- Ensure jQuery is loaded first -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

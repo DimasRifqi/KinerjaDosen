@@ -97,23 +97,6 @@
                                         </div>
                                     </form>
 
-                                    <!-- Form Filter Status (Form terpisah untuk filter status saja) -->
-                                    <form id="filterStatusForm" method="GET">
-                                        <div class="input-group mb-3">
-                                            <label for="statusFilter" class="me-2">Filter Status:</label>
-                                            <select class="form-control" id="statusFilter" name="status">
-                                                <option value="">Semua Status</option>
-                                                <option value="1"
-                                                    {{ request()->input('status') == '1' ? 'selected' : '' }}>Active
-                                                </option>
-                                                <option value="0"
-                                                    {{ request()->input('status') == '0' ? 'selected' : '' }}>Inactive
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </form>
-
-
                                     <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
                                         data-bs-target="#createModal">
                                         Buat Universitas
@@ -286,19 +269,25 @@
                 fetch_data(page);
             });
 
-            function fetch_data(page) {
-                var search = $('#search').val();
-                var status = $('#statusFilter').val();
+            $(document).on('click', '.status-filter-option', function(e) {
+                e.preventDefault();
+                var status = $(this).data('status'); // Ambil nilai status yang dipilih dari dropdown
+                fetch_data(1, status); // Panggil fungsi fetch_data dengan status terpilih
+            });
+
+            // Fungsi untuk mengambil data dari server via AJAX
+            function fetch_data(page, status = '') {
+                var search = $('#search').val(); // Ambil nilai pencarian dari input jika ada
 
                 $.ajax({
                     url: "{{ route('univ.index') }}?page=" + page + "&search=" + search + "&status=" +
                         status,
                     success: function(data) {
-                        $('#pagination-data').html(data);
+                        $('#pagination-data').html(data); // Render ulang konten tabel
                     },
                     error: function(xhr, status, error) {
                         console.error("Error: " + xhr
-                            .responseText);
+                        .responseText); // Tampilkan error di console jika ada
                     }
                 });
             }

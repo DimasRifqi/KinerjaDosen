@@ -5,7 +5,19 @@
             <th>Nama Universitas</th>
             <th>Kota</th>
             <th>Tipe</th>
-            <th>Status</th>
+            <th>
+                <div class="dropdown">
+                    <a href="#" id="statusDropdown" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none; color: inherit;">
+                        Status
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="statusDropdown">
+                        <li><a class="dropdown-item status-filter-option" href="#" data-status="">Semua Status</a></li>
+                        <li><a class="dropdown-item status-filter-option" href="#" data-status="1">Active</a></li>
+                        <li><a class="dropdown-item status-filter-option" href="#" data-status="0">Inactive</a></li>
+                    </ul>
+                </div>
+            </th>
+
             <th>Aksi</th>
         </tr>
     </thead>

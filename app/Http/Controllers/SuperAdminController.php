@@ -68,6 +68,7 @@ class SuperAdminController extends Controller
     //     return view('home.anggota.dosen.pendaftaran_dosen', compact('roles', 'jabatanFungsional', 'universitas', 'prodi', 'pangkatDosen', 'gelarDepan', 'gelarBelakang'));
     // } ///view page pendaftaran dosen
 
+
     // public function create()
     // {
     //     $roles = Role::all();

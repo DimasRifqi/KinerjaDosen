@@ -117,6 +117,9 @@ Route::get('/auditor/editauditor', function () {
 })->name('edit_auditor');
 
 Route::group(['middleware' => ['auth', 'role:1']], function () {
+
+    Route::get('/lldikti/pendaftaran-admin', [SuperAdminController::class, 'createAdminLldikti'])->name('admin.lldikti.create');
+
     // Route untuk Admin
     Route::prefix('all_user')->group(function () { // admin
         Route::get('/data_all_user', [SuperAdminController::class, 'index'])->name('admin.index'); // /
@@ -125,7 +128,6 @@ Route::group(['middleware' => ['auth', 'role:1']], function () {
         Route::get('/{id}/sunting', [SuperAdminController::class, 'edit'])->name('admin.edit'); // /{id}/edit
         Route::put('/{id}', [SuperAdminController::class, 'update'])->name('admin.update'); // /{id}
     });
-
 
 
     Route::group(['prefix' => 'periode'], function () {
@@ -138,6 +140,10 @@ Route::group(['middleware' => ['auth', 'role:1']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'role:3|1']], function () {
+
+
+
+
     Route::group(['prefix' => 'komponen'], function () {
         Route::prefix('gelar')->group(function () {
             // Routes untuk Gelar Depan

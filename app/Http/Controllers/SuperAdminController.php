@@ -68,76 +68,82 @@ class SuperAdminController extends Controller
     //     return view('home.anggota.dosen.pendaftaran_dosen', compact('roles', 'jabatanFungsional', 'universitas', 'prodi', 'pangkatDosen', 'gelarDepan', 'gelarBelakang'));
     // } ///view page pendaftaran dosen
 
-    // public function create()
-    // {
-    //     $roles = Role::all();
-    //     $jabatanFungsional = Jabatan_Fungsional::all();
-    //     $universitas = Universitas::all();
-    //     $prodi = Prodi::all();
-    //     $pangkatDosen = Pangkat_Dosen::all();
-    //     $gelarDepan = Gelar_Depan::all();
-    //     $gelarBelakang = Gelar_Belakang::all();
+    public function createAdminLldikti()
+    {
+        $roles = Role::whereIn('id_role', [2,3,4])->get();
+        $jabatanFungsional = Jabatan_Fungsional::all();
+        $universitas = Universitas::all();
+        $prodi = Prodi::all();
+        $pangkatDosen = Pangkat_Dosen::all();
+        $gelarDepan = Gelar_Depan::all();
+        $gelarBelakang = Gelar_Belakang::all();
 
-    //     return view('home.anggota.operator.pendaftaran_oppt', compact('roles', 'jabatanFungsional', 'universitas', 'prodi', 'pangkatDosen', 'gelarDepan', 'gelarBelakang'));
-    // } ///view page pendaftaran Operator
+        return view('home.anggota.lldikti.pendaftaran_lldikti', compact('roles', 'jabatanFungsional', 'universitas', 'prodi', 'pangkatDosen', 'gelarDepan', 'gelarBelakang'));
+    }
+
+    ///view page pendaftaran Operator
 
     public function store(Request $request)
     {
+        try {
+            $request->validate([
+                'id_role' => 'required|exists:role,id_role',
+                'id_jabatan_fungsional' => 'nullable|exists:jabatan_fungsional,id_jabatan_fungsional',
+                'id_universitas' => 'nullable|exists:universitas,id_universitas',
+                'id_prodi' => 'nullable|exists:prodi,id_prodi',
+                'id_pangkat_dosen' => 'nullable|exists:pangkat_dosen,id_pangkat_dosen',
+                'id_gelar_depan' => 'nullable|exists:gelar_depan,id_gelar_depan',
+                'id_gelar_belakang' => 'nullable|exists:gelar_belakang,id_gelar_belakang',
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|string|min:8|confirmed',
+                'tanggal_lahir' => 'nullable|date',
+                'tempat_lahir' => 'nullable|string|max:255',
+                'no_rek' => 'nullable|string',
+                'npwp' => 'nullable|string',
+                'nidn' => 'nullable|string',
+                'file_serdos' => 'nullable|mimes:pdf|max:2048',
+                'status' => 'nullable|in:aktif,non-aktif,pensiun,belajar',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
 
-        $request->validate([
-            'id_role' => 'required|exists:role,id_role',
-            'id_jabatan_fungsional' => 'required|exists:jabatan_fungsional,id_jabatan_fungsional',
-            'id_universitas' => 'required|exists:universitas,id_universitas',
-            'id_prodi' => 'required|exists:prodi,id_prodi',
-            'id_pangkat_dosen' => 'required|exists:pangkat_dosen,id_pangkat_dosen',
-            'id_gelar_depan' => 'nullable|exists:gelar_depan,id_gelar_depan',
-            'id_gelar_belakang' => 'nullable|exists:gelar_belakang,id_gelar_belakang',
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
-            'tanggal_lahir' => 'nullable|date',
-            'tempat_lahir' => 'nullable|string|max:255',
-            'no_rek' => 'nullable|string',
-            'npwp' => 'nullable|string',
-            'nidn' => 'nullable|string',
-            'file_serdos' => 'nullable|mimes:pdf|max:2048',
-            'status' => 'nullable|in:aktif,non-aktif,pensiun,belajar',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+            $fileName = null;
+            if ($request->hasFile('image')) {
+                $fileName = 'image-' . uniqid() . '.' . $request->image->extension();
+                $request->image->move(public_path('storage/img/foto_users'), $fileName);
+            }
 
-        $fileName = null;
-        if ($request->hasFile('image')) {
-            $fileName = 'image-' . uniqid() . '.' . $request->image->extension();
-            $request->image->move(public_path('storage/img/foto_users'), $fileName);
+            $serdosFileName = $request->file_serdos ? 'serdos-' . uniqid() . '.' . $request->file_serdos->extension() : null;
+            if ($serdosFileName) {
+                $request->file_serdos->move(public_path('storage/file/file_serdos'), $serdosFileName);
+            }
+
+            User::create([
+                'id_role' => $request->id_role,
+                'id_jabatan_fungsional' => $request->id_jabatan_fungsional,
+                'id_universitas' => $request->id_universitas,
+                'id_prodi' => $request->id_prodi,
+                'id_pangkat_dosen' => $request->id_pangkat_dosen,
+                'id_gelar_depan' => $request->id_gelar_depan,
+                'id_gelar_belakang' => $request->id_gelar_belakang,
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'tanggal_lahir' => $request->tanggal_lahir,
+                'tempat_lahir' => $request->tempat_lahir,
+                'no_rek' => $request->no_rek,
+                'npwp' => $request->npwp,
+                'nidn' => $request->nidn,
+                'file_serdos' => $serdosFileName,
+                'status' => $request->status ?? 'aktif',
+                'image' => $fileName,
+            ]);
+
+            return redirect()->back()->with('success', 'success allhamdulilah');
+        } catch (\Throwable $th) {
+            return response()->json(['err'=> $th->getMessage()]);
         }
 
-        $serdosFileName = $request->file_serdos ? 'serdos-' . uniqid() . '.' . $request->file_serdos->extension() : null;
-        if ($serdosFileName) {
-            $request->file_serdos->move(public_path('storage/file/file_serdos'), $serdosFileName);
-        }
-
-        User::create([
-            'id_role' => $request->id_role,
-            'id_jabatan_fungsional' => $request->id_jabatan_fungsional,
-            'id_universitas' => $request->id_universitas,
-            'id_prodi' => $request->id_prodi,
-            'id_pangkat_dosen' => $request->id_pangkat_dosen,
-            'id_gelar_depan' => $request->id_gelar_depan,
-            'id_gelar_belakang' => $request->id_gelar_belakang,
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'tempat_lahir' => $request->tempat_lahir,
-            'no_rek' => $request->no_rek,
-            'npwp' => $request->npwp,
-            'nidn' => $request->nidn,
-            'file_serdos' => $serdosFileName,
-            'status' => $request->status ?? 'aktif',
-            'image' => $fileName,
-        ]);
-
-        return redirect()->route('admin.index')->with(['type' => 'success', 'message' => 'Berhasil menambahkan data.']);
     }
 
     // public function edit($id)
@@ -348,7 +354,7 @@ class SuperAdminController extends Controller
 
                 $query->where('status', $statusFilter);
             })
-            ->orderBy('created_at', 'desc') 
+            ->orderBy('created_at', 'desc')
             ->paginate(10);
 
 

@@ -10,7 +10,7 @@
                 <span class="menu-title">Dasbor</span>
             </a>
         </li>
-        @if ($user->hasRole(2))            
+        @if ($user->hasRole(1, 2))
         <li class="nav-item nav-category">Verifikasi</li>
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#verifikasi" aria-expanded="false"
@@ -64,7 +64,7 @@
             </div>
         </li>
         @endif
-        @if ($user && $user->hasRole([2,7]))               
+        @if ($user && $user->hasRole([1, 2,7]))
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#dosen" aria-expanded="false" aria-controls="dosen">
                 <i class="menu-icon mdi mdi-account"></i>
@@ -83,7 +83,7 @@
             </div>
         </li>
         @endif
-        @if ($user && $user->hasRole([2, 3, 4]))            
+        @if ($user && $user->hasRole([1, 2, 3, 4]))
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#lldikti" aria-expanded="false" aria-controls="lldikti">
                 <i class="menu-icon mdi mdi-home-variant"></i>
@@ -96,7 +96,7 @@
                         <a class="nav-link" href="#">Data Admin LLDIKTI</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('pendaftaranlldikti') }}">Pendaftaran Admin LLDIKTI</a>
+                        <a class="nav-link" href="{{ route('admin.lldikti.create') }}">Pendaftaran Admin LLDIKTI</a>
                     </li>
                 </ul>
             </div>
@@ -138,7 +138,7 @@
             </div>
         </li>
     @endif
-     @if ($user && $user->hasRole([1, 3]))        
+     @if ($user && $user->hasRole([1, 3]))
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#komponen_anggota" aria-expanded="false"
             aria-controls="komponen_anggota">
@@ -174,7 +174,7 @@
         </li>
         @endif
         <li class="nav-item nav-category">Tunjangan</li>
-        @if ($user->hasRole(7))            
+        @if ($user->hasRole(1, 7))
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#pengajuan" aria-expanded="false"
                 aria-controls="pengajuan">
@@ -192,7 +192,7 @@
             </div>
         </li>
         @endif
-        @if ($user->hasRole(1))            
+        @if ($user->hasRole(1))
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#komponen" aria-expanded="false"
                 aria-controls="komponen">

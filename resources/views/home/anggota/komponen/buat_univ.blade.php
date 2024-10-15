@@ -188,24 +188,9 @@
                     data: formData,
                     success: function(response) {
                         if (response) {
-                            location.reload();
+                            location
+                        .reload(); // Reload halaman setelah universitas berhasil dibuat
                         }
-                        $('#univ-table-body').append(`
-                <tr>
-                    <td>${response.id_universitas}</td>
-                    <td>${response.nama_universitas}</td>
-                    <td>${response.kota_nama}</td>
-                    <td>${response.tipe}</td>
-
-                    <td>
-                        <a href="/univ/edit/${response.id_universitas}" class="btn btn-warning btn-sm">Edit</a>
-                    </td>
-                </tr>
-            `);
-
-                        $('#success-message').text('Universitas created successfully!').show();
-                        $('#createModal').modal('hide');
-                        $('#createUnivForm')[0].reset();
                     },
                     error: function(xhr) {
                         var errors = xhr.responseJSON.errors;
@@ -219,7 +204,7 @@
                 });
             });
 
-            $('.edit-btn').on('click', function() {
+            $(document).on('click', '.edit-btn', function() {
                 var id = $(this).data('id');
                 var nama = $(this).data('nama');
                 var kota = $(this).data('kota');
@@ -242,24 +227,20 @@
                 var id = $('#edit_id_universitas').val();
 
                 $.ajax({
-                    url: '/univ/update/' + id,
+                    url: '/komponen/universitas/update/' + id,
                     method: 'PUT',
                     data: formData,
                     success: function(response) {
                         location.reload();
                     },
                     error: function(xhr) {
-                        alert('Terjadi kesalahan');
+                        alert('Terjadi kesalahan: ' + xhr.responseText);
                     }
                 });
             });
 
             $('#searchForm').on('submit', function(e) {
                 e.preventDefault();
-                fetch_data(1);
-            });
-
-            $('#statusFilter').on('change', function() {
                 fetch_data(1);
             });
 
@@ -271,26 +252,25 @@
 
             $(document).on('click', '.status-filter-option', function(e) {
                 e.preventDefault();
-                var status = $(this).data('status'); // Ambil nilai status yang dipilih dari dropdown
-                fetch_data(1, status); // Panggil fungsi fetch_data dengan status terpilih
+                var status = $(this).data('status');
+                fetch_data(1, status);
             });
 
-            // Fungsi untuk mengambil data dari server via AJAX
             function fetch_data(page, status = '') {
-                var search = $('#search').val(); // Ambil nilai pencarian dari input jika ada
+                var search = $('#search').val();
 
                 $.ajax({
                     url: "{{ route('univ.index') }}?page=" + page + "&search=" + search + "&status=" +
                         status,
                     success: function(data) {
-                        $('#pagination-data').html(data); // Render ulang konten tabel
+                        $('#pagination-data').html(data);
                     },
                     error: function(xhr, status, error) {
-                        console.error("Error: " + xhr
-                        .responseText); // Tampilkan error di console jika ada
+                        console.error("Error: " + xhr.responseText);
                     }
                 });
             }
+
         });
     </script>
 @endsection

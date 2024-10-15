@@ -182,7 +182,7 @@ Route::group(['middleware' => ['auth', 'role:3|1']], function () {
             Route::get('/buat_univ', [SuperAdminController::class, 'indexUniv'])->name('univ.index'); // /admin/createUniv
             Route::post('/create', [SuperAdminController::class, 'createUniv'])->name('univ.create'); // /univ/create
             Route::get('/sunting/b_u_s_{id}', [SuperAdminController::class, 'editUniv'])->name('univ.edit'); // /univ/edit/{id}
-            Route::put('/update/{id}', [SuperAdminController::class, 'updateUniv'])->name('univ.update'); // /univ/update/{id}
+            Route::put('/update/{id}', [SuperAdminController::class, 'updateUniv'])->name('univ.update');
         });
 
         Route::group(['prefix' => 'program_studi'], function () {

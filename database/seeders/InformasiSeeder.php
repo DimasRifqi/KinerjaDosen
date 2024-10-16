@@ -17,17 +17,17 @@ class InformasiSeeder extends Seeder
             [
                 'judul' => 'Ajukan Informasi',
                 'deskripsi' => 'Pengajuan anda ditunda',
-                'image_informasi' => 'https://loremflickr.com/320/240',
+                'image_informasi' => '/images/WhatsApp Image 2024-10-16 at 11.28.37_27dfa354.jpg',
             ],
             [
                 'judul' => 'Informasi Terkini',
                 'deskripsi' => 'Pembaharuan informasi terbaru akan diumumkan minggu depan',
-                'image_informasi' => 'https://loremflickr.com/320/240',
+                'image_informasi' => '/images/WhatsApp Image 2024-10-16 at 11.28.37_8685e8ff.jpg',
             ],
             [
                 'judul' => 'Laporan Mingguan',
                 'deskripsi' => 'Laporan mingguan telah diterbitkan',
-                'image_informasi' => 'https://loremflickr.com/320/240',
+                'image_informasi' => '/images/WhatsApp Image 2024-10-16 at 11.28.38_04ec29f2.jpg',
             ],
             [
                 'judul' => 'Pengingat Penting',

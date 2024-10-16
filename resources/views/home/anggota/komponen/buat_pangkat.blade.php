@@ -192,7 +192,7 @@
                         if (response)(
                             location.reload()
                         )
-                        $('#univ-table-body').append(`
+                        $('#pangkat-table-body').append(`
                             <tr>
                                 <td>${response.id_pangkat_dosen}</td>
                                 <td>${response.nama_pangkat}</td>

@@ -40,9 +40,7 @@ Route::get('/profil', function () {
     return view('home.profil.profil');
 })->name('profil');
 
-Route::get('/operator/pendaftaranoppt', function () {
-    return view('home.anggota.operator.pendaftaran_oppt');
-})->name('pendaftaranoppt');
+
 
 Route::get('/lldikti/pendaftaranverifikator', function () {
     return view('home.anggota.lldikti.pendaftaran_verifikator');
@@ -116,7 +114,10 @@ Route::get('/auditor/editauditor', function () {
     return view('home.anggota.auditor.edit_auditor');
 })->name('edit_auditor');
 
+
 Route::group(['middleware' => ['auth', 'role:1|3|4']], function () {
+
+    Route::get('/lldikti/pendaftaran-admin', [SuperAdminController::class, 'createAdminLldikti'])->name('admin.lldikti.create');
     // Route untuk Admin
     Route::prefix('all_user')->group(function () { // admin
         Route::get('/data_all_user', [SuperAdminController::class, 'index'])->name('admin.index'); // /
@@ -125,7 +126,6 @@ Route::group(['middleware' => ['auth', 'role:1|3|4']], function () {
         Route::get('/{id}/sunting', [SuperAdminController::class, 'edit'])->name('admin.edit'); // /{id}/edit
         Route::put('/{id}', [SuperAdminController::class, 'update'])->name('admin.update'); // /{id}
     });
-
 
 
     Route::group(['prefix' => 'periode'], function () {
@@ -138,6 +138,10 @@ Route::group(['middleware' => ['auth', 'role:1|3|4']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'role:3|1']], function () {
+
+
+
+
     Route::group(['prefix' => 'komponen'], function () {
         Route::prefix('gelar')->group(function () {
             // Routes untuk Gelar Depan
@@ -286,4 +290,19 @@ Route::group(['prefix' => 'faq'], function () {
     Route::get('edit/{id}', [FaqController::class, 'edit'])->name('admin.faq.edit');
     Route::put('update/{id}', [FaqController::class, 'update'])->name('admin.faq.update');
     Route::delete('delete/{id}', [FaqController::class, 'destroy'])->name('admin.faq.delete');
+});
+
+
+Route::group(['prefix' => 'lldikti'], function () {
+    Route::get('/all-lldikti', [SuperAdminController::class, 'allLldikti'])->name('super.lldikti.all');
+});
+
+Route::group(['prefix' => 'operator'], function () {
+    Route::get('/all-operator', [SuperAdminController::class, 'allOperator'])->name('super.operator.all');
+    Route::get('/pendaftaranoppt', [SuperAdminController::class, 'createOperator'])->name('super.operator.create');
+});
+
+Route::group(['prefix' => 'auditor'], function () {
+    Route::get('/all-auditor', [SuperAdminController::class, 'allAuditor'])->name('super.auditor.all');
+    Route::get('/create/auditor', [SuperAdminController::class, 'createAuditor'])->name('super.auditor.create');
 });

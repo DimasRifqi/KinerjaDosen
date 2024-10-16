@@ -44,7 +44,7 @@
                                                 <td>{{ $item->name }}</td>
                                                 <td>{{ $item->email }}</td>
                                                 <td>{{ $item->nidn }}</td>
-                                                <td>{{ $item->universitas->nama_universitas }}</td>
+                                                <td>{{ $item->universitas->nama_universitas ? $item->universitas->nama_universitas : '-' }}</td>
                                                 <td>
                                                     <span
                                                         class="badge bg-{{ $item->status == 'aktif' ? 'success' : ($item->status == 'non-aktif' ? 'danger' : ($item->status == 'pensiun' ? 'secondary' : 'warning')) }}">

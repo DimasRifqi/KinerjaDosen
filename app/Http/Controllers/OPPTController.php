@@ -35,13 +35,14 @@ class OPPTController extends Controller
     public function allDosen()
     {
         $oppt = Auth::user();
-        $dosen = User::all()
-
-            // ->where('id_role', 5)
-            ->where('id_universitas', $oppt->id_universitas);
-        //return response()->json(['dosen' => $dosen]);
+        if ($oppt->id_role == 1 | 2 | 3 ) {
+          $dosen = User::where('id_role', 5)->get();
+        } if ($oppt->id_role == 7) {
+            $dosen = User::where('id_universitas', $oppt->id_universitas)->get();
+        }
         return view('home.anggota.dosen.data_dosen_oppt', ['dosen' => $dosen]);
     }
+
 
     // public function allDosen()
     // {
@@ -642,6 +643,10 @@ class OPPTController extends Controller
         }
     }
 
-
+    public function tes(){
+        $user = User::with('universitas')->get();
+        return response()->json(['user'=> $user]);
+        //return view('testing.tesaja.tes_aja', ['user' => $user]);
+    }
 
 }

@@ -6,64 +6,81 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-            <h4 class="card-title">Pendaftaran Operator Perguruan Tinggi</h4>
-                <form class="forms-sample">
-                <div class="form-group">
-                    <label for="name" class="col-form-label">Nama Lengkap</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Nama Lengkap" required>
-                </div>
+                <h4 class="card-title">Pendaftaran Operator Perguruan Tinggi</h4>
+                {{-- Menampilkan notifikasi sukses --}}
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                {{-- Form untuk pendaftaran --}}
+                <form action="{{ route('admin.store') }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label for="name" class="col-form-label">Nama Lengkap</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Nama Lengkap" required>
+                    </div>
 
-                <div class="form-group">
-                    <label for="id_universitas">Universitas</label>
-                    <select class="form-control" id="id_universitas" name="id_universitas" required>
-                        <option value="">Pilih Universitas</option>
-                            <option value="UDINUS">UDINUS</option>
-                            <option value="UDINUS">UDINUS</option>
-                            <option value="UDINUS">UDINUS</option>
-                    </select>
-                </div>
+                    <div class="form-group">
+                        <label for="id_universitas">Universitas</label>
+                        <select class="form-control" id="id_universitas" name="id_universitas" required>
+                            <option value="">Pilih Universitas</option>
+                            @foreach ($universitas as $univ)
+                                <option value="{{ $univ->id_universitas }}">{{ $univ->nama_universitas }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                <div class="form-group">
-                        <label for="image">Foto</label>
-                        <input type="file" class="file-upload-default" accept="image/*">
-                        <div class="input-group col-xs-12">
-                            <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image" id="image" name="image[]"  accept="image/*">
-                            <span class="input-group-append">
-                            <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Kata Sandi</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                            <span class="input-group-text" onclick="togglePassword('password', 'togglePasswordIcon1')">
+                                <i class="mdi mdi-eye" id="togglePasswordIcon1"></i> <!-- Icon mata untuk password -->
                             </span>
                         </div>
                     </div>
-                
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
-                </div>
 
-                <div class="form-group">
-                    <label for="password">Kata Sandi</label>
-                    <div class="input-group">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-                        <span class="input-group-text" onclick="togglePassword('password', 'togglePasswordIcon1')">
-                            <i class="mdi mdi-eye" id="togglePasswordIcon1"></i> <!-- Icon mata untuk password -->
-                        </span>
+                    <div class="form-group">
+                        <label for="password_confirmation">Konfirmasi Kata Sandi</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Password" required>
+                            <span class="input-group-text" onclick="togglePassword('password_confirmation', 'togglePasswordIcon2')">
+                                <i class="mdi mdi-eye" id="togglePasswordIcon2"></i> <!-- Icon mata untuk konfirmasi password -->
+                            </span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="password_confirmation">Konfirmasi Kata Sandi</label>
-                    <div class="input-group">
-                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Password" required>
-                        <span class="input-group-text" onclick="togglePassword('password_confirmation', 'togglePasswordIcon2')">
-                            <i class="mdi mdi-eye" id="togglePasswordIcon2"></i> <!-- Icon mata untuk konfirmasi password -->
-                        </span>
-                    </div>
-                </div>
+                    {{-- Input hidden untuk id_role --}}
+                    <input type="hidden" name="id_role" value="7">
 
-                <button type="submit" class="btn btn-primary me-2">Submit</button>
-                <button class="btn btn-light">Cancel</button>
+                    <button type="submit" class="btn btn-primary me-2">Submit</button>
+                    <button class="btn btn-light">Cancel</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    // Fungsi untuk toggle visibility password
+    function togglePassword(inputId, iconId) {
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.remove("mdi-eye");
+            icon.classList.add("mdi-eye-off");
+        } else {
+            input.type = "password";
+            icon.classList.remove("mdi-eye-off");
+            icon.classList.add("mdi-eye");
+        }
+    }
+</script>
 @endsection

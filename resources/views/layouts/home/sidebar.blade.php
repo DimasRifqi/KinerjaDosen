@@ -93,7 +93,7 @@
             <div class="collapse" id="lldikti">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Data Admin LLDIKTI</a>
+                        <a class="nav-link" href="{{ route('super.lldikti.all') }}">Data Admin LLDIKTI</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.lldikti.create') }}">Pendaftaran Admin LLDIKTI</a>
@@ -111,10 +111,10 @@
             <div class="collapse" id="operator">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Data Operator</a>
+                        <a class="nav-link" href="{{ route('super.operator.all') }}">Data Operator</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('pendaftaranoppt') }}">Pendaftaran Operator</a>
+                        <a class="nav-link" href="{{ route('super.operator.create') }}">Pendaftaran Operator</a>
                     </li>
                 </ul>
             </div>
@@ -129,10 +129,10 @@
             <div class="collapse" id="auditor">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Data Auditor</a>
+                        <a class="nav-link" href="{{ route('super.auditor.all') }}">Data Auditor</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('pendaftaranauditor') }}">Pendaftaran Auditor</a>
+                        <a class="nav-link" href="{{ route('super.auditor.create') }}">Pendaftaran Auditor</a>
                     </li>
                 </ul>
             </div>

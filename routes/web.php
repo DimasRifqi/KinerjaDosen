@@ -40,9 +40,7 @@ Route::get('/profil', function () {
     return view('home.profil.profil');
 })->name('profil');
 
-Route::get('/operator/pendaftaranoppt', function () {
-    return view('home.anggota.operator.pendaftaran_oppt');
-})->name('pendaftaranoppt');
+
 
 Route::get('/lldikti/pendaftaranverifikator', function () {
     return view('home.anggota.lldikti.pendaftaran_verifikator');
@@ -209,7 +207,7 @@ Route::group(['middleware' => ['auth', 'role:3|1']], function () {
     });
 });
 
-Route::group(['middleware' => ['auth', 'role:7']], function () {
+Route::group(['middleware' => ['auth', 'role:7|1']], function () {
 
     //OP PT or admin
     Route::get('/dosen/data_dosen_oppt', [OPPTController::class, 'allDosen'])->name('oppt.index.dosen'); // index/dosen
@@ -257,7 +255,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 //Verifikator
-Route::group(['middleware' => ['auth', 'role:2']], function () {
+Route::group(['middleware' => ['auth', 'role:2|1']], function () {
     Route::prefix('tunjangan')->group(function () {
         Route::get('/verif_tunjangan', [VerifikatorController::class, 'indexPengajuan'])->name('verifikator.pengajuan.index'); // index/pengajuan
         Route::get('/verif_tunjangan/v_t_{id}', [VerifikatorController::class, 'detailPengajuan'])->name('verifikator.pengajuan.show'); // detail/pengajuan/{id}
@@ -292,4 +290,19 @@ Route::group(['prefix' => 'faq'], function () {
     Route::get('edit/{id}', [FaqController::class, 'edit'])->name('admin.faq.edit');
     Route::put('update/{id}', [FaqController::class, 'update'])->name('admin.faq.update');
     Route::delete('delete/{id}', [FaqController::class, 'destroy'])->name('admin.faq.delete');
+});
+
+
+Route::group(['prefix' => 'lldikti'], function () {
+    Route::get('/all-lldikti', [SuperAdminController::class, 'allLldikti'])->name('super.lldikti.all');
+});
+
+Route::group(['prefix' => 'operator'], function () {
+    Route::get('/all-operator', [SuperAdminController::class, 'allOperator'])->name('super.operator.all');
+    Route::get('/pendaftaranoppt', [SuperAdminController::class, 'createOperator'])->name('super.operator.create');
+});
+
+Route::group(['prefix' => 'auditor'], function () {
+    Route::get('/all-auditor', [SuperAdminController::class, 'allAuditor'])->name('super.auditor.all');
+    Route::get('/create/auditor', [SuperAdminController::class, 'createAuditor'])->name('super.auditor.create');
 });

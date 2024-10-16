@@ -29,6 +29,33 @@ class SuperAdminController extends Controller
         return view('home.anggota.all_user.data_all_user', compact('admin'));
     }
 
+    public function allLldikti(){
+        $lldikti = User::whereIn('id_role', [2 , 3 , 4])->get();
+        return view('home.anggota.lldikti.data_admin', ['lldikti' => $lldikti]);
+    }
+
+    public function allOperator(){
+        $operator = User::whereIn('id_role', [7])->get();
+        return view('home.anggota.operator.data_oppt', ['operator' => $operator]);
+    }
+
+    public function createOperator(){
+        $universitas = Universitas::all();
+        return view('home.anggota.operator.pendaftaran_oppt', ['universitas' => $universitas]);
+    }
+
+    public function allAuditor(){
+        $auditor = User::whereIn('id_role', [6])->get();
+        return view('home.anggota.auditor.data_auditor', ['auditor' => $auditor]);
+    }
+
+    public function createAuditor() {
+        $univer = Universitas::where('tipe', 'pemerintahan')->get();
+        //return response()->json(['univer' => $univer]);
+        return view('home.anggota.auditor.pendaftaran_auditor', ['univer' => $univer]);
+    }
+
+
     public function create()
     {
         $roles = Role::all();
@@ -87,7 +114,7 @@ class SuperAdminController extends Controller
     {
         try {
             $request->validate([
-                'id_role' => 'required|exists:role,id_role',
+                'id_role' => 'nullable|exists:role,id_role',
                 'id_jabatan_fungsional' => 'nullable|exists:jabatan_fungsional,id_jabatan_fungsional',
                 'id_universitas' => 'nullable|exists:universitas,id_universitas',
                 'id_prodi' => 'nullable|exists:prodi,id_prodi',
@@ -143,7 +170,6 @@ class SuperAdminController extends Controller
         } catch (\Throwable $th) {
             return response()->json(['err'=> $th->getMessage()]);
         }
-
     }
 
     // public function edit($id)

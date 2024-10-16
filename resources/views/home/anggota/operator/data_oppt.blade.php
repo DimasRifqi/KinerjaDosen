@@ -32,7 +32,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($admin as $index => $user)
+                                    @forelse($operator as $index => $user)
                                         <tr>
                                             <td class="py-1"> {{ $index + 1 }} </td>
                                             <td>{{ $user->name }}</td>

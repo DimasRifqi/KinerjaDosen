@@ -115,9 +115,8 @@ Route::get('/auditor/editauditor', function () {
 })->name('edit_auditor');
 
 
-Route::group(['middleware' => ['auth', 'role:1|3|4']], function () {
+Route::group(['middleware' => ['auth', 'role:1|3']], function () {
 
-    Route::get('/lldikti/pendaftaran-admin', [SuperAdminController::class, 'createAdminLldikti'])->name('admin.lldikti.create');
     // Route untuk Admin
     Route::prefix('all_user')->group(function () { // admin
         Route::get('/data_all_user', [SuperAdminController::class, 'index'])->name('admin.index'); // /
@@ -127,6 +126,20 @@ Route::group(['middleware' => ['auth', 'role:1|3|4']], function () {
         Route::put('/{id}', [SuperAdminController::class, 'update'])->name('admin.update'); // /{id}
     });
 
+    Route::group(['prefix' => 'lldikti'], function () {
+        Route::get('/all-lldikti', [SuperAdminController::class, 'allLldikti'])->name('super.lldikti.all');
+        Route::get('/pendaftaran-admin', [SuperAdminController::class, 'createAdminLldikti'])->name('admin.lldikti.create');
+    });
+
+    Route::group(['prefix' => 'auditor'], function () {
+        Route::get('/all-auditor', [SuperAdminController::class, 'allAuditor'])->name('super.auditor.all');
+        Route::get('/create', [SuperAdminController::class, 'createAuditor'])->name('super.auditor.create');
+    });
+
+    Route::group(['prefix' => 'operator'], function () {
+        Route::get('/all-operator', [SuperAdminController::class, 'allOperator'])->name('super.operator.all');
+        Route::get('/pendaftaranoppt', [SuperAdminController::class, 'createOperator'])->name('super.operator.create');
+    });
 
     Route::group(['prefix' => 'periode'], function () {
         //Periode
@@ -135,12 +148,6 @@ Route::group(['middleware' => ['auth', 'role:1|3|4']], function () {
         Route::get('/sunting/b_pe_s{id}', [SuperAdminController::class, 'editPeriode'])->name('periode.edit');
         Route::put('/update/{id}', [SuperAdminController::class, 'updatePeriode'])->name('periode.update');
     });
-});
-
-Route::group(['middleware' => ['auth', 'role:3|1']], function () {
-
-
-
 
     Route::group(['prefix' => 'komponen'], function () {
         Route::prefix('gelar')->group(function () {
@@ -205,6 +212,24 @@ Route::group(['middleware' => ['auth', 'role:3|1']], function () {
             Route::put('/update/{id}', [SuperAdminController::class, 'updatePangkat'])->name('pangkat.update'); // ('/pangkat/update/{id}
         });
     });
+
+    //Faq dipake oleh admin
+    Route::group(['prefix' => 'faq'], function () {
+        Route::get('/', [FaqController::class, 'index'])->name('admin.faq.index');
+        Route::post('store', [FaqController::class, 'store'])->name('admin.faq.store');
+        Route::get('edit/{id}', [FaqController::class, 'edit'])->name('admin.faq.edit');
+        Route::put('update/{id}', [FaqController::class, 'update'])->name('admin.faq.update');
+        Route::delete('delete/{id}', [FaqController::class, 'destroy'])->name('admin.faq.delete');
+    });
+
+    //Informasi dipake oleh admin (belum ada viewpage)
+    Route::group(['prefix' => 'informasi'], function () {
+        Route::get('index', [InformasiController::class, 'indexInformasi'])->name('admin.informasi.index');
+        Route::post('store', [InformasiController::class, 'storeInformasi'])->name('admin.informasi.store');
+        Route::get('edit/{id}', [InformasiController::class, 'editInformasi'])->name('admin.informasi.edit');
+        Route::put('update/{id}', [InformasiController::class, 'updateInformasi'])->name('admin.informasi.update');
+        Route::delete('delete/{id}', [InformasiController::class, 'deleteInformasi'])->name('admin.informasi.delete');
+    });
 });
 
 Route::group(['middleware' => ['auth', 'role:7|1']], function () {
@@ -262,47 +287,13 @@ Route::group(['middleware' => ['auth', 'role:2|1']], function () {
         Route::put('/update/pengajuan/{id}', [VerifikatorController::class, 'updateStatusPengajuan'])->name('verifikator.pengajuanStatus.update');
         Route::post('/store/pesan/pengajuan/{id}', [VerifikatorController::class, 'storePesanPengajuanDosen'])->name('verifikator.pesanPengajuan.store');
     });
-});
 
-Route::get('/anggota/verif_edit_dosen', [VerifikatorController::class, 'indexPermohonan'])->name('verifikator.permohonan.index'); // verifikator/index/permohonan
-Route::get('/anggota/verif_edit_dosen/d_e_d_{id}', [VerifikatorController::class, 'showPermohonan'])->name('verifikator.permohonan.show'); // verifikator/index/permohonan/{id}
-Route::put('/anggota/dosenstatus/{id}', [VerifikatorController::class, 'statusPermohonan'])->name('verifikator.permohonan.status'); // verifikator/index/permohonan/status/{id}
+    Route::get('/anggota/verif_edit_dosen', [VerifikatorController::class, 'indexPermohonan'])->name('verifikator.permohonan.index'); // verifikator/index/permohonan
+    Route::get('/anggota/verif_edit_dosen/d_e_d_{id}', [VerifikatorController::class, 'showPermohonan'])->name('verifikator.permohonan.show'); // verifikator/index/permohonan/{id}
+    Route::put('/anggota/dosenstatus/{id}', [VerifikatorController::class, 'statusPermohonan'])->name('verifikator.permohonan.status'); // verifikator/index/permohonan/status/{id}
+});
 
 //Tes Api
 Route::get('/userProfile', [AuthApiController::class, 'userProfile']);
 Route::get('/pengajuan', [AuthApiController::class, 'pengajuan']);
 Route::get('/auditor', [AuthApiController::class, 'auditor']);
-
-
-//Informasi dipake oleh admin
-Route::group(['prefix' => 'informasi'], function () {
-    Route::get('index', [InformasiController::class, 'indexInformasi'])->name('admin.informasi.index');
-    Route::post('store', [InformasiController::class, 'storeInformasi'])->name('admin.informasi.store');
-    Route::get('edit/{id}', [InformasiController::class, 'editInformasi'])->name('admin.informasi.edit');
-    Route::put('update/{id}', [InformasiController::class, 'updateInformasi'])->name('admin.informasi.update');
-    Route::delete('delete/{id}', [InformasiController::class, 'deleteInformasi'])->name('admin.informasi.delete');
-});
-
-//Faq dipake oleh admin
-Route::group(['prefix' => 'faq'], function () {
-    Route::get('data_faq', [FaqController::class, 'index'])->name('admin.faq.index');
-    Route::post('store', [FaqController::class, 'store'])->name('admin.faq.store');
-    Route::get('edit/{id}', [FaqController::class, 'edit'])->name('admin.faq.edit');
-    Route::put('update/{id}', [FaqController::class, 'update'])->name('admin.faq.update');
-    Route::delete('delete/{id}', [FaqController::class, 'destroy'])->name('admin.faq.delete');
-});
-
-
-Route::group(['prefix' => 'lldikti'], function () {
-    Route::get('/all-lldikti', [SuperAdminController::class, 'allLldikti'])->name('super.lldikti.all');
-});
-
-Route::group(['prefix' => 'operator'], function () {
-    Route::get('/all-operator', [SuperAdminController::class, 'allOperator'])->name('super.operator.all');
-    Route::get('/pendaftaranoppt', [SuperAdminController::class, 'createOperator'])->name('super.operator.create');
-});
-
-Route::group(['prefix' => 'auditor'], function () {
-    Route::get('/all-auditor', [SuperAdminController::class, 'allAuditor'])->name('super.auditor.all');
-    Route::get('/create/auditor', [SuperAdminController::class, 'createAuditor'])->name('super.auditor.create');
-});

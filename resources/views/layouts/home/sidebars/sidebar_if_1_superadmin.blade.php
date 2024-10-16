@@ -1,7 +1,7 @@
 <!-- partial:partials/_sidebar.html -->
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
-        <li class="nav-item {{-- {{ Request::routeIs('team.*') ? 'active' : '' }} --}}">
+        <li class="nav-item">
             <a class="nav-link" href="{{ route('home') }}">
                 <i class="mdi mdi-grid-large menu-icon"></i>
                 <span class="menu-title">Dasbor</span>
@@ -20,7 +20,8 @@
                     <li class="nav-item"> <a class="nav-link"
                             href="{{ route('verifikator.permohonan.index') }}">Dosen</a></li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('oppt.indexPermohonan.dosen') }}">Dosen (OPPT)</a>
+                        <a class="nav-link" href="{{ route('oppt.indexPermohonan.dosen') }}">Dosen (POV OPPT)</a>
+                        {{-- viewpage terpisah yang ada filter univ --}}
                     </li>
                 </ul>
             </div>
@@ -66,10 +67,18 @@
             <div class="collapse" id="dosen">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('oppt.index.dosen') }}">Data Dosen</a>
+                        <a class="nav-link" href="#">Data Dosen</a>
+                        {{-- route beda untuk pageview beda yang ada filter universitas --}}
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Pendaftaran Dosen</a>
+                        {{-- route beda untuk pageview beda yang ada filter universitas --}}
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('oppt.index.dosen') }}">Data Dosen (POV OPPT)</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pendaftaran Dosen (POV OPPT)</a>
                     </li>
                 </ul>
             </div>
@@ -83,10 +92,11 @@
             <div class="collapse" id="lldikti">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Data Admin LLDIKTI</a>
+                        <a class="nav-link" href="{{ route('super.lldikti.all') }}">Data Admin
+                            LLDIKTI</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('pendaftaranlldikti') }}">Pendaftaran Admin LLDIKTI</a>
+                        <a class="nav-link" href="{{ route('admin.lldikti.create') }}">Pendaftaran Admin LLDIKTI</a>
                     </li>
                 </ul>
             </div>
@@ -101,10 +111,10 @@
             <div class="collapse" id="operator">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Data Operator</a>
+                        <a class="nav-link" href="{{ route('super.operator.all') }}">Data Operator</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('pendaftaranoppt') }}">Pendaftaran Operator</a>
+                        <a class="nav-link" href="{{ route('super.operator.create') }}">Pendaftaran Operator</a>
                     </li>
                 </ul>
             </div>
@@ -119,10 +129,10 @@
             <div class="collapse" id="auditor">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Data Auditor</a>
+                        <a class="nav-link" href="{{ route('super.auditor.all') }}">Data Auditor</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('pendaftaranauditor') }}">Pendaftaran Auditor</a>
+                        <a class="nav-link" href="{{ route('super.auditor.create') }}">Pendaftaran Auditor</a>
                     </li>
                 </ul>
             </div>
@@ -140,7 +150,7 @@
                         <a class="nav-link" href="{{ route('kota.index') }}">Kota</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('univ.index') }}">Universitas</a>
+                        <a class="nav-link" href="{{ route('univ.index') }}">Instansi</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('index.prodi') }}">Program Studi</a>
@@ -171,9 +181,11 @@
             <div class="collapse" id="pengajuan">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"><a class="nav-link" href="{{ route('oppt.pengajuanIndex.dosen') }}">Data
-                            Pengajuan</a></li>
+                            Pengajuan (POV OPPT)</a></li>
+                    {{-- route beda untuk pageview beda yang ada filter universitas --}}
                     <li class="nav-item"><a class="nav-link" href="{{ route('oppt.pengajuan.dosen') }}">Buat
-                            Pengajuan</a></li>
+                            Pengajuan (POV OPPT)</a></li>
+                    {{-- route beda untuk pageview beda yang ada filter universitas --}}
                 </ul>
             </div>
         </li>
@@ -181,7 +193,7 @@
             <a class="nav-link" data-bs-toggle="collapse" href="#komponen" aria-expanded="false"
                 aria-controls="komponen">
                 <i class="menu-icon mdi mdi-calendar-text"></i>
-                <span class="menu-title">Periode{{-- / Master Data --}}</span>
+                <span class="menu-title">Periode</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="komponen">
@@ -220,11 +232,34 @@
         </li>
         <li class="nav-item nav-category">Lainnya</li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('faq') }}">
+            <a class="nav-link" href="{{ route('admin.faq.index') }}">
+                {{-- melihat & mengedit faq --}}
                 <i class="mdi mdi-help-circle-outline menu-icon"></i>
                 <span class="menu-title">FAQ</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                {{-- hanya melihat faq, tanpa mengedit dll --}}
+                <i class="mdi mdi-help-circle-outline menu-icon"></i>
+                <span class="menu-title">FAQ (View Only)</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                {{-- melihat & mengedit Informasi --}}
+                <i class="mdi mdi-information-outline menu-icon"></i>
+                <span class="menu-title">Informasi</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                {{-- hanya melihat informasi, tanpa mengedit dll --}}
+                <i class="mdi mdi-information-outline menu-icon"></i>
+                <span class="menu-title">Informasi (View Only)</span>
+            </a>
+        </li>
+        <li class="nav-item">
         <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}"
                 onclick=    "event.preventDefault();

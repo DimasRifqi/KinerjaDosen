@@ -1,7 +1,7 @@
 <!-- partial:partials/_sidebar.html -->
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
-        <li class="nav-item {{-- {{ Request::routeIs('team.*') ? 'active' : '' }} --}}">
+        <li class="nav-item">
             <a class="nav-link" href="{{ route('home') }}">
                 <i class="mdi mdi-grid-large menu-icon"></i>
                 <span class="menu-title">Dasbor</span>
@@ -67,11 +67,18 @@
             <div class="collapse" id="dosen">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('oppt.index.dosen') }}">Data Dosen (POV OPPT)</a>
+                        <a class="nav-link" href="#">Data Dosen</a>
                         {{-- route beda untuk pageview beda yang ada filter universitas --}}
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Pendaftaran Dosen</a>
+                        {{-- route beda untuk pageview beda yang ada filter universitas --}}
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('oppt.index.dosen') }}">Data Dosen (POV OPPT)</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pendaftaran Dosen (POV OPPT)</a>
                     </li>
                 </ul>
             </div>
@@ -232,10 +239,25 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">
+                {{-- hanya melihat faq, tanpa mengedit dll --}}
+                <i class="mdi mdi-help-circle-outline menu-icon"></i>
+                <span class="menu-title">FAQ (View Only)</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
                 <i class="mdi mdi-information-outline menu-icon"></i>
                 <span class="menu-title">Informasi</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                {{-- hanya melihat informasi, tanpa mengedit dll --}}
+                <i class="mdi mdi-information-outline menu-icon"></i>
+                <span class="menu-title">Informasi (View Only)</span>
+            </a>
+        </li>
+        <li class="nav-item">
         <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}"
                 onclick=    "event.preventDefault();

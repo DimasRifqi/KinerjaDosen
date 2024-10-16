@@ -158,12 +158,14 @@
         <li class="nav-item nav-category">Lainnya</li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.faq.index') }}">
+                {{-- melihat & mengedit faq --}}
                 <i class="mdi mdi-help-circle-outline menu-icon"></i>
                 <span class="menu-title">FAQ</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">
+                {{-- melihat & mengedit Informasi --}}
                 <i class="mdi mdi-information-outline menu-icon"></i>
                 <span class="menu-title">Informasi</span>
             </a>

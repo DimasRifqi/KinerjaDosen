@@ -13,6 +13,25 @@
             {{-- @include('layouts.home.theme-setting') --}}
             @include('layouts.home.sidebar')
 
+            {{-- @php
+                $user = Auth::User();
+            @endphp
+            @if ($user->hasRole(1))
+                @include('layouts.home.sidebars.sidebar_if_1_superadmin')
+            @elseif ($user->hasRole(2))
+                @include('layouts.home.sidebars.sidebar_if_2_verifikator')
+            @elseif ($user->hasRole(3))
+                @include('layouts.home.sidebars.sidebar_if_3_perencanaan')
+            @elseif ($user->hasRole(4))
+                @include('layouts.home.sidebars.sidebar_if_4_keuangan')
+            @elseif ($user->hasRole(5))
+                @include('layouts.home.sidebars.sidebar_if_5_dosen')
+            @elseif ($user->hasRole(6))
+                @include('layouts.home.sidebars.sidebar_if_6_auditor')
+            @elseif ($user->hasRole(7))
+                @include('layouts.home.sidebars.sidebar_if_7_oppt')
+            @endif --}}
+
             <div class="main-panel">
 
                 @section('content')

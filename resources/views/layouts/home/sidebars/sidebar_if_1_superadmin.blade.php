@@ -78,7 +78,7 @@
                         <a class="nav-link" href="{{ route('oppt.index.dosen') }}">Data Dosen (POV OPPT)</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pendaftaran Dosen (POV OPPT)</a>
+                        <a class="nav-link" href="{{ route('super.dosen.create') }}">Pendaftaran Dosen (POV OPPT)</a>
                     </li>
                 </ul>
             </div>

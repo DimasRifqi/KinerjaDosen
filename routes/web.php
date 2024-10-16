@@ -115,7 +115,7 @@ Route::get('/auditor/editauditor', function () {
 })->name('edit_auditor');
 
 
-Route::group(['middleware' => ['auth', 'role:1|3']], function () {
+Route::group(['middleware' => ['auth', 'role:1|3|7']], function () {    // iki 7 dihapus yooo
 
     // Route untuk Admin
     Route::prefix('all_user')->group(function () { // admin
@@ -124,6 +124,12 @@ Route::group(['middleware' => ['auth', 'role:1|3']], function () {
         Route::post('/', [SuperAdminController::class, 'store'])->name('admin.store'); // /
         Route::get('/{id}/sunting', [SuperAdminController::class, 'edit'])->name('admin.edit'); // /{id}/edit
         Route::put('/{id}', [SuperAdminController::class, 'update'])->name('admin.update'); // /{id}
+    });
+
+    Route::group(['prefix' => 'dosen'], function () {
+        // Route::get('/all-lldikti', [SuperAdminController::class, 'allLldikti'])->name('super.lldikti.all');
+        Route::get('/pendaftaran-dosen', [SuperAdminController::class, 'createDosen'])->name('super.dosen.create');
+        Route::post('/store-dosen', [SuperAdminController::class, 'storeDosen'])->name('super.dosen.store');
     });
 
     Route::group(['prefix' => 'lldikti'], function () {

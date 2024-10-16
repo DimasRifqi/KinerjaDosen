@@ -12,8 +12,8 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="statusDropdown">
                         <li><a class="dropdown-item status-filter-option" href="#" data-status="">Semua Status</a></li>
-                        <li><a class="dropdown-item status-filter-option" href="#" data-status="1">Active</a></li>
-                        <li><a class="dropdown-item status-filter-option" href="#" data-status="0">Inactive</a></li>
+                        <li><a class="dropdown-item status-filter-option" href="#" data-status="1">Aktif</a></li>
+                        <li><a class="dropdown-item status-filter-option" href="#" data-status="0">Tidak Aktif</a></li>
                     </ul>
                 </div>
             </th>

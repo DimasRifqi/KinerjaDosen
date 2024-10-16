@@ -354,15 +354,17 @@ class SuperAdminController extends Controller
 
         if ($request->ajax()) {
             if ($univ->isEmpty()) {
-                // Jika tidak ada data, kembalikan view dengan pesan 'Tidak Ada Data'
-                return response()->json(['message' => 'Tidak Ada Data']);
+
+                return response()->json(['html' => view('home.anggota.komponen.data_kosong')->render()]);
             } else {
-                return view('home.anggota.komponen.univ_pagination', compact('univ'))->render();
+               
+                return response()->json(['html' => view('home.anggota.komponen.pagination_univ', compact('univ'))->render()]);
             }
         }
 
         return view('home.anggota.komponen.buat_univ', compact('univ', 'kota'));
     }
+
 
 
 

@@ -10,8 +10,14 @@ class FaqController extends Controller
     public function index()
     {
         $faqs = Faq::all();
-        return view('testing.faq.index_faq', compact('faqs'));
+        return view('home.profil.faq', compact('faqs'));
     }
+
+    // public function index()
+    // {
+    //     $faqs = Faq::all();
+    //     return view('testing.faq.index_faq', compact('faqs'));
+    // }
 
     // Menampilkan form untuk membuat FAQ baru (Create - Form)
     public function create()

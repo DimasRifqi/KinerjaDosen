@@ -285,7 +285,7 @@ Route::group(['prefix' => 'informasi'], function () {
 
 //Faq dipake oleh admin
 Route::group(['prefix' => 'faq'], function () {
-    Route::get('index', [FaqController::class, 'index'])->name('admin.faq.index');
+    Route::get('data_faq', [FaqController::class, 'index'])->name('admin.faq.index');
     Route::post('store', [FaqController::class, 'store'])->name('admin.faq.store');
     Route::get('edit/{id}', [FaqController::class, 'edit'])->name('admin.faq.edit');
     Route::put('update/{id}', [FaqController::class, 'update'])->name('admin.faq.update');

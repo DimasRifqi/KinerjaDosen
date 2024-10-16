@@ -1,6 +1,6 @@
 @extends('layouts.home.app')
 @section('title', 'Program Studi')
-@section('userTypeOnPage', 'SuperAdmin, Verifikator, Perencanaan, Keuangan')
+@section('userTypeOnPage', 'SuperAdmin, Perencanaan')
 @section('content')
     <div class="content-wrapper">
         <div class="home-tab">

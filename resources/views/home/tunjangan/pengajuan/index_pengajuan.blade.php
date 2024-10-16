@@ -1,6 +1,6 @@
 @extends('layouts.home.app')
 @section('title', 'Pengajuan Tunjangan')
-@section('userTypeOnPage', 'SuperAdmin, Verifikator, Perencanaan, Keuangan, dosen, Auditor, OPPT')
+@section('userTypeOnPage', 'SuperAdmin, OPPT')
 @section('content')
     <div class="content-wrapper">
         <div class="row">

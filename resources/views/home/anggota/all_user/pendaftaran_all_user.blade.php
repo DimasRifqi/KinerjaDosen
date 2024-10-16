@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Pendaftaran All User</h4>
-                    <form action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
                         @csrf
 
                         <div class="form-group">

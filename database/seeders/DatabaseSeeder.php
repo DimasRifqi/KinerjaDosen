@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             KotaSeeder::class,
             UniversitasSeeder::class,
             ProdiSeeder::class,
+            BankSeeder::class,
             UserSeeder::class,
             PeriodeSeeder::class,
             InformasiSeeder::class

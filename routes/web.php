@@ -116,7 +116,7 @@ Route::get('/auditor/editauditor', function () {
     return view('home.anggota.auditor.edit_auditor');
 })->name('edit_auditor');
 
-Route::group(['middleware' => ['auth', 'role:1']], function () {
+Route::group(['middleware' => ['auth', 'role:1|3|4']], function () {
     // Route untuk Admin
     Route::prefix('all_user')->group(function () { // admin
         Route::get('/data_all_user', [SuperAdminController::class, 'index'])->name('admin.index'); // /
@@ -251,7 +251,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 //Verifikator
-Route::group(['middleware' => ['auth', 'role:1|2']], function () {
+Route::group(['middleware' => ['auth', 'role:2|1']], function () {
     Route::prefix('tunjangan')->group(function () {
         Route::get('/verif_tunjangan', [VerifikatorController::class, 'indexPengajuan'])->name('verifikator.pengajuan.index'); // index/pengajuan
         Route::get('/verif_tunjangan/v_t_{id}', [VerifikatorController::class, 'detailPengajuan'])->name('verifikator.pengajuan.show'); // detail/pengajuan/{id}

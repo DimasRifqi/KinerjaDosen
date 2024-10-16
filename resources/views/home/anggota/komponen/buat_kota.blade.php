@@ -30,7 +30,7 @@
                             <form id="editKotaForm">
                                 @csrf
                                 @method('PUT')
-                                <input type="hidden" id="nama_kota" name="nama_kota">
+                                <input type="hidden" id="edit_id_kota" name="id_kota">
 
                                 <div class="form-group">
                                     <label for="edit_nama_kota">Nama Kota</label>
@@ -40,8 +40,10 @@
 
                                 <div class="form-group">
                                     <label for="edit_id_provinsi">Provinsi</label>
-                                    <select class="form-control" id="edit_id_provinsi" name="id_provinsi" required>
-                                        <option value="">Pilih Provinsi</option>
+                                    <select name="id_provinsi" id="edit_id_provinsi" class="form-select" required>
+                                    @foreach($provinsi as $prov)
+                                        <option value="{{ $prov->id_provinsi }}">Jawa Timur</option>
+                                    @endforeach
                                     </select>
                                 </div>
 
@@ -58,41 +60,24 @@
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                <div id="success-message" class="alert alert-success" style="display:none;"></div>
+                                    <div id="success-message" class="alert alert-success" style="display:none;"></div>
 
-                                <div id="error-message" class="alert alert-danger" style="display:none;">
-                                    <ul id="error-list"></ul>
-                                </div>
-
-                                    <div class="d-flex" style="justify-content: space-between; padding: 10px 20px;">
-                                        <h4>
-                                            Data Kota
-                                        </h4>
-
-                                        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
-                                            data-bs-target="#createModal">
-                                            Create Kota
-                                        </button>
-
-                                        {{-- <div class="search-container">
-                                            <div class="input-group">
-                                                <input class="form-control"
-                                                    style="background: none; border: none; display: flex; align-items: center;"
-                                                    id="searchInput" type="text" placeholder="Search" autocomplete="on">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text"
-                                                        style="background: none; border: none; padding-left: 0; display: flex; align-items: center;">
-                                                        <i class="mdi mdi-magnify"
-                                                                style="background: none;"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div> --}}
+                                    <div id="error-message" class="alert alert-danger" style="display:none;">
+                                        <ul id="error-list"></ul>
                                     </div>
+
+                                    <h4 class="card-title">Data Kota</h4>
+
+                                    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
+                                        data-bs-target="#createModal">
+                                        Create Kota
+                                    </button>
+
                                     @if ($kota->isEmpty())
                                         <p class="card-description">
                                             No Data Kota records found. </p>
                                     @else
+
                                         <div class="table-responsive">
                                             <table class="table table-striped" id="tableKota">
                                                 <thead>
@@ -110,13 +95,13 @@
                                                             <td>{{ $item->nama_kota }}</td>
                                                             <td>Jawa Timur</td>
                                                             <td>
-                                                                <button type="button"
-                                                                    class="btn btn-warning btn-sm edit-btn"
-                                                                    data-nama="{{ $item->nama_kota }}"
-                                                                    data-prov="{{ $item->id_provinsi }}"
-                                                                    data-bs-toggle="modal" data-bs-target="#editModal">
-                                                                    Edit
-                                                                </button>
+                                                            <button type="button"class="btn btn-warning btn-sm edit-btn"
+                                                                data-id="{{ $item->id_kota }}"
+                                                                data-nama="{{ $item->nama_kota }}"
+                                                                data-prov="{{ $item->id_provinsi }}"
+                                                                data-bs-toggle="modal" data-bs-target="#editModal">
+                                                                Edit
+                                                            </button>
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -135,7 +120,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="createModalLabel">Create Universitas</h5>
+                                        <h5 class="modal-title" id="createModalLabel">Create Kota</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
@@ -192,13 +177,13 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Pilih Provinsi</label>
-                                                <select name="status" id="status" class="form-select" required>
-                                                    @foreach ($provinsi as $prov)
-                                                        <option value="{{ $prov->id_provinsi }}">{{ $prov->nama_provinsi }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                                <select name="id_provinsi" id="id_provinsi" class="form-select" required>
+                                                @foreach($provinsi as $prov)
+                                                    <option value="{{ $prov->id_provinsi }}">Jawa Timur</option>
+                                                @endforeach                                                
+                                            </select>
                                             </div>
+
                                             <button type="submit" class="btn btn-primary mb-2">Buat</button>
                                         </form>
                                     </div>
@@ -228,7 +213,7 @@
                 var formData = $(this).serialize();
 
                 $.ajax({
-                    url: '{{ route('kota.create') }}',
+                    url: '{{ route('kota.store') }}',
                     method: 'POST',
                     data: formData,
                     success: function(response) {
@@ -236,13 +221,14 @@
                         if (response)(
                             location.reload()
                         )
-                        $('#univ-table-body').append(`
+                        $('#kota-table-body').append(`
                             <tr>
+                                <td>${response.id_kota}</td>
                                 <td>${response.nama_kota}</td>
                                 <td>${response.id_provinsi}</td>
 
                                 <td>
-                                    <a href="/kota/edit/${response.nama_kota}" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="/kota/edit/${response.id_kota}" class="btn btn-warning btn-sm">Edit</a>
                                 </td>
                             </tr>
                         `);
@@ -267,10 +253,12 @@
             });
 
             $('.edit-btn').on('click', function() {
+                var id = $(this).data('id');
                 var nama = $(this).data('kota');
                 var prov = $(this).data('provinsi');
 
-                $('kota').val(kota);
+                $('#edit_id_kota').val(id);
+                $('#edit_nama_kota').val(nama);
                 $('#provinsi').val(provinsi);
 
                 $('#editModal').modal('show');
@@ -280,10 +268,10 @@
                 e.preventDefault();
 
                 var formData = $(this).serialize();
-                var id = $('#edit_id_universitas').val();
+                var id = $('#edit_id_kota').val();
 
                 $.ajax({
-                    url: '/univ/update/' + id,
+                    url: '{{ route('kota.update', '') }}/' + id,
                     method: 'POST',
                     data: formData,
                     success: function(response) {

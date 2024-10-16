@@ -190,7 +190,7 @@
                         if (response)(
                             location.reload()
                         )
-                        $('#univ-table-body').append(`
+                        $('#jabatan-table-body').append(`
                             <tr>
                                 <td>${response.id_jabatan_fungsional}</td>
                                 <td>${response.nama_jabatan}</td>

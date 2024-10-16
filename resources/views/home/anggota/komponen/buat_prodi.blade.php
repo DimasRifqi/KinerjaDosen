@@ -41,7 +41,6 @@
                                 <div class="form-group">
                                     <label for="status">Status :</label>
                                     <select class="form-control" id="status" name="status" required>
-                                        <!-- pada dropdown select value ini jika status sudah diubah menjadi inactive, saat memasuki tombol select tetap berada pada pilihan active, bagaimana cara agar nama status yang tertera sesuai dengan pilihan pada select -->
                                         <option value="1">Active</option>
                                         <option value="0">Inactive</option>
                                     </select>
@@ -128,7 +127,7 @@
                                         <form id="createProdiForm">
                                             @csrf
                                             <div class="form-group">
-                                                <label for="nama_univ">Nama Program Studi</label>
+                                                <label for="nama_prodi">Nama Program Studi</label>
                                                 <input type="text" class="form-control" id="nama_prodi"
                                                     name="nama_prodi" value="{{ old('nama_prodi') }}" required>
                                             </div>
@@ -208,6 +207,9 @@
                 url: '{{ route('prodi.create') }}',
                 method: 'POST',
                 data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 success: function(response) {
 
                     if (response)(
@@ -220,7 +222,7 @@
                             <td>${response.status}</td>
 
                             <td>
-                                <a href="/prodi/edit/${response.id_prodi}" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="/program_studi/edit/${response.id_prodi}" class="btn btn-warning btn-sm">Edit</a>
                             </td>
                         </tr>
                     `);
@@ -264,7 +266,7 @@
             var id = $('#edit_id_prodi').val();
 
             $.ajax({
-                url: '/prodi/update/' + id,
+                url: '{{ route('prodi.update', '') }}/' + id,
                 method: 'POST',
                 data: formData,
                 success: function(response) {

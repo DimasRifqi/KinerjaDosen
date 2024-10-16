@@ -205,18 +205,37 @@
             <div class="collapse" id="profil">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"><a class="nav-link" href="{{ route('profil') }}">Lihat Profil</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.faq.index') }}">FAQ</a></li>
+                    {{-- <li class="nav-item"><a class="nav-link" href="{{ route('faq') }}">FAQ</a></li> --}}
                     <li class="nav-item"><a class="nav-link" href="{{ route('setelan') }}">Setelan</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}"
+                    {{-- <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">Keluar
                             (popup warning)</a>
                     </li>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
-                    </form>
+                    </form> --}}
                 </ul>
             </div>
+        </li>
+        <li class="nav-item nav-category">Lainnya</li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('faq') }}">
+                <i class="mdi mdi-help-circle-outline menu-icon"></i>
+                <span class="menu-title">FAQ</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('logout') }}"
+                onclick=    "event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                <i class="mdi mdi mdi-power menu-icon"></i>
+                <span class="menu-title">Keluar
+                    (popup warning)</span>
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
         </li>
     </ul>
 </nav>

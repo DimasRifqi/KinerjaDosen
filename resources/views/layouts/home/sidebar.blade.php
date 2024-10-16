@@ -91,12 +91,13 @@
         </li>
         @endif
         <li class="nav-item nav-category">Anggota</li>
+        @if ($user->hasRole(1))
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#all_user" aria-expanded="false"
-                aria-controls="all_user">
-                <i class="menu-icon mdi mdi-account-multiple"></i>
-                <span class="menu-title">All User</span>
-                <i class="menu-arrow"></i>
+            aria-controls="all_user">
+            <i class="menu-icon mdi mdi-account-multiple"></i>
+            <span class="menu-title">All User</span>
+            <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="all_user">
                 <ul class="nav flex-column sub-menu">
@@ -145,10 +146,10 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#operator" aria-expanded="false"
-                aria-controls="operator">
-                <i class="menu-icon mdi mdi-library"></i>
-                <span class="menu-title">Operator</span>
-                <i class="menu-arrow"></i>
+            aria-controls="operator">
+            <i class="menu-icon mdi mdi-library"></i>
+            <span class="menu-title">Operator</span>
+            <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="operator">
                 <ul class="nav flex-column sub-menu">
@@ -163,10 +164,10 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#auditor" aria-expanded="false"
-                aria-controls="auditor">
-                <i class="menu-icon mdi mdi-library-books"></i>
-                <span class="menu-title">Auditor</span>
-                <i class="menu-arrow"></i>
+            aria-controls="auditor">
+            <i class="menu-icon mdi mdi-library-books"></i>
+            <span class="menu-title">Auditor</span>
+            <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="auditor">
                 <ul class="nav flex-column sub-menu">
@@ -372,6 +373,7 @@
                 </ul>
             </div>
         </li>
+        @endif
         <li class="nav-item nav-category">Profil</li>
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#profil" aria-expanded="false"

@@ -19,8 +19,9 @@ class InformasiController extends Controller
 
     public function storeInformasi(Request $request){
         $request->validate([
+            'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string|max:255',
-            'image_informasi' => 'nullable|image|max:2048'
+            'image_informasi' => 'nullable|image|max:2048',
         ]);
 
         if ($request->hasFile('image_informasi')) {
@@ -30,6 +31,7 @@ class InformasiController extends Controller
         }
 
         Informasi::create([
+            'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
             'image_informasi' => $imagePath
         ]);
@@ -38,7 +40,7 @@ class InformasiController extends Controller
     }
 
     public function editInformasi($id){
-        $informasi = Informasi::findOrFail($id); 
+        $informasi = Informasi::findOrFail($id);
         return view('testing.informasi.edit_informasi', ['informasi' => $informasi]);
     }
 
@@ -49,6 +51,7 @@ class InformasiController extends Controller
 
 
     $validated = $request->validate([
+        'judul' => 'required|string|max:255',
         'deskripsi' => 'required|string|max:255',
         'image_informasi' => 'nullable|image|max:2048',
     ]);

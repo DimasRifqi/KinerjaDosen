@@ -153,7 +153,7 @@
                     <a class="dropdown-item" href="{{ route('profil') }}"><i
                             class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i>
                         Profil Saya {{-- <span class="badge badge-pill badge-danger">1</span> --}}</a>
-                    <a class="dropdown-item" href="{{ route('faq') }}"><i
+                    <a class="dropdown-item" href="#"><i
                             class="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i>
                         FAQ</a>
                     <a class="dropdown-item" href="{{ route('setelan') }}"><i

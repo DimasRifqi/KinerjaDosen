@@ -208,7 +208,7 @@
             <div class="collapse" id="profil">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"><a class="nav-link" href="{{ route('profil') }}">Lihat Profil</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('faq') }}">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.faq.index') }}">FAQ</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('setelan') }}">Setelan</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}"
                             onclick="event.preventDefault();

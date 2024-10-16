@@ -74,6 +74,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Prodi::class, 'id_prodi', 'id_prodi');
     }
 
+    public function bank(){
+        return $this->belongsTo(Bank::class, 'id_bank', 'id_bank');
+    }
+
     public function pengajuan()
     {
         return $this->belongsToMany(Pengajuan::class, 'pengajuan_user', 'id', 'id_pengajuan')

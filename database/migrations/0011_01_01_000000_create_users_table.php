@@ -20,8 +20,10 @@ return new class extends Migration
             $table->foreignId('id_pangkat_dosen')->nullable()->constrained('pangkat_dosen', 'id_pangkat_dosen')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('id_gelar_depan')->nullable()->constrained('gelar_depan', 'id_gelar_depan')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('id_gelar_belakang')->nullable()->constrained('gelar_belakang', 'id_gelar_belakang')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('id_bank')->nullable()->constrained('bank', 'id_bank')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name');
             $table->date('awal_kerja')->nullable();
+            $table->string('nama_rekening')->nullable();
             $table->string('no_rek')->nullable();
             $table->string('npwp')->nullable();
             $table->string('nidn')->nullable();

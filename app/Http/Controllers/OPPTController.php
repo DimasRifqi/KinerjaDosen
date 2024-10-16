@@ -251,7 +251,7 @@ class OPPTController extends Controller
             return redirect()->route('oppt.pengajuanIndex.dosen')->with('success', 'Pengajuan berhasil dibuat!');
             //return response()->json(['Error' => 'jir']);
         } catch (\Throwable $th) {
-            return response()->json(['Error' => $th]);
+            return redirect()->back()->with('error', 'Isi Periode dan Pilih Dosen');
         }
     }
 

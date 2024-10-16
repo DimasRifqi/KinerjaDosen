@@ -10,7 +10,7 @@
                 <span class="menu-title">Dasbor</span>
             </a>
         </li>
-        @if ($user->hasRole(2))            
+        @if ($user->hasRole(1))
         <li class="nav-item nav-category">Verifikasi</li>
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#verifikasi" aria-expanded="false"
@@ -23,7 +23,7 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link"
                             href="{{ route('verifikator.permohonan.index') }}">Dosen</a></li>
-                    <li class="nav-item">
+                            <li class="nav-item">
                         <a class="nav-link" href="{{ route('oppt.indexPermohonan.dosen') }}">Dosen (OPPT)</a>
                     </li>
                 </ul>
@@ -41,7 +41,54 @@
                         Pengajuan</a></li>
                     </ul>
                 </div>
-            </li>
+        </li>
+        @elseif ($user->hasRole([7]))            
+        <li class="nav-item nav-category">Verifikasi</li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#verifikasi" aria-expanded="false"
+                aria-controls="verifikasi">
+                <i class="menu-icon mdi mdi-account-multiple-outline"></i>
+                <span class="menu-title">Anggota</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="verifikasi">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('oppt.indexPermohonan.dosen') }}">Dosen (OPPT)</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        @elseif ($user->hasRole(2))
+            <li class="nav-item nav-category">Verifikasi</li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#verifikasi" aria-expanded="false"
+                aria-controls="verifikasi">
+                <i class="menu-icon mdi mdi-account-multiple-outline"></i>
+                <span class="menu-title">Anggota</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="verifikasi">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link"
+                            href="{{ route('verifikator.permohonan.index') }}">Dosen</a></li>
+                            
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+                <i class="menu-icon mdi mdi mdi-file"></i>
+                <span class="menu-title">Tunjangan</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="tables">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('verifikator.pengajuan.index') }}">Data
+                        Pengajuan</a></li>
+                    </ul>
+                </div>
+        </li>
         @endif
         <li class="nav-item nav-category">Anggota</li>
         @if ($user->hasRole(1))
@@ -63,8 +110,6 @@
                 </ul>
             </div>
         </li>
-        @endif
-        @if ($user && $user->hasRole([2,7]))               
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#dosen" aria-expanded="false" aria-controls="dosen">
                 <i class="menu-icon mdi mdi-account"></i>
@@ -82,8 +127,6 @@
                 </ul>
             </div>
         </li>
-        @endif
-        @if ($user && $user->hasRole([2, 3, 4]))            
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#lldikti" aria-expanded="false" aria-controls="lldikti">
                 <i class="menu-icon mdi mdi-home-variant"></i>
@@ -137,15 +180,135 @@
                 </ul>
             </div>
         </li>
+         <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#komponen_anggota" aria-expanded="false"
+            aria-controls="komponen_anggota">
+                <i class="menu-icon mdi mdi-card-text-outline"></i>
+                <span class="menu-title">Komponen{{-- / Master Data --}}</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="komponen_anggota">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('kota.index') }}">Kota</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('univ.index') }}">Universitas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('index.prodi') }}">Program Studi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('jabatan-fungsional.index') }}">Jabatan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('index.pangkat') }}">Pangkat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('gelar-depan.merge') }}">Gelar Depan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('gelar-belakang.merge') }}">Gelar Belakang</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item nav-category">Tunjangan</li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#pengajuan" aria-expanded="false"
+                aria-controls="pengajuan">
+                <i class="menu-icon mdi mdi-file-outline"></i>
+                <span class="menu-title">Pengajuan</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="pengajuan">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="{{ route('oppt.pengajuanIndex.dosen') }}">Data
+                            Pengajuan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('oppt.pengajuan.dosen') }}">Buat
+                            Pengajuan</a></li>
+                </ul>
+            </div>
+        </li>
+        @endif
+        @if ($user && $user->hasRole([7]))               
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#dosen" aria-expanded="false" aria-controls="dosen">
+                <i class="menu-icon mdi mdi-account"></i>
+                <span class="menu-title">Dosen</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="dosen">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('oppt.index.dosen') }}">Data Dosen</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pendaftaran Dosen</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        @endif
+        @if ($user && $user->hasRole([2, 3]))     
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#all_user" aria-expanded="false"
+            aria-controls="all_user">
+            <i class="menu-icon mdi mdi-account-multiple"></i>
+            <span class="menu-title">All User</span>
+            <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="all_user">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.index') }}">Data AllUser</a>
+                    </li>
+                </ul>
+            </div>
+        </li>    
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#auditor" aria-expanded="false"
+            aria-controls="auditor">
+            <i class="menu-icon mdi mdi-library-books"></i>
+            <span class="menu-title">Auditor</span>
+            <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auditor">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Data Auditor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('pendaftaranauditor') }}">Pendaftaran Auditor</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    @elseif ($user->hasRole(4))
+    <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#all_user" aria-expanded="false"
+            aria-controls="all_user">
+            <i class="menu-icon mdi mdi-account-multiple"></i>
+            <span class="menu-title">All User</span>
+            <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="all_user">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.index') }}">Data AllUser</a>
+                    </li>
+                </ul>
+            </div>
+        </li>    
     @endif
-     @if ($user && $user->hasRole([1, 3]))        
+     @if ($user && $user->hasRole([3]))        
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#komponen_anggota" aria-expanded="false"
             aria-controls="komponen_anggota">
-            <i class="menu-icon mdi mdi-card-text-outline"></i>
-            <span class="menu-title">Komponen{{-- / Master Data --}}</span>
-            <i class="menu-arrow"></i>
-        </a>
+                <i class="menu-icon mdi mdi-card-text-outline"></i>
+                <span class="menu-title">Komponen{{-- / Master Data --}}</span>
+                <i class="menu-arrow"></i>
+            </a>
             <div class="collapse" id="komponen_anggota">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
@@ -173,8 +336,8 @@
             </div>
         </li>
         @endif
-        <li class="nav-item nav-category">Tunjangan</li>
         @if ($user->hasRole(7))            
+        <li class="nav-item nav-category">Tunjangan</li>
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#pengajuan" aria-expanded="false"
                 aria-controls="pengajuan">
@@ -192,7 +355,7 @@
             </div>
         </li>
         @endif
-        @if ($user->hasRole(1))            
+        @if ($user->hasRole([1,3]))            
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#komponen" aria-expanded="false"
                 aria-controls="komponen">

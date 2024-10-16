@@ -1,10 +1,15 @@
 @extends('layouts.home.app')
 @section('title', 'Buat Pengajuan Tunjangan')
-@section('userTypeOnPage', 'SuperAdmin, Verifikator, Perencanaan, Keuangan, OPPT')
+@section('userTypeOnPage', 'SuperAdmin, OPPT')
 @section('content')
     <div class="content-wrapper">
         <div class="row justify-content-center">
             <div class="col-md-6 grid-margin stretch-card">
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }} <!-- Display flash error message -->
+                    </div>
+                @endif
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Buat Pengajuan</h4>

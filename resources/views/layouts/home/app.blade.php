@@ -11,11 +11,12 @@
         <div class="container-fluid page-body-wrapper">
             @include('layouts.home.header')
             {{-- @include('layouts.home.theme-setting') --}}
-            @include('layouts.home.sidebar')
+            {{-- @include('layouts.home.sidebar') --}}
 
-            {{-- @php
+            @php
                 $user = Auth::User();
             @endphp
+            {{-- tolong backend benerin kalo bisa jangan pakek if --}}
             @if ($user->hasRole(1))
                 @include('layouts.home.sidebars.sidebar_if_1_superadmin')
             @elseif ($user->hasRole(2))
@@ -30,7 +31,8 @@
                 @include('layouts.home.sidebars.sidebar_if_6_auditor')
             @elseif ($user->hasRole(7))
                 @include('layouts.home.sidebars.sidebar_if_7_oppt')
-            @endif --}}
+            @endif
+            {{-- tolong backend benerin kalo bisa jangan pakek if --}}
 
             <div class="main-panel">
 

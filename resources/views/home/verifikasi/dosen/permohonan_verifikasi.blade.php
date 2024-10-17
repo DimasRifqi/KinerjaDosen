@@ -47,7 +47,7 @@
                                         </div>
                                     @else
                                         <div class="table-responsive">
-                                            <table class="table table-striped">
+                                            <table class="table table-striped permohonan-table">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -115,7 +115,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Permohonan</label>
-                                        <input type="text" class="form-control" value="{{ $item->permohonan }}" disabled>
+                                        <textarea class="form-control permohonan-textarea"  style="resize: none; overflow-wrap: break-word;" readonly>{{ $item->permohonan }}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label>Tanggal Diajukan</label>
@@ -141,6 +141,12 @@
         <style>
         .medium-modal {
             max-width: 600px;
+        }
+
+        .permohonan-textarea {
+            min-height: 5rem !important; /* Atur sesuai kebutuhan */
+            height: auto !important; /* Pastikan ini diset untuk mengizinkan tinggi dinamis */
+            resize: none !important; /* Menonaktifkan resize manual */
         }
         </style>
 
@@ -169,7 +175,7 @@
                                             @csrf
                                             <div class="mb-3">
                                                 <label for="permohonan">Permohonan</label>
-                                                <textarea class="form-control" id="permohonan" name="permohonan" style="height: 100px"
+                                                <textarea class="form-control permohonan-textarea" id="permohonan" name="permohonan" style="height: 100px"
                                                     placeholder="Tuliskan permohonan anda di sini..." required>{{ old('permohonan') }}</textarea>
                                             </div>
                                             <div class="form-group">
@@ -196,4 +202,35 @@
         </div>
 
     </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const maxChars = 25; // Atur batas karakter di sini
+
+        // Targetkan hanya tabel dengan kelas 'permohonan-table'
+        document.querySelectorAll(".permohonan-table td:nth-child(4)").forEach((cell) => {
+            if (cell.textContent.length > maxChars) {
+                cell.textContent = cell.textContent.slice(0, maxChars) + "..."; // Tambahkan ellipsis
+            }
+        });
+
+        // Auto resize textarea
+        const textareas = document.querySelectorAll('.permohonan-textarea');
+        
+        textareas.forEach(textarea => {
+            console.log('Textarea found:', textarea); // Debugging check
+            textarea.style.height = 'auto'; // Reset height
+            textarea.style.height = textarea.scrollHeight + 'px'; // Set initial height based on content
+            console.log('Initial height:', textarea.style.height); // Debugging check
+
+            // If textarea content might change, recalculate height
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';  // Reset height
+                this.style.height = this.scrollHeight + 'px';  // Set height dynamically
+                console.log('Height after input:', this.style.height); // Debugging check
+            });
+        });
+    });
+</script>
+
 @endsection

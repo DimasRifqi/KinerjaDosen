@@ -28,6 +28,11 @@ class DatabaseSeeder extends Seeder
             BankSeeder::class,
             UserSeeder::class,
             PeriodeSeeder::class,
+            PengajuanSeeder::class,
+            PengajuanDokumenSeeder::class,
+            PengajuanUserSeeder::class,
+            PermohonanSeeder::class,
+            FaqSeeder::class,
             InformasiSeeder::class
         ]);
     }

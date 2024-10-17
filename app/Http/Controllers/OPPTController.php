@@ -40,6 +40,7 @@ class OPPTController extends Controller
         } if ($oppt->id_role == 7) {
             $dosen = User::where('id_universitas', $oppt->id_universitas)->get();
         }
+
         return view('home.anggota.dosen.data_dosen_oppt', ['dosen' => $dosen]);
     }
 

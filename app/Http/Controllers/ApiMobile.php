@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ApiMobile extends Controller
 {
@@ -153,6 +154,39 @@ class ApiMobile extends Controller
         ], 200);
     }
 
+
+    public function gantiImage(Request $request)
+    {
+        $user = Auth::user();
+        $dosen = User::findOrFail($user->id);
+
+        try {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Maks ukuran 2MB
+            ]);
+
+
+            if ($request->hasFile('image')) {
+
+                $imagePath = $request->file('image')->store('images/dosen', 'public');
+
+                if ($dosen->image) {
+                    Storage::disk('public')->delete($dosen->image);
+                }
+
+                $dosen->image = $imagePath;
+                $dosen->save();
+
+                return response()->json(['data' => $dosen->image, 'status' => 200]);
+            } else {
+                return response()->json(['err' => 'No image uploaded', 'status' => 400]);
+            }
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json(['err' => $e->errors(), 'status' => 422]);
+        } catch (\Throwable $th) {
+            return response()->json(['err' => $th->getMessage(), 'status' => 500]);
+        }
+    }
 
 
 

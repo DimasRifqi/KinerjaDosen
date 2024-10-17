@@ -15,6 +15,7 @@ use App\Http\Controllers\VerifikatorController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\PermohonanController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -115,7 +116,7 @@ Route::get('/auditor/editauditor', function () {
 })->name('edit_auditor');
 
 
-Route::group(['middleware' => ['auth', 'role:1|3']], function () {
+Route::group(['middleware' => ['auth', 'role:1|3|7']], function () {    // iki 7 dihapus yooo
 
     // Route untuk Admin
     Route::prefix('all_user')->group(function () { // admin
@@ -124,6 +125,12 @@ Route::group(['middleware' => ['auth', 'role:1|3']], function () {
         Route::post('/', [SuperAdminController::class, 'store'])->name('admin.store'); // /
         Route::get('/{id}/sunting', [SuperAdminController::class, 'edit'])->name('admin.edit'); // /{id}/edit
         Route::put('/{id}', [SuperAdminController::class, 'update'])->name('admin.update'); // /{id}
+    });
+
+    Route::group(['prefix' => 'dosen'], function () {
+        // Route::get('/all-lldikti', [SuperAdminController::class, 'allLldikti'])->name('super.lldikti.all');
+        Route::get('/pendaftaran-dosen', [SuperAdminController::class, 'createDosen'])->name('super.dosen.create');
+        Route::post('/store-dosen', [SuperAdminController::class, 'storeDosen'])->name('super.dosen.store');
     });
 
     Route::group(['prefix' => 'lldikti'], function () {
@@ -223,13 +230,15 @@ Route::group(['middleware' => ['auth', 'role:1|3']], function () {
     });
 
     //Informasi dipake oleh admin (belum ada viewpage)
-    Route::group(['prefix' => 'informasi'], function () {
-        Route::get('index', [InformasiController::class, 'indexInformasi'])->name('admin.informasi.index');
-        Route::post('store', [InformasiController::class, 'storeInformasi'])->name('admin.informasi.store');
-        Route::get('edit/{id}', [InformasiController::class, 'editInformasi'])->name('admin.informasi.edit');
-        Route::put('update/{id}', [InformasiController::class, 'updateInformasi'])->name('admin.informasi.update');
-        Route::delete('delete/{id}', [InformasiController::class, 'deleteInformasi'])->name('admin.informasi.delete');
-    });
+
+Route::group(['prefix' => 'informasi'], function () {
+    Route::get('index', [InformasiController::class, 'indexInformasi'])->name('admin.informasi.index');
+    Route::post('store', [InformasiController::class, 'storeInformasi'])->name('admin.informasi.store');
+    Route::get('edit/{id}', [InformasiController::class, 'editInformasi'])->name('admin.informasi.edit');
+    Route::put('update/{id}', [InformasiController::class, 'updateInformasi'])->name('admin.informasi.update');
+    Route::delete('delete/{id}', [InformasiController::class, 'deleteInformasi'])->name('admin.informasi.delete');
+});
+
 });
 
 Route::group(['middleware' => ['auth', 'role:7|1']], function () {
@@ -297,3 +306,18 @@ Route::group(['middleware' => ['auth', 'role:2|1']], function () {
 Route::get('/userProfile', [AuthApiController::class, 'userProfile']);
 Route::get('/pengajuan', [AuthApiController::class, 'pengajuan']);
 Route::get('/auditor', [AuthApiController::class, 'auditor']);
+
+// Super / Verif / OPPT permohonan new
+
+Route::group(['prefix' => 'permohonan'], function () {
+    Route::get('index', [PermohonanController::class, 'indexPermohonanOppt'])->name('oppt.permohonan.index');
+    Route::get('create', [PermohonanController::class, 'createPermohonanOppt'])->name('oppt.permohonan.create');
+    Route::post('store', [PermohonanController::class, 'storePermohonanOppt'])->name('oppt.permohonan.store');
+    Route::get('/admin/index', [PermohonanController::class, 'indexPermohonanAdmin'])->name('admin.permohonan.index');
+    Route::get('/admin/detail/{id}', [PermohonanController::class, 'detailPermohonanAdmin'])->name('admin.permohonan.detail');
+    Route::put('/admin/update/{id}', [PermohonanController::class, 'updatePermohonanAdmin'])->name('admin.permohonan.update');
+    Route::put('/admin/tolak/{id}', [PermohonanController::class, 'tolakPermohonanAdmin'])->name('admin.permohonan.tolak');
+    Route::delete('/delete/{id}', [PermohonanController::class, 'deletePermohonan'])->name('permohonan.delete');
+
+});
+

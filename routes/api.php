@@ -24,6 +24,7 @@ Route::group([
     Route::get('pengajuan/show/{id}', [ApiMobile::class, 'pengajuanIndexShow']); //get data pengajuan detail
     Route::get('riwayat/pengajuan', [ApiMobile::class, 'riwayatTunjangan']); //get data riwayat dosen pengajaun
     Route::post('ganti-password', [ApiMobile::class, 'gantiPassword']); //get data riwayat dosen pengajaun
+    Route::post('ganti-image', [ApiMobile::class, 'gantiImage']);
 });
 
 Route::group(['prefix' => 'dosen'], function () {

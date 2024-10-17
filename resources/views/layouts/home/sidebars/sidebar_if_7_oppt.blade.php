@@ -37,7 +37,7 @@
                         <a class="nav-link" href="{{ route('oppt.index.dosen') }}">Data Dosen</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pendaftaran Dosen</a>
+                        <a class="nav-link" href="{{ route('super.dosen.create') }}">Pendaftaran Dosen</a>
                     </li>
                 </ul>
             </div>

@@ -28,6 +28,22 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/home1234', function () {
+    return view('home.home1234');
+});
+
+Route::get('/home5', function () {
+    return view('home.home5');
+});
+
+Route::get('/home6', function () {
+    return view('home.home6');
+});
+
+Route::get('/home7', function () {
+    return view('home.home7');
+});
+
 Route::get('/dosen/datadosen', function () {
     return view('home.anggota.data_dosen');
 })->name('datadosen');

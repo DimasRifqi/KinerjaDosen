@@ -15,6 +15,7 @@ use App\Http\Controllers\VerifikatorController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\PermohonanController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -230,6 +231,14 @@ Route::group(['middleware' => ['auth', 'role:1|3|7']], function () {    // iki 7
 
     //Informasi dipake oleh admin (belum ada viewpage)
 
+Route::group(['prefix' => 'informasi'], function () {
+    Route::get('index', [InformasiController::class, 'indexInformasi'])->name('admin.informasi.index');
+    Route::post('store', [InformasiController::class, 'storeInformasi'])->name('admin.informasi.store');
+    Route::get('edit/{id}', [InformasiController::class, 'editInformasi'])->name('admin.informasi.edit');
+    Route::put('update/{id}', [InformasiController::class, 'updateInformasi'])->name('admin.informasi.update');
+    Route::delete('delete/{id}', [InformasiController::class, 'deleteInformasi'])->name('admin.informasi.delete');
+});
+
 });
 
 Route::group(['middleware' => ['auth', 'role:7|1']], function () {
@@ -298,10 +307,17 @@ Route::get('/userProfile', [AuthApiController::class, 'userProfile']);
 Route::get('/pengajuan', [AuthApiController::class, 'pengajuan']);
 Route::get('/auditor', [AuthApiController::class, 'auditor']);
 
-Route::group(['prefix' => 'informasi'], function () {
-    Route::get('index', [InformasiController::class, 'indexInformasi'])->name('admin.informasi.index');
-    Route::post('store', [InformasiController::class, 'storeInformasi'])->name('admin.informasi.store');
-    Route::get('edit/{id}', [InformasiController::class, 'editInformasi'])->name('admin.informasi.edit');
-    Route::put('update/{id}', [InformasiController::class, 'updateInformasi'])->name('admin.informasi.update');
-    Route::delete('delete/{id}', [InformasiController::class, 'deleteInformasi'])->name('admin.informasi.delete');
+// Super / Verif / OPPT permohonan new
+
+Route::group(['prefix' => 'permohonan'], function () {
+    Route::get('index', [PermohonanController::class, 'indexPermohonanOppt'])->name('oppt.permohonan.index');
+    Route::get('create', [PermohonanController::class, 'createPermohonanOppt'])->name('oppt.permohonan.create');
+    Route::post('store', [PermohonanController::class, 'storePermohonanOppt'])->name('oppt.permohonan.store');
+    Route::get('/admin/index', [PermohonanController::class, 'indexPermohonanAdmin'])->name('admin.permohonan.index');
+    Route::get('/admin/detail/{id}', [PermohonanController::class, 'detailPermohonanAdmin'])->name('admin.permohonan.detail');
+    Route::put('/admin/update/{id}', [PermohonanController::class, 'updatePermohonanAdmin'])->name('admin.permohonan.update');
+    Route::put('/admin/tolak/{id}', [PermohonanController::class, 'tolakPermohonanAdmin'])->name('admin.permohonan.tolak');
+    Route::delete('/delete/{id}', [PermohonanController::class, 'deletePermohonan'])->name('permohonan.delete');
+
 });
+

@@ -4,7 +4,6 @@
 @section('content')
     <div class="content-wrapper">
         <div class="home-tab">
-
             <div class="d-sm-flex align-items-center justify-content-between border-bottom">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
@@ -17,6 +16,70 @@
                     </li>
                 </ul>
             </div>
+
+            {{-- modal create FAQ --}}
+            <div class="modal fade" id="createFaqModal" tabindex="-1" aria-labelledby="createFaqModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="createFaqModalLabel">Buat FAQ</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="createFAQ">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="pertanyaan">Pertanyaan</label>
+                                    <input type="text" class="form-control" id="pertanyaan" name="pertanyaan" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="jawaban">Jawaban</label>
+                                    <input type="text" class="form-control" id="jawaban" name="jawaban" required>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Edit FAQ -->
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Ubah FAQ</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editFAQForm">
+                                @csrf
+                                @method('PUT')
+
+                                <input type="hidden" id="edit_id_FAQ" name="id_FAQ">
+
+                                <div class="form-group">
+                                    <label for="edit_pertanyaan">Pertanyaan</label>
+                                    <input type="text" class="form-control" id="edit_pertanyaan" name="pertanyaan"
+                                        required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="edit_jawaban">Jawaban</label>
+                                    <input type="text" class="form-control" id="edit_jawaban" name="jawaban" required>
+                                </div>
+
+                                <button type="submit" class="btn btn-warning">Ubah</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="tab-content tab-content-basic">
                 <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
                     <div class="row">
@@ -40,34 +103,22 @@
                                         </div>
                                     @endif
 
-                                    <div class="d-flex" style="justify-content: space-between; padding: 10px 20px;">
-                                        <h4>
-                                            Data FAQ
-                                        </h4>
-                                        {{-- <div class="search-container">
-                                        <div class="input-group">
-                                            <input class="form-control"
-                                                style="background: none; border: none; display: flex; align-items: center;"
-                                                id="searchInput" type="text" placeholder="Search" autocomplete="on">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text"
-                                                    style="background: none; border: none; padding-left: 0; display: flex; align-items: center;">
-                                                    <i class="mdi mdi-magnify"
-                                                            style="background: none;"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-                                    </div>
+
+                                    <h4 class="card-title">Data FAQ</h4>
+                                    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
+                                        data-bs-target="#createFaqModal">
+                                        Buat FAQ
+                                    </button>
+
                                     @if ($faqs->isEmpty())
                                         <p class="card-description">
-                                            No Data FAQ records found. </p>
+                                            Tidak ada data </p>
                                     @else
                                         <div class="table-responsive">
                                             <table class="table table-striped" id="tableKota">
                                                 <thead>
                                                     <tr>
-                                                        <th>ID</th>
+                                                        <th>ID FAQ</th>
                                                         <th>Pertanyaan</th>
                                                         <th>Jawaban</th>
                                                         <th>Aksi</th>
@@ -76,13 +127,19 @@
                                                 <tbody>
                                                     @foreach ($faqs as $faq)
                                                         <tr>
-                                                            <td>{{ $faq->id }}</td>
+                                                            <td>{{ $loop->index + 1 }}</td>
                                                             <td>{{ $faq->pertanyaan }}</td>
                                                             <td>{{ $faq->jawaban }}</td>
                                                             <td>
-                                                                <a href="{{ route('admin.faq.edit', $faq->id_faq) }}"
-                                                                    class="btn btn-info">Edit</a>
-                                                                <form action="{{ route('admin.faq.delete', $faq->id_faq) }}"
+                                                                <button type="button"
+                                                                    class="btn btn-warning btn-sm edit-btn"
+                                                                    data-id="{{ $faq->id_faq }}"
+                                                                    data-pertanyaan="{{ $faq->pertanyaan }}"
+                                                                    data-jawaban="{{ $faq->jawaban }}"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#editModal">Edit</button>
+                                                                <form
+                                                                    action="{{ route('admin.faq.delete', $faq->id_faq) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
@@ -94,6 +151,7 @@
                                                     @endforeach
                                                 </tbody>
                                             </table>
+
                                         </div>
                                     @endif
                                 </div>
@@ -102,52 +160,83 @@
                     </div>
                 </div>
             </div>
-
-        </div>
-
-        <div class="home-tab">
-
-            <div class="tab-content tab-content-basic">
-                <div class="tab-pane fade show" id="audiences" role="tabpanel" aria-labelledby="audiences">
-
-                    <div class="row justify-content-center">
-                        <div class="col-md-6 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Buat FAQ Baru</h4>
-                                    <div class="row">
-                                        <form action="{{ route('admin.faq.store') }}" method="POST">
-                                            @csrf
-                                            <div class="form-group">
-                                                <label for="pertanyaan">Pertanyaan</label>
-                                                <input type="text" name="pertanyaan" id="pertanyaan"
-                                                    class="form-control @error('pertanyaan') is-invalid @enderror"
-                                                    value="{{ old('pertanyaan') }}" required>
-                                                @error('pertanyaan')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="jawaban">Jawaban</label>
-                                                <input type="text"
-                                                    class="form-control @error('jawaban') is-invalid @enderror"
-                                                    id="jawaban" name="jawaban" value="{{ old('jawaban') }}" required>
-                                                @error('jawaban')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                            <button type="submit" class="btn btn-primary mb-2">Buat</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            var currentStatus = '';
+
+            $('#createFAQ').on('submit', function(e) {
+                e.preventDefault();
+
+                $('#success-message').hide();
+                $('#error-message').hide();
+                $('#error-list').empty();
+
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    url: '{{ route('admin.faq.store') }}',
+                    method: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        if (response) {
+                            location.reload();
+                        }
+                    },
+                    error: function(xhr) {
+                        var errors = xhr.responseJSON.errors;
+                        if (errors) {
+                            for (var error in errors) {
+                                $('#error-list').append(`<li>${errors[error][0]}</li>`);
+                            }
+                            $('#error-message').show();
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click', '.edit-btn', function() {
+                var id = $(this).data('id');
+                var pertanyaan = $(this).data('pertanyaan');
+                var jawaban = $(this).data('jawaban');
+
+                $('#edit_id_FAQ').val(id);
+                $('#edit_pertanyaan').val(pertanyaan);
+                $('#edit_jawaban').val(jawaban);
+
+                $('#editModal').modal('show');
+            });
+
+            $('#editFAQForm').on('submit', function(e) {
+                e.preventDefault();
+
+                var formData = $(this).serialize();
+                var id = $('#edit_id_FAQ').val();
+
+                $.ajax({
+                    url: '{{ route('admin.faq.update', '') }}/' + id,
+                    method: 'PUT',
+                    data: formData,
+                    success: function(response) {
+                        location.reload();
+                    },
+                    error: function(xhr) {
+                        alert('Terjadi kesalahan: ' + xhr.responseText);
+                    }
+                });
+            });
+
+
+            $(document).on('click', '.pagination a', function(e) {
+                e.preventDefault();
+                var page = $(this).attr('href').split('page=')[1];
+                fetch_data(page, currentStatus);
+            });
+        });
+    </script>
 @endsection

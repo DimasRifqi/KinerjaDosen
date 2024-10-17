@@ -9,9 +9,10 @@ class FaqController extends Controller
 {
     public function index()
     {
-        $faqs = Faq::all();
+        $faqs = Faq::orderBy('created_at', 'desc')->get();
         return view('home.profil.faq', compact('faqs'));
     }
+
 
     // public function index()
     // {
@@ -63,6 +64,11 @@ class FaqController extends Controller
             'jawaban' => $request->jawaban,
         ]);
 
+        if ($request->ajax()) {
+            return response()->json(['success' => 'FAQ berhasil diperbarui']);
+        }
+
+        // Jika bukan request AJAX, redirect dengan pesan sukses
         return redirect()->back()->with('success', 'FAQ berhasil diperbarui');
     }
 

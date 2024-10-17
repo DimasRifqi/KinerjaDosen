@@ -27,8 +27,15 @@
                 <td>{{ $univ->firstItem() + $loop->index }}</td>
                 <td>{{ $uni->nama_universitas }}</td>
                 <td>{{ $uni->kota ? $uni->kota->nama_kota : 'N/A' }}</td>
+
                 <td>{{ $uni->tipe }}</td>
-                <td>{{ $uni->status ? 'Aktif' : 'Tidak Aktif' }}</td>
+                <td>
+                    @if($uni->status == 1)
+                        <span class="badge bg-success">Aktif</span>
+                    @else
+                        <span class="badge bg-danger">Tidak Aktif</span>
+                    @endif
+                </td>
                 <td>
                     <button type="button" class="btn btn-warning btn-sm edit-btn"
                         data-id="{{ $uni->id_universitas }}"

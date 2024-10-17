@@ -78,9 +78,13 @@ Route::get('/pengajuan/datapengajuan', function () {
     return view('home.pengajuan.data_pengajuan');
 })->name('datapengajuan');
 
-Route::get('/profil/faq', function () {
-    return view('home.profil.faq');
-})->name('faq');
+Route::get('/faq_view', function () {
+    return view('home.faq_view');
+})->name('faq_view');
+
+Route::get('/informasi_view', function () {
+    return view('home.informasi_view');
+})->name('informasi_view');
 
 Route::get('/profil/setelan', function () {
     return view('home.profil.setelan');
@@ -133,7 +137,7 @@ Route::group(['middleware' => ['auth', 'role:1|3']], function () {
 
     Route::group(['prefix' => 'auditor'], function () {
         Route::get('/all-auditor', [SuperAdminController::class, 'allAuditor'])->name('super.auditor.all');
-        Route::get('/create', [SuperAdminController::class, 'createAuditor'])->name('super.auditor.create');
+        Route::get('/buat_auditor', [SuperAdminController::class, 'createAuditor'])->name('super.auditor.create');
     });
 
     Route::group(['prefix' => 'operator'], function () {
@@ -224,7 +228,7 @@ Route::group(['middleware' => ['auth', 'role:1|3']], function () {
 
     //Informasi dipake oleh admin (belum ada viewpage)
     Route::group(['prefix' => 'informasi'], function () {
-        Route::get('index', [InformasiController::class, 'indexInformasi'])->name('admin.informasi.index');
+        Route::get('/', [InformasiController::class, 'indexInformasi'])->name('admin.informasi.index');
         Route::post('store', [InformasiController::class, 'storeInformasi'])->name('admin.informasi.store');
         Route::get('edit/{id}', [InformasiController::class, 'editInformasi'])->name('admin.informasi.edit');
         Route::put('update/{id}', [InformasiController::class, 'updateInformasi'])->name('admin.informasi.update');
@@ -242,7 +246,7 @@ Route::group(['middleware' => ['auth', 'role:7|1']], function () {
     Route::get('/periode', [OPPTController::class, 'indexPeriode'])->name('periode.index');
     Route::get('/dosen/data_dosen_oppt/h_d_d_o_{id}', [OPPTController::class, 'historyPengajuanDosen'])->name('oppt.history.dosen'); // history/dosen/{id}
 
-    Route::get('/pengajuan/create', [OPPTController::class, 'addPengajuan'])->name('oppt.pengajuan.dosen');
+    Route::get('/pengajuan/buat_pengajuan', [OPPTController::class, 'addPengajuan'])->name('oppt.pengajuan.dosen');
     Route::post('/pengajuan/store', [OPPTController::class, 'ajukanDosen'])->name('oppt.ajukan.dosen');
     Route::get('/pengajuan/index', [OPPTController::class, 'indexPengajuan'])->name('oppt.pengajuanIndex.dosen');
     Route::get('/pengajuan/show/p_s_{id}', [OPPTController::class, 'showPengajuan'])->name('oppt.pengajuanShow.dosen');

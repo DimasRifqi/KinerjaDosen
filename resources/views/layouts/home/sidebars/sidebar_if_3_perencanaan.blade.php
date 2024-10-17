@@ -164,7 +164,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('admin.informasi.index') }}">
                 {{-- melihat & mengedit Informasi --}}
                 <i class="mdi mdi-information-outline menu-icon"></i>
                 <span class="menu-title">Informasi</span>

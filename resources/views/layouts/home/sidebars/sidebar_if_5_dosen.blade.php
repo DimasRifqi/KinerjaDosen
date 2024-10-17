@@ -85,14 +85,14 @@
         </li>
         <li class="nav-item nav-category">Lainnya</li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('faq_view') }}">
                 {{-- hanya melihat faq, tanpa mengedit dll --}}
                 <i class="mdi mdi-help-circle-outline menu-icon"></i>
                 <span class="menu-title">FAQ</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('informasi_view') }}">
                 {{-- hanya melihat informasi, tanpa mengedit dll --}}
                 <i class="mdi mdi-information-outline menu-icon"></i>
                 <span class="menu-title">Informasi</span>

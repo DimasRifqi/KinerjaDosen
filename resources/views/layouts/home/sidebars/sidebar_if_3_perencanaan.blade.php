@@ -110,6 +110,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('gelar-belakang.merge') }}">Gelar Belakang</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('bank_static') }}">Bank</a>
+                    </li>
                 </ul>
             </div>
         </li>

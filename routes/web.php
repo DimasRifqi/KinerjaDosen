@@ -79,11 +79,11 @@ Route::get('/pengajuan/datapengajuan', function () {
 })->name('datapengajuan');
 
 Route::get('/faq_view', function () {
-    return view('home.faq_view');
+    return view('home.lainnya.faq_view');
 })->name('faq_view');
 
 Route::get('/informasi_view', function () {
-    return view('home.informasi_view');
+    return view('home.lainnya.informasi_view');
 })->name('informasi_view');
 
 Route::get('/profil/setelan', function () {

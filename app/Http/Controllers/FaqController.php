@@ -10,7 +10,7 @@ class FaqController extends Controller
     public function index()
     {
         $faqs = Faq::all();
-        return view('home.faq', compact('faqs'));
+        return view('home.lainnya.faq', compact('faqs'));
     }
 
     // public function index()

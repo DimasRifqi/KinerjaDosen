@@ -47,7 +47,7 @@
                                         </div>
                                     @else
                                         <div class="table-responsive">
-                                            <table class="table table-striped">
+                                            <table class="table table-striped permohonan-table">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -69,9 +69,14 @@
                                                             <td>{{ $item->permohonan }}</td>
                                                             <td>{{ $item->status ? 'Selesai' : 'Proses' }}</td>
                                                             <td>{{ $item->created_at->format('d M Y') }}</td>
-                                                            <td><a href="{{ route('oppt.showPermohonan.dosen', $item->id_permohonan) }}"
+                                                            <td>
+                                                                <!-- <a href="{{ route('oppt.showPermohonan.dosen', $item->id_permohonan) }}"
                                                                     class="btn btn-warning btn-sm">
-                                                                    Detail</a></td>
+                                                                    Detail</a> -->
+                                                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#detailModal">
+                                                                    Buka Detail
+                                                                </button>
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -87,6 +92,63 @@
             </div>
 
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+            <div class="modal-dialog medium-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detailModalLabel">Detail Permohonan Verifikasi Dosen</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label>Nama Dosen</label>
+                                        <input type="text" class="form-control" value="{{ $item->user->name }}" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Universitas</label>
+                                        <input type="text" class="form-control" value="{{ $item->user->universitas->nama_universitas ?? '-' }}" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Permohonan</label>
+                                        <textarea class="form-control permohonan-textarea"  style="resize: none; overflow-wrap: break-word;" readonly>{{ $item->permohonan }}</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Tanggal Diajukan</label>
+                                        <input type="text" class="form-control" value="{{ $item->created_at->format('d M Y') }}" disabled>
+                                    </div>
+                                    <div class="form-group" id="action-buttons">
+                                        <form action="{{ route('verifikator.permohonan.status', $item->id_permohonan) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="button" class="btn btn-info" data-bs-dismiss="modal">
+                                                Kembali
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+        .medium-modal {
+            max-width: 600px;
+        }
+
+        .permohonan-textarea {
+            min-height: 5rem !important; /* Atur sesuai kebutuhan */
+            height: auto !important; /* Pastikan ini diset untuk mengizinkan tinggi dinamis */
+            resize: none !important; /* Menonaktifkan resize manual */
+        }
+        </style>
 
         <div class="home-tab">
 
@@ -113,7 +175,7 @@
                                             @csrf
                                             <div class="mb-3">
                                                 <label for="permohonan">Permohonan</label>
-                                                <textarea class="form-control" id="permohonan" name="permohonan" style="height: 100px"
+                                                <textarea class="form-control permohonan-textarea" id="permohonan" name="permohonan" style="height: 100px"
                                                     placeholder="Tuliskan permohonan anda di sini..." required>{{ old('permohonan') }}</textarea>
                                             </div>
                                             <div class="form-group">
@@ -140,4 +202,35 @@
         </div>
 
     </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const maxChars = 25; // Atur batas karakter di sini
+
+        // Targetkan hanya tabel dengan kelas 'permohonan-table'
+        document.querySelectorAll(".permohonan-table td:nth-child(4)").forEach((cell) => {
+            if (cell.textContent.length > maxChars) {
+                cell.textContent = cell.textContent.slice(0, maxChars) + "..."; // Tambahkan ellipsis
+            }
+        });
+
+        // Auto resize textarea
+        const textareas = document.querySelectorAll('.permohonan-textarea');
+        
+        textareas.forEach(textarea => {
+            console.log('Textarea found:', textarea); // Debugging check
+            textarea.style.height = 'auto'; // Reset height
+            textarea.style.height = textarea.scrollHeight + 'px'; // Set initial height based on content
+            console.log('Initial height:', textarea.style.height); // Debugging check
+
+            // If textarea content might change, recalculate height
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';  // Reset height
+                this.style.height = this.scrollHeight + 'px';  // Set height dynamically
+                console.log('Height after input:', this.style.height); // Debugging check
+            });
+        });
+    });
+</script>
+
 @endsection

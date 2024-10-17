@@ -46,9 +46,19 @@
                                                         {{ $item->status ? 'Selesai' : 'Proses' }} </span>
                                                 </td>
                                                 <td>{{ $item->created_at->format('d M Y') }}</td>
-                                                <td><a href="{{ route('verifikator.permohonan.show', $item->id_permohonan) }}"
+                                                <td>
+                                                    <a href="{{ route('verifikator.permohonan.show', $item->id_permohonan) }}"
                                                         class="btn btn-info btn-sm">
-                                                        Lanjutkan</a></td>
+                                                        Lanjutkan</a>
+                                                    <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#detailModal" 
+                                                            data-id="{{ $item->id_permohonan }}"
+                                                            data-name="{{ $item->user->name }}"
+                                                            data-universitas="{{ $item->user->universitas->nama_universitas }}"
+                                                            data-permohonan="{{ $item->permohonan }}"
+                                                            data-tanggal="{{ $item->timestamps }}">
+                                                        Lihat Detail
+                                                    </button>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -60,5 +70,124 @@
             </div>
 
         </div>
+
+        <!-- Modal Detail Permohonan -->
+        <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+            <div class="modal-dialog medium-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detailModalLabel">Detail Permohonan Verifikasi Dosen</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label>Nama Dosen</label>
+                                        <input type="text" class="form-control" id="nama_dosen" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Universitas</label>
+                                        <input type="text" class="form-control" id="universitas" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Permohonan</label>
+                                        <input type="text" class="form-control" id="permohonan" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Tanggal Diajukan</label>
+                                        <input type="text" class="form-control" id="tanggal" disabled>
+                                    </div>
+                                    <div class="form-group" id="action-buttons">
+                                        <form id="updateStatusForm">
+                                            @csrf
+                                            <input type="hidden" id="permohonan_id" name="permohonan_id">
+                                            <button type="submit" class="btn btn-success" id="btn-selesaikan">
+                                                Selesaikan
+                                            </button>
+                                            <button type="button" class="btn btn-info" data-bs-dismiss="modal">
+                                                Kembali
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+
+    <style>
+    .medium-modal {
+        max-width: 600px;
+    }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+        // Ketika modal dibuka
+        $('#detailModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            
+            // Ajax request untuk mendapatkan detail permohonan
+            $.ajax({
+                url: '{{ route('oppt.showPermohonan.dosen', '') }}/' + id,
+                method: 'GET',
+                success: function(response) {
+                    $('#nama_dosen').val(response.user.name);
+                    $('#universitas').val(response.user.universitas ? response.user.universitas.nama_universitas : '-');
+                    $('#permohonan').val(response.permohonan);
+                    $('#tanggal').val(moment(response.created_at).format('DD MMM YYYY'));
+                    $('#permohonan_id').val(response.id_permohonan);
+                    
+                    // Update tombol berdasarkan status
+                    if(response.status) {
+                        $('#action-buttons').html(`
+                            <button disabled type="button" class="btn btn-inverse-success btn-fw">
+                                Terselesaikan
+                            </button>
+                            <button type="button" class="btn btn-info" data-bs-dismiss="modal">
+                                Kembali
+                            </button>
+                        `);
+                    }
+                },
+                error: function(xhr) {
+                    alert('Terjadi kesalahan saat mengambil data');
+                }
+            });
+        });
+
+        // Handle form submit untuk update status
+        $('#updateStatusForm').on('submit', function(e) {
+            e.preventDefault();
+            
+            var id = $('#permohonan_id').val();
+            
+            $.ajax({
+                url: `/verifikator/permohonan/${id}/status`,
+                method: 'POST',
+                data: $(this).serialize(),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    $('#detailModal').modal('hide');
+                    // Refresh halaman atau update UI
+                    location.reload();
+                },
+                error: function(xhr) {
+                    alert('Terjadi kesalahan saat mengupdate status');
+                }
+            });
+        });
+    });
+    </script>
 @endsection

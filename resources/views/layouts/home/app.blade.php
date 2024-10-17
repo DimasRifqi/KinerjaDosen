@@ -14,25 +14,42 @@
             {{-- @include('layouts.home.sidebar') --}}
 
             @php
-                $user = Auth::User();
+                $user = Auth::user();
             @endphp
-            {{-- tolong backend benerin kalo bisa jangan pakek if --}}
-            @if ($user->hasRole(1))
-                @include('layouts.home.sidebars.sidebar_if_1_superadmin')
-            @elseif ($user->hasRole(2))
-                @include('layouts.home.sidebars.sidebar_if_2_verifikator')
-            @elseif ($user->hasRole(3))
-                @include('layouts.home.sidebars.sidebar_if_3_perencanaan')
-            @elseif ($user->hasRole(4))
-                @include('layouts.home.sidebars.sidebar_if_4_keuangan')
-            @elseif ($user->hasRole(5))
-                @include('layouts.home.sidebars.sidebar_if_5_dosen')
-            @elseif ($user->hasRole(6))
-                @include('layouts.home.sidebars.sidebar_if_6_auditor')
-            @elseif ($user->hasRole(7))
-                @include('layouts.home.sidebars.sidebar_if_7_oppt')
-            @endif
-            {{-- tolong backend benerin kalo bisa jangan pakek if --}}
+
+            @switch(true)
+                @case($user->hasRole(1))
+                    @include('layouts.home.sidebars.sidebar_if_1_superadmin')
+                @break
+
+                @case($user->hasRole(2))
+                    @include('layouts.home.sidebars.sidebar_if_2_verifikator')
+                @break
+
+                @case($user->hasRole(3))
+                    @include('layouts.home.sidebars.sidebar_if_3_perencanaan')
+                @break
+
+                @case($user->hasRole(4))
+                    @include('layouts.home.sidebars.sidebar_if_4_keuangan')
+                @break
+
+                @case($user->hasRole(5))
+                    @include('layouts.home.sidebars.sidebar_if_5_dosen')
+                @break
+
+                @case($user->hasRole(6))
+                    @include('layouts.home.sidebars.sidebar_if_6_auditor')
+                @break
+
+                @case($user->hasRole(7))
+                    @include('layouts.home.sidebars.sidebar_if_7_oppt')
+                @break
+
+                @default
+                    {{-- You can include a default sidebar or leave it empty --}}
+            @endswitch
+
 
             <div class="main-panel">
 

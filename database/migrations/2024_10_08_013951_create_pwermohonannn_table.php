@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id('id_permohonan');
             $table->foreignId('id')->nullable()->constrained('users', 'id')->cascadeOnUpdate()->cascadeOnDelete();
             $table->text('permohonan');
-            $table->boolean('status')->default(false);
+            $table->enum('status')->default(false);
             $table->timestamps();
         });
     }

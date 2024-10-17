@@ -25,6 +25,15 @@
         <div class="card-body">
             <form action="{{ route('admin.informasi.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+
+                <div class="mb-3">
+                    <label for="judul" class="form-label">Judul</label>
+                    <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul" value="{{ old('judul') }}" required>
+                    @error('judul')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
                 <div class="mb-3">
                     <label for="deskripsi" class="form-label">Deskripsi</label>
                     <input type="text" class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" value="{{ old('deskripsi') }}" required>
@@ -58,6 +67,7 @@
                 <ul class="list-group">
                     @foreach($informasi as $info)
                         <li class="list-group-item">
+                            <strong>Deskripsi:</strong> {{ $info->judul }} <br>
                             <strong>Deskripsi:</strong> {{ $info->deskripsi }} <br>
                             @if($info->image_informasi)
                                 <img src="{{ asset('storage/' . $info->image_informasi) }}" alt="Image Informasi" class="img-thumbnail mt-2" style="max-width: 200px;">

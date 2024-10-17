@@ -18,25 +18,30 @@ class InformasiController extends Controller
     }
 
     public function storeInformasi(Request $request){
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'deskripsi' => 'required|string|max:255',
-            'image_informasi' => 'nullable|image|max:2048',
-        ]);
+        try {
+            $request->validate([
+                'judul' => 'required|string|max:255',
+                'deskripsi' => 'required|string|max:255',
+                'image_informasi' => 'nullable|image|max:2048',
+            ]);
 
-        if ($request->hasFile('image_informasi')) {
-            $imagePath = $request->file('image_informasi')->store('informasi_images', 'public');
-        } else {
-            $imagePath = '';
+            if ($request->hasFile('image_informasi')) {
+                $imagePath = $request->file('image_informasi')->store('informasi_images', 'public');
+            } else {
+                $imagePath = '';
+            }
+
+            Informasi::create([
+                'judul' => $request->judul,
+                'deskripsi' => $request->deskripsi,
+                'image_informasi' => $imagePath
+            ]);
+
+            return redirect()->back()->with('sukses upload informasi');
+        } catch (\Throwable $th) {
+            return response()->json(['err' => $th->getMessage()]);
         }
 
-        Informasi::create([
-            'judul' => $request->judul,
-            'deskripsi' => $request->deskripsi,
-            'image_informasi' => $imagePath
-        ]);
-
-        return redirect()->back()->with('sukses upload informasi');
     }
 
     public function editInformasi($id){
@@ -57,6 +62,7 @@ class InformasiController extends Controller
     ]);
 
     $informasi->deskripsi = $validated['deskripsi'];
+    $informasi->judul = $validated['judul'];
 
         if ($request->hasFile('image_informasi')) {
 

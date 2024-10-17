@@ -37,8 +37,8 @@ class OPPTController extends Controller
         $oppt = Auth::user();
         $dosen = User::all()
 
-            // ->where('id_role', 5)
-            ->where('id_universitas', $oppt->id_universitas);
+            ->where('id_role', 5);
+            // ->where('id_universitas', $oppt->id_universitas);
         //return response()->json(['dosen' => $dosen]);
         return view('home.anggota.dosen.data_dosen_oppt', ['dosen' => $dosen]);
     }

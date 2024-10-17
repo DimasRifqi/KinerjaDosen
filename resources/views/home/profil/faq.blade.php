@@ -2,6 +2,7 @@
 @section('title', 'FAQ')
 @section('userTypeOnPage', 'SuperAdmin, Verifikator, Perencanaan, Keuangan')
 @section('content')
+    @include('sweetalert::alert')
     <div class="content-wrapper">
         <div class="home-tab">
             <div class="d-sm-flex align-items-center justify-content-between border-bottom">
@@ -163,11 +164,83 @@
         </div>
 
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
+        // $(document).ready(function() {
 
+        //     var currentStatus = '';
+
+        //     $('#createFAQ').on('submit', function(e) {
+        //         e.preventDefault();
+
+        //         $('#success-message').hide();
+        //         $('#error-message').hide();
+        //         $('#error-list').empty();
+
+        //         var formData = $(this).serialize();
+
+        //         $.ajax({
+        //             url: '{{ route('admin.faq.store') }}',
+        //             method: 'POST',
+        //             data: formData,
+        //             success: function(response) {
+        //                 if (response) {
+        //                     location.reload();
+        //                 }
+        //             },
+        //             error: function(xhr) {
+        //                 var errors = xhr.responseJSON.errors;
+        //                 if (errors) {
+        //                     for (var error in errors) {
+        //                         $('#error-list').append(`<li>${errors[error][0]}</li>`);
+        //                     }
+        //                     $('#error-message').show();
+        //                 }
+        //             }
+        //         });
+        //     });
+
+        //     $(document).on('click', '.edit-btn', function() {
+        //         var id = $(this).data('id');
+        //         var pertanyaan = $(this).data('pertanyaan');
+        //         var jawaban = $(this).data('jawaban');
+
+        //         $('#edit_id_FAQ').val(id);
+        //         $('#edit_pertanyaan').val(pertanyaan);
+        //         $('#edit_jawaban').val(jawaban);
+
+        //         $('#editModal').modal('show');
+        //     });
+
+        //     $('#editFAQForm').on('submit', function(e) {
+        //         e.preventDefault();
+
+        //         var formData = $(this).serialize();
+        //         var id = $('#edit_id_FAQ').val();
+
+        //         $.ajax({
+        //             url: '{{ route('admin.faq.update', '') }}/' + id,
+        //             method: 'PUT',
+        //             data: formData,
+        //             success: function(response) {
+        //                 location.reload();
+        //             },
+        //             error: function(xhr) {
+        //                 alert('Terjadi kesalahan: ' + xhr.responseText);
+        //             }
+        //         });
+        //     });
+
+
+        //     $(document).on('click', '.pagination a', function(e) {
+        //         e.preventDefault();
+        //         var page = $(this).attr('href').split('page=')[1];
+        //         fetch_data(page, currentStatus);
+        //     });
+        // });
+        $(document).ready(function() {
             var currentStatus = '';
 
             $('#createFAQ').on('submit', function(e) {
@@ -184,9 +257,17 @@
                     method: 'POST',
                     data: formData,
                     success: function(response) {
-                        if (response) {
-                            location.reload();
-                        }
+                        // Gantikan location.reload dengan SweetAlert
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'FAQ Berhasil Dibuat!',
+                            text: 'Data FAQ berhasil disimpan.',
+                            showConfirmButton: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload(); // Reload setelah klik tombol OK
+                            }
+                        });
                     },
                     error: function(xhr) {
                         var errors = xhr.responseJSON.errors;
@@ -223,14 +304,22 @@
                     method: 'PUT',
                     data: formData,
                     success: function(response) {
-                        location.reload();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'FAQ Berhasil Diperbarui!',
+                            text: 'Data FAQ berhasil diperbarui.',
+                            showConfirmButton: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
                     },
                     error: function(xhr) {
                         alert('Terjadi kesalahan: ' + xhr.responseText);
                     }
                 });
             });
-
 
             $(document).on('click', '.pagination a', function(e) {
                 e.preventDefault();

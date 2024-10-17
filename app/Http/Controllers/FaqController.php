@@ -39,6 +39,9 @@ class FaqController extends Controller
             'jawaban' => $request->jawaban,
         ]);
 
+         // Flash SweetAlert success notification
+        alert()->success('FAQ Berhasil Ditambahkan', 'Data FAQ berhasil disimpan.');
+        
         return redirect()->back();
     }
 

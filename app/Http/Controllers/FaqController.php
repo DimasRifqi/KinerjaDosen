@@ -7,9 +7,17 @@ use Illuminate\Http\Request;
 
 class FaqController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $faqs = Faq::orderBy('created_at', 'desc')->get();
+        $faqs = Faq::orderBy('created_at', 'desc')->paginate(10);
+
+        if ($request->ajax()) {
+            return response()->json([
+                'html' => view('home.profil.pagination_faq', compact('faqs'))->render(),
+                'pagination' => $faqs->links()->render(),
+            ]);
+        }
+
         return view('home.profil.faq', compact('faqs'));
     }
 
@@ -40,8 +48,8 @@ class FaqController extends Controller
         ]);
 
          // Flash SweetAlert success notification
-        alert()->success('FAQ Berhasil Ditambahkan', 'Data FAQ berhasil disimpan.');
-        
+        // alert()->success('FAQ Berhasil Ditambahkan', 'Data FAQ berhasil disimpan.');
+
         return redirect()->back();
     }
 

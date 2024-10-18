@@ -93,6 +93,20 @@
                                             {{ session('success') }}
                                         </div>
                                     @endif
+
+                                    @if (session('success'))
+                                        <script>
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: 'Sukses!',
+                                                text: '{{ session('success') }}',
+                                                showConfirmButton: true
+                                            });
+                                        </script>
+                                    @endif
+
+
+
                                     <!-- Display Validation Errors -->
                                     @if ($errors->any())
                                         <div class="alert alert-danger">
@@ -115,45 +129,7 @@
                                         <p class="card-description">
                                             Tidak ada data </p>
                                     @else
-                                        <div class="table-responsive">
-                                            <table class="table table-striped" id="tableKota">
-                                                <thead>
-                                                    <tr>
-                                                        <th>ID FAQ</th>
-                                                        <th>Pertanyaan</th>
-                                                        <th>Jawaban</th>
-                                                        <th>Aksi</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($faqs as $faq)
-                                                        <tr>
-                                                            <td>{{ $loop->index + 1 }}</td>
-                                                            <td>{{ $faq->pertanyaan }}</td>
-                                                            <td>{{ $faq->jawaban }}</td>
-                                                            <td>
-                                                                <button type="button"
-                                                                    class="btn btn-warning btn-sm edit-btn"
-                                                                    data-id="{{ $faq->id_faq }}"
-                                                                    data-pertanyaan="{{ $faq->pertanyaan }}"
-                                                                    data-jawaban="{{ $faq->jawaban }}"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#editModal">Edit</button>
-                                                                <form
-                                                                    action="{{ route('admin.faq.delete', $faq->id_faq) }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button class="btn btn-danger"
-                                                                        type="submit">Delete</button>
-                                                                </form>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-
-                                        </div>
+                                        @include('home.profil.pagination_faq')
                                     @endif
                                 </div>
                             </div>
@@ -167,80 +143,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        // $(document).ready(function() {
-
-        //     var currentStatus = '';
-
-        //     $('#createFAQ').on('submit', function(e) {
-        //         e.preventDefault();
-
-        //         $('#success-message').hide();
-        //         $('#error-message').hide();
-        //         $('#error-list').empty();
-
-        //         var formData = $(this).serialize();
-
-        //         $.ajax({
-        //             url: '{{ route('admin.faq.store') }}',
-        //             method: 'POST',
-        //             data: formData,
-        //             success: function(response) {
-        //                 if (response) {
-        //                     location.reload();
-        //                 }
-        //             },
-        //             error: function(xhr) {
-        //                 var errors = xhr.responseJSON.errors;
-        //                 if (errors) {
-        //                     for (var error in errors) {
-        //                         $('#error-list').append(`<li>${errors[error][0]}</li>`);
-        //                     }
-        //                     $('#error-message').show();
-        //                 }
-        //             }
-        //         });
-        //     });
-
-        //     $(document).on('click', '.edit-btn', function() {
-        //         var id = $(this).data('id');
-        //         var pertanyaan = $(this).data('pertanyaan');
-        //         var jawaban = $(this).data('jawaban');
-
-        //         $('#edit_id_FAQ').val(id);
-        //         $('#edit_pertanyaan').val(pertanyaan);
-        //         $('#edit_jawaban').val(jawaban);
-
-        //         $('#editModal').modal('show');
-        //     });
-
-        //     $('#editFAQForm').on('submit', function(e) {
-        //         e.preventDefault();
-
-        //         var formData = $(this).serialize();
-        //         var id = $('#edit_id_FAQ').val();
-
-        //         $.ajax({
-        //             url: '{{ route('admin.faq.update', '') }}/' + id,
-        //             method: 'PUT',
-        //             data: formData,
-        //             success: function(response) {
-        //                 location.reload();
-        //             },
-        //             error: function(xhr) {
-        //                 alert('Terjadi kesalahan: ' + xhr.responseText);
-        //             }
-        //         });
-        //     });
-
-
-        //     $(document).on('click', '.pagination a', function(e) {
-        //         e.preventDefault();
-        //         var page = $(this).attr('href').split('page=')[1];
-        //         fetch_data(page, currentStatus);
-        //     });
-        // });
+    {{-- <script>
         $(document).ready(function() {
+
             var currentStatus = '';
 
             $('#createFAQ').on('submit', function(e) {
@@ -257,7 +162,99 @@
                     method: 'POST',
                     data: formData,
                     success: function(response) {
-                        // Gantikan location.reload dengan SweetAlert
+                        if (response) {
+                            location.reload();
+                        }
+                    },
+                    error: function(xhr) {
+                        var errors = xhr.responseJSON.errors;
+                        if (errors) {
+                            for (var error in errors) {
+                                $('#error-list').append(`<li>${errors[error][0]}</li>`);
+                            }
+                            $('#error-message').show();
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click', '.edit-btn', function() {
+                var id = $(this).data('id');
+                var pertanyaan = $(this).data('pertanyaan');
+                var jawaban = $(this).data('jawaban');
+
+                $('#edit_id_FAQ').val(id);
+                $('#edit_pertanyaan').val(pertanyaan);
+                $('#edit_jawaban').val(jawaban);
+
+                $('#editModal').modal('show');
+            });
+
+            $('#editFAQForm').on('submit', function(e) {
+                e.preventDefault();
+
+                var formData = $(this).serialize();
+                var id = $('#edit_id_FAQ').val();
+
+                $.ajax({
+                    url: '{{ route('admin.faq.update', '') }}/' + id,
+                    method: 'PUT',
+                    data: formData,
+                    success: function(response) {
+                        location.reload();
+                    },
+                    error: function(xhr) {
+                        alert('Terjadi kesalahan: ' + xhr.responseText);
+                    }
+                });
+            });
+
+
+            $(document).on('click', '.pagination a', function(e) {
+                e.preventDefault();
+                var page = $(this).attr('href').split('page=')[1];
+                fetch_data(page, currentStatus);
+            });
+        });
+    </script> --}}
+    <script>
+        $(document).ready(function() {
+            var currentStatus = '';
+
+            function fetch_data(page) {
+                $.ajax({
+                    url: "?page=" + page,
+                    type: "GET",
+                    success: function(response) {
+                        $('.table-responsive').html(response.html);
+                        $('.pagination-links').html(response.pagination);
+                    },
+                    error: function(xhr) {
+                        console.error("Terjadi kesalahan:", xhr.responseText);
+                    }
+                });
+            }
+
+            $(document).on('click', '.pagination a', function(e) {
+                e.preventDefault();
+                var page = $(this).attr('href').split('page=')[1];
+                fetch_data(page);
+            });
+
+            $('#createFAQ').on('submit', function(e) {
+                e.preventDefault();
+
+                $('#success-message').hide();
+                $('#error-message').hide();
+                $('#error-list').empty();
+
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    url: '{{ route('admin.faq.store') }}',
+                    method: 'POST',
+                    data: formData,
+                    success: function(response) {
                         Swal.fire({
                             icon: 'success',
                             title: 'FAQ Berhasil Dibuat!',
@@ -265,7 +262,7 @@
                             showConfirmButton: true
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                location.reload(); // Reload setelah klik tombol OK
+                                location.reload();
                             }
                         });
                     },
@@ -321,10 +318,45 @@
                 });
             });
 
-            $(document).on('click', '.pagination a', function(e) {
+            $(document).on('submit', '.delete-form', function(e) {
                 e.preventDefault();
-                var page = $(this).attr('href').split('page=')[1];
-                fetch_data(page, currentStatus);
+                var form = $(this);
+                var actionUrl = form.attr('action');
+
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Anda tidak dapat mengembalikan data ini!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: actionUrl,
+                            type: 'POST',
+                            data: form.serialize(),
+                            success: function(response) {
+                                Swal.fire(
+                                    'Terhapus!',
+                                    'FAQ berhasil dihapus.',
+                                    'success'
+                                ).then(() => {
+                                    location.reload();
+                                });
+                            },
+                            error: function(xhr) {
+                                Swal.fire(
+                                    'Gagal!',
+                                    'Terjadi kesalahan saat menghapus FAQ.',
+                                    'error'
+                                );
+                            }
+                        });
+                    }
+                });
             });
         });
     </script>

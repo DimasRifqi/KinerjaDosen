@@ -40,7 +40,7 @@
                                     <input type="text" class="form-control" id="jawaban" name="jawaban" required>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="submit" class="btn btn-primary text-white">Simpan</button>
                             </form>
                         </div>
                     </div>
@@ -120,10 +120,11 @@
 
 
                                     <h4 class="card-title">Data FAQ</h4>
-                                    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-primary mb-3 text-white" data-bs-toggle="modal"
                                         data-bs-target="#createFaqModal">
                                         Buat FAQ
                                     </button>
+
 
                                     @if ($faqs->isEmpty())
                                         <p class="card-description">

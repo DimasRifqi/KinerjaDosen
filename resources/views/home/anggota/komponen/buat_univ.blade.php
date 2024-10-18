@@ -93,11 +93,11 @@
                                             <input type="text" class="form-control" name="search" id="search"
                                                 placeholder="Cari berdasarkan nama universitas, kota, tipe"
                                                 value="{{ request()->input('search') }}">
-                                            <button class="btn btn-primary" type="submit">Cari / Reset</button>
+                                            <button class="btn btn-primary text-white" type="submit">Cari / Reset</button>
                                         </div>
                                     </form>
 
-                                    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-primary mb-3 text-white" data-bs-toggle="modal"
                                         data-bs-target="#createModal">
                                         Buat Universitas
                                     </button>
@@ -154,7 +154,7 @@
                                                 </select>
                                             </div>
 
-                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                            <button type="submit" class="btn btn-primary text-white">Simpan</button>
                                         </form>
                                     </div>
                                 </div>

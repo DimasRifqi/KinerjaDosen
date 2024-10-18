@@ -22,7 +22,7 @@
                             </div>
                         @else
                             <div class="table-responsive">
-                                <table class="table table-striped">
+                                <table class="table table-striped permohonan-table">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -50,7 +50,7 @@
                                                     <a href="{{ route('verifikator.permohonan.show', $item->id_permohonan) }}"
                                                         class="btn btn-info btn-sm">
                                                         Lanjutkan</a>
-                                                    <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#detailModal" 
+                                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#detailModal" 
                                                             data-id="{{ $item->id_permohonan }}"
                                                             data-name="{{ $item->user->name }}"
                                                             data-universitas="{{ $item->user->universitas->nama_universitas }}"
@@ -131,6 +131,15 @@
 
     <script>
     $(document).ready(function() {
+        const maxChars = 25; // Atur batas karakter di sini
+
+        // Targetkan hanya tabel dengan kelas 'permohonan-table'
+        document.querySelectorAll(".permohonan-table td:nth-child(4)").forEach((cell) => {
+            if (cell.textContent.length > maxChars) {
+                cell.textContent = cell.textContent.slice(0, maxChars) + "..."; // Tambahkan ellipsis
+            }
+        });
+        
         // Ketika modal dibuka
         $('#detailModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);

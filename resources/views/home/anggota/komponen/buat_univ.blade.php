@@ -174,6 +174,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
             var currentStatus = '';
 
@@ -266,8 +271,7 @@
                     url: "{{ route('univ.index') }}?page=" + page + "&search=" + search + "&status=" +
                         status,
                     success: function(data) {
-                        $('#pagination-data').html(data
-                            .html); // Masukkan respons HTML ke elemen pagination-data
+                        $('#pagination-data').html(data.html);
                     },
                     error: function(xhr, status, error) {
                         console.error("Error: " + xhr.responseText);
@@ -276,4 +280,5 @@
             }
         });
     </script>
+
 @endsection

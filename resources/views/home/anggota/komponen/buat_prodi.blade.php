@@ -59,11 +59,11 @@
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                <div id="success-message" class="alert alert-success" style="display:none;"></div>
+                                    <div id="success-message" class="alert alert-success" style="display:none;"></div>
 
-                                <div id="error-message" class="alert alert-danger" style="display:none;">
-                                    <ul id="error-list"></ul>
-                                </div>
+                                    <div id="error-message" class="alert alert-danger" style="display:none;">
+                                        <ul id="error-list"></ul>
+                                    </div>
 
                                     <h4 class="card-title">Data Program Studi</h4>
 
@@ -97,8 +97,8 @@
                                                                     class="btn btn-warning btn-sm edit-btn"
                                                                     data-id="{{ $item->id_prodi }}"
                                                                     data-nama="{{ $item->nama_prodi }}"
-                                                                    data-status="{{ $item->status }}"
-                                                                    data-bs-toggle="modal" data-bs-target="#editModal">
+                                                                    data-status="{{ $item->status }}" data-bs-toggle="modal"
+                                                                    data-bs-target="#editModal">
                                                                     Edit
                                                                 </button>
                                                             </td>
@@ -166,8 +166,8 @@
                                             @csrf
                                             <div class="form-group">
                                                 <label for="nama_prodi">Nama Prodi:</label>
-                                                <input type="text" name="nama_prodi" id="nama_prodi" class="form-control"
-                                                    value="{{ old('nama_prodi') }}" required>
+                                                <input type="text" name="nama_prodi" id="nama_prodi"
+                                                    class="form-control" value="{{ old('nama_prodi') }}" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="status" class="form-label">Status:</label>
@@ -191,31 +191,31 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script>
-    $(document).ready(function() {
+    <script>
+        $(document).ready(function() {
 
-        $('#createProdiForm').on('submit', function(e) {
-            e.preventDefault();
+            $('#createProdiForm').on('submit', function(e) {
+                e.preventDefault();
 
-            $('#success-message').hide();
-            $('#error-message').hide();
-            $('#error-list').empty();
+                $('#success-message').hide();
+                $('#error-message').hide();
+                $('#error-list').empty();
 
-            var formData = $(this).serialize();
+                var formData = $(this).serialize();
 
-            $.ajax({
-                url: '{{ route('prodi.create') }}',
-                method: 'POST',
-                data: formData,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
+                $.ajax({
+                    url: '{{ route('prodi.create') }}',
+                    method: 'POST',
+                    data: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
 
-                    if (response)(
-                        location.reload()
-                    )
-                    $('#univ-table-body').append(`
+                        if (response)(
+                            location.reload()
+                        )
+                        $('#univ-table-body').append(`
                         <tr>
                             <td>${response.id_prodi}</td>
                             <td>${response.nama_prodi}</td>
@@ -227,58 +227,58 @@
                         </tr>
                     `);
 
-                    $('#success-message').text('Prodi created successfully!').show();
+                        $('#success-message').text('Prodi created successfully!').show();
 
-                    $('#createModal').modal('hide');
+                        $('#createModal').modal('hide');
 
-                    $('#createProdiForm')[0].reset();
-                },
-                error: function(xhr) {
+                        $('#createProdiForm')[0].reset();
+                    },
+                    error: function(xhr) {
 
-                    var errors = xhr.responseJSON.errors;
-                    if (errors) {
-                        for (var error in errors) {
-                            $('#error-list').append(`<li>${errors[error][0]}</li>`);
+                        var errors = xhr.responseJSON.errors;
+                        if (errors) {
+                            for (var error in errors) {
+                                $('#error-list').append(`<li>${errors[error][0]}</li>`);
+                            }
+                            $('#error-message').show();
                         }
-                        $('#error-message').show();
                     }
-                }
+                });
+            });
+
+            $('.edit-btn').on('click', function() {
+                var id = $(this).data('id');
+                var nama = $(this).data('nama');
+                var status = $(this).data('status');
+
+                $('#edit_id_prodi').val(id);
+                $('#edit_nama_prodi').val(nama);
+                $('#status').val(status);
+
+                $('#editModal').modal('show');
+            });
+
+
+            $('#editProdiForm').on('submit', function(e) {
+                e.preventDefault();
+
+                var formData = $(this).serialize();
+                var id = $('#edit_id_prodi').val();
+
+                $.ajax({
+                    url: '{{ route('prodi.update', '') }}/' + id,
+                    method: 'POST',
+                    data: formData,
+                    success: function(response) {
+
+                        location.reload();
+                    },
+                    error: function(xhr) {
+
+                        alert('Terjadi kesalahan');
+                    }
+                });
             });
         });
-
-        $('.edit-btn').on('click', function() {
-            var id = $(this).data('id');
-            var nama = $(this).data('nama');
-            var status = $(this).data('status');
-
-            $('#edit_id_prodi').val(id);
-            $('#edit_nama_prodi').val(nama);
-            $('#status').val(status);
-
-            $('#editModal').modal('show');
-        });
-
-
-        $('#editProdiForm').on('submit', function(e) {
-            e.preventDefault();
-
-            var formData = $(this).serialize();
-            var id = $('#edit_id_prodi').val();
-
-            $.ajax({
-                url: '{{ route('prodi.update', '') }}/' + id,
-                method: 'POST',
-                data: formData,
-                success: function(response) {
-
-                    location.reload();
-                },
-                error: function(xhr) {
-
-                    alert('Terjadi kesalahan');
-                }
-            });
-        });
-    });
-</script>
+    </script>
 @endsection

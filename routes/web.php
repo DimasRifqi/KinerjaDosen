@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PermohonanController;
 
-// Route::get('/', function () {
-//     return view('auth.login');
-// });
+Route::get('/', function () {
+    return view('auth.login');
+});
 
 
 Route::post('/import-csv', [CsvImportController::class, 'import'])->name('import.csv');

@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PermohonanController;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('auth.login');
+});
 
 
 Route::post('/import-csv', [CsvImportController::class, 'import'])->name('import.csv');
@@ -209,6 +209,14 @@ Route::group(['middleware' => ['auth', 'role:1|3|7']], function () {    // iki 7
             Route::post('/create', [SuperAdminController::class, 'createProdi'])->name('prodi.create'); // /prodi/create
             Route::get('/sunting/b_pr_s_{id}', [SuperAdminController::class, 'editProdi'])->name('prodi.edit'); // /prodi/edit/{id}
             Route::put('/update/{id}', [SuperAdminController::class, 'updateProdi'])->name('prodi.update'); // /prodi/update/{id}
+        });
+
+        Route::group(['prefix' => 'bank'], function () {
+            //Prodi
+            Route::get('/buat_bank', [SuperAdminController::class, 'indexBank'])->name('index.bank'); // /admin/createBank
+            Route::post('/create', [SuperAdminController::class, 'createBank'])->name('bank.create'); // /bank/create
+            Route::get('/sunting/b_bn_s_{id}', [SuperAdminController::class, 'editBank'])->name('bank.edit'); // /bank/edit/{id}
+            Route::put('/update/{id}', [SuperAdminController::class, 'updateBank'])->name('bank.update'); // /bank/update/{id}
         });
 
         Route::group(['prefix' => 'pangkat'], function () {

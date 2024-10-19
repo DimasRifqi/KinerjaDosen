@@ -2,9 +2,7 @@
     <thead>
         <tr>
             <th>No</th>
-            <th>Nama Universitas</th>
-            <th>Kota</th>
-            <th>Tipe</th>
+            <th>Nama Bank</th>
             <th>
                 <div class="dropdown">
                     <a href="#" id="statusDropdown" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none; color: inherit;">
@@ -21,16 +19,13 @@
             <th>Aksi</th>
         </tr>
     </thead>
-    <tbody id="univ-table-body">
-        @foreach ($univ as $uni)
+    <tbody id="bank-table-body">
+        @foreach ($bank as $bn)
             <tr>
-                <td>{{ $univ->firstItem() + $loop->index }}</td>
-                <td>{{ $uni->nama_universitas }}</td>
-                <td>{{ $uni->kota ? $uni->kota->nama_kota : 'N/A' }}</td>
-
-                <td>{{ $uni->tipe }}</td>
+                <td>{{ $bank->firstItem() + $loop->index }}</td>
+                <td>{{ $bn->nama_bank }}</td>
                 <td>
-                    @if($uni->status == 1)
+                    @if($bn->status == 1)
                         <span class="badge bg-success">Aktif</span>
                     @else
                         <span class="badge bg-danger">Tidak Aktif</span>
@@ -38,11 +33,9 @@
                 </td>
                 <td>
                     <button type="button" class="btn btn-warning btn-sm edit-btn"
-                        data-id="{{ $uni->id_universitas }}"
-                        data-nama="{{ $uni->nama_universitas }}"
-                        data-kota="{{ $uni->id_kota }}"
-                        data-tipe="{{ $uni->tipe }}"
-                        data-status="{{ $uni->status }}"
+                        data-id="{{ $bn->id_bank }}"
+                        data-nama="{{ $bn->nama_bank }}"
+                        data-status="{{ $bn->status }}"
                         data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
                 </td>
             </tr>
@@ -50,4 +43,4 @@
     </tbody>
 </table>
 
-{{ $univ->appends(request()->except('page'))->links() }}
+{{ $bank->appends(request()->except('page'))->links() }}

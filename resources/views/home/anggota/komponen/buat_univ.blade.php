@@ -93,11 +93,11 @@
                                             <input type="text" class="form-control" name="search" id="search"
                                                 placeholder="Cari berdasarkan nama universitas, kota, tipe"
                                                 value="{{ request()->input('search') }}">
-                                            <button class="btn btn-primary" type="submit">Cari / Reset</button>
+                                            <button class="btn btn-primary text-white" type="submit">Cari / Reset</button>
                                         </div>
                                     </form>
 
-                                    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-primary mb-3 text-white" data-bs-toggle="modal"
                                         data-bs-target="#createModal">
                                         Buat Universitas
                                     </button>
@@ -154,7 +154,7 @@
                                                 </select>
                                             </div>
 
-                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                            <button type="submit" class="btn btn-primary text-white">Simpan</button>
                                         </form>
                                     </div>
                                 </div>
@@ -174,6 +174,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
             var currentStatus = '';
 
@@ -266,8 +271,7 @@
                     url: "{{ route('univ.index') }}?page=" + page + "&search=" + search + "&status=" +
                         status,
                     success: function(data) {
-                        $('#pagination-data').html(data
-                            .html); // Masukkan respons HTML ke elemen pagination-data
+                        $('#pagination-data').html(data.html);
                     },
                     error: function(xhr, status, error) {
                         console.error("Error: " + xhr.responseText);
@@ -276,4 +280,5 @@
             }
         });
     </script>
+
 @endsection

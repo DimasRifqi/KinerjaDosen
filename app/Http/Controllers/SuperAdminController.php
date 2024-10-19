@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bank;
 use App\Models\Gelar_Belakang;
 use App\Models\Gelar_Depan;
 use App\Models\Jabatan_Fungsional;
@@ -495,9 +496,6 @@ class SuperAdminController extends Controller
         return view('home.anggota.komponen.buat_univ', compact('univ', 'kota'));
     }
 
-
-
-
     // public function indexUniv(){
     //     $univ = Universitas::all();
     //     $kota = Kota::all();
@@ -602,6 +600,60 @@ class SuperAdminController extends Controller
         $prodi->update($validateData);
 
         return redirect()->route('index.prodi')->with('success', 'Prodi berhasil diubah');
+    }
+
+
+    public function indexBank(Request $request){
+        $statusFilter = $request->input('status');
+
+        $bank = Bank::
+            when(isset($statusFilter) && ($statusFilter === '0' || $statusFilter === '1'), function ($query) use ($statusFilter) {
+                $query->where('status', $statusFilter);
+            })
+            ->paginate(10);
+
+        if ($request->ajax()) {
+            if ($bank->isEmpty()) {
+
+                return response()->json(['html' => view('home.anggota.komponen.data_kosong')->render()]);
+            } else {
+
+                return response()->json(['html' => view('home.anggota.komponen.pagination_bank', compact('bank'))->render()]);
+            }
+        }
+
+        return view('home.anggota.komponen.buat_bank', compact('bank'));
+    }
+
+    public function createBank(Request $request){
+        $validateData = $request->validate([
+            'nama_bank' => 'required',
+        ]);
+
+        $bank = Bank::create([
+            'nama_bank' => $validateData['nama_bank']
+        ]);
+
+        return redirect()->back()->with('success', "Bank berhasil dibuat");
+    }
+
+    public function editBank(Request $request, $id){
+        $bank = Bank::findOrFail($id);
+
+        // return view('testing.adminUniv.edit_prodi', compact('bank'));
+    }
+
+    public function updateBank(Request $request, $id){
+        $bank = Bank::findOrFail($id);
+
+        $validateData = $request->validate([
+            'nama_bank' => 'required',
+            'status' => 'required'
+        ]);
+
+        $bank->update($validateData);
+
+        return redirect()->route('index.bank')->with('success', 'Bank berhasil diubah');
     }
 
     public function indexPangkatDosen(){

@@ -18,7 +18,7 @@ class FaqController extends Controller
             ]);
         }
 
-        return view('home.profil.faq', compact('faqs'));
+        return view('home.lainnya.faq', compact('faqs'));
     }
 
 

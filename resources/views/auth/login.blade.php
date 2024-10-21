@@ -27,21 +27,24 @@
                                     </span>
                                 @enderror
                             </div>
-
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input type="password" name="password" class="form-control form-control-lg @error('password') is-invalid @enderror" id="password" placeholder="Kata Sandi"
-                                    required autocomplete="current-password">
-                                    <span class="input-group-text" onclick="togglePassword()">
-                                        <i class="mdi mdi-eye" id="togglePasswordIcon"></i>
-                                    </span>
-                                </div>
+                            
+                            <div class="form-group d-flex align-items-stretch">
+                                <!-- Input password -->
+                                <input type="password" name="password" class="form-control form-control-lg @error('password') is-invalid @enderror" id="password" placeholder="Kata Sandi"
+                                required autocomplete="current-password">
+                                
+                                <!-- Tombol toggle password, menggunakan flex-grow agar ukurannya sama dengan input -->
+                                <button type="button" class="btn btn-light toggle-password-btn" onclick="togglePassword()">
+                                    <i class="mdi mdi-eye" id="togglePasswordIcon"></i>
+                                </button>
+                                
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
+                            
 
 
                             <div class="my-2 d-flex justify-content-between align-items-center">

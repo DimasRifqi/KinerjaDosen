@@ -25,9 +25,9 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>ID Pengajuan</th>
+                                            <th>#</th>
                                             <th>Periode</th>
-                                            <th>Draft</th>
+                                            <th>Draf</th> {{-- dulu 'Draft', tooltip: 'Draf adalah apakah Dokumen ini Siap atau Tidak Siap Dipublikasikan' --}}
                                             <th>Tanggal Dibuat</th>
                                             <th>Tanggal Diperbarui</th>
                                             <th>Daftar Pengguna</th>
@@ -39,7 +39,7 @@
                                             <tr>
                                                 <td>{{ $item->id_pengajuan }}</td>
                                                 <td>{{ $item->periode->nama_periode }}</td>
-                                                <td>{{ $item->draft }}</td>
+                                                <td>{{ $item->draft }}</td> {{-- buat jangan 1 2, tapi string --}}
                                                 <td>{{ $item->created_at }}</td>
                                                 <td>{{ $item->updated_at }}</td>
                                                 <td>

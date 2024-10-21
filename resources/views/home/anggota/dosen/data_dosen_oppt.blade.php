@@ -8,8 +8,6 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Data Dosen</h4>
-                        <p class="card-description">
-                            Lorem ipsum dolor sit </p>
                         @if (session('success'))
                             <div class="alert alert-success">
                                 {{ session('success') }}
@@ -21,7 +19,8 @@
                                 Tidak ada dosen yang ditemukan.
                             </div>
                         @else
-                            <div class="table-responsive">
+                            @include('home.anggota.dosen.pagination_dosen_opt')
+                            {{-- <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
@@ -93,7 +92,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                            </div>
+                            </div> --}}
                         @endif
                     </div>
                 </div>
@@ -101,4 +100,97 @@
 
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var currentStatus = '';
+
+            // Submit form create bank
+            $('#createBankForm').on('submit', function(e) {
+                e.preventDefault();
+
+                $('#success-message').hide();
+                $('#error-message').hide();
+                $('#error-list').empty();
+
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    url: '{{ route('bank.create') }}',
+                    method: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        if (response) {
+                            location.reload(); // Reload halaman jika berhasil
+                        }
+                    },
+                    error: function(xhr) {
+                        var errors = xhr.responseJSON.errors;
+                        if (errors) {
+                            for (var error in errors) {
+                                $('#error-list').append(`<li>${errors[error][0]}</li>`);
+                            }
+                            $('#error-message').show(); // Tampilkan error
+                        }
+                    }
+                });
+            });
+
+            // Tampilkan modal edit dan isi form dengan data yang diklik
+            $(document).on('click', '.edit-btn', function() {
+                var id = $(this).data('id');
+                var nama = $(this).data('nama');
+                var status = $(this).data('status');
+
+                $('#edit_id_bank').val(id);
+                $('#edit_nama_bank').val(nama);
+                $('#edit_status').val(status);
+
+                $('#editModal').modal('show'); // Tampilkan modal edit
+            });
+
+            // Submit form edit bank
+            $('#editBankForm').on('submit', function(e) {
+                e.preventDefault();
+
+                var formData = $(this).serialize();
+                var id = $('#edit_id_bank').val();
+
+                $.ajax({
+                    url: '{{ route('bank.update', '') }}/' + id,
+                    method: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        location.reload(); // Reload halaman jika berhasil
+                    },
+                    error: function(xhr) {
+                        alert('Terjadi kesalahan');
+                    }
+                });
+            });
+
+            // Filter status dosen
+            $(document).on('click', '.status-filter-option', function(e) {
+                e.preventDefault();
+                currentStatus = $(this).data('aksi'); // Ambil status dari filter yang dipilih
+                fetch_data(1, currentStatus); // Panggil fungsi fetch_data dengan status yang dipilih
+            });
+
+            // Fungsi untuk fetch data dengan filter dan pagination
+            function fetch_data(page, status = '') {
+                var search = $('#search').val(); // Ambil nilai search jika ada
+
+                $.ajax({
+                    url: "{{ route('oppt.index.dosen') }}?page=" + page + "&search=" + search + "&status=" +
+                        status,
+                    success: function(data) {
+                        $('#pagination-data').html(data.html); // Update HTML dengan data yang diterima
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error: " + xhr.responseText);
+                    }
+                });
+            }
+        });
+    </script>
 @endsection

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthApiController;
+use App\Http\Controllers\BkdController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CsvImportController;
 use App\Http\Controllers\FaqController;
@@ -24,6 +25,8 @@ Route::get('/', function () {
 
 Route::post('/import-csv', [CsvImportController::class, 'import'])->name('import.csv');
 Route::get('/import-csv', [CsvImportController::class, 'index'])->name('index.csv');
+
+Route::post('/import-bkd', [BkdController::class, 'importBkd'])->name('import.bkd');
 
 Auth::routes(['verify' => true]);
 

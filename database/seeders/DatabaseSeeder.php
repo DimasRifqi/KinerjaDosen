@@ -33,7 +33,8 @@ class DatabaseSeeder extends Seeder
             PengajuanUserSeeder::class,
             // PermohonanSeeder::class,
             FaqSeeder::class,
-            InformasiSeeder::class
+            InformasiSeeder::class,
+            BkdSeeder::class
         ]);
     }
 }

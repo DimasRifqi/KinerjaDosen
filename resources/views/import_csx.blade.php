@@ -10,7 +10,7 @@
         </div>
     @endif
 
-    <form action="{{ route('import.csv') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('import.bkd') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <label for="csv_file">Upload CSV File</label>
         <input type="file" name="csv_file" id="csv_file" required>

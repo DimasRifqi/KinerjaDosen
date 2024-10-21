@@ -279,7 +279,7 @@ Route::group(['middleware' => ['auth', 'role:7|1']], function () {
 
     Route::get('/pengajuan/buat_pengajuan', [OPPTController::class, 'addPengajuan'])->name('oppt.pengajuan.dosen');
     Route::post('/pengajuan/store', [OPPTController::class, 'ajukanDosen'])->name('oppt.ajukan.dosen');
-    Route::get('/pengajuan/index', [OPPTController::class, 'indexPengajuan'])->name('oppt.pengajuanIndex.dosen');
+    Route::get('/pengajuan/pengajuan-index', [OPPTController::class, 'indexPengajuan'])->name('oppt.pengajuanIndex.dosen');
     Route::get('/pengajuan/show/p_s_{id}', [OPPTController::class, 'showPengajuan'])->name('oppt.pengajuanShow.dosen');
     Route::post('/pengajuan/dokumen/store/{id}', [OPPTController::class, 'ajukanDokumen'])->name('oppt.pengajuanDokumenStore.dosen');
     Route::put('/pengajuan/dokumen/update/{id}', [OPPTController::class, 'updateDokumen'])->name('oppt.updateDokumen.dosen');

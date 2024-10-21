@@ -567,11 +567,16 @@ class OPPTController extends Controller
 
     public function editPengajuan($id)
     {
+        $oppt = Auth::User();
         $pengajuan = Pengajuan::with('user')->findOrFail($id);
         $periode = Periode::all();
-        $dosen = User::all();
+        $dosen = User::all()
+                ->where('id_universitas', $oppt->id_universitas)
+                ->where('id_role', 5);
+
+        $tipePengajuan = $pengajuan->user()->pluck('tipe_pengajuan', 'id_pengajuan')->toArray();
         // return response()->json(['data' => $pengajuan]);
-        return view('testing.oppt.edit_pengajuan_dosen', ['pengajuan' => $pengajuan, 'periode' => $periode, 'dosen' => $dosen]);
+        return view('testing.oppt.edit_pengajuan_dosen', ['pengajuan' => $pengajuan, 'periode' => $periode, 'dosen' => $dosen, 'tipe_pengajuan' => $tipePengajuan]);
     }
 
     public function updatePengajuan(Request $request, $id)
@@ -581,6 +586,7 @@ class OPPTController extends Controller
             $request->validate([
                 'id_periode' => 'required|exists:periode,id_periode',
                 'dosen_ids' => 'nullable|array',
+                'tipe_pengajuan' => 'nullable|array' // Ensures you can have an array for tipe_pengajuan
             ]);
 
             // Cari pengajuan berdasarkan ID
@@ -591,18 +597,29 @@ class OPPTController extends Controller
                 'id_periode' => $request->id_periode,
             ]);
 
+            // Prepare the sync data
+            $syncData = []; // Initialize an empty array for sync data
+
+            // Loop through each selected dosen ID
+            foreach ($request->dosen_ids as $dosen_id) {
+                // Add to the sync data array
+                $syncData[$dosen_id] = [
+                    'status' => 'diajukan',
+                    'tipe_pengajuan' => $request->tipe_pengajuan[$dosen_id] ?? null, // Get the tipe_pengajuan for this dosen_id
+                    'tanggal_diajukan' => now(),
+                ];
+            }
+
             // Sinkronisasi dosen yang diajukan
-            $pengajuan->user()->sync($request->dosen_ids, [
-                'status' => 'diajukan',
-                'tanggal_diajukan' => now(),
-            ]);
+            $pengajuan->user()->sync($syncData); // Sync with prepared syncData
 
             // Redirect dengan pesan sukses
             return redirect()->route('oppt.pengajuanIndex.dosen')->with('success', 'Pengajuan berhasil diperbarui!');
         } catch (\Throwable $th) {
-            return redirect()->route('oppt.pengajuanIndex.dosen');
+            return redirect()->route('oppt.pengajuanIndex.dosen')->with('error', 'Terjadi kesalahan saat memperbarui pengajuan.'); // Optional error message
         }
     }
+
 
     public function deletePengajuan($id){
         try {

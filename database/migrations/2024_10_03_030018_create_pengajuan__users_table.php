@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('id_pengajuan')->nullable()->constrained('pengajuan', 'id_pengajuan')->cascadeOnDelete()->cascadeOnUpdate(); // Foreign key to pengajuan table
             $table->foreignId('id')->constrained('users', 'id');
             $table->enum('status', ['diajukan', 'disetujui', 'ditolak'])->default('diajukan');
+            $table->enum('tipe_pengajuan', ['Guru Besar', 'Profesi'])->nullable();
             $table->text('pesan')->nullable();
             $table->date('tanggal_diajukan')->nullable();
             $table->date('tanggal_disetujui')->nullable();

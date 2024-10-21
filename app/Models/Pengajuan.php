@@ -15,7 +15,7 @@ class Pengajuan extends Model
     public function user()
     {
         return $this->belongsToMany(User::class, 'pengajuan_user', 'id_pengajuan', 'id')
-            ->withPivot('status', 'tanggal_diajukan', 'tanggal_disetujui', 'tanggal_ditolak', 'pesan')
+            ->withPivot('status', 'tipe_pengajuan', 'tanggal_diajukan', 'tanggal_disetujui', 'tanggal_ditolak', 'pesan')
             ->withTimestamps();
     }
 

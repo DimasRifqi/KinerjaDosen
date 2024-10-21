@@ -3,5 +3,9 @@
 </div>
 
 <div class="text-center">
-    <a href="{{ route('univ.index') }}" class="btn btn-danger mt-3">Back</a>
+    @if (Route::currentRouteName() === 'univ.index')
+        <a href="{{ route('univ.index') }}" class="btn btn-danger mt-3">Back</a>
+    @elseif (Route::currentRouteName()=== 'index.bank')
+        <a href="{{ route('index.bank') }}" class="btn btn-danger mt-3">Back</a>
+    @endif
 </div>

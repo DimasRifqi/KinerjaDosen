@@ -2,6 +2,7 @@
 @section('title', 'Buat LLDIKTI')
 @section('userTypeOnPage', 'SuperAdmin')
 @section('content')
+</style>
     <div class="content-wrapper">
         <div class="col-12 grid-margin stretch-card">
             <div class="card">
@@ -183,4 +184,28 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Ambil semua elemen select
+            const selects = document.querySelectorAll('select');
+    
+            // Tambahkan event listener untuk setiap elemen select
+            selects.forEach(select => {
+                select.addEventListener('change', function () {
+                    // Setel warna teks menjadi hitam jika opsi yang dipilih bukan placeholder
+                    if (this.value) {
+                        this.style.color = 'black';
+                    }
+                });
+    
+                // Setel warna default ketika halaman dimuat
+                if (select.value) {
+                    select.style.color = 'black';
+                } else {
+                    select.style.color = '#6c757d'; // Warna abu-abu untuk placeholder
+                }
+            });
+        });
+    </script>
+    
 @endsection

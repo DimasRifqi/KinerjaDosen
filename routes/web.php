@@ -217,9 +217,9 @@ Route::group(['middleware' => ['auth', 'role:1|3|7']], function () {    // iki 7
 
         Route::group(['prefix' => 'universitas'], function () {
             //Universitas
-            Route::get('/buat_univ', [SuperAdminController::class, 'indexUniv'])->name('univ.index'); // /admin/createUniv
-            Route::post('/create', [SuperAdminController::class, 'createUniv'])->name('univ.create'); // /univ/create
-            Route::get('/sunting/b_u_s_{id}', [SuperAdminController::class, 'editUniv'])->name('univ.edit'); // /univ/edit/{id}
+            Route::get('/buat_univ', [SuperAdminController::class, 'indexUniv'])->name('univ.index');
+            Route::post('/create', [SuperAdminController::class, 'createUniv'])->name('univ.create');
+            Route::get('/sunting/b_u_s_{id}', [SuperAdminController::class, 'editUniv'])->name('univ.edit');
             Route::put('/update/{id}', [SuperAdminController::class, 'updateUniv'])->name('univ.update');
         });
 
@@ -250,7 +250,7 @@ Route::group(['middleware' => ['auth', 'role:1|3|7']], function () {    // iki 7
 
     //Faq dipake oleh admin
     Route::group(['prefix' => 'faq'], function () {
-        Route::get('/', [FaqController::class, 'index'])->name('admin.faq.index');
+        Route::get('/faq-index', [FaqController::class, 'index'])->name('admin.faq.index');
         Route::post('store', [FaqController::class, 'store'])->name('admin.faq.store');
         Route::get('edit/{id}', [FaqController::class, 'edit'])->name('admin.faq.edit');
         Route::put('update/{id}', [FaqController::class, 'update'])->name('admin.faq.update');
@@ -259,7 +259,7 @@ Route::group(['middleware' => ['auth', 'role:1|3|7']], function () {    // iki 7
 
     //Informasi dipake oleh admin (belum ada viewpage)
     Route::group(['prefix' => 'informasi'], function () {
-        Route::get('/', [InformasiController::class, 'indexInformasi'])->name('admin.informasi.index');
+        Route::get('/informasi-index', [InformasiController::class, 'indexInformasi'])->name('admin.informasi.index');
         Route::post('store', [InformasiController::class, 'storeInformasi'])->name('admin.informasi.store');
         Route::get('edit/{id}', [InformasiController::class, 'editInformasi'])->name('admin.informasi.edit');
         Route::put('update/{id}', [InformasiController::class, 'updateInformasi'])->name('admin.informasi.update');

@@ -4,19 +4,7 @@
 @section('content')
     <div class="content-wrapper">
         <div class="home-tab">
-            <div class="d-sm-flex align-items-center justify-content-between border-bottom">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab"
-                            aria-controls="overview" aria-selected="true">Detail Universitas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#audiences" role="tab"
-                            aria-selected="false">Buat Universitas</a>
-                    </li>
-                </ul>
-            </div>
-
+        
             <!-- Modal Edit Universitas -->
             <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                 <div class="modal-dialog">

@@ -5,19 +5,7 @@
     @include('sweetalert::alert')
     <div class="content-wrapper">
         <div class="home-tab">
-            <div class="d-sm-flex align-items-center justify-content-between border-bottom">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab"
-                            aria-controls="overview" aria-selected="true">Detail FAQ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#audiences" role="tab"
-                            aria-selected="false">Buat FAQ</a>
-                    </li>
-                </ul>
-            </div>
-
+            
             {{-- modal create FAQ --}}
             <div class="modal fade" id="createFaqModal" tabindex="-1" aria-labelledby="createFaqModalLabel"
                 aria-hidden="true">

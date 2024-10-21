@@ -10,8 +10,13 @@ class InformasiController extends Controller
 {
     public function indexInformasi(){
         $informasi = Informasi::all();
-        return view('testing.informasi.index_informasi', ['informasi' => $informasi]);
+        return view('home.lainnya.informasi', ['informasi' => $informasi]);
     }
+
+    // public function indexInformasi(){
+    //     $informasi = Informasi::all();
+    //     return view('testing.informasi.index_informasi', ['informasi' => $informasi]);
+    // }
 
     public function createInformasi(){
         return view('testing.informasi.create_informasi');

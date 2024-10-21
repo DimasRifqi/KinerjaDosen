@@ -29,6 +29,22 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/home1234', function () {
+    return view('home.home1234');
+});
+
+Route::get('/home5', function () {
+    return view('home.home5');
+});
+
+Route::get('/home6', function () {
+    return view('home.home6');
+});
+
+Route::get('/home7', function () {
+    return view('home.home7');
+});
+
 Route::get('/dosen/datadosen', function () {
     return view('home.anggota.data_dosen');
 })->name('datadosen');
@@ -79,9 +95,13 @@ Route::get('/pengajuan/datapengajuan', function () {
     return view('home.pengajuan.data_pengajuan');
 })->name('datapengajuan');
 
-Route::get('/profil/faq', function () {
-    return view('home.profil.faq');
-})->name('faq');
+Route::get('/faq_view', function () {
+    return view('home.lainnya.faq_view');
+})->name('faq_view');
+
+Route::get('/informasi_view', function () {
+    return view('home.lainnya.informasi_view');
+})->name('informasi_view');
 
 Route::get('/profil/setelan', function () {
     return view('home.profil.setelan');
@@ -95,9 +115,9 @@ Route::get('/tunjangan/pengajuan/datapengajuan/ajukansemester', function () {
     return view('home.tunjangan.pengajuan.ajukan_semester');
 });
 
-Route::get('/komponen/gelar_depan', function () {
-    return view('home.anggota.komponen.buat_gelar_depan');
-});
+Route::get('/komponen/bank', function () {
+    return view('home.anggota.komponen.buat_bank');
+})->name('bank_static');
 
 Route::get('/lldikti/pendaftaranlldikti', function () {
     return view('home.anggota.lldikti.pendaftaran_lldikti');
@@ -140,7 +160,7 @@ Route::group(['middleware' => ['auth', 'role:1|3|7']], function () {    // iki 7
 
     Route::group(['prefix' => 'auditor'], function () {
         Route::get('/all-auditor', [SuperAdminController::class, 'allAuditor'])->name('super.auditor.all');
-        Route::get('/create', [SuperAdminController::class, 'createAuditor'])->name('super.auditor.create');
+        Route::get('/buat_auditor', [SuperAdminController::class, 'createAuditor'])->name('super.auditor.create');
     });
 
     Route::group(['prefix' => 'operator'], function () {
@@ -238,15 +258,13 @@ Route::group(['middleware' => ['auth', 'role:1|3|7']], function () {    // iki 7
     });
 
     //Informasi dipake oleh admin (belum ada viewpage)
-
-Route::group(['prefix' => 'informasi'], function () {
-    Route::get('index', [InformasiController::class, 'indexInformasi'])->name('admin.informasi.index');
-    Route::post('store', [InformasiController::class, 'storeInformasi'])->name('admin.informasi.store');
-    Route::get('edit/{id}', [InformasiController::class, 'editInformasi'])->name('admin.informasi.edit');
-    Route::put('update/{id}', [InformasiController::class, 'updateInformasi'])->name('admin.informasi.update');
-    Route::delete('delete/{id}', [InformasiController::class, 'deleteInformasi'])->name('admin.informasi.delete');
-});
-
+    Route::group(['prefix' => 'informasi'], function () {
+        Route::get('/', [InformasiController::class, 'indexInformasi'])->name('admin.informasi.index');
+        Route::post('store', [InformasiController::class, 'storeInformasi'])->name('admin.informasi.store');
+        Route::get('edit/{id}', [InformasiController::class, 'editInformasi'])->name('admin.informasi.edit');
+        Route::put('update/{id}', [InformasiController::class, 'updateInformasi'])->name('admin.informasi.update');
+        Route::delete('delete/{id}', [InformasiController::class, 'deleteInformasi'])->name('admin.informasi.delete');
+    });
 });
 
 Route::group(['middleware' => ['auth', 'role:7|1']], function () {
@@ -259,7 +277,7 @@ Route::group(['middleware' => ['auth', 'role:7|1']], function () {
     Route::get('/periode', [OPPTController::class, 'indexPeriode'])->name('periode.index');
     Route::get('/dosen/data_dosen_oppt/h_d_d_o_{id}', [OPPTController::class, 'historyPengajuanDosen'])->name('oppt.history.dosen'); // history/dosen/{id}
 
-    Route::get('/pengajuan/create', [OPPTController::class, 'addPengajuan'])->name('oppt.pengajuan.dosen');
+    Route::get('/pengajuan/buat_pengajuan', [OPPTController::class, 'addPengajuan'])->name('oppt.pengajuan.dosen');
     Route::post('/pengajuan/store', [OPPTController::class, 'ajukanDosen'])->name('oppt.ajukan.dosen');
     Route::get('/pengajuan/index', [OPPTController::class, 'indexPengajuan'])->name('oppt.pengajuanIndex.dosen');
     Route::get('/pengajuan/show/p_s_{id}', [OPPTController::class, 'showPengajuan'])->name('oppt.pengajuanShow.dosen');
@@ -268,12 +286,12 @@ Route::group(['middleware' => ['auth', 'role:7|1']], function () {
     Route::put('/draft/pengajuan{id}', [OPPTController::class, 'draftPengajuan'])->name('oppt.draftPengajuan.dosen');
 
     Route::put('/pengajuan/update/{id}', [OPPTController::class, 'updatePengajuan'])->name('oppt.updatePengajuan.dosen');
-    Route::get('/pengajuan/edit/{id}', [OPPTController::class, 'editPengajuan'])->name('oppt.editPengajuan.dosen');
+    Route::get('/pengajuan/edit/p_e_{id}', [OPPTController::class, 'editPengajuan'])->name('oppt.editPengajuan.dosen');
     Route::delete('/pengajuan/delete/{id}', [OPPTController::class, 'deletePengajuan'])->name('oppt.deletePengajuan.dosen');
 
     Route::get('/pengajuan/dosen/{id}', [OPPTController::class, 'statusPengajuanDosen'])->name('oppt.statusPengajuan.dosen');
 
-    Route::get('/pengajuan/semester/show/{id}', [OPPTController::class, 'showPengajuanSemester'])->name('oppt.pengajuanSemesterShow.dosen');
+    Route::get('/pengajuan/semester/show/s_s_{id}', [OPPTController::class, 'showPengajuanSemester'])->name('oppt.pengajuanSemesterShow.dosen');
     Route::post('/pengajuan/semester/store/', [OPPTController::class, 'ajukanDokumenSemester'])->name('oppt.pengajuanSemesterStore.dosen');
 
     Route::get('/template/{id}', [OPPTController::class, 'fetchDosen'])->name('fetch.dosen');
@@ -284,7 +302,7 @@ Route::group(['middleware' => ['auth', 'role:7|1']], function () {
     Route::get('create/permohonan/dosen', [OPPTController::class, 'createPermohonan'])->name('oppt.createPermohonan.dosen');
     Route::post('store/permohonan/dosen', [OPPTController::class, 'storePermohonan'])->name('oppt.storePermohonan.dosen');
     Route::get('anggota/verif_edit_dosen_oppt', [OPPTController::class, 'indexPermohonan'])->name('oppt.indexPermohonan.dosen'); // index/permohonan/dosen
-    Route::get('show/permohonan/dosen/{id}', [OPPTController::class, 'showPermohonan'])->name('oppt.showPermohonan.dosen');
+    Route::get('show/permohonan/dosen/p_d_{id}', [OPPTController::class, 'showPermohonan'])->name('oppt.showPermohonan.dosen');
     Route::get('/template/{id}', [OPPTController::class, 'fetchDosen'])->name('fetch.dosen');
 });
 
@@ -328,4 +346,3 @@ Route::group(['prefix' => 'permohonan'], function () {
     Route::delete('/delete/{id}', [PermohonanController::class, 'deletePermohonan'])->name('permohonan.delete');
 
 });
-

@@ -34,7 +34,13 @@ class PermohonanController extends Controller
     public function indexPermohonanAdmin(){
         $permohonan = Permohonan::orderBy('created_at', 'desc')->get();
         //return response()->json(['permohonan' => $permohonan]);
-        return view('testing.permohonan_baru.index_permohonan_admin', ['permohonan' => $permohonan]);
+        return view('home.permohonan-new.admin_index_permohonan', ['permohonan' => $permohonan]);
+    }
+
+    public function indexPermohonanAdminNew(){
+        $permohonan = Permohonan::orderBy('created_at', 'desc')->get();
+        //return response()->json(['permohonan' => $permohonan]);
+        return view('home.permohonan-new.admin_index_permohonan', ['permohonan' => $permohonan]);
     }
 
     public function createPermohonanOppt()
@@ -135,7 +141,8 @@ class PermohonanController extends Controller
     }
 
     public function detailPermohonanAdmin($id){
-        $permohonan = Permohonan::findOrFail($id);
+        $permohonan = Permohonan::with('jabatan_fungsional')->findOrFail($id);
+       //return response()->json(['permohonan' => $permohonan]);
         return view('testing.permohonan_baru.detail_permohonan_admin', ['permohonan' => $permohonan]);
     }
 

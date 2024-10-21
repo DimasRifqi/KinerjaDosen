@@ -16,4 +16,8 @@ class Jabatan_Fungsional extends Model
     public function user(){
         return $this->hasMany(User::class, 'id_jabatan_fungsional', 'id_jabatan_fungsional');
     }
+
+    public function permohonan(){
+        return $this->hasMany(Permohonan::class, 'id_jabatan_fungsional', 'id_jabatan_fungsional');
+    }
 }

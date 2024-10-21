@@ -32,6 +32,7 @@
                 <span class="menu-title">Tunjangan</span>
                 <i class="menu-arrow"></i>
             </a>
+
             <div class="collapse" id="tables">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="{{ route('verifikator.pengajuan.index') }}">Data
@@ -262,6 +263,15 @@
                 <span class="menu-title">Informasi (View Only)</span>
             </a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.permohonan.index') }}">
+                {{-- hanya melihat informasi, tanpa mengedit dll --}}
+                <i class="mdi mdi-information-outline menu-icon"></i>
+                <span class="menu-title">Permohonan</span>
+            </a>
+        </li>
+
         <li class="nav-item">
         <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}"

@@ -339,10 +339,10 @@ Route::group(['prefix' => 'permohonan'], function () {
     Route::get('index', [PermohonanController::class, 'indexPermohonanOppt'])->name('oppt.permohonan.index');
     Route::get('create', [PermohonanController::class, 'createPermohonanOppt'])->name('oppt.permohonan.create');
     Route::post('store', [PermohonanController::class, 'storePermohonanOppt'])->name('oppt.permohonan.store');
-    Route::get('/admin/index', [PermohonanController::class, 'indexPermohonanAdmin'])->name('admin.permohonan.index');
-    Route::get('/admin/detail/{id}', [PermohonanController::class, 'detailPermohonanAdmin'])->name('admin.permohonan.detail');
-    Route::put('/admin/update/{id}', [PermohonanController::class, 'updatePermohonanAdmin'])->name('admin.permohonan.update');
-    Route::put('/admin/tolak/{id}', [PermohonanController::class, 'tolakPermohonanAdmin'])->name('admin.permohonan.tolak');
-    Route::delete('/delete/{id}', [PermohonanController::class, 'deletePermohonan'])->name('permohonan.delete');
+    Route::get('/admin/index-permohonan', [PermohonanController::class, 'indexPermohonanAdmin'])->name('admin.permohonan.index');
+    Route::get('/admin/{id}/detail', [PermohonanController::class, 'detailPermohonanAdmin'])->name('admin.permohonan.detail');
+    Route::put('/admin/{id}/update', [PermohonanController::class, 'updatePermohonanAdmin'])->name('admin.permohonan.update');
+    Route::put('/admin/{id}tolak', [PermohonanController::class, 'tolakPermohonanAdmin'])->name('admin.permohonan.tolak');
+    Route::delete('/{id}/delete', [PermohonanController::class, 'deletePermohonan'])->name('permohonan.delete');
 
 });

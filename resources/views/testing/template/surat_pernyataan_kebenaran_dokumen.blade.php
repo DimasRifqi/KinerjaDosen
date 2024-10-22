@@ -66,7 +66,7 @@
 
         .info-table td:first-child {
             width: 150px;
-            font-weight: bold;
+            /* font-weight: bold; */
         }
 
         /* Footer section */

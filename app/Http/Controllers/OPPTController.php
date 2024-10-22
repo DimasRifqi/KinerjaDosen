@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Gelar_Belakang;
-use App\Models\Gelar_Depan;
+
 use App\Models\Jabatan_Fungsional;
 use App\Models\Pangkat_Dosen;
 use App\Models\Pengajuan;
 use App\Models\Pengajuan_Dokumen;
 use App\Models\Periode;
 use App\Models\Permohonan;
-use App\Models\Prodi;
+
 use App\Models\Role;
 use App\Models\Universitas;
 use App\Models\User;
@@ -130,23 +129,17 @@ class OPPTController extends Controller
     public function editDosen($id)
     {
         $dosen = User::findOrFail($id);
-        $gelar_depan = Gelar_Depan::all();
-        $gelar_belakang = Gelar_Belakang::all();
         $jabatan_fungsional = Jabatan_Fungsional::all();
         $pangkat_dosen = Pangkat_Dosen::all();
         $universitas = Universitas::all();
-        $prodi = Prodi::all();
 
         return view(
             'home.anggota.dosen.edit_dosen_oppt',   ////view page edit dosen
             [
                 'dosen' => $dosen,
-                'gelar_depan' => $gelar_depan,
-                'gelar_belakang' => $gelar_belakang,
                 'jabatan_fungsional' => $jabatan_fungsional,
                 'pangkat_dosen' => $pangkat_dosen,
                 'universitas' => $universitas,
-                'prodi' => $prodi
             ]
         );
     }
@@ -155,12 +148,10 @@ class OPPTController extends Controller
     public function updateDosen(Request $request, $id)
     {
         $request->validate([
-            'id_gelar_depan' => 'nullable|exists:gelar_depan,id_gelar_depan',
-            'id_gelar_belakang' => 'nullable|exists:gelar_belakang,id_gelar_belakang',
+            
             'id_jabatan_fungsional' => 'nullable|exists:jabatan_fungsional,id_jabatan_fungsional',
             'id_pangkat_dosen' => 'nullable|exists:pangkat_dosen,id_pangkat_dosen',
-            'id_universitas' => 'nullable|exists:universitas,id_universitas',
-            'id_prodi' => 'nullable|exists:prodi,id_prodi',
+            'id_universitas' => 'nullable|exists:universitas,id_universitas',            
             'name' => 'required|string|max:255',
             'no_rek' => 'nullable|string|max:20',
             'npwp' => 'nullable|string|max:20',
@@ -174,12 +165,10 @@ class OPPTController extends Controller
 
         $dosen = User::findOrFail($id);
 
-        $dosen->id_gelar_depan = $request->id_gelar_depan;
-        $dosen->id_gelar_belakang = $request->id_gelar_belakang;
+        
         $dosen->id_jabatan_fungsional = $request->id_jabatan_fungsional;
         $dosen->id_pangkat_dosen = $request->id_pangkat_dosen;
-        $dosen->id_universitas = $request->id_universitas;
-        $dosen->id_prodi = $request->id_prodi;
+        $dosen->id_universitas = $request->id_universitas;        
         $dosen->name = $request->name;
         $dosen->no_rek = $request->no_rek;
         $dosen->npwp = $request->npwp;
@@ -573,10 +562,8 @@ class OPPTController extends Controller
         $dosen = User::all()
                 ->where('id_universitas', $oppt->id_universitas)
                 ->where('id_role', 5);
-
-        $tipePengajuan = $pengajuan->user()->pluck('tipe_pengajuan', 'id_pengajuan')->toArray();
         // return response()->json(['data' => $pengajuan]);
-        return view('testing.oppt.edit_pengajuan_dosen', ['pengajuan' => $pengajuan, 'periode' => $periode, 'dosen' => $dosen, 'tipe_pengajuan' => $tipePengajuan]);
+        return view('testing.oppt.edit_pengajuan_dosen', ['pengajuan' => $pengajuan, 'periode' => $periode, 'dosen' => $dosen]);
     }
 
     public function updatePengajuan(Request $request, $id)
@@ -586,7 +573,6 @@ class OPPTController extends Controller
             $request->validate([
                 'id_periode' => 'required|exists:periode,id_periode',
                 'dosen_ids' => 'nullable|array',
-                'tipe_pengajuan' => 'nullable|array' // Ensures you can have an array for tipe_pengajuan
             ]);
 
             // Cari pengajuan berdasarkan ID
@@ -597,26 +583,16 @@ class OPPTController extends Controller
                 'id_periode' => $request->id_periode,
             ]);
 
-            // Prepare the sync data
-            $syncData = []; // Initialize an empty array for sync data
-
-            // Loop through each selected dosen ID
-            foreach ($request->dosen_ids as $dosen_id) {
-                // Add to the sync data array
-                $syncData[$dosen_id] = [
-                    'status' => 'diajukan',
-                    'tipe_pengajuan' => $request->tipe_pengajuan[$dosen_id] ?? null, // Get the tipe_pengajuan for this dosen_id
-                    'tanggal_diajukan' => now(),
-                ];
-            }
-
             // Sinkronisasi dosen yang diajukan
-            $pengajuan->user()->sync($syncData); // Sync with prepared syncData
+            $pengajuan->user()->sync($request->dosen_ids, [
+                'status' => 'diajukan',
+                'tanggal_diajukan' => now(),
+            ]);
 
             // Redirect dengan pesan sukses
             return redirect()->route('oppt.pengajuanIndex.dosen')->with('success', 'Pengajuan berhasil diperbarui!');
         } catch (\Throwable $th) {
-            return redirect()->route('oppt.pengajuanIndex.dosen')->with('error', 'Terjadi kesalahan saat memperbarui pengajuan.'); // Optional error message
+            return redirect()->route('oppt.pengajuanIndex.dosen');
         }
     }
 

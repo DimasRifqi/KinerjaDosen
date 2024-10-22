@@ -13,7 +13,7 @@ class Prodi extends Model
     protected $table = 'prodi';
     protected $primaryKey = 'id_prodi';
 
-    public function user(){
-        return $this->hasMany(User::class, 'id_prodi', 'id_prodi');
-    }
+    // public function user(){
+    //     return $this->hasMany(User::class, 'id_prodi', 'id_prodi');
+    // }
 }

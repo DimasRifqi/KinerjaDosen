@@ -63,17 +63,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Pangkat_Dosen::class, 'id_pangkat_dosen', 'id_pangkat_dosen');
     }
 
-    public function gelar_depan(){
-        return $this->belongsTo(Gelar_Depan::class, 'id_gelar_depan', 'id_gelar_depan');
-    }
+    // public function gelar_depan(){
+    //     return $this->belongsTo(Gelar_Depan::class, 'id_gelar_depan', 'id_gelar_depan');
+    // }
 
-    public function gelar_belakang(){
-        return $this->belongsTo(Gelar_Belakang::class, 'id_gelar_belakang', 'id_gelar_belakang');
-    }
+    // public function gelar_belakang(){
+    //     return $this->belongsTo(Gelar_Belakang::class, 'id_gelar_belakang', 'id_gelar_belakang');
+    // }
 
-    public function prodi(){
-        return $this->belongsTo(Prodi::class, 'id_prodi', 'id_prodi');
-    }
+    // public function prodi(){
+    //     return $this->belongsTo(Prodi::class, 'id_prodi', 'id_prodi');
+    // }
 
     public function bank(){
         return $this->belongsTo(Bank::class, 'id_bank', 'id_bank');
@@ -82,7 +82,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function pengajuan()
     {
         return $this->belongsToMany(Pengajuan::class, 'pengajuan_user', 'id', 'id_pengajuan')
-            ->withPivot('status', 'tipe_pengajuan', 'tanggal_diajukan', 'tanggal_disetujui', 'tanggal_ditolak', 'pesan')
+            ->withPivot('status', 'tanggal_diajukan', 'tanggal_disetujui', 'tanggal_ditolak', 'pesan')
             ->withTimestamps();
     }
 

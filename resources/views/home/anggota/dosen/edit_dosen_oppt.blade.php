@@ -13,9 +13,9 @@
                             @csrf
                             @method('PUT')
 
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-4">
+                           
+                                
+                                    {{-- <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="id_gelar_depan">Gelar Depan</label>
                                             <select class="form-control js-example-basic-multiple w-100" multiple="multiple" id="id_gelar_depan" name="id_gelar_depan">
@@ -30,9 +30,9 @@
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="col-md-4">
+                                   
                                         <div class="form-group">
                                             <label for="name" class="col-form-label">Nama Lengkap</label>
                                             <input type="text" name="name" class="form-control" value="{{ old('name', $dosen->name) }}" required>
@@ -40,9 +40,9 @@
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
-                                    </div>
+                                    
 
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="id_gelar_belakang">Gelar Belakang</label>
                                             <select class="form-control js-example-basic-multiple w-100" multiple="multiple" id="id_gelar_belakang" name="id_gelar_belakang">
@@ -52,9 +52,9 @@
                                                     @endforeach
                                             </select>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    </div> --}}
+                                
+                           
 
                             <div class="form-group">
                                 <label for="tempat_lahir">Tempat Lahir</label>
@@ -108,7 +108,7 @@
                             </div>
 
                             <!-- gabisa edit prodi tp bisa edit univ??? -->
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="id_prodi">Program Studi</label> 
                                 <select class="form-control" id="id_prodi" name="id_prodi" required>
                                     <option value="">Pilih Program Studi</option>
@@ -116,7 +116,7 @@
                                         <option value="{{ $progdi->id_prodi }}">{{ $progdi->nama_prodi }}</option>
                                     @endforeach
                                 </select>
-                            </div>
+                            </div> --}}
 
                             <div class="form-group">
                                 <label for="id_universitas">Universitas</label>

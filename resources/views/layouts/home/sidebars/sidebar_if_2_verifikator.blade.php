@@ -80,7 +80,7 @@
         </li>
         <li class="nav-item nav-category">Lainnya</li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.faq.index') }}">
+            <a class="nav-link" href="{{ route('faq_view') }}">
                 <i class="mdi mdi-help-circle-outline menu-icon"></i>
                 <span class="menu-title">FAQ</span>
             </a>

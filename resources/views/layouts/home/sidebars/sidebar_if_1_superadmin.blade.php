@@ -72,6 +72,9 @@
                         {{-- route beda untuk pageview beda yang ada filter universitas --}}
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ route('datadosenbelajar') }}">Data Dosen(belajar)</a> 
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#">Pendaftaran Dosen</a>
                         {{-- route beda untuk pageview beda yang ada filter universitas --}}
                     </li>

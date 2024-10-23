@@ -13,6 +13,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\Prodi;
 use App\Models\Universitas;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -397,10 +398,16 @@ class SuperAdminController extends Controller
 
 
     public function indexPeriode(){
-        $periode = Periode::orderBy('created_at', 'desc')->get();
+        $periodes = Periode::orderBy('created_at', 'desc')->get();
+        foreach ($periodes as $periode) {
+            if (Carbon::now()->greaterThan($periode->masa_periode_berakhir)) {
 
+                $periode->status = false;
+                $periode->save();
+            }
+        }
 
-        return view('home.tunjangan.komponen.buat_periode', compact('periode'));
+        return view('home.tunjangan.komponen.buat_periode', compact('periodes'));
     }
 
     // public function indexPeriode(){

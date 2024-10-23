@@ -148,7 +148,7 @@
                                         data-bs-target="#createModal">
                                         Buat Periode
                                     </button>
-                                    @if ($periode->isEmpty())
+                                    @if ($periodes->isEmpty())
                                         <p class="card-description">
                                             No Periode records found. </p>
                                     @else
@@ -166,7 +166,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($periode as $item)
+                                                    @foreach ($periodes as $item)
                                                         <tr>
                                                             <td>{{ $loop->index + 1 }}</td>
                                                             <td>{{ $item->nama_periode }}</td>

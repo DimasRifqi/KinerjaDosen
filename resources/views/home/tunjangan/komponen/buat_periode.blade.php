@@ -24,8 +24,8 @@
                             <label for="tipe_periode">Tipe Periode</label>
                             <select class="form-control" id="tipe_periode" name="tipe_periode" required>
                                 <option value="">Pilih Tipe</option>
-                                <option value="0">Bulanan</option>
-                                <option value="1">Perioder</option>
+                                <option value="0">Semester</option>
+                                <option value="1">Bulanan</option>
                             </select>
                         </div>
 
@@ -71,19 +71,21 @@
                         <div class="form-group">
                             <label for="edit_tipe_periode">Tipe Periode</label>
                             <select class="form-control" id="edit_tipe_periode" name="tipe_periode" required>
-                                <option value="0">Bulanan</option>
-                                <option value="1">Periode</option>
+                                <option value="0">Semester</option>
+                                <option value="1">Bulanan</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="edit_masa_periode_awal">Masa Periode Awal</label>
-                            <input type="date" class="form-control" id="edit_masa_periode_awal" name="masa_periode_awal" required>
+                            <input type="date" class="form-control" id="edit_masa_periode_awal" name="masa_periode_awal"
+                                required>
                         </div>
 
                         <div class="form-group">
                             <label for="edit_masa_periode_berakhir">Masa Periode BerAkhir</label>
-                            <input type="date" class="form-control" id="edit_masa_periode_berakhir" name="masa_periode_berakhir" required>
+                            <input type="date" class="form-control" id="edit_masa_periode_berakhir"
+                                name="masa_periode_berakhir" required>
                         </div>
 
                         <div class="form-group">
@@ -102,6 +104,7 @@
             </div>
         </div>
     </div>
+
 
     <div class="content-wrapper">
         <div class="row">
@@ -130,6 +133,16 @@
                                         </div>
                                     @endif
 
+                                    <div id="success-alert" class="alert alert-success" role="alert"
+                                        style="display:none;">
+                                        Data berhasil disimpan!
+                                    </div>
+                                    <div id="error-alert" class="alert alert-danger" role="alert"
+                                        style="display:none;">
+                                        Terjadi kesalahan, silakan coba lagi!
+                                    </div>
+
+
                                     <h4 class="card-title">Semua Periode</h4>
                                     <button type="button" class="btn btn-primary mb-3 text-white" data-bs-toggle="modal"
                                         data-bs-target="#createModal">
@@ -157,9 +170,18 @@
                                                         <tr>
                                                             <td>{{ $loop->index + 1 }}</td>
                                                             <td>{{ $item->nama_periode }}</td>
-                                                            <td>{{ $item->tipe_periode ? 'Semester' : 'Bulanan' }}</td>
-                                                            <td>{{ $item->masa_periode_awal }}</td>
-                                                            <td>{{ $item->masa_periode_berakhir }}</td>
+                                                            <td>
+                                                                @if ($item->tipe_periode == 1)
+                                                                    <span class="badge bg-info">Bulanan</span>
+                                                                @else
+                                                                    <span class="badge bg-success">Semester</span>
+                                                                @endif
+                                                            </td>
+                                                            <td>{{ \Carbon\Carbon::parse($item->masa_periode_awal)->translatedFormat('d F Y') }}
+                                                            </td>
+                                                            <td>{{ \Carbon\Carbon::parse($item->masa_periode_berakhir)->translatedFormat('d F Y') }}
+                                                            </td>
+
                                                             <td>
                                                                 @if ($item->status == 1)
                                                                     <span class="badge bg-success">Aktif</span>
@@ -169,7 +191,7 @@
                                                             </td>
                                                             <td>
                                                                 <button type="button"
-                                                                    class="btn btn-warning btn-sm edit-btn"
+                                                                    class="btn btn-warning btn-sm edit-btn text-white"
                                                                     data-id="{{ $item->id_periode }}"
                                                                     data-nama_periode="{{ $item->nama_periode }}"
                                                                     data-tipe_periode="{{ $item->tipe_periode }}"
@@ -266,7 +288,7 @@
 
                 $.ajax({
                     url: '{{ route('periode.update', '') }}/' +
-                    id,
+                        id,
                     method: 'PUT',
                     data: formData,
                     success: function(response) {

@@ -14,9 +14,21 @@ return new class extends Migration
         Schema::create('bkd', function (Blueprint $table) {
             $table->id('id_bkd');
             $table->foreignId('id')->nullable()->constrained('users', 'id')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->string('name');
-            $table->string('nidn');
-            $table->enum('kesimpulan_bkd', ['M', 'TM'])->nullable();
+            $table->foreignId('id_periode')->nullable()->constrained('periode', 'id_periode')->cascadeOnUpdate();
+            $table->string('nidn')->nullable();
+            $table->string('nama_dosen')->nullable();
+            $table->string('no_serdos')->nullable();
+            $table->string('pt')->nullable();
+            $table->string('prodi')->nullable();
+            $table->string('status')->nullable();
+            $table->string('AB')->nullable();
+            $table->string('C')->nullable();
+            $table->string('D')->nullable();
+            $table->string('E')->nullable();
+            $table->string('jumlah')->nullable();
+            $table->string('kesimpulan_bkd')->nullable();
+            $table->string('kewajiban_khusus')->nullable();
+            $table->string('kesimpulan')->nullable();
             $table->timestamps();
         });
     }

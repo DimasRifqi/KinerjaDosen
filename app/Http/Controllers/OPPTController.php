@@ -185,14 +185,67 @@ class OPPTController extends Controller
     //     return view('testing.oppt.periode', ['periode' => $periode]);
     // }
 
-    public function addPengajuan()
-    {
-        $oppt = Auth::user();
-        $dosen = User::all()
-            ->where('id_universitas', $oppt->id_universitas);
-        $periode = Periode::all();
-        return view('home.tunjangan.pengajuan.buat_pengajuan', ['periodes' => $periode, 'dosen' => $dosen]);
+    public function pilihPeriodePengajuan(){
+        $periode = Periode::where('status', true)->get();
+        return view('home.tunjangan.pengajuan.pilih_periode_pengajuan', ['periode' => $periode]);
     }
+
+
+    public function addPengajuan($id)
+{
+
+    $periode = Periode::findOrFail($id);
+    $oppt = Auth::user();
+    $dosen = User::where('id_universitas', $oppt->id_universitas)
+        ->whereHas('bkd', function ($query) use ($id) {
+
+            $query->where('kesimpulan_bkd', 'M')
+                ->where('no_serdos', '!=', 'Belum tersertifikasi dosen')
+                ->where('id_periode', $id);
+        })
+        ->where('status', 'aktif')
+        ->with(['bkd' => function ($query) use ($id) {
+
+            $query->where('id_periode', $id);
+        }])
+        ->orderBy('name', 'asc')
+        ->get();
+
+
+    return view('home.tunjangan.pengajuan.buat_pengajuan', ['periode' => $periode, 'dosen' => $dosen]);
+}
+
+
+public function searchNamaDosen(Request $request)
+{
+    $oppt = Auth::user();
+
+    $query = User::where('id_universitas', $oppt->id_universitas)
+        ->whereHas('bkd', function ($query) {
+            $query->where('kesimpulan_bkd', 'M');
+        })->with('bkd');
+
+    if ($request->has('search') && !empty($request->search)) {
+        $search = $request->search;
+        // Modify the query to search by name or NIDN
+        $query->where(function ($q) use ($search) {
+            $q->where('name', 'like', "%{$search}%")
+              ->orWhere('nidn', 'like', "%{$search}%");
+        });
+    }
+
+    $dosen = $query->get();
+
+    $periode = Periode::all();
+
+    return view('home.tunjangan.pengajuan.buat_pengajuan', [
+        'periodes' => $periode,
+        'dosen' => $dosen,
+        'search' => $request->search
+    ]);
+}
+
+
 
     //     public function addPengajuan()
     // {
@@ -233,16 +286,18 @@ class OPPTController extends Controller
     //     return view('testing.oppt.show_pengajuan', ['pengajuan' => $pengajuan]);
     // }
 
-    public function ajukanDosen(Request $request)
+    public function ajukanDosen(Request $request, $id)
     {
         try {
             $request->validate([
-                'id_periode' => 'required|exists:periode,id_periode',
+                'id_periode' => 'required',
                 'dosen_ids' => 'required|array',
             ]);
 
+            $periode = Periode::findOrFail($id);
+
             $pengajuan = Pengajuan::create([
-                'id_periode' => $request->id_periode,
+                'id_periode' => $periode->id_periode,
             ]);
 
             $pengajuan->user()->attach($request->dosen_ids, [
@@ -253,7 +308,9 @@ class OPPTController extends Controller
             return redirect()->route('oppt.pengajuanIndex.dosen')->with('success', 'Pengajuan berhasil dibuat!');
             //return response()->json(['Error' => 'jir']);
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Isi Periode dan Pilih Dosen');
+            $periode = Periode::findOrFail($id);
+            return response()->json(['err' => $th->getMessage(), 'periode' =>$periode ]);
+            return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
@@ -534,8 +591,23 @@ class OPPTController extends Controller
     public function editPengajuan($id)
     {
         $pengajuan = Pengajuan::with('user')->findOrFail($id);
+        $id_periode = $pengajuan->id_periode;
         $periode = Periode::all();
-        $dosen = User::all();
+        $oppt = Auth::user();
+        $dosen = User::where('id_universitas', $oppt->id_universitas)
+        ->whereHas('bkd', function ($query) use ($id_periode) {
+
+            $query->where('kesimpulan_bkd', 'M')
+                ->where('no_serdos', '!=', 'Belum tersertifikasi dosen')
+                ->where('id_periode', $id_periode);
+        })
+        ->where('status', 'aktif')
+        ->with(['bkd' => function ($query) use ($id_periode) {
+
+            $query->where('id_periode', $id_periode);
+        }])
+        ->orderBy('name', 'asc')
+        ->get();
         // return response()->json(['data' => $pengajuan]);
         return view('testing.oppt.edit_pengajuan_dosen', ['pengajuan' => $pengajuan, 'periode' => $periode, 'dosen' => $dosen]);
     }

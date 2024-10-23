@@ -54,8 +54,10 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"><a class="nav-link" href="{{ route('oppt.pengajuanIndex.dosen') }}">Data
                             Pengajuan</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('oppt.pengajuan.dosen') }}">Buat
-                            Pengajuan</a></li>
+                    {{-- <li class="nav-item"><a class="nav-link" href="{{ route('oppt.pengajuan.dosen') }}">Buat
+                            Pengajuan (Iki gausah )</a></li> --}}
+                    <li class="nav-item"><a class="nav-link" href="{{ route('oppt.pilih.periode') }}">Pilih Periode Pengajuan
+                        </a></li>
                 </ul>
             </div>
         </li>

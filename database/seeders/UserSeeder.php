@@ -265,6 +265,7 @@ class UserSeeder extends Seeder
                     'password' => Hash::make('password'),
                     'remember_token' => null,
                 ],
+
             ];
 
             foreach ($users as $user) {

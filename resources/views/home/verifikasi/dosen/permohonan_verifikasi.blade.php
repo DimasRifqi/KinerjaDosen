@@ -216,7 +216,7 @@
 
         // Auto resize textarea
         const textareas = document.querySelectorAll('.permohonan-textarea');
-        
+
         textareas.forEach(textarea => {
             console.log('Textarea found:', textarea); // Debugging check
             textarea.style.height = 'auto'; // Reset height

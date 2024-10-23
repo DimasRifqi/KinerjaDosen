@@ -56,27 +56,27 @@ class SuperAdminController extends Controller
 
     public function createDosen(){
         $admin = Auth::user();
+        
+        if ($admin) {
 
-    if ($admin) {
+            if (in_array($admin->id_role, [1, 2, 3, 4])) {
+                $univ = Universitas::all();
+            } elseif ($admin->id_role == 7) {
+                $univ = Universitas::where('id_universitas', $admin->id_universitas)->get();                
+            }
 
-        if (in_array($admin->id_role, [1, 2, 3, 4])) {
-            $univ = Universitas::all();
-        } elseif ($admin->id_role == 7) {
-            $univ = Universitas::where('id_universitas', $admin->id_universitas)->get();
+            $roles = Role::all();
+            $jabatanFungsional = Jabatan_Fungsional::all();
+            $universitas = $univ;
+            $pangkatDosen = Pangkat_Dosen::all();
+
+            return view('home.anggota.dosen.pendaftaran_dosen', compact(
+                'roles',
+                'jabatanFungsional',
+                'universitas',
+                'pangkatDosen',               
+            ));
         }
-
-        $roles = Role::all();
-        $jabatanFungsional = Jabatan_Fungsional::all();
-        $universitas = $univ;
-        $pangkatDosen = Pangkat_Dosen::all();
-
-        return view('home.anggota.dosen.pendaftaran_dosen', compact(
-            'roles',
-            'jabatanFungsional',
-            'universitas',
-            'pangkatDosen',
-        ));
-    }
 
         return view('home.anggota.dosen.pendaftaran_dosen', compact('roles', 'jabatanFungsional', 'universitas', 'prodi', 'pangkatDosen', 'gelarDepan', 'gelarBelakang'));
     }
@@ -90,6 +90,7 @@ class SuperAdminController extends Controller
                 'id_jabatan_fungsional' => 'nullable|exists:jabatan_fungsional,id_jabatan_fungsional',
                 'id_universitas' => 'nullable|exists:universitas,id_universitas',
                 'id_pangkat_dosen' => 'nullable|exists:pangkat_dosen,id_pangkat_dosen',
+                'id_gapok' => 'nullable|exists:gapok,id_gapok',
                 'gelar_depan' => 'nullable|string',
                 'gelar_belakang' => 'nullable|string',
                 'name' => 'required|string|max:255',
@@ -97,11 +98,16 @@ class SuperAdminController extends Controller
                 'password' => 'required|string|min:8|confirmed',
                 'tanggal_lahir' => 'nullable|date',
                 'tempat_lahir' => 'nullable|string|max:255',
+                'masa_kerja' => 'nullable|string',
+                'awal_belajar' => 'nullable|date',
+                'akhir_belajar' => 'nullable|date',
                 'no_rek' => 'nullable|string',
+                'nama_rekening' => 'nullable|string',
                 'npwp' => 'nullable|string',
                 'nidn' => 'nullable|string',
+                'tipe_dosen' => 'nullable|in:pns-gb,pns-profesi,non-gb,non-profesi',
                 'file_serdos' => 'nullable|mimes:pdf|max:2048',
-                'tipe_sertifikasi' => 'nullable',
+                'no_serdos' => 'nullable|string',
                 'status' => 'nullable|in:aktif,non-aktif,pensiun,belajar',
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
@@ -124,6 +130,7 @@ class SuperAdminController extends Controller
                 'id_jabatan_fungsional' => $request->id_jabatan_fungsional,
                 'id_universitas' => $request->id_universitas,
                 'id_pangkat_dosen' => $request->id_pangkat_dosen,
+                'id_gapok'=> $request->id_gapok,
                 'gelar_depan' => $request->gelar_depan,
                 'gelar_belakang' => $request->gelar_belakang,
                 'name' => $request->name,
@@ -131,11 +138,16 @@ class SuperAdminController extends Controller
                 'password' => bcrypt($request->password),
                 'tanggal_lahir' => $request->tanggal_lahir,
                 'tempat_lahir' => $request->tempat_lahir,
+                'masa_kerja' => $request->masa_kerja,
+                'awal_belajar' => $request->awal_belajar,
+                'akhir_belajar' => $request->akhir_belajar,
                 'no_rek' => $request->no_rek,
+                'nama_rekening' => $request->nama_rekening,
                 'npwp' => $request->npwp,
                 'nidn' => $request->nidn,
+                'tipe_dosen' => $request->tipe_dosen,
                 'file_serdos' => $serdosFileName,
-                'tipe_sertifikasi' => $request->tipe_sertifikasi,
+                'no_serdos' => $request->no_serdos,
                 'status' => $request->status ?? 'aktif',
                 'image' => $fileName,
             ]);

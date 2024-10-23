@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('nidn')->nullable();
             $table->string('file_serdos')->nullable();
             $table->string('no_serdos')->nullable();
-            $table->string('tanggal_lahir')->nullable()->date();
+            $table->date('tanggal_lahir')->nullable();
             $table->string('tempat_lahir')->nullable();
             $table->enum('tipe_dosen', ['pns-gb', 'pns-profesi', 'non-gb', 'non-profesi'])->nullable();
             $table->enum('status', ['aktif', 'non-aktif', 'pensiun', 'belajar', 'belum_serdos'])->nullable()->default('aktif');

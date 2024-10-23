@@ -35,7 +35,7 @@
                                    
                                         <div class="form-group">
                                             <label for="name" class="col-form-label">Nama Lengkap</label>
-                                            <input type="text" name="name" class="form-control" value="{{ old('name', $dosen->name) }}" required>
+                                            <input type="text" name="name" class="form-control" value="{{ old('name', $dosen->name) }}">
                                             @error('name')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -74,7 +74,7 @@
 
                             <div class="form-group">
                                 <label for="nidn">NUPTK</label>
-                                <input type="text" class="form-control" id="nidn" name="nidn" placeholder="NUPTK"  value="{{ old('nidn', $dosen->nidn) }}" required>
+                                <input type="text" class="form-control" id="nidn" name="nidn" placeholder="NUPTK"  value="{{ old('nidn', $dosen->nidn) }}" >
                             </div>
 <!-- 
                             <div class="form-group">
@@ -110,7 +110,7 @@
                             <!-- gabisa edit prodi tp bisa edit univ??? -->
                             {{-- <div class="form-group">
                                 <label for="id_prodi">Program Studi</label> 
-                                <select class="form-control" id="id_prodi" name="id_prodi" required>
+                                <select class="form-control" id="id_prodi" name="id_prodi" >
                                     <option value="">Pilih Program Studi</option>
                                     @foreach($prodi as $progdi)
                                         <option value="{{ $progdi->id_prodi }}">{{ $progdi->nama_prodi }}</option>
@@ -157,7 +157,7 @@
                             
                             <div class="form-group">
                                 <label for="npwp">NPWP</label>
-                                <input type="text" class="form-control" id="npwp" name="npwp" placeholder="NPWP" value="{{ old('npwp', $dosen->npwp) }}" required>
+                                <input type="text" class="form-control" id="npwp" name="npwp" placeholder="NPWP" value="{{ old('npwp', $dosen->npwp) }}" >
                             </div>
 
                             <div class="form-group">
@@ -174,13 +174,13 @@
 
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" >
                             </div>
 
                             <div class="form-group">
                                 <label for="password">Kata Sandi</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" >
                                     <span class="input-group-text" onclick="togglePassword('password', 'togglePasswordIcon1')">
                                         <i class="mdi mdi-eye" id="togglePasswordIcon1"></i> <!-- Icon mata untuk password -->
                                     </span>
@@ -190,7 +190,7 @@
                             <div class="form-group">
                                 <label for="password_confirmation">Konfirmasi Kata Sandi</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Password" required>
+                                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Password" >
                                     <span class="input-group-text" onclick="togglePassword('password_confirmation', 'togglePasswordIcon2')">
                                         <i class="mdi mdi-eye" id="togglePasswordIcon2"></i> <!-- Icon mata untuk konfirmasi password -->
                                     </span>

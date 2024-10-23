@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Gapok;
 use App\Models\Jabatan_Fungsional;
 use App\Models\Pangkat_Dosen;
 use App\Models\Pengajuan;
@@ -16,6 +16,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+
 
 class OPPTController extends Controller
 {
@@ -135,6 +136,7 @@ class OPPTController extends Controller
         $jabatan_fungsional = Jabatan_Fungsional::all();
         $pangkat_dosen = Pangkat_Dosen::all();
         $universitas = Universitas::all();
+        $gapok = Gapok::all();
 
         return view(
             'home.anggota.dosen.edit_dosen_oppt',   ////view page edit dosen
@@ -143,6 +145,7 @@ class OPPTController extends Controller
                 'jabatan_fungsional' => $jabatan_fungsional,
                 'pangkat_dosen' => $pangkat_dosen,
                 'universitas' => $universitas,
+                'gapok' => $gapok
             ]
         );
     }
@@ -150,53 +153,72 @@ class OPPTController extends Controller
 
     public function updateDosen(Request $request, $id)
     {
-        $request->validate([
+        try {
+            $request->validate([            
+                'id_jabatan_fungsional' => 'nullable|exists:jabatan_fungsional,id_jabatan_fungsional',
+                'id_pangkat_dosen' => 'nullable|exists:pangkat_dosen,id_pangkat_dosen',
+                'id_universitas' => 'nullable|exists:universitas,id_universitas',
+                'id_gapok' => 'nullable|exists:gapok,id_gapok',
+                'gelar_depan' => 'nullable|string',            
+                'gelar_belakang' => 'nullable|string',            
+                'name' => 'required|string|max:255',
+                'masa_kerja' => 'nullable|string',
+                'awal_belajar' => 'nullable|string',
+                'akhir_belajar' => 'nullable|string',
+                'no_rek' => 'nullable|string|max:20',
+                'nama_rekening' => 'nullable|string',
+                'npwp' => 'nullable|string|max:20',
+                'nidn' => 'nullable|string|max:20',
+                'tanggal_lahir' => 'nullable|date',
+                'tempat_lahir' => 'nullable|string|max:255',
+                'tipe_dosen' => 'nullable|in:pns-gb,pns-profesi,non-gb,non-profesi',
+                'file_serdos' => 'nullable|file|mimes:pdf|max:5048', // Validasi untuk file serdos (hanya PDF)
+                'no_serdos' => 'nullable|string',
+                'image' => 'nullable|image|max:2048', // Validasi untuk image (gambar)
+            ]);
+
+            $dosen = User::findOrFail($id);
+
             
-            'id_jabatan_fungsional' => 'nullable|exists:jabatan_fungsional,id_jabatan_fungsional',
-            'id_pangkat_dosen' => 'nullable|exists:pangkat_dosen,id_pangkat_dosen',
-            'id_universitas' => 'nullable|exists:universitas,id_universitas',            
-            'name' => 'required|string|max:255',
-            'no_rek' => 'nullable|string|max:20',
-            'npwp' => 'nullable|string|max:20',
-            'nidn' => 'nullable|string|max:20',
-            'tanggal_lahir' => 'nullable|date',
-            'tempat_lahir' => 'nullable|string|max:255',
-            'status' => 'required|in:aktif,non-aktif,pensiun,belajar',
-            'file_serdos' => 'nullable|file|mimes:pdf|max:5048', // Validasi untuk file serdos (hanya PDF)
-            'image' => 'nullable|image|max:2048', // Validasi untuk image (gambar)
-        ]);
+            $dosen->id_jabatan_fungsional = $request->id_jabatan_fungsional;
+            $dosen->id_pangkat_dosen = $request->id_pangkat_dosen;
+            $dosen->id_universitas = $request->id_universitas;        
+            $dosen->id_gapok = $request->id_gapok;
+            $dosen->gelar_depan = $request->gelar_depan;
+            $dosen->gelar_belakang = $request->gelar_belakang;
+            $dosen->name = $request->name;
+            $dosen->masa_kerja = $request->masa_kerja;
+            $dosen->awal_belajar = $request->awal_belajar;
+            $dosen->akhir_belajar=$request->akhir_belajar;
+            $dosen->no_rek = $request->no_rek;
+            $dosen->nama_rekening = $request->nama_rekening;
+            $dosen->npwp = $request->npwp;
+            $dosen->nidn = $request->nidn;
+            $dosen->tanggal_lahir = $request->tanggal_lahir;
+            $dosen->tempat_lahir = $request->tempat_lahir;
+            $dosen->tipe_dosen = $request->tipe_dosen;
 
-        $dosen = User::findOrFail($id);
+            if ($request->hasFile('file_serdos')) {
+                $fileSerdosPath = $request->file('file_serdos')->store('files/serdos', 'public');
+                if ($dosen->file_serdos) {
+                    Storage::disk('public')->delete($dosen->file_serdos);
+                }
+                $dosen->file_serdos = $fileSerdosPath;
+            }
 
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('images/dosen', 'public');
+                if ($dosen->image) {
+                    Storage::disk('public')->delete($dosen->image);
+                }
+                $dosen->image = $imagePath;
+            }
+            $dosen->save();
+            return redirect()->back();
+        } catch (\Throwable $th) {
+           return response()->json(['err'=> $th->getMessage()]);
+        }
         
-        $dosen->id_jabatan_fungsional = $request->id_jabatan_fungsional;
-        $dosen->id_pangkat_dosen = $request->id_pangkat_dosen;
-        $dosen->id_universitas = $request->id_universitas;        
-        $dosen->name = $request->name;
-        $dosen->no_rek = $request->no_rek;
-        $dosen->npwp = $request->npwp;
-        $dosen->nidn = $request->nidn;
-        $dosen->tanggal_lahir = $request->tanggal_lahir;
-        $dosen->tempat_lahir = $request->tempat_lahir;
-        $dosen->status = $request->status;
-
-        if ($request->hasFile('file_serdos')) {
-            $fileSerdosPath = $request->file('file_serdos')->store('files/serdos', 'public');
-            if ($dosen->file_serdos) {
-                Storage::disk('public')->delete($dosen->file_serdos);
-            }
-            $dosen->file_serdos = $fileSerdosPath;
-        }
-
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images/dosen', 'public');
-            if ($dosen->image) {
-                Storage::disk('public')->delete($dosen->image);
-            }
-            $dosen->image = $imagePath;
-        }
-        $dosen->save();
-        return redirect()->back();
     }
 
     public function indexPeriode()

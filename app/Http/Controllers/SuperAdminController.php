@@ -13,6 +13,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\Prodi;
 use App\Models\Universitas;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -397,9 +398,16 @@ class SuperAdminController extends Controller
 
 
     public function indexPeriode(){
-        $periode = Periode::all();
+        $periodes = Periode::orderBy('created_at', 'desc')->get();
+        foreach ($periodes as $periode) {
+            if (Carbon::now()->greaterThan($periode->masa_periode_berakhir)) {
 
-        return view('home.tunjangan.komponen.buat_periode', compact('periode'));
+                $periode->status = false;
+                $periode->save();
+            }
+        }
+
+        return view('home.tunjangan.komponen.buat_periode', compact('periodes'));
     }
 
     // public function indexPeriode(){
@@ -451,15 +459,20 @@ class SuperAdminController extends Controller
             'status' => 'required|boolean' // Ensure status is required and boolean
         ]);
 
-        $periode->update([
-            'nama_periode' => $validatedData['nama_periode'],
-            'tipe_periode' => $validatedData['tipe_periode'],
-            'masa_periode_awal' => $validatedData['masa_periode_awal'],
-            'masa_periode_berakhir' => $validatedData['masa_periode_berakhir'],
-            'status' => $validatedData['status'] // Update the status field
-        ]);
+        // $periode->update([
+        //     'nama_periode' => $validatedData['nama_periode'],
+        //     'tipe_periode' => $validatedData['tipe_periode'],
+        //     'masa_periode_awal' => $validatedData['masa_periode_awal'],
+        //     'masa_periode_berakhir' => $validatedData['masa_periode_berakhir'],
+        //     'status' => $validatedData['status'] // Update the status field
+        // ]);
 
-       return redirect()->route('index.periode')->with('success', 'Periode berhasil diperbarui');
+        $periode = Periode::find($id);
+        $periode->update($request->all());
+
+        return response()->json(['success' => true]);
+
+    //    return redirect()->route('index.periode')->with('success', 'Periode berhasil diperbarui');
     }
 
 

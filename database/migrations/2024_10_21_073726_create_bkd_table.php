@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('bkd', function (Blueprint $table) {
             $table->id('id_bkd');
-            $table->foreignId('id_user')->constrained('users', 'id')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('id_periode')->constrained('periode', 'id_periode')->cascadeOnDelete();
+            $table->foreignId('id')->nullable()->constrained('users', 'id')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('id_periode')->nullable()->constrained('periode', 'id_periode')->cascadeOnUpdate();
             $table->string('nidn')->nullable();
             $table->string('nama_dosen')->nullable();
             $table->string('no_serdos')->nullable();

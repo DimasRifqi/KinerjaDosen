@@ -12,9 +12,9 @@
 
                         <h6>Informasi Pengajuan</h6>
                         <ul class="list-group mb-4">
-                            <li class="list-group-item"><strong>ID Periode:</strong> {{ $pengajuan['id_periode'] }}</li>
+                            <li class="list-group-item"><strong> Periode:</strong> {{ $pengajuan->periode->nama_periode }}</li>
                             <li class="list-group-item"><strong>Dibuat Pada:</strong>
-                                {{ \Carbon\Carbon::parse($pengajuan['created_at'])->format('d-m-Y H:i:s') }}</li>
+                                {{ \Carbon\Carbon::parse($pengajuan['created_at'])->format('d-m-Y') }}</li>
                         </ul>
 
                         <h6>Dokumen Pengajuan</h6>
@@ -36,28 +36,24 @@
                             </div>
                         @endif
 
-
                         <h6>Dosen Terkait</h6>
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
+                                        <th>No</th> <!-- Changed header to No -->
                                         <th>Nama</th>
-                                        {{-- <th>Status Pengajuan</th> --}}
-                                        <th>Status Pengajuan</th>{{-- awalnya aksi --}}
+                                        <th>Status Pengajuan</th>
                                         <th>Tanggal Diajukan</th>
                                         <th>Email</th>
-                                        {{-- <th>Pesan</th> --}}
-                                        <th>pesan</th>
+                                        <th>Pesan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($pengajuan->user as $user)
+                                    @foreach ($pengajuan->user as $index => $user)
                                         <tr>
-                                            <td>{{ $user['pivot']['id'] }}</td>
+                                            <td>{{ $index + 1 }}</td> <!-- Displaying row number -->
                                             <td>{{ $user->name }}</td>
-                                            {{-- <td>{{ ucfirst($user->pivot->status) }}</td> --}}
                                             <td>
                                                 <!-- Form untuk memperbarui status pengajuan -->
                                                 <form action="{{ route('verifikator.pengajuanStatus.update', $user->id) }}"
@@ -85,10 +81,8 @@
                                                     </div>
                                                 </form>
                                             </td>
-                                            <td>{{ \Carbon\Carbon::parse($user['pivot']['tanggal_diajukan'])->format('d-m-Y') }}
-                                            </td>
+                                            <td>{{ \Carbon\Carbon::parse($user['pivot']['tanggal_diajukan'])->format('d-m-Y') }}</td>
                                             <td>{{ $user['email'] }}</td>
-                                            {{-- <td>{{ $user['pivot']['pesan'] }}</td> --}}
                                             <td>
                                                 <!-- Form for updating the pesan field -->
                                                 <form action="{{ route('verifikator.pesanPengajuan.store', $user->id) }}"
@@ -111,7 +105,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 @endsection

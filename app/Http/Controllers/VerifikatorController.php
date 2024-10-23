@@ -13,6 +13,7 @@ class VerifikatorController extends Controller
         $pengajuan = Pengajuan::with('user')
         ->where('draft', true)
         ->get();
+
       //  return response()->json(['data' => $pengajuan]);
         return view('home.verifikasi.tunjangan.pengajuan_tunjangan', ['pengajuan' => $pengajuan]);
     }
@@ -140,7 +141,7 @@ class VerifikatorController extends Controller
         }
 
         $permohonan->save();
-        
+
         return redirect()->back();
     }
 

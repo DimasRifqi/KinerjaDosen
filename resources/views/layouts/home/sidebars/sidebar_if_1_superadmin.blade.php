@@ -190,8 +190,8 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('oppt.pengajuanIndex.dosen') }}">Data
                             Pengajuan (POV OPPT)</a></li>
                     {{-- route beda untuk pageview beda yang ada filter universitas --}}
-                    <li class="nav-item"><a class="nav-link" href="{{ route('oppt.pengajuan.dosen') }}">Buat
-                            Pengajuan (POV OPPT)</a></li>
+                    {{-- <li class="nav-item"><a class="nav-link" href="{{ route('oppt.pengajuan.dosen') }}">Buat
+                            Pengajuan (POV OPPT)</a></li> --}}
                     {{-- route beda untuk pageview beda yang ada filter universitas --}}
                 </ul>
             </div>

@@ -36,7 +36,7 @@ return new class extends Migration
             $table->enum('tipe_dosen', ['pns-gb', 'pns-profesi', 'non-gb', 'non-profesi'])->nullable();
             $table->enum('status', ['aktif', 'non-aktif', 'pensiun', 'belajar', 'belum_serdos'])->nullable()->default('aktif');
             $table->string('image')->nullable();
-            $table->string('email')->unique();
+            $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken()->nullable();

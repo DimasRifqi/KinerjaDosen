@@ -285,8 +285,8 @@ Route::group(['middleware' => ['auth', 'role:7|1']], function () {
     Route::get('/periode', [OPPTController::class, 'indexPeriode'])->name('periode.index');
     Route::get('/dosen/data_dosen_oppt/h_d_d_o_{id}', [OPPTController::class, 'historyPengajuanDosen'])->name('oppt.history.dosen'); // history/dosen/{id}
 
-    Route::get('/pengajuan/buat_pengajuan', [OPPTController::class, 'addPengajuan'])->name('oppt.pengajuan.dosen');
-    Route::post('/pengajuan/store', [OPPTController::class, 'ajukanDosen'])->name('oppt.ajukan.dosen');
+    Route::get('/pengajuan/{id}/buat_pengajuan', [OPPTController::class, 'addPengajuan'])->name('oppt.pengajuan.dosen');
+    Route::post('/pengajuan/store/{id}', [OPPTController::class, 'ajukanDosen'])->name('oppt.ajukan.dosen');
     Route::get('/pengajuan/pengajuan-index', [OPPTController::class, 'indexPengajuan'])->name('oppt.pengajuanIndex.dosen');
     Route::get('/pengajuan/show/p_s_{id}', [OPPTController::class, 'showPengajuan'])->name('oppt.pengajuanShow.dosen');
     Route::post('/pengajuan/dokumen/store/{id}', [OPPTController::class, 'ajukanDokumen'])->name('oppt.pengajuanDokumenStore.dosen');
@@ -362,3 +362,15 @@ Route::get('/template-surat-keaslian-dokumen', function () {
 });
 
 Route::get('/generate-pdf', [TemplateController::class, 'generatePDF'])->name('generate-pdf');
+Route::post('/search-nama-dosen', [OPPTController::class, 'searchNamaDosen'])->name('search.nama.dosen');
+
+
+
+Route::get('import-excel', [BkdController::class, 'showImport']);
+Route::post('import-bkd', [BkdController::class, 'importExcelBkd'])->name('bkd.import');
+Route::post('import-dosen', [BkdController::class, 'importExcelDosen'])->name('dosen.import');
+Route::post('import-gapok', [BkdController::class, 'importExcelGapok'])->name('gapok.import');
+Route::post('import-span', [BkdController::class, 'importExcelSpan'])->name('span.import');
+Route::post('import-univ', [BkdController::class, 'importExcelUniv'])->name('univ.import');
+
+Route::get('/pengajuan/pilih-periode', [OPPTController::class, 'pilihPeriodePengajuan'])->name('oppt.pilih.periode');

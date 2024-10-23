@@ -12,9 +12,8 @@ class Bkd extends Model
     protected $table = 'bkd';
     protected $guarded = ['id_bkd'];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'id_user', 'id_user');
+    public function user(){
+        return $this->belongsTo(User::class, 'id', 'id');
     }
 
     public function periode()

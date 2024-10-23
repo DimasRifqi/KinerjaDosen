@@ -2,9 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\BkdImport;
+use App\Imports\DosenImport;
+use App\Imports\GajiImport;
+use App\Imports\SpanImport;
+use App\Imports\UniversitasImport;
+use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BkdController extends Controller
 {
@@ -53,6 +60,95 @@ class BkdController extends Controller
         return response()->json(['error' => $th->getMessage()]);
     }
 }
+
+    public function showImport(){
+        $periode = Periode::all();
+        return view('testing.bkd.import-excel', ['periode' => $periode]);
+    }
+
+    public function importExcelBkd(Request $request){
+
+            $request->validate([
+                'file' => 'required|mimes:xls,xlsx',
+                'id_periode' => 'required'
+            ]);
+
+            $id_periode = $request->input('id_periode');
+
+            try {
+                Excel::import(new BkdImport($id_periode), $request->file('file'));
+
+                return redirect()->back()->with('success', 'Data berhasil diimpor.');
+            } catch (\Throwable $th) {
+                return redirect()->back()->with('error', $th->getMessage());
+            }
+        }
+
+    public function importExcelDosen(Request $request){
+
+        try {
+            $request->validate([
+                'file' => 'required|mimes:xls,xlsx'
+            ]);
+
+            Excel::import(new DosenImport(), $request->file('file'));
+
+            return redirect()->back()->with('success', 'Data dosen berhasil di import');
+        } catch (\Throwable $th) {
+           return response()->json(['err' => $th->getMessage()]);
+        }
+
+    }
+
+    public function importExcelGapok(Request $request){
+
+        try {
+            $request->validate([
+                'file' => 'required|mimes:xls,xlsx'
+            ]);
+
+            Excel::import(new GajiImport(), $request->file('file'));
+
+            return redirect()->back()->with('success', 'Data Gapok berhasil di import');
+        } catch (\Throwable $th) {
+           return response()->json(['err' => $th->getMessage()]);
+        }
+
+    }
+
+    public function importExcelSpan(Request $request){
+
+        try {
+            $request->validate([
+                'file' => 'required|mimes:xls,xlsx'
+            ]);
+
+            Excel::import(new SpanImport(), $request->file('file'));
+
+            return redirect()->back()->with('success', 'Data Span berhasil di import');
+        } catch (\Throwable $th) {
+           return response()->json(['err' => $th->getMessage()]);
+        }
+
+    }
+
+    public function importExcelUniv(Request $request){
+
+        try {
+            $request->validate([
+                'file' => 'required|mimes:xls,xlsx'
+            ]);
+
+            Excel::import(new UniversitasImport(), $request->file('file'));
+
+            return redirect()->back()->with('success', 'Data Univ berhasil di import');
+        } catch (\Throwable $th) {
+           return response()->json(['err' => $th->getMessage()]);
+        }
+
+    }
+
+
 
 
 }

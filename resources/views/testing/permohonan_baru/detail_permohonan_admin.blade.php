@@ -30,20 +30,16 @@
                                     <td>{{ $permohonan->user->universitas->nama_universitas ?? '-' }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Prodi</th>
-                                    <td>{{ $permohonan->user->prodi->nama_prodi ?? '-' }}</td>
-                                </tr>
-                                <tr>
                                     <th>Pangkat Dosen</th>
                                     <td>{{ $permohonan->user->pangkat_dosen->nama_pangkat ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Gelar Depan</th>
-                                    <td>{{ $permohonan->user->gelar_depan->nama_gelar_depan ?? '-' }}</td>
+                                    <td>{{ $permohonan->user->gelar_depan ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Gelar Belakang</th>
-                                    <td>{{ $permohonan->user->gelar_belakang->nama_gelar_belakang ?? '-' }}</td>
+                                    <td>{{ $permohonan->user->gelar_belakang ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Bank</th>
@@ -134,7 +130,7 @@
                             <tbody>
                                 <tr>
                                     <th>Nama Dosen</th>
-                                    <td>{{ $permohonan->name_baru ?? 'Tidak ada perubahan' }}</td>
+                                    <td>{{ $permohonan->user->name ?? 'Tidak ada perubahan' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Jabatan Fungsional Baru</th>
@@ -145,20 +141,16 @@
                                     <td>{{ $permohonan->universitas->nama_universitas ?? 'Tidak ada perubahan' }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Prodi Baru</th>
-                                    <td>{{ $permohonan->prodi->nama_prodi ?? 'Tidak ada perubahan' }}</td>
-                                </tr>
-                                <tr>
                                     <th>Pangkat Dosen Baru</th>
                                     <td>{{ $permohonan->pangkat_dosen->nama_pangkat ?? 'Tidak ada perubahan' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Gelar Depan Baru</th>
-                                    <td>{{ $permohonan->gelar_depan->nama_gelar_depan ?? 'Tidak ada perubahan' }}</td>
+                                    <td>{{ $permohonan->gelar_depan_baru ?? 'Tidak ada perubahan' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Gelar Belakang Baru</th>
-                                    <td>{{ $permohonan->gelar_belakang->nama_gelar_belakang ?? 'Tidak ada perubahan' }}</td>
+                                    <td>{{ $permohonan->gelar_belakang_baru ?? 'Tidak ada perubahan' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Bank Baru</th>

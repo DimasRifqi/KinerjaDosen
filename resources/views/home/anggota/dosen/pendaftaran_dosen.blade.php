@@ -14,14 +14,11 @@
 
                             <!-- Gelar Depan -->
                             <div class="form-group">
-                                <label for="id_gelar_depan">Gelar Depan</label>
-                                <select class="form-control js-example-basic-multiple w-100" id="id_gelar_depan" name="id_gelar_depan">
-                                    <option value="">Pilih Gelar Depan</option>
-                                    @foreach($gelarDepan as $gelar)
-                                        <option value="{{ $gelar->id_gelar_depan }}">{{ $gelar->nama_gelar_depan }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="gelar_depan">Gelar Depan</label>
+                                <input type="text" class="form-control" id="gelar_depan" name="gelar_depan" value="{{ old('gelar_depan') }}">
                             </div>
+
+
 
                             <!-- Nama Lengkap -->
                             <div class="form-group">
@@ -31,13 +28,8 @@
 
                             <!-- Gelar Belakang -->
                             <div class="form-group">
-                                <label for="id_gelar_belakang">Gelar Belakang</label>
-                                <select class="form-control js-example-basic-multiple w-100" id="id_gelar_belakang" name="id_gelar_belakang">
-                                    <option value="">Pilih Gelar Belakang</option>
-                                    @foreach($gelarBelakang as $gelar)
-                                        <option value="{{ $gelar->id_gelar_belakang }}">{{ $gelar->nama_gelar_belakang }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="gelar_belakang">Gelar Belakang</label>
+                                <input type="text" class="form-control" id="gelar_belakang" name="gelar_belakang" value="{{ old('gelar_belakang') }}">
                             </div>
 
                             <!-- Tempat Lahir -->
@@ -80,16 +72,6 @@
                                 </select>
                             </div>
 
-                            <!-- Program Studi -->
-                            <div class="form-group">
-                                <label for="id_prodi">Program Studi</label>
-                                <select class="form-control" id="id_prodi" name="id_prodi" required>
-                                    <option value="">Pilih Program Studi</option>
-                                    @foreach($prodi as $progdi)
-                                        <option value="{{ $progdi->id_prodi }}">{{ $progdi->nama_prodi }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
 
                             <!-- Universitas -->
                             <div class="form-group">

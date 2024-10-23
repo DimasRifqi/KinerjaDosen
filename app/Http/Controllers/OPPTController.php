@@ -56,6 +56,7 @@ class OPPTController extends Controller
                         })
                         ->orderBy('created_at', 'desc')
                         ->paginate(4);
+                        
             // Jika request AJAX, render view partial
             if ($request->ajax()) {
                 return response()->json([
@@ -68,7 +69,9 @@ class OPPTController extends Controller
 
     // Logic untuk role lainnya
     if ($oppt->id_role == 7) {
-        $dosen = User::where('id_universitas', $oppt->id_universitas)->paginate(10);
+        $dosen = User::where('id_universitas', $oppt->id_universitas)
+        ->where('id_role', 5)
+        ->paginate(10);
         return view('home.anggota.dosen.data_dosen_oppt', compact('dosen'));
     }
 

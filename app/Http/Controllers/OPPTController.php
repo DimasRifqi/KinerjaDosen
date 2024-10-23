@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Gelar_Belakang;
-use App\Models\Gelar_Depan;
+use App\Models\Gapok;
 use App\Models\Jabatan_Fungsional;
 use App\Models\Pangkat_Dosen;
 use App\Models\Pengajuan;
 use App\Models\Pengajuan_Dokumen;
 use App\Models\Periode;
 use App\Models\Permohonan;
-use App\Models\Prodi;
+
 use App\Models\Role;
 use App\Models\Universitas;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+
 
 class OPPTController extends Controller
 {
@@ -54,7 +54,6 @@ class OPPTController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->paginate(4);
 
-
             if ($request->ajax()) {
                 return response()->json([
                     'html' => view('home.anggota.dosen.pagination_dosen_oppt', compact('dosen'))->render(),
@@ -79,6 +78,7 @@ class OPPTController extends Controller
 
         return view('home.anggota.dosen.data_dosen_oppt', ['dosen' => $dosen]);
     }
+
 
 
     // public function allDosen()
@@ -132,23 +132,19 @@ class OPPTController extends Controller
     public function editDosen($id)
     {
         $dosen = User::findOrFail($id);
-        $gelar_depan = Gelar_Depan::all();
-        $gelar_belakang = Gelar_Belakang::all();
         $jabatan_fungsional = Jabatan_Fungsional::all();
         $pangkat_dosen = Pangkat_Dosen::all();
         $universitas = Universitas::all();
-        $prodi = Prodi::all();
+        $gapok = Gapok::all();
 
         return view(
             'home.anggota.dosen.edit_dosen_oppt',   ////view page edit dosen
             [
                 'dosen' => $dosen,
-                'gelar_depan' => $gelar_depan,
-                'gelar_belakang' => $gelar_belakang,
                 'jabatan_fungsional' => $jabatan_fungsional,
                 'pangkat_dosen' => $pangkat_dosen,
                 'universitas' => $universitas,
-                'prodi' => $prodi
+                'gapok' => $gapok
             ]
         );
     }
@@ -156,57 +152,72 @@ class OPPTController extends Controller
 
     public function updateDosen(Request $request, $id)
     {
-        $request->validate([
-            'id_gelar_depan' => 'nullable|exists:gelar_depan,id_gelar_depan',
-            'id_gelar_belakang' => 'nullable|exists:gelar_belakang,id_gelar_belakang',
-            'id_jabatan_fungsional' => 'nullable|exists:jabatan_fungsional,id_jabatan_fungsional',
-            'id_pangkat_dosen' => 'nullable|exists:pangkat_dosen,id_pangkat_dosen',
-            'id_universitas' => 'nullable|exists:universitas,id_universitas',
-            'id_prodi' => 'nullable|exists:prodi,id_prodi',
-            'name' => 'required|string|max:255',
-            'no_rek' => 'nullable|string|max:20',
-            'npwp' => 'nullable|string|max:20',
-            'nidn' => 'nullable|string|max:20',
-            'tanggal_lahir' => 'nullable|date',
-            'tempat_lahir' => 'nullable|string|max:255',
-            'status' => 'required|in:aktif,non-aktif,pensiun,belajar',
-            'file_serdos' => 'nullable|file|mimes:pdf|max:5048', // Validasi untuk file serdos (hanya PDF)
-            'image' => 'nullable|image|max:2048', // Validasi untuk image (gambar)
-        ]);
+        try {
+            $request->validate([
+                'id_jabatan_fungsional' => 'nullable|exists:jabatan_fungsional,id_jabatan_fungsional',
+                'id_pangkat_dosen' => 'nullable|exists:pangkat_dosen,id_pangkat_dosen',
+                'id_universitas' => 'nullable|exists:universitas,id_universitas',
+                'id_gapok' => 'nullable|exists:gapok,id_gapok',
+                'gelar_depan' => 'nullable|string',
+                'gelar_belakang' => 'nullable|string',
+                'name' => 'required|string|max:255',
+                'masa_kerja' => 'nullable|string',
+                'awal_belajar' => 'nullable|string',
+                'akhir_belajar' => 'nullable|string',
+                'no_rek' => 'nullable|string|max:20',
+                'nama_rekening' => 'nullable|string',
+                'npwp' => 'nullable|string|max:20',
+                'nidn' => 'nullable|string|max:20',
+                'tanggal_lahir' => 'nullable|date',
+                'tempat_lahir' => 'nullable|string|max:255',
+                'tipe_dosen' => 'nullable|in:pns-gb,pns-profesi,non-gb,non-profesi',
+                'file_serdos' => 'nullable|file|mimes:pdf|max:5048', // Validasi untuk file serdos (hanya PDF)
+                'no_serdos' => 'nullable|string',
+                'image' => 'nullable|image|max:2048', // Validasi untuk image (gambar)
+            ]);
 
-        $dosen = User::findOrFail($id);
+            $dosen = User::findOrFail($id);
 
-        $dosen->id_gelar_depan = $request->id_gelar_depan;
-        $dosen->id_gelar_belakang = $request->id_gelar_belakang;
-        $dosen->id_jabatan_fungsional = $request->id_jabatan_fungsional;
-        $dosen->id_pangkat_dosen = $request->id_pangkat_dosen;
-        $dosen->id_universitas = $request->id_universitas;
-        $dosen->id_prodi = $request->id_prodi;
-        $dosen->name = $request->name;
-        $dosen->no_rek = $request->no_rek;
-        $dosen->npwp = $request->npwp;
-        $dosen->nidn = $request->nidn;
-        $dosen->tanggal_lahir = $request->tanggal_lahir;
-        $dosen->tempat_lahir = $request->tempat_lahir;
-        $dosen->status = $request->status;
 
-        if ($request->hasFile('file_serdos')) {
-            $fileSerdosPath = $request->file('file_serdos')->store('files/serdos', 'public');
-            if ($dosen->file_serdos) {
-                Storage::disk('public')->delete($dosen->file_serdos);
+            $dosen->id_jabatan_fungsional = $request->id_jabatan_fungsional;
+            $dosen->id_pangkat_dosen = $request->id_pangkat_dosen;
+            $dosen->id_universitas = $request->id_universitas;
+            $dosen->id_gapok = $request->id_gapok;
+            $dosen->gelar_depan = $request->gelar_depan;
+            $dosen->gelar_belakang = $request->gelar_belakang;
+            $dosen->name = $request->name;
+            $dosen->masa_kerja = $request->masa_kerja;
+            $dosen->awal_belajar = $request->awal_belajar;
+            $dosen->akhir_belajar=$request->akhir_belajar;
+            $dosen->no_rek = $request->no_rek;
+            $dosen->nama_rekening = $request->nama_rekening;
+            $dosen->npwp = $request->npwp;
+            $dosen->nidn = $request->nidn;
+            $dosen->tanggal_lahir = $request->tanggal_lahir;
+            $dosen->tempat_lahir = $request->tempat_lahir;
+            $dosen->tipe_dosen = $request->tipe_dosen;
+
+            if ($request->hasFile('file_serdos')) {
+                $fileSerdosPath = $request->file('file_serdos')->store('files/serdos', 'public');
+                if ($dosen->file_serdos) {
+                    Storage::disk('public')->delete($dosen->file_serdos);
+                }
+                $dosen->file_serdos = $fileSerdosPath;
             }
-            $dosen->file_serdos = $fileSerdosPath;
+
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('images/dosen', 'public');
+                if ($dosen->image) {
+                    Storage::disk('public')->delete($dosen->image);
+                }
+                $dosen->image = $imagePath;
+            }
+            $dosen->save();
+            return redirect()->back();
+        } catch (\Throwable $th) {
+           return response()->json(['err'=> $th->getMessage()]);
         }
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images/dosen', 'public');
-            if ($dosen->image) {
-                Storage::disk('public')->delete($dosen->image);
-            }
-            $dosen->image = $imagePath;
-        }
-        $dosen->save();
-        return redirect()->back();
     }
 
     public function indexPeriode()
@@ -575,10 +586,8 @@ class OPPTController extends Controller
         $dosen = User::all()
                 ->where('id_universitas', $oppt->id_universitas)
                 ->where('id_role', 5);
-
-        $tipePengajuan = $pengajuan->user()->pluck('tipe_pengajuan', 'id_pengajuan')->toArray();
         // return response()->json(['data' => $pengajuan]);
-        return view('testing.oppt.edit_pengajuan_dosen', ['pengajuan' => $pengajuan, 'periode' => $periode, 'dosen' => $dosen, 'tipe_pengajuan' => $tipePengajuan]);
+        return view('testing.oppt.edit_pengajuan_dosen', ['pengajuan' => $pengajuan, 'periode' => $periode, 'dosen' => $dosen]);
     }
 
     public function updatePengajuan(Request $request, $id)
@@ -588,7 +597,6 @@ class OPPTController extends Controller
             $request->validate([
                 'id_periode' => 'required|exists:periode,id_periode',
                 'dosen_ids' => 'nullable|array',
-                'tipe_pengajuan' => 'nullable|array' // Ensures you can have an array for tipe_pengajuan
             ]);
 
             // Cari pengajuan berdasarkan ID
@@ -599,26 +607,16 @@ class OPPTController extends Controller
                 'id_periode' => $request->id_periode,
             ]);
 
-            // Prepare the sync data
-            $syncData = []; // Initialize an empty array for sync data
-
-            // Loop through each selected dosen ID
-            foreach ($request->dosen_ids as $dosen_id) {
-                // Add to the sync data array
-                $syncData[$dosen_id] = [
-                    'status' => 'diajukan',
-                    'tipe_pengajuan' => $request->tipe_pengajuan[$dosen_id] ?? null, // Get the tipe_pengajuan for this dosen_id
-                    'tanggal_diajukan' => now(),
-                ];
-            }
-
             // Sinkronisasi dosen yang diajukan
-            $pengajuan->user()->sync($syncData); // Sync with prepared syncData
+            $pengajuan->user()->sync($request->dosen_ids, [
+                'status' => 'diajukan',
+                'tanggal_diajukan' => now(),
+            ]);
 
             // Redirect dengan pesan sukses
             return redirect()->route('oppt.pengajuanIndex.dosen')->with('success', 'Pengajuan berhasil diperbarui!');
         } catch (\Throwable $th) {
-            return redirect()->route('oppt.pengajuanIndex.dosen')->with('error', 'Terjadi kesalahan saat memperbarui pengajuan.'); // Optional error message
+            return redirect()->route('oppt.pengajuanIndex.dosen');
         }
     }
 

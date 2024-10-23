@@ -33,11 +33,6 @@
                         <input class="form-check-input" type="checkbox" name="dosen_ids[]" value="{{ $dosen->id }}"
                         {{ $pengajuan->user->contains($dosen->id) ? 'checked' : '' }}>
                         <label class="form-check-label">{{ $dosen->name }}</label>
-                        <select name="tipe_pengajuan[{{ $dosen->id }}]" id="tipe_pengajuan">
-                            <option value="">Pilih Tipe Pengajuan</option>
-                            <option value="Guru Besar" {{ $pengajuan->user->find($dosen->id)?->pivot->tipe_pengajuan == 'Guru Besar' ? 'selected' : '' }}>Guru Besar</option>
-                            <option value="Profesi" {{ $pengajuan->user->find($dosen->id)?->pivot->tipe_pengajuan == 'Profesi' ? 'selected' : '' }}>Profesi</option>
-                        </select>
                     </div>
                 @endforeach
             </div>

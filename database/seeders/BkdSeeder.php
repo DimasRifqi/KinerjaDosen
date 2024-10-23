@@ -14,9 +14,22 @@ class BkdSeeder extends Seeder
     public function run(): void
     {
         DB::table('bkd')->insert([
-            'nidn' => '12345678',
-            'name' => 'John Doe',
-            'kesimpulan_bkd' => 'M',
+            'id_user' => 6, // Random user ID
+                'id_periode' => 2, // Random periode ID
+                'nidn' => null,
+                'nama_dosen' => 'Jane Smith',
+                'no_serdos' => '61845131',
+                'pt' => 'UNTAG BANYUWANGI',
+                'prodi' => 'S1 Ekonomi',
+                'status' => null,
+                'AB' => null,
+                'C' => null,
+                'D' => null,
+                'E' => null,
+                'jumlah' => null,
+                'kesimpulan_bkd' => 'M',
+                'kewajiban_khusus' => null,
+                'kesimpulan' => 'Memenuhi',
         ]);
     }
 }

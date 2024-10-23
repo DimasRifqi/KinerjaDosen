@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('universitas', function (Blueprint $table) {
             $table->id('id_universitas');
             $table->foreignId('id_kota')->nullable()->constrained('kota', 'id_kota')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('kode_pt')->nullable();
             $table->string('nama_universitas')->unique();
             $table->enum('tipe', ['pemerintahan', 'lldikti', 'universitas'])->default('universitas');
             $table->boolean('status')->default(1);

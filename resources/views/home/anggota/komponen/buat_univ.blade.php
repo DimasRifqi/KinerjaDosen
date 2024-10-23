@@ -4,7 +4,7 @@
 @section('content')
     <div class="content-wrapper">
         <div class="home-tab">
-        
+
             <!-- Modal Edit Universitas -->
             <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -24,7 +24,6 @@
                                     <input type="text" class="form-control" id="edit_nama_univ" name="nama_universitas"
                                         required>
                                 </div>
-
                                 <div class="form-group">
                                     <label for="edit_id_kota">Kota</label>
                                     <select class="form-control" id="edit_id_kota" name="id_kota" required>
@@ -104,6 +103,7 @@
                             </div>
                         </div>
 
+                        {{-- modal create --}}
                         <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog">

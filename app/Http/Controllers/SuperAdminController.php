@@ -397,7 +397,8 @@ class SuperAdminController extends Controller
 
 
     public function indexPeriode(){
-        $periode = Periode::all();
+        $periode = Periode::orderBy('created_at', 'desc')->get();
+
 
         return view('home.tunjangan.komponen.buat_periode', compact('periode'));
     }
@@ -451,15 +452,20 @@ class SuperAdminController extends Controller
             'status' => 'required|boolean' // Ensure status is required and boolean
         ]);
 
-        $periode->update([
-            'nama_periode' => $validatedData['nama_periode'],
-            'tipe_periode' => $validatedData['tipe_periode'],
-            'masa_periode_awal' => $validatedData['masa_periode_awal'],
-            'masa_periode_berakhir' => $validatedData['masa_periode_berakhir'],
-            'status' => $validatedData['status'] // Update the status field
-        ]);
+        // $periode->update([
+        //     'nama_periode' => $validatedData['nama_periode'],
+        //     'tipe_periode' => $validatedData['tipe_periode'],
+        //     'masa_periode_awal' => $validatedData['masa_periode_awal'],
+        //     'masa_periode_berakhir' => $validatedData['masa_periode_berakhir'],
+        //     'status' => $validatedData['status'] // Update the status field
+        // ]);
 
-       return redirect()->route('index.periode')->with('success', 'Periode berhasil diperbarui');
+        $periode = Periode::find($id);
+        $periode->update($request->all());
+
+        return response()->json(['success' => true]);
+
+    //    return redirect()->route('index.periode')->with('success', 'Periode berhasil diperbarui');
     }
 
 

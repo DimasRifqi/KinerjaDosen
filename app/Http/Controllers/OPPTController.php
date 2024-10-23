@@ -32,50 +32,11 @@ class OPPTController extends Controller
     //     return view('testing.oppt.history_dosen_pengajuan', ['dosen'=>$dosen]);
     // }
 
-    public function allDosen(Request $request)
-    {
-        $oppt = Auth::user();
-        if ($oppt->id_role == 1 | 2 | 3 ) {
-            // $dosen = User::where('id_role', 5)->get();
-
-            $dosen = User::where('id_role', 5)
-            ->orderBy('created_at', 'desc')
-            ->paginate(4);
-
-
-            if ($request->ajax()) {
-                return response()->json([
-                    'html' => view('home.anggota.dosen.pagination_dosen_oppt', compact('dosen'))->render(),
-                    'pagination' => $dosen->links()->render(),
-                ]);
-            }
-
-
-        } if ($oppt->id_role == 7) {
-            $dosen = User::where('id_universitas', $oppt->id_universitas)->get();
-        }
-
-        return view('home.anggota.dosen.data_dosen_oppt', ['dosen' => $dosen]);
-    }
-
     // public function allDosen(Request $request)
     // {
     //     $oppt = Auth::user();
     //     if ($oppt->id_role == 1 | 2 | 3 ) {
-    //         // $dosen = User::where('id_role', 5)->get();
-
-    //         $dosen = User::where('id_role', 5)
-    //         ->orderBy('created_at', 'desc')
-    //         ->paginate(4);
-
-
-    //         if ($request->ajax()) {
-    //             return response()->json([
-    //                 'html' => view('home.anggota.dosen.pagination_dosen_oppt', compact('dosen'))->render(),
-    //                 'pagination' => $dosen->links()->render(),
-    //             ]);
-    //         }
-
+    //          $dosen = User::where('id_role', 5)->get();
 
     //     } if ($oppt->id_role == 7) {
     //         $dosen = User::where('id_universitas', $oppt->id_universitas)->get();
@@ -84,6 +45,40 @@ class OPPTController extends Controller
     //     return view('home.anggota.dosen.data_dosen_oppt', ['dosen' => $dosen]);
     // }
 
+    public function allDosen(Request $request)
+    {
+        $oppt = Auth::user();
+
+        if (in_array($oppt->id_role, [1, 2, 3])) {
+            $dosen = User::where('id_role', 5)
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(4);
+
+
+            if ($request->ajax()) {
+                return response()->json([
+                    'html' => view('home.anggota.dosen.pagination_dosen_oppt', compact('dosen'))->render(),
+                    'pagination' => $dosen->links()->render(),
+                ]);
+            }
+        }
+
+        if ($oppt->id_role == 7) {
+            $dosen = User::where('id_universitas', $oppt->id_universitas)
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(4);
+
+            if ($request->ajax()) {
+                return response()->json([
+                    'html' => view('home.anggota.dosen.pagination_dosen_oppt', compact('dosen'))->render(),
+                    'pagination' => $dosen->links()->render(),
+                ]);
+            }
+        }
+
+
+        return view('home.anggota.dosen.data_dosen_oppt', ['dosen' => $dosen]);
+    }
 
 
     // public function allDosen()

@@ -32,11 +32,49 @@ class OPPTController extends Controller
     //     return view('testing.oppt.history_dosen_pengajuan', ['dosen'=>$dosen]);
     // }
 
-    // public function allDosen()
+    public function allDosen(Request $request)
+    {
+        $oppt = Auth::user();
+        if ($oppt->id_role == 1 | 2 | 3 ) {
+            // $dosen = User::where('id_role', 5)->get();
+
+            $dosen = User::where('id_role', 5)
+            ->orderBy('created_at', 'desc')
+            ->paginate(4);
+
+
+            if ($request->ajax()) {
+                return response()->json([
+                    'html' => view('home.anggota.dosen.pagination_dosen_oppt', compact('dosen'))->render(),
+                    'pagination' => $dosen->links()->render(),
+                ]);
+            }
+
+
+        } if ($oppt->id_role == 7) {
+            $dosen = User::where('id_universitas', $oppt->id_universitas)->get();
+        }
+
+        return view('home.anggota.dosen.data_dosen_oppt', ['dosen' => $dosen]);
+    }
+
+    // public function allDosen(Request $request)
     // {
     //     $oppt = Auth::user();
     //     if ($oppt->id_role == 1 | 2 | 3 ) {
-    //       $dosen = User::where('id_role', 5)->get();
+    //         // $dosen = User::where('id_role', 5)->get();
+
+    //         $dosen = User::where('id_role', 5)
+    //         ->orderBy('created_at', 'desc')
+    //         ->paginate(4);
+
+
+    //         if ($request->ajax()) {
+    //             return response()->json([
+    //                 'html' => view('home.anggota.dosen.pagination_dosen_oppt', compact('dosen'))->render(),
+    //                 'pagination' => $dosen->links()->render(),
+    //             ]);
+    //         }
 
 
     //     } if ($oppt->id_role == 7) {
@@ -45,37 +83,6 @@ class OPPTController extends Controller
 
     //     return view('home.anggota.dosen.data_dosen_oppt', ['dosen' => $dosen]);
     // }
-    public function allDosen(Request $request)
-    {
-        $oppt = Auth::user();
-        $statusFilter = $request->input('status'); // Ambil filter status dari request
-
-        if (in_array($oppt->id_role, [1, 2, 3])) {
-            $dosen = User::where('id_role', 5)
-                        ->when(!empty($statusFilter), function ($query) use ($statusFilter) {
-                            return $query->where('status', $statusFilter); // Filter berdasarkan status
-                        })
-                        ->orderBy('created_at', 'desc')
-                        ->paginate(4);
-            // Jika request AJAX, render view partial
-            if ($request->ajax()) {
-                return response()->json([
-                    'html' => view('home.anggota.dosen.pagination_dosen_oppt', compact('dosen'))->render(),
-                ]);
-            }
-
-            return view('home.anggota.dosen.data_dosen_oppt', compact('dosen'));
-    }
-
-    // Logic untuk role lainnya
-    if ($oppt->id_role == 7) {
-        $dosen = User::where('id_universitas', $oppt->id_universitas)->paginate(10);
-        return view('home.anggota.dosen.data_dosen_oppt', compact('dosen'));
-    }
-
-    return redirect()->back()->with('error', 'Unauthorized access');
-}
-
 
 
 

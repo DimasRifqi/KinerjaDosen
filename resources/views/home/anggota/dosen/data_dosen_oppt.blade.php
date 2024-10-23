@@ -103,94 +103,37 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
             var currentStatus = '';
 
-            // Submit form create bank
-            $('#createBankForm').on('submit', function(e) {
-                e.preventDefault();
-
-                $('#success-message').hide();
-                $('#error-message').hide();
-                $('#error-list').empty();
-
-                var formData = $(this).serialize();
-
+            function fetch_data(page) {
                 $.ajax({
-                    url: '{{ route('bank.create') }}',
-                    method: 'POST',
-                    data: formData,
+                    url: "?page=" + page,
+                    type: "GET",
                     success: function(response) {
-                        if (response) {
-                            location.reload(); // Reload halaman jika berhasil
-                        }
+                        $('.table-responsive').html(response.html);
+                        $('.pagination-links').html(response.pagination);
                     },
                     error: function(xhr) {
-                        var errors = xhr.responseJSON.errors;
-                        if (errors) {
-                            for (var error in errors) {
-                                $('#error-list').append(`<li>${errors[error][0]}</li>`);
-                            }
-                            $('#error-message').show(); // Tampilkan error
-                        }
-                    }
-                });
-            });
-
-            // Tampilkan modal edit dan isi form dengan data yang diklik
-            $(document).on('click', '.edit-btn', function() {
-                var id = $(this).data('id');
-                var nama = $(this).data('nama');
-                var status = $(this).data('status');
-
-                $('#edit_id_bank').val(id);
-                $('#edit_nama_bank').val(nama);
-                $('#edit_status').val(status);
-
-                $('#editModal').modal('show'); // Tampilkan modal edit
-            });
-
-            // Submit form edit bank
-            $('#editBankForm').on('submit', function(e) {
-                e.preventDefault();
-
-                var formData = $(this).serialize();
-                var id = $('#edit_id_bank').val();
-
-                $.ajax({
-                    url: '{{ route('bank.update', '') }}/' + id,
-                    method: 'POST',
-                    data: formData,
-                    success: function(response) {
-                        location.reload(); // Reload halaman jika berhasil
-                    },
-                    error: function(xhr) {
-                        alert('Terjadi kesalahan');
-                    }
-                });
-            });
-
-            // Filter status dosen
-            $(document).on('click', '.status-filter-option', function(e) {
-                e.preventDefault();
-                currentStatus = $(this).data('aksi'); // Ambil status dari filter yang dipilih
-                fetch_data(1, currentStatus); // Panggil fungsi fetch_data dengan status yang dipilih
-            });
-
-            // Fungsi untuk fetch data dengan filter dan pagination
-            function fetch_data(page, status = '') {
-                var search = $('#search').val(); // Ambil nilai search jika ada
-
-                $.ajax({
-                    url: "{{ route('oppt.index.dosen') }}?page=" + page + "&search=" + search + "&status=" +
-                        status,
-                    success: function(data) {
-                        $('#pagination-data').html(data.html); // Update HTML dengan data yang diterima
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Error: " + xhr.responseText);
+                        console.error("Terjadi kesalahan:", xhr.responseText);
                     }
                 });
             }
+
+            $(document).on('click', '.pagination a', function(e) {
+                e.preventDefault();
+                var page = $(this).attr('href').split('page=')[1];
+                fetch_data(page);
+            });
+
+
+
         });
     </script>
 @endsection

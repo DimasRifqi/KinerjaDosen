@@ -148,7 +148,7 @@ class UserSeeder extends Seeder
                     'tanggal_lahir' => '1990-02-02',
                     'tempat_lahir' => 'Bandung',
                     'status' => 'aktif',
-                    'image' => null,
+                    'image' => '/images/cak_imin.jpg',
                     'email' => 'jane.smith@example.com',
                     'email_verified_at' => now(),
                     'password' => Hash::make('password'),

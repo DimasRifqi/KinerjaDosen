@@ -58,6 +58,7 @@
         </tbody>
     </table>
     <div class="pagination-links">
-        {{ $dosen->links() }} 
+        {{ $dosen->links() }}
+        {{-- {{ $dosen->appends(request()->except('page'))->links() }} --}}
     </div>
 </div>

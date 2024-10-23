@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthApiController;
 use App\Http\Controllers\BkdController;
+use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CsvImportController;
 use App\Http\Controllers\FaqController;
@@ -353,3 +354,11 @@ Route::group(['prefix' => 'permohonan'], function () {
     Route::delete('/{id}/delete', [PermohonanController::class, 'deletePermohonan'])->name('permohonan.delete');
 
 });
+
+
+
+Route::get('/template-surat-keaslian-dokumen', function () {
+    return view('testing.template.surat_pernyataan_kebenaran_dokumen');
+});
+
+Route::get('/generate-pdf', [TemplateController::class, 'generatePDF'])->name('generate-pdf');

@@ -19,7 +19,7 @@
                                 Tidak ada dosen yang ditemukan.
                             </div>
                         @else
-                            @include('home.anggota.dosen.pagination_dosen_opt')
+                            @include('home.anggota.dosen.pagination_dosen_oppt')
                             {{-- <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
@@ -103,20 +103,20 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-
+            // Setup token CSRF untuk request POST
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
 
-            var currentStatus = '';
-
+            // Fungsi untuk mengambil data dari halaman yang diklik
             function fetch_data(page) {
                 $.ajax({
-                    url: "?page=" + page,
-                    type: "GET",
+                    url: "?page=" + page, // Mengambil halaman yang diklik
+                    type: "GET", // Metode GET untuk pagination
                     success: function(response) {
+                        // Mengupdate table dan pagination di HTML
                         $('.table-responsive').html(response.html);
                         $('.pagination-links').html(response.pagination);
                     },
@@ -126,14 +126,13 @@
                 });
             }
 
+            // Saat link pagination diklik
             $(document).on('click', '.pagination a', function(e) {
-                e.preventDefault();
-                var page = $(this).attr('href').split('page=')[1];
-                fetch_data(page);
+                e.preventDefault(); // Mencegah reload halaman
+                var page = $(this).attr('href').split('page=')[1]; // Mendapatkan nomor halaman
+                fetch_data(page); // Panggil fungsi fetch_data untuk memuat data
             });
-
-
-
         });
     </script>
+
 @endsection

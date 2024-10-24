@@ -66,9 +66,20 @@ class AuthApiController extends Controller
         }
     }
 
+    // public function userProfile(){
+    //     $userId = Auth::id();
+    //     $userData = User::with('gelar_depan', 'gelar_belakang', 'jabatan_fungsional', 'universitas', 'pangkat_dosen', 'prodi')->where('id', $userId)->get();
+
+    //     return response()->json([
+    //         'status' => true,
+    //         'message' => 'User login profile ',
+    //         'data' => $userData,
+    //     ], 200);
+    // }
+
     public function userProfile(){
         $userId = Auth::id();
-        $userData = User::with('gelar_depan', 'gelar_belakang', 'jabatan_fungsional', 'universitas', 'pangkat_dosen', 'prodi')->where('id', $userId)->get();
+        $userData = User::with('jabatan_fungsional', 'universitas', 'pangkat_dosen')->where('id', $userId)->get();
 
         return response()->json([
             'status' => true,
@@ -76,6 +87,7 @@ class AuthApiController extends Controller
             'data' => $userData,
         ], 200);
     }
+
 
     public function logout(){
         auth()->user()->tokens()->delete();

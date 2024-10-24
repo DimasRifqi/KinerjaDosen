@@ -57,13 +57,13 @@ class SuperAdminController extends Controller
 
     public function createDosen(){
         $admin = Auth::user();
-        
+
         if ($admin) {
 
             if (in_array($admin->id_role, [1, 2, 3, 4])) {
                 $univ = Universitas::all();
             } elseif ($admin->id_role == 7) {
-                $univ = Universitas::where('id_universitas', $admin->id_universitas)->get();                
+                $univ = Universitas::where('id_universitas', $admin->id_universitas)->get();
             }
 
             $roles = Role::all();
@@ -75,7 +75,7 @@ class SuperAdminController extends Controller
                 'roles',
                 'jabatanFungsional',
                 'universitas',
-                'pangkatDosen',               
+                'pangkatDosen',
             ));
         }
 
@@ -204,6 +204,7 @@ class SuperAdminController extends Controller
 
         return view('home.anggota.lldikti.pendaftaran_lldikti', compact('roles', 'jabatanFungsional', 'universitas', 'pangkatDosen'));
     }
+
 
     ///view page pendaftaran Operator
 
@@ -385,19 +386,61 @@ class SuperAdminController extends Controller
         return redirect()->route('admin.index')->with(['type' => 'success', 'message' => 'Berhasil memperbarui data.']);
     }
 
+    public function indexPeriode(Request $request)
+    {
+        $periodes = Periode::orderBy('created_at', 'desc')->paginate(4);
 
-    public function indexPeriode(){
-        $periodes = Periode::orderBy('created_at', 'desc')->get();
         foreach ($periodes as $periode) {
             if (Carbon::now()->greaterThan($periode->masa_periode_berakhir)) {
-
                 $periode->status = false;
                 $periode->save();
             }
         }
+        if ($request->ajax()) {
+            return response()->json([
+                'html' => view('home.tunjangan.komponen.pagination_periode', compact('periodes'))->render(),
+                'pagination' => $periodes->links()->render(),
+            ]);
+        }
 
         return view('home.tunjangan.komponen.buat_periode', compact('periodes'));
     }
+
+
+
+    // public function indexPeriode(Request $request)
+    // {
+    //     $search = $request->input('search');
+    //     $statusFilter = $request->input('status');
+    //     $periodes = Periode::when($search, function ($query) use ($search) {
+    //         return $query->where('nama_periode', 'like', "%{$search}%");
+    //     })
+    //     ->when(isset($statusFilter) && ($statusFilter === '0' || $statusFilter === '1'), function ($query) use ($statusFilter) {
+    //         return $query->where('status', $statusFilter);
+    //     })
+    //     ->orderBy('created_at', 'desc')
+    //     ->paginate(2);
+
+    //     foreach ($periodes as $periode) {
+    //         if (Carbon::now()->greaterThan($periode->masa_periode_berakhir)) {
+
+    //             $periode->status = false;
+    //             $periode->save();
+    //         }
+    //     }
+
+    //     if ($request->ajax()) {
+    //         if ($periodes->isEmpty()) {
+
+    //             return response()->json(['html' => view('home.anggota.komponen.data_kosong')->render()]);
+    //         } else {
+
+    //             return response()->json(['html' => view('home.tunjangan.komponen.pagination_periode', compact('periodes'))->render()]);
+    //         }
+    //     }
+
+    //     return view('home.tunjangan.komponen.buat_periode', compact('periodes'));
+    // }
 
     // public function indexPeriode(){
     //     $periode = Periode::all();

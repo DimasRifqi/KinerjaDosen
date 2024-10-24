@@ -11,7 +11,7 @@
                     <form action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
                         @csrf
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="id_gelar_depan">Gelar Depan</label>
                             <select class="form-control" id="id_gelar_depan" name="id_gelar_depan">
                                 <option value="">Pilih Gelar Depan</option>
@@ -19,7 +19,7 @@
                                     <option value="{{ $gelar->id_gelar_depan }}">{{ $gelar->nama_gelar_depan }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group">
                             <label for="name" class="col-form-label">Nama Lengkap</label>
@@ -27,7 +27,7 @@
                                 placeholder="Nama Lengkap" required>
                         </div>
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="id_gelar_belakang">Gelar Belakang</label>
                             <select class="form-control" id="id_gelar_belakang" name="id_gelar_belakang">
                                 <option value="">Pilih Gelar Belakang</option>
@@ -36,7 +36,7 @@
                                     </option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group">
                             <label for="tanggal_lahir">Tanggal Lahir</label>
@@ -86,7 +86,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="id_prodi">Program Studi</label>
                             <select class="form-control" id="id_prodi" name="id_prodi">
                                 <option value="">Pilih Program Studi</option>
@@ -94,7 +94,7 @@
                                     <option value="{{ $progdi->id_prodi }}">{{ $progdi->nama_prodi }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group">
                             <label for="id_pangkat_dosen">Pangkat Dosen</label>
@@ -188,7 +188,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             // Ambil semua elemen select
             const selects = document.querySelectorAll('select');
-    
+
             // Tambahkan event listener untuk setiap elemen select
             selects.forEach(select => {
                 select.addEventListener('change', function () {
@@ -197,7 +197,7 @@
                         this.style.color = 'black';
                     }
                 });
-    
+
                 // Setel warna default ketika halaman dimuat
                 if (select.value) {
                     select.style.color = 'black';
@@ -207,5 +207,5 @@
             });
         });
     </script>
-    
+
 @endsection

@@ -144,6 +144,17 @@
 
 
                                     <h4 class="card-title">Semua Periode</h4>
+
+                                    <form id="searchForm" method="GET">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="search" id="search"
+                                                placeholder="Cari berdasarkan nama periode"
+                                                value="{{ request()->input('search') }}">
+                                            <button class="btn btn-primary text-white" type="submit">Cari /
+                                                Reset</button>
+                                        </div>
+                                    </form>
+
                                     <button type="button" class="btn btn-primary mb-3 text-white" data-bs-toggle="modal"
                                         data-bs-target="#createModal">
                                         Buat Periode
@@ -152,60 +163,10 @@
                                         <p class="card-description">
                                             No Periode records found. </p>
                                     @else
-                                        <div class="table-responsive">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th> ID </th>
-                                                        <th> Nama Periode </th>
-                                                        <th> Tipe Periode </th>
-                                                        <th> Masa Periode Awal </th>
-                                                        <th> Masa Periode Berakhir </th>
-                                                        <th> Status </th>
-                                                        <th> Edit </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($periodes as $item)
-                                                        <tr>
-                                                            <td>{{ $loop->index + 1 }}</td>
-                                                            <td>{{ $item->nama_periode }}</td>
-                                                            <td>
-                                                                @if ($item->tipe_periode == 1)
-                                                                    <span class="badge bg-info">Bulanan</span>
-                                                                @else
-                                                                    <span class="badge bg-success">Semester</span>
-                                                                @endif
-                                                            </td>
-                                                            <td>{{ \Carbon\Carbon::parse($item->masa_periode_awal)->translatedFormat('d F Y') }}
-                                                            </td>
-                                                            <td>{{ \Carbon\Carbon::parse($item->masa_periode_berakhir)->translatedFormat('d F Y') }}
-                                                            </td>
+                                    <div class="table-responsive">
+                                        @include('home.tunjangan.komponen.pagination_periode', ['periodes' => $periodes])
+                                    </div>
 
-                                                            <td>
-                                                                @if ($item->status == 1)
-                                                                    <span class="badge bg-success">Aktif</span>
-                                                                @else
-                                                                    <span class="badge bg-danger">Tidak Aktif</span>
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                <button type="button"
-                                                                    class="btn btn-warning btn-sm edit-btn text-white"
-                                                                    data-id="{{ $item->id_periode }}"
-                                                                    data-nama_periode="{{ $item->nama_periode }}"
-                                                                    data-tipe_periode="{{ $item->tipe_periode }}"
-                                                                    data-masa_periode_awal="{{ $item->masa_periode_awal }}"
-                                                                    data-masa_periode_berakhir="{{ $item->masa_periode_berakhir }}"
-                                                                    data-status="{{ $item->status }}"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#editModal">Edit</button>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
                                     @endif
                                 </div>
                             </div>
@@ -229,7 +190,28 @@
                 }
             });
 
-            var currentStatus = '';
+            // Fungsi untuk mengambil data dengan AJAX (pagination)
+            function fetch_data(page) {
+                $.ajax({
+                    url: "?page=" + page, // Kirimkan nomor halaman sebagai parameter
+                    type: "GET",
+                    success: function(response) {
+                        // Update area tabel dan pagination
+                        $('.table-responsive').html(response.html);
+                    },
+                    error: function(xhr) {
+                        console.error("Terjadi kesalahan:", xhr.responseText);
+                    }
+                });
+            }
+
+            // Event klik pada pagination link
+            $(document).on('click', '.pagination a', function(e) {
+                e.preventDefault();
+                var page = $(this).attr('href').split('page=')[1]; // Ambil nomor halaman
+                fetch_data(page); // Panggil fungsi fetch data
+            });
+
 
             $('#createPeriodeForm').on('submit', function(e) {
                 e.preventDefault();
@@ -305,38 +287,6 @@
                 });
             });
 
-
-            $('#searchForm').on('submit', function(e) {
-                e.preventDefault();
-                fetch_data(1, currentStatus);
-            });
-
-            $(document).on('click', '.pagination a', function(e) {
-                e.preventDefault();
-                var page = $(this).attr('href').split('page=')[1];
-                fetch_data(page, currentStatus);
-            });
-
-            $(document).on('click', '.status-filter-option', function(e) {
-                e.preventDefault();
-                currentStatus = $(this).data('status');
-                fetch_data(1, currentStatus);
-            });
-
-            function fetch_data(page, status = '') {
-                var search = $('#search').val();
-
-                $.ajax({
-                    url: "{{ route('univ.index') }}?page=" + page + "&search=" + search + "&status=" +
-                        status,
-                    success: function(data) {
-                        $('#pagination-data').html(data.html);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Error: " + xhr.responseText);
-                    }
-                });
-            }
         });
     </script>
 @endsection

@@ -163,10 +163,11 @@
                                         <p class="card-description">
                                             No Periode records found. </p>
                                     @else
-                                    <div class="table-responsive">
-                                        @include('home.tunjangan.komponen.pagination_periode', ['periodes' => $periodes])
-                                    </div>
-
+                                        <div class="table-responsive">
+                                            @include('home.tunjangan.komponen.pagination_periode', [
+                                                'periodes' => $periodes,
+                                            ])
+                                        </div>
                                     @endif
                                 </div>
                             </div>
@@ -182,7 +183,7 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $.ajaxSetup({
                 headers: {
@@ -190,13 +191,12 @@
                 }
             });
 
-            // Fungsi untuk mengambil data dengan AJAX (pagination)
             function fetch_data(page) {
                 $.ajax({
-                    url: "?page=" + page, // Kirimkan nomor halaman sebagai parameter
+                    url: "?page=" + page,
                     type: "GET",
                     success: function(response) {
-                        // Update area tabel dan pagination
+
                         $('.table-responsive').html(response.html);
                     },
                     error: function(xhr) {
@@ -205,11 +205,10 @@
                 });
             }
 
-            // Event klik pada pagination link
             $(document).on('click', '.pagination a', function(e) {
                 e.preventDefault();
-                var page = $(this).attr('href').split('page=')[1]; // Ambil nomor halaman
-                fetch_data(page); // Panggil fungsi fetch data
+                var page = $(this).attr('href').split('page=')[1];
+                fetch_data(page);
             });
 
 
@@ -287,6 +286,107 @@
                 });
             });
 
+        });
+    </script> --}}
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            function fetch_data(page, search = '') {
+                $.ajax({
+                    url: "?page=" + page + "&search=" + search,
+                    type: "GET",
+                    success: function(response) {
+                        $('.table-responsive').html(response.html);
+                    },
+                    error: function(xhr) {
+                        console.error("Terjadi kesalahan:", xhr.responseText);
+                    }
+                });
+            }
+
+            // Event klik pada pagination link
+            $(document).on('click', '.pagination a', function(e) {
+                e.preventDefault();
+                var page = $(this).attr('href').split('page=')[1]; // Ambil nomor halaman
+                var search = $('#search').val(); // Ambil nilai pencarian
+                fetch_data(page, search); // Panggil fungsi fetch data dengan halaman dan pencarian
+            });
+
+            // Event submit pada form pencarian
+            $('#searchForm').on('submit', function(e) {
+                e.preventDefault();
+                var search = $('#search').val(); // Ambil nilai pencarian
+                fetch_data(1, search); // Fetch data dari halaman 1 berdasarkan pencarian
+            });
+
+            // Logika untuk create dan edit periode tetap sama seperti sebelumnya
+            $('#createPeriodeForm').on('submit', function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    url: '{{ route('periode.create') }}',
+                    method: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        if (response) {
+                            location.reload();
+                        }
+                    },
+                    error: function(xhr) {
+                        var errors = xhr.responseJSON.errors;
+                        if (errors) {
+                            for (var error in errors) {
+                                $('#error-list').append(`<li>${errors[error][0]}</li>`);
+                            }
+                            $('#error-message').show();
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click', '.edit-btn', function() {
+                var id = $(this).data('id');
+                var nama_periode = $(this).data('nama_periode');
+                var tipe_periode = $(this).data('tipe_periode');
+                var masa_periode_awal = $(this).data('masa_periode_awal');
+                var masa_periode_berakhir = $(this).data('masa_periode_berakhir');
+                var status = $(this).data('status');
+
+                $('#edit_id_periode').val(id);
+                $('#edit_nama_periode').val(nama_periode);
+                $('#edit_tipe_periode').val(tipe_periode);
+                $('#edit_masa_periode_awal').val(masa_periode_awal);
+                $('#edit_masa_periode_berakhir').val(masa_periode_berakhir);
+                $('#edit_status').val(status);
+
+                $('#editModal').modal('show');
+            });
+
+            $('#editPeriodeForm').on('submit', function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                var id = $('#edit_id_periode').val();
+                $.ajax({
+                    url: '{{ route('periode.update', '') }}/' + id,
+                    method: 'PUT',
+                    data: formData,
+                    success: function(response) {
+                        if (response.success) {
+                            location.reload();
+                        } else {
+                            alert('Gagal mengubah data.');
+                        }
+                    },
+                    error: function(xhr) {
+                        alert('Terjadi kesalahan: ' + xhr.responseText);
+                    }
+                });
+            });
         });
     </script>
 @endsection

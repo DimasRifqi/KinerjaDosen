@@ -388,7 +388,13 @@ class SuperAdminController extends Controller
 
     public function indexPeriode(Request $request)
     {
-        $periodes = Periode::orderBy('created_at', 'desc')->paginate(4);
+        $search = $request->input('search');
+        $periodes = Periode::when($search, function ($query) use ($search) {
+            return $query->where('nama_periode', 'like', "%{$search}%");
+        })
+        ->orderBy('created_at', 'desc')
+        ->paginate(4);
+
 
         foreach ($periodes as $periode) {
             if (Carbon::now()->greaterThan($periode->masa_periode_berakhir)) {

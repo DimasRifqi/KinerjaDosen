@@ -45,6 +45,7 @@
     </tbody>
 </table>
 
+
 <div class="pagination-links">
     {{ $periodes->links() }}
 </div>

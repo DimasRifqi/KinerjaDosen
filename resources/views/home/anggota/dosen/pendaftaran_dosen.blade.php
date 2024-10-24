@@ -14,14 +14,11 @@
 
                             <!-- Gelar Depan -->
                             <div class="form-group">
-                                <label for="id_gelar_depan">Gelar Depan</label>
-                                <select class="form-control js-example-basic-multiple w-100" id="id_gelar_depan" name="id_gelar_depan">
-                                    <option value="">Pilih Gelar Depan</option>
-                                    @foreach($gelarDepan as $gelar)
-                                        <option value="{{ $gelar->id_gelar_depan }}">{{ $gelar->nama_gelar_depan }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="gelar_depan">Gelar Depan</label>
+                                <input type="text" class="form-control" id="gelar_depan" name="gelar_depan" value="{{ old('gelar_depan') }}">
                             </div>
+
+
 
                             <!-- Nama Lengkap -->
                             <div class="form-group">
@@ -31,13 +28,8 @@
 
                             <!-- Gelar Belakang -->
                             <div class="form-group">
-                                <label for="id_gelar_belakang">Gelar Belakang</label>
-                                <select class="form-control js-example-basic-multiple w-100" id="id_gelar_belakang" name="id_gelar_belakang">
-                                    <option value="">Pilih Gelar Belakang</option>
-                                    @foreach($gelarBelakang as $gelar)
-                                        <option value="{{ $gelar->id_gelar_belakang }}">{{ $gelar->nama_gelar_belakang }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="gelar_belakang">Gelar Belakang</label>
+                                <input type="text" class="form-control" id="gelar_belakang" name="gelar_belakang" value="{{ old('gelar_belakang') }}">
                             </div>
 
                             <!-- Tempat Lahir -->
@@ -80,15 +72,19 @@
                                 </select>
                             </div>
 
-                            <!-- Program Studi -->
                             <div class="form-group">
-                                <label for="id_prodi">Program Studi</label>
-                                <select class="form-control" id="id_prodi" name="id_prodi" required>
-                                    <option value="">Pilih Program Studi</option>
-                                    @foreach($prodi as $progdi)
-                                        <option value="{{ $progdi->id_prodi }}">{{ $progdi->nama_prodi }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="masa_kerja">Masa Kerja</label>
+                                <input type="text" class="form-control" name="masa_kerja" id="masa_kerja" placeholder="Masa Kerja">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="awal_belajar">Awal Belajar</label>
+                                <input type="date" class="form-control" name="awal_belajar" id="awal_belajar" placeholder="Awal Belajar">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="akhir_belajar">Akhir Belajar</label>
+                                <input type="date" class="form-control" name="akhir_belajar" id="akhir_belajar" placeholder="Akhir Belajar">
                             </div>
 
                             <!-- Universitas -->
@@ -104,26 +100,35 @@
 
                             <!-- Upload Foto -->
                             <div class="form-group">
-                                <label for="image">Foto</label>
-                                <input type="file" class="file-upload-default" id="image" name="image" accept="image/*">
-                                <div class="input-group">
-                                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                                    <span class="input-group-append">
-                                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                                    </span>
-                                </div>
+                                <label for="image">Foto Profil</label>
+                                <input type="file" name="image" class="form-control">
+                               
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tipe_dosen">Tipe Dosen</label>
+                                    {{-- @foreach ($dosen as $item)
+                                        <option value="{{ $item->tipe_dosen }}">{{ $item->name }}</option>
+                                    @endforeach --}}
+                                    <select name="tipe_dosen" id="tipe_dosen" class="form-control">
+                                        <option value="">Pilih Tipe Dosen</option>
+                                            <option value="pns-gb">PNS Guru Besar</option>
+                                            <option value="pns-profesi">PNS Profesi</option>
+                                            <option value="non-gb">Non Guru Besar</option>
+                                            <option value="non-profesi">Non Profesi</option>
+                                        
+                                </select>
                             </div>
 
                             <!-- Upload Sertifikasi Dosen -->
                             <div class="form-group">
                                 <label for="file_serdos">File Sertifikasi Dosen</label>
-                                <input type="file" class="file-upload-default" id="file_serdos" name="file_serdos" accept=".pdf">
-                                <div class="input-group">
-                                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload File Sertifikasi">
-                                    <span class="input-group-append">
-                                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                                    </span>
-                                </div>
+                                <input type="file" name="file_serdos" class="form-control" accept="application/pdf">                               
+                            </div>
+
+                            <div class="form-group">
+                                <label for="no_serdos">Nomor Sertifikasi Dosen</label>
+                                <input type="text" class="form-control" id="no_serdos" name="no_serdos" placeholder="Nomor Sertifikasi Dosen">
                             </div>
 
                             <!-- NPWP -->
@@ -136,6 +141,11 @@
                             <div class="form-group">
                                 <label for="no_rek">No Rekening</label>
                                 <input type="text" class="form-control" id="no_rek" name="no_rek" placeholder="No Rekening">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nama_rekening">Nama Rekening</label>
+                                <input type="text" class="form-control" id="nama_rekening" name="nama_rekening" placeholder="No Rekening">
                             </div>
 
                             <!-- Email -->

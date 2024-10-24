@@ -8,8 +8,6 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Data Dosen</h4>
-                        <p class="card-description">
-                            Lorem ipsum dolor sit </p>
                         @if (session('success'))
                             <div class="alert alert-success">
                                 {{ session('success') }}
@@ -21,7 +19,8 @@
                                 Tidak ada dosen yang ditemukan.
                             </div>
                         @else
-                            <div class="table-responsive">
+                            @include('home.anggota.dosen.pagination_dosen_oppt')
+                            {{-- <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
@@ -93,7 +92,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                            </div>
+                            </div> --}}
                         @endif
                     </div>
                 </div>
@@ -101,4 +100,39 @@
 
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Setup token CSRF untuk request POST
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            // Fungsi untuk mengambil data dari halaman yang diklik
+            function fetch_data(page) {
+                $.ajax({
+                    url: "?page=" + page, // Mengambil halaman yang diklik
+                    type: "GET", // Metode GET untuk pagination
+                    success: function(response) {
+                        // Mengupdate table dan pagination di HTML
+                        $('.table-responsive').html(response.html);
+                        $('.pagination-links').html(response.pagination);
+                    },
+                    error: function(xhr) {
+                        console.error("Terjadi kesalahan:", xhr.responseText);
+                    }
+                });
+            }
+
+            // Saat link pagination diklik
+            $(document).on('click', '.pagination a', function(e) {
+                e.preventDefault(); // Mencegah reload halaman
+                var page = $(this).attr('href').split('page=')[1]; // Mendapatkan nomor halaman
+                fetch_data(page); // Panggil fungsi fetch_data untuk memuat data
+            });
+        });
+    </script>
+
 @endsection

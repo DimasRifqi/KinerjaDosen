@@ -9,7 +9,8 @@
                     <div class="card-body">
                         <h4 class="card-title">Data Pengajuan Verifikasi Tunjangan</h4>
                         <p class="card-description">
-                            Lorem ipsum dolor sit </p>
+                            Lorem ipsum dolor sit
+                        </p>
                         @if (session('success'))
                             <div class="alert alert-success">
                                 {{ session('success') }}
@@ -25,42 +26,31 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+
                                             <th>Periode</th>
-                                            <th>Draf</th> {{-- dulu 'Draft', tooltip: 'Draf adalah apakah Dokumen ini Siap atau Tidak Siap Dipublikasikan' --}}
                                             <th>Tanggal Dibuat</th>
-                                            <th>Tanggal Diperbarui</th>
-                                            <th>Daftar Pengguna</th>
+                                            <th>Universitas</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($pengajuan as $item)
                                             <tr>
-                                                <td>{{ $item->id_pengajuan }}</td>
+
                                                 <td>{{ $item->periode->nama_periode }}</td>
-                                                <td>{{ $item->draft }}</td> {{-- buat jangan 1 2, tapi string --}}
+
                                                 <td>{{ $item->created_at }}</td>
-                                                <td>{{ $item->updated_at }}</td>
                                                 <td>
-                                                    <ul>
-                                                        @foreach ($item->user as $user)
-                                                            <li>
-                                                                <strong>Nama:</strong> {{ $user->name }} <br>
-                                                                <strong>Email:</strong> {{ $user->email }} <br>
-                                                                <strong>Status:</strong> {{ $user->pivot->status }} <br>
-                                                                <strong>Tanggal Diajukan:</strong>
-                                                                {{ $user->pivot->tanggal_diajukan ?? '-' }} <br>
-                                                                <strong>Tanggal Disetujui:</strong>
-                                                                {{ $user->pivot->tanggal_disetujui ?? '-' }} <br>
-                                                                <hr>
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
+                                                    @if ($item->user->isNotEmpty())
+                                                        {{ $item->user->first()->universitas->nama_universitas }}
+                                                        <!-- Show the university name of the first user -->
+                                                    @else
+                                                        -
+                                                    @endif
                                                 </td>
                                                 <td>
                                                     <a href="{{ route('verifikator.pengajuan.show', $item->id_pengajuan) }}"
-                                                        class="btn btn-warning btn-sm">Detail</a> {{-- popup --}}
+                                                        class="btn btn-warning btn-sm">Detail</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -71,7 +61,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 @endsection

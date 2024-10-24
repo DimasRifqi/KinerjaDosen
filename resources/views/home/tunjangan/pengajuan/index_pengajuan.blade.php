@@ -9,92 +9,78 @@
                     <div class="card-body">
                         <h4 class="card-title">Daftar Pengajuan Tunjangan</h4>
                         <p class="card-description">
-                            Lorem, ipsum dolor sit amet </p>
+                            Lorem, ipsum dolor sit amet
+                        </p>
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>
-                                            ID Pengajuan
-                                        </th>
-                                        <th>
-                                            Nama Periode
-                                        </th>
-                                        <th>
-                                            Awal Periode
-                                        </th>
-                                        <th>
-                                            Akhir Periode
-                                        </th>
-                                        <th>
-                                            Jenis Periode
-                                        </th>
-                                        <th>
-                                            Status
-                                        </th>
-                                        <th>
-                                            Aksi
-                                        </th>
+                                        <th>ID Pengajuan</th>
+                                        <th>Nama Periode</th>
+                                        <th>Awal Periode</th>
+                                        <th>Akhir Periode</th>
+                                        <th>Jenis Periode</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($pengajuan as $pengajuan)
                                         <tr>
-                                            <td class="py-1">
-                                                {{ $pengajuan->id_pengajuan }}
-                                            </td>
+                                            <td class="py-1">{{ $pengajuan->id_pengajuan }}</td>
+                                            <td>{{ $pengajuan->periode->nama_periode }}</td>
+                                            <td>{{ $pengajuan->periode->masa_periode_awal }}</td>
+                                            <td>{{ $pengajuan->periode->masa_periode_berakhir }}</td>
+                                            <td>{{ $pengajuan->periode->tipe_periode ? 'Bulanan' : 'Semester' }}</td>
+                                            <td>{{ $pengajuan->draft ? 'Aktif' : 'Draft' }}</td>
                                             <td>
-                                                {{ $pengajuan->periode->nama_periode }}
-                                            </td>
-                                            <td>
-                                                {{ $pengajuan->periode->masa_periode_awal }}
-                                            </td>
-                                            <td>
-                                                {{ $pengajuan->periode->masa_periode_berakhir }}
-                                            </td>
-                                            <td>
-                                                {{ $pengajuan->periode->tipe_periode ? 'Bulanan' : 'Semester' }}
-                                            </td>
-                                            <td>
-                                                {{ $pengajuan->draft ? 'Aktif' : 'Draft' }}
-                                            </td>
-                                            <td>
-                                                <div class="py-2">
-                                                    @if ($pengajuan->periode->tipe_periode == true)
-                                                        <a href="{{ route('oppt.pengajuanShow.dosen', $pengajuan->id_pengajuan) }}"
-                                                            class="btn btn-outline-primary btn-rounded">Ajukan Dokumen
-                                                            Bulanan</a>
-                                                    @else
-                                                        <a href="{{ route('oppt.pengajuanSemesterShow.dosen', $pengajuan->id_pengajuan) }}"
-                                                            class="btn btn-outline-info btn-rounded">Ajukan Dokumen
-                                                            Semester</a>
-                                                    @endif
-                                                </div>
-
-                                                <div class="py-1">
-                                                    <form {{-- kasih modal peringatan apakah anda yakin --}}
-                                                        action="{{ route('oppt.draftPengajuan.dosen', $pengajuan->id_pengajuan) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        @if ($pengajuan->draft == false)
-                                                            <button type="submit" class="btn btn-warning">Set to
-                                                                Sukses</button>
-                                                        @endif
-                                                    </form>
-                                                </div>
-                                                <div>
-                                                    @if ($pengajuan->draft == false)
-                                                        <a href="{{ route('oppt.editPengajuan.dosen', $pengajuan->id_pengajuan) }}"
-                                                            class="btn btn-info">Edit</a>
-                                                    @endif
-                                                </div>
-
-                                                <div>
-                                                    <!-- <a href="{{ route('oppt.statusPengajuan.dosen', $pengajuan->id_pengajuan) }}" class="btn btn-dark">Detail Status</a> -->
-                                                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#detailModal">
-                                                        Buka Status
+                                                <!-- Dropdown for actions -->
+                                                <div class="dropdown">
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton{{ $pengajuan->id_pengajuan }}" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Aksi
                                                     </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ $pengajuan->id_pengajuan }}">
+                                                        <!-- Ajukan Dokumen -->
+                                                        @if ($pengajuan->periode->tipe_periode == true)
+                                                            <li>
+                                                                <a class="dropdown-item" href="{{ route('oppt.pengajuanShow.dosen', $pengajuan->id_pengajuan) }}">
+                                                                    <i class="mdi mdi-file-document-box text-primary"></i> Ajukan Dokumen Bulanan
+                                                                </a>
+                                                            </li>
+                                                        @else
+                                                            <li>
+                                                                <a class="dropdown-item" href="{{ route('oppt.pengajuanSemesterShow.dosen', $pengajuan->id_pengajuan) }}">
+                                                                    <i class="mdi mdi-calendar text-info"></i> Ajukan Dokumen Semester
+                                                                </a>
+                                                            </li>
+                                                        @endif
+                                                        <!-- Set to Sukses -->
+                                                        @if ($pengajuan->draft == false)
+                                                            <li>
+                                                                <form action="{{ route('oppt.draftPengajuan.dosen', $pengajuan->id_pengajuan) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <button type="submit" class="dropdown-item">
+                                                                        <i class="mdi mdi-check-circle text-success"></i> Set to Sukses
+                                                                    </button>
+                                                                </form>
+                                                            </li>
+                                                        @endif
+                                                        <!-- Edit Pengajuan -->
+                                                        @if ($pengajuan->draft == false)
+                                                            <li>
+                                                                <a class="dropdown-item" href="{{ route('oppt.editPengajuan.dosen', $pengajuan->id_pengajuan) }}">
+                                                                    <i class="mdi mdi-pencil text-warning"></i> Edit
+                                                                </a>
+                                                            </li>
+                                                        @endif
+                                                        <!-- Detail Status (Modal Trigger) -->
+                                                        <li>
+                                                            <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#detailModal">
+                                                                <i class="mdi mdi-eye text-dark"></i> Buka Status
+                                                            </button>
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             </td>
                                         </tr>
@@ -107,6 +93,7 @@
             </div>
         </div>
 
+        <!-- Detail Modal -->
         <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
             <div class="modal-dialog medium-modal">
                 <div class="modal-content">
@@ -154,11 +141,11 @@
             </div>
         </div>
 
-<style>
-.medium-modal {
-    max-width: 1000px;
-}
-</style>
+        <style>
+            .medium-modal {
+                max-width: 1000px;
+            }
+        </style>
 
     </div>
 @endsection

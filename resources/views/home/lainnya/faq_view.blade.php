@@ -7,92 +7,139 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <!-- Display Success Message -->
-                        @if (session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
+                    
+                        <div>
+                        <div class="accordion faq-accordian" id="faqAccordion">
+                            <div class="card border-0 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                                <div class="card-header" id="headingOne">
+                                    <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Bagaimana cara mengganti kata sandi?<span class="lni-chevron-up"></span></h6>
+                                </div>
+                                <div class="collapse" id="collapseOne" aria-labelledby="headingOne" data-parent="#faqAccordion">
+                                    <div class="card-body">
+                                        <p>Masuk ke menu pengaturan akun, kemudian pilih "Ganti Kata Sandi" dan ikuti instruksi yang ada.</p>
+                                    </div>
+                                </div>
                             </div>
-                        @endif
-                        <!-- Display Validation Errors -->
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
+                            <div class="card border-0 wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                                <div class="card-header" id="headingTwo">
+                                    <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">Bagaimana cara melihat riwayat absensi?<span class="lni-chevron-up"></span></h6>
+                                </div>
+                                <div class="collapse" id="collapseTwo" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+                                    <div class="card-body">
+                                        <p>Klik pada menu "Absensi" di dashboard, kemudian pilih "Riwayat" untuk melihat absensi Anda.</p>
+                                    </div>
+                                </div>
                             </div>
-                        @endif
-
-                        <div class="d-flex" style="justify-content: space-between; padding: 10px 20px;">
-                            <h4>
-                                Data FAQ
-                            </h4>
-                            {{-- <div class="search-container">
-                                        <div class="input-group">
-                                            <input class="form-control"
-                                                style="background: none; border: none; display: flex; align-items: center;"
-                                                id="searchInput" type="text" placeholder="Search" autocomplete="on">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text"
-                                                    style="background: none; border: none; padding-left: 0; display: flex; align-items: center;">
-                                                    <i class="mdi mdi-magnify"
-                                                            style="background: none;"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div> --}}
+                            <div class="card border-0 wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
+                                <div class="card-header" id="headingThree">
+                                    <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">Apa yang harus dilakukan jika lupa kata sandi?<span class="lni-chevron-up"></span></h6>
+                                </div>
+                                <div class="collapse" id="collapseThree" aria-labelledby="headingThree" data-parent="#faqAccordion">
+                                    <div class="card-body">
+                                        <p>Klik "Lupa Kata Sandi" di halaman login, masukkan email yang terdaftar, dan ikuti petunjuk untuk mengatur ulang kata sandi.</p>
+                                </div>
+                            </div>
                         </div>
-                        {{-- @if ($faqs->isEmpty()) --}}
-                        <p class="card-description">
-                            No Data FAQ records found. </p>
-                        {{-- @else --}}
-                        <div class="table-responsive">
-                            <table class="table table-striped" id="tableKota">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Pertanyaan</th>
-                                        <th>Jawaban</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus molestias
-                                            optio alias dolorum </td>
-                                        <td>neque dolore sit hic sequi assumenda </td>
-                                        <td>
-                                            <a href="#" class="btn btn-info">Edit</a>
-                                            <button class="btn btn-danger">Delete</button>
-                                        </td>
-                                    </tr>
-
-                                    {{-- @foreach ($faqs as $faq)
-                                            <tr>
-                                                <td>{{ $faq->id }}</td>
-                                                <td>{{ $faq->pertanyaan }}</td>
-                                                <td>{{ $faq->jawaban }}</td>
-                                                <td>
-                                                    <a href="{{ route('admin.faq.edit', $faq->id_faq) }}"
-                                                        class="btn btn-info">Edit</a>
-                                                    <form action="{{ route('admin.faq.delete', $faq->id_faq) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button class="btn btn-danger" type="submit">Delete</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        @endforeach --}}
-                                </tbody>
-                            </table>
-                        </div>
-                        {{-- @endif --}}
                     </div>
+                    
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
+
+    <style>
+.section_padding_130 {
+    padding-top: 130px;
+    padding-bottom: 130px;
+}
+.faq_area {
+    position: relative;
+    z-index: 1;
+    background-color: #f5f5ff;
+}
+
+.faq-accordian {
+    position: relative;
+    z-index: 1;
+}
+.faq-accordian .card {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 1.5rem;
+    border: 2px solid #3f43fd; /* Border color dan ketebalan */
+    border-radius: 8px; /* Tambahkan sedikit radius jika diperlukan */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tambahkan shadow untuk efek */
+}
+
+.faq-accordian .card:last-child {
+    margin-bottom: 0;
+}
+.faq-accordian .card .card-header {
+    background-color: #ffffff;
+    padding: 0;
+    border-bottom-color: #ebebeb;
+}
+.faq-accordian .card .card-header h6 {
+    cursor: pointer;
+    padding: 1.75rem 2rem;
+    color: #3f43fd;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -ms-grid-row-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+.faq-accordian .card .card-header h6 span {
+    font-size: 1.5rem;
+}
+.faq-accordian .card .card-header h6.collapsed {
+    color: #070a57;
+}
+.faq-accordian .card .card-header h6.collapsed span {
+    -webkit-transform: rotate(-180deg);
+    transform: rotate(-180deg);
+}
+.faq-accordian .card .card-body {
+    padding: 1.75rem 2rem;
+}
+.faq-accordian .card .card-body p:last-child {
+    margin-bottom: 0;
+}
+
+@media only screen and (max-width: 575px) {
+    .support-button p {
+        font-size: 14px;
+    }
+}
+
+.support-button i {
+    color: #3f43fd;
+    font-size: 1.25rem;
+}
+@media only screen and (max-width: 575px) {
+    .support-button i {
+        font-size: 1rem;
+    }
+}
+
+.support-button a {
+    text-transform: capitalize;
+    color: #2ecc71;
+}
+@media only screen and (max-width: 575px) {
+    .support-button a {
+        font-size: 13px;
+    }
+}
+</style>
+
+
+<script src='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js'></script>
 @endsection

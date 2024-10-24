@@ -16,7 +16,7 @@ class PeriodeSeeder extends Seeder
     {
         $data = [
             [
-                'nama_periode' => 'Periode 1',
+                'nama_periode' => 'November 2024',
                 'tipe_periode' => true, // Contoh tipe periode (true/false)
                 'masa_periode_awal' => Carbon::createFromFormat('Y-m-d', '2024-01-01'),
                 'masa_periode_berakhir' => Carbon::createFromFormat('Y-m-d', '2024-06-30'),
@@ -25,7 +25,7 @@ class PeriodeSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'nama_periode' => 'Periode 2',
+                'nama_periode' => 'Oktober 2024',
                 'tipe_periode' => false,
                 'masa_periode_awal' => Carbon::createFromFormat('Y-m-d', '2024-07-01'),
                 'masa_periode_berakhir' => Carbon::createFromFormat('Y-m-d', '2024-12-31'),

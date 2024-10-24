@@ -204,7 +204,7 @@
     </div>
 
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function () {
         const maxChars = 25; // Atur batas karakter di sini
 
         // Targetkan hanya tabel dengan kelas 'permohonan-table'
@@ -216,7 +216,7 @@
 
         // Auto resize textarea
         const textareas = document.querySelectorAll('.permohonan-textarea');
-        
+
         textareas.forEach(textarea => {
             console.log('Textarea found:', textarea); // Debugging check
             textarea.style.height = 'auto'; // Reset height
@@ -230,7 +230,7 @@
                 console.log('Height after input:', this.style.height); // Debugging check
             });
         });
-    });
-</script>
+    }); 
+    </script>
 
 @endsection

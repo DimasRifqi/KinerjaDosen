@@ -15,7 +15,7 @@ class ProvinsiSeeder extends Seeder
     {
         Provinsi::insert([
             [
-                'nama_provinsi' => 'jawa_timur',
+                'nama_provinsi' => 'Jawa Timur',
             ],
         ]);
     }

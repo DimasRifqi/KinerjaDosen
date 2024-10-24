@@ -48,14 +48,11 @@ class PermohonanController extends Controller
         $oppt = Auth::user();
         $jabatanFungsional = Jabatan_Fungsional::all();
         $universitas = Universitas::all();
-        $prodi = Prodi::all();
         $pangkatDosen = Pangkat_Dosen::all();
-        $gelarDepan = Gelar_Depan::all();
-        $gelarBelakang = Gelar_Belakang::all();
         $bank = Bank::all();
-        $dosen = User::where('id_universitas', $oppt->id_universitas)->get();
+        $dosen = User::where('id_universitas', $oppt->id_universitas)->where('id_role', 5)->get();
 
-        return view('testing.permohonan_baru.create_permohonan', compact('dosen', 'jabatanFungsional', 'universitas', 'prodi', 'pangkatDosen', 'gelarDepan', 'gelarBelakang', 'bank'));
+        return view('testing.permohonan_baru.create_permohonan', compact('dosen', 'jabatanFungsional', 'universitas', 'pangkatDosen', 'bank'));
     }
 
     public function storePermohonanOppt(Request $request){
@@ -66,10 +63,9 @@ class PermohonanController extends Controller
                 'id_bank_baru' => 'nullable',
                 'id_jabatan_fungsional_baru' => 'nullable|exists:jabatan_fungsional,id_jabatan_fungsional',
                 'id_universitas_baru' => 'nullable|exists:universitas,id_universitas',
-                'id_prodi_baru' => 'nullable|exists:prodi,id_prodi',
                 'id_pangkat_dosen_baru' => 'nullable|exists:pangkat_dosen,id_pangkat_dosen',
-                'id_gelar_depan_baru' => 'nullable|exists:gelar_depan,id_gelar_depan',
-                'id_gelar_belakang_baru' => 'nullable|exists:gelar_belakang,id_gelar_belakang',
+                'gelar_depan_baru' => 'nullable|string',
+                'gelar_belakang_baru' => 'nullable|string',
                 'name_baru' => 'nullable|string|max:255',
                 'email_baru' => 'nullable|email|unique:users,email',
                 'password_baru' => 'nullable|string|min:8|confirmed',
@@ -82,7 +78,7 @@ class PermohonanController extends Controller
                 'status_baru' => 'nullable|in:aktif,non-aktif,pensiun,belajar',
                 'image_baru' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'permohonan' => 'nullable|string',
-                'awal_kerja_baru' => 'nullable',
+                'masa_kerja_baru' => 'nullable',
                 'nama_rekening_baru' => 'nullable',
                 'lampiran_permohonan' => 'nullable|mimes:pdf|max:10048',
 
@@ -113,10 +109,9 @@ class PermohonanController extends Controller
                 'id_bank_baru' => $request->id_bank_baru,
                 'id_jabatan_fungsional_baru' => $request->id_jabatan_fungsional_baru,
                 'id_universitas_baru' => $request->id_universitas_baru,
-                'id_prodi_baru' => $request->id_prodi_baru,
                 'id_pangkat_dosen_baru' => $request->id_pangkat_dosen_baru,
-                'id_gelar_depan_baru' => $request->id_gelar_depan_baru,
-                'id_gelar_belakang_baru' => $request->id_gelar_belakang_baru,
+                'gelar_depan_baru' => $request->gelar_depan_baru,
+                'gelar_belakang_baru' => $request->gelar_belakang_baru,
                 'name_baru' => $request->name_baru,
                 'email_baru' => $request->email_baru,
                 'password_baru' => bcrypt($request->password_baru),
@@ -129,7 +124,7 @@ class PermohonanController extends Controller
                 'status_baru' => $request->status_baru ?? 'aktif',
                 'image_baru' => $fileName,
                 'permohonan' => $request->permohonan,
-                'awal_kerja_baru' => $request->awal_kerja_baru,
+                'masa_kerja_baru' => $request->masa_kerja_baru,
                 'nama_rekening_baru' => $request->nama_rekening_baru,
                 'lampiran_permohonan' => $lampiranFile
             ]);
@@ -176,10 +171,9 @@ class PermohonanController extends Controller
         'id_bank_baru' => $permohonan->id_bank_baru ?? $dosen->id_bank,
         'id_jabatan_fungsional' => $permohonan->id_jabatan_fungsional_baru ?? $dosen->id_jabatan_fungsional,
         'id_universitas' => $permohonan->id_universitas_baru ?? $dosen->id_universitas,
-        'id_prodi' => $permohonan->id_prodi_baru ?? $dosen->id_prodi,
         'id_pangkat_dosen' => $permohonan->id_pangkat_dosen_baru ?? $dosen->id_pangkat_dosen,
-        'id_gelar_depan' => $permohonan->id_gelar_depan_baru ?? $dosen->id_gelar_depan,
-        'id_gelar_belakang' => $permohonan->id_gelar_belakang_baru ?? $dosen->id_gelar_belakang,
+        'gelar_depan' => $permohonan->gelar_depan_baru ?? $dosen->gelar_depan,
+        'gelar_belakang' => $permohonan->gelar_belakang_baru ?? $dosen->gelar_belakang,
         'name' => $permohonan->name_baru ?? $dosen->name,
         'email' => $permohonan->email_baru ?? $dosen->email,
         'password' => bcrypt($permohonan->password_baru) ?? bcrypt($dosen->password),

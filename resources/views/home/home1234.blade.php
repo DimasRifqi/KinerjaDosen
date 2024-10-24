@@ -758,53 +758,28 @@
                                     <div class="col-12 grid-margin stretch-card">
                                         <div class="card">
                                             <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <div
-                                                            class="d-flex justify-content-between align-items-center mb-7">
-                                                            <div>
-                                                                <h4 class="card-title card-title-dash">
-                                                                    Statistik Verifikasi Anggota</h4>
-                                                            </div>
-
-                                                            <div>
-                                                                <button
-                                                                    class="btn btn-secondary toggle-dark btn-lg mb-0 me-0"
-                                                                    type="button">Lebih Lanjut</button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mt-3">
-                                                            <canvas id="barChart"></canvas>
-                                                        </div>
-                                                    </div>
+                                                <div class="mb-4">
+                                                    <h4 class="card-title">Statistik Verifikasi Anggota </h4>
                                                 </div>
+                                                <div class="mb-4">
+                                                    <button class="btn btn-secondary toggle-dark btn-lg mb-0 me-0"
+                                                        type="button"> Fast Access </button>
+                                                </div>
+                                                <canvas id="barChart"></canvas>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row flex-grow">
-                                        <div class="col-12 grid-margin stretch-card">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-lg-12">
-                                                            <div
-                                                                class="d-flex justify-content-between align-items-center mb-7">
-                                                                <div>
-                                                                    <h4 class="card-title card-title-dash">
-                                                                        Statistik Verifikasi Tunjangan</h4>
-                                                                </div>
-
-                                                                <div>
-                                                                    <button
-                                                                        class="btn btn-secondary toggle-dark btn-lg mb-0 me-0"
-                                                                        type="button">Lebih Lanjut</button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="mt-3">
-                                                                <canvas id="leaveReport"></canvas>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                </div>
+                                <div class="row flex-grow">
+                                    <div class="col-12 grid-margin stretch-card">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="mb-4">
+                                                    <h4 class="card-title">Statistik Verifikasi Anggota </h4>
+                                                </div>
+                                                <div class="mb-4">
+                                                    <button class="btn btn-secondary toggle-dark btn-lg mb-0 me-0"
+                                                        type="button"> Fast Access </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -816,5 +791,8 @@
                 </div>
             </div>
         </div>
-        <!-- content-wrapper ends -->
-    @endsection
+    </div>
+    <!-- content-wrapper ends -->
+
+
+@endsection

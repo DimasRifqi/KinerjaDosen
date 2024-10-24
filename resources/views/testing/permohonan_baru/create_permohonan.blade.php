@@ -59,8 +59,8 @@
 
         <!-- Tanggal Lahir Input -->
         <div class="form-group">
-            <label for="awal_kerja_baru">Awal Kerja</label>
-            <input type="date" class="form-control" id="awal_kerja_baru" name="awal_kerja_baru" value="{{ old('awal_kerja_baru') }}">
+            <label for="masa_kerja_baru">Masa Kerja</label>
+            <input type="date" class="form-control" id="masa_kerja_baru" name="masa_kerja_baru" value="{{ old('masa_kerja_baru') }}">
         </div>
 
         <!-- NPWP Input -->
@@ -137,17 +137,6 @@
             </select>
         </div>
 
-        <!-- Prodi Select -->
-        <div class="form-group">
-            <label for="id_prodi_baru">Prodi</label>
-            <select class="form-control" id="id_prodi_baru" name="id_prodi_baru">
-                <option value="">Select Prodi</option>
-                @foreach($prodi as $prd)
-                    <option value="{{ $prd->id_prodi }}">{{ $prd->nama_prodi }}</option>
-                @endforeach
-            </select>
-        </div>
-
         <!-- Pangkat Dosen Select -->
         <div class="form-group">
             <label for="id_pangkat_dosen_baru">Pangkat Dosen</label>
@@ -159,26 +148,16 @@
             </select>
         </div>
 
-        <!-- Gelar Depan Select -->
+        <!-- Gelar belakang Select -->
         <div class="form-group">
-            <label for="id_gelar_depan_baru">Gelar Depan</label>
-            <select class="form-control" id="id_gelar_depan_baru" name="id_gelar_depan_baru">
-                <option value="">Select Gelar Depan</option>
-                @foreach($gelarDepan as $gelar)
-                    <option value="{{ $gelar->id_gelar_depan }}">{{ $gelar->nama_gelar_depan }}</option>
-                @endforeach
-            </select>
+            <label for="gelar_depan_baru">Gelar Depan</label>
+            <input type="text" class="form-control" id="gelar_depan_baru" name="gelar_depan_baru" value="{{ old('gelar_depan_baru') }}">
         </div>
 
         <!-- Gelar Belakang Select -->
         <div class="form-group">
-            <label for="id_gelar_belakang_baru">Gelar Belakang</label>
-            <select class="form-control" id="id_gelar_belakang_baru" name="id_gelar_belakang_baru">
-                <option value="">Select Gelar Belakang</option>
-                @foreach($gelarBelakang as $gelar)
-                    <option value="{{ $gelar->id_gelar_belakang }}">{{ $gelar->nama_gelar_belakang }}</option>
-                @endforeach
-            </select>
+            <label for="gelar_belakang_baru">Gelar Belakang</label>
+            <input type="text" class="form-control" id="gelar_belakang_baru" name="gelar_belakang_baru" value="{{ old('gelar_belakang_baru') }}">
         </div>
 
         <!-- File Upload for Serdos -->

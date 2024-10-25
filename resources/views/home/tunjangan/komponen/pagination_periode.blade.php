@@ -1,12 +1,34 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>ID</th>
+            <th>#</th>
             <th>Nama Periode</th>
-            <th>Tipe Periode</th>
+            <th>
+                <div class="dropdown">
+                    <a href="#" id="tipePeriodeDropdown" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none; color: inherit;">
+                        Tipe Periode
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="tipePeriodeDropdown">
+                        <li><a class="dropdown-item tipe-filter-option" href="#" data-tipe="">Semua Tipe</a></li>
+                        <li><a class="dropdown-item tipe-filter-option" href="#" data-tipe="0">Bulanan</a></li>
+                        <li><a class="dropdown-item tipe-filter-option" href="#" data-tipe="1">Semester</a></li>
+                    </ul>
+                </div>
+            </th>
             <th>Masa Periode Awal</th>
             <th>Masa Periode Berakhir</th>
-            <th>Status</th>
+            <th>
+                <div class="dropdown">
+                    <a href="#" id="statusDropdown" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none; color: inherit;">
+                        Status
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="statusDropdown">
+                        <li><a class="dropdown-item status-filter-option" href="#" data-status="">Semua Status</a></li>
+                        <li><a class="dropdown-item status-filter-option" href="#" data-status="1">Aktif</a></li>
+                        <li><a class="dropdown-item status-filter-option" href="#" data-status="0">Tidak Aktif</a></li>
+                    </ul>
+                </div>
+            </th>
             <th>Edit</th>
         </tr>
     </thead>
@@ -17,9 +39,9 @@
                 <td>{{ $item->nama_periode }}</td>
                 <td>
                     @if ($item->tipe_periode == 1)
-                        <span class="badge bg-info">Bulanan</span>
-                    @else
                         <span class="badge bg-success">Semester</span>
+                    @else
+                        <span class="badge bg-info">Bulanan</span>
                     @endif
                 </td>
                 <td>{{ \Carbon\Carbon::parse($item->masa_periode_awal)->translatedFormat('d F Y') }}</td>

@@ -386,22 +386,73 @@ class SuperAdminController extends Controller
         return redirect()->route('admin.index')->with(['type' => 'success', 'message' => 'Berhasil memperbarui data.']);
     }
 
+    // public function indexPeriode(Request $request)
+    // {
+    //     $search = $request->input('search');
+    //     $periodes = Periode::when($search, function ($query) use ($search) {
+    //         return $query->where('nama_periode', 'like', "%{$search}%");
+    //     })
+    //     ->orderBy('created_at', 'desc')
+    //     ->paginate(4);
+
+
+    //     foreach ($periodes as $periode) {
+    //         if (Carbon::now()->greaterThan($periode->masa_periode_berakhir)) {
+    //             $periode->status = false;
+    //             $periode->save();
+    //         }
+    //     }
+    //     if ($request->ajax()) {
+    //         return response()->json([
+    //             'html' => view('home.tunjangan.komponen.pagination_periode', compact('periodes'))->render(),
+    //             'pagination' => $periodes->links()->render(),
+    //         ]);
+    //     }
+
+    //     return view('home.tunjangan.komponen.buat_periode', compact('periodes'));
+    // }
+
     public function indexPeriode(Request $request)
     {
+        // Retrieve input values
         $search = $request->input('search');
+        $tipe_periode = $request->input('tipe_periode');
+        $status = $request->input('status');
+
+        // Query for Periode with dynamic filters
         $periodes = Periode::when($search, function ($query) use ($search) {
-            return $query->where('nama_periode', 'like', "%{$search}%");
-        })
-        ->orderBy('created_at', 'desc')
-        ->paginate(4);
+                return $query->where('nama_periode', 'like', "%{$search}%");
+            })
+            ->when($tipe_periode !== null, function ($query) use ($tipe_periode) {
+                return $query->where('tipe_periode', $tipe_periode);
+            })
+            ->when($status !== null, function ($query) use ($status) {
+                return $query->where('status', $status);
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(4);
 
-
+        // Update the status of expired periodes
         foreach ($periodes as $periode) {
             if (Carbon::now()->greaterThan($periode->masa_periode_berakhir)) {
                 $periode->status = false;
                 $periode->save();
             }
         }
+
+        // Check if the data is empty
+        if ($periodes->isEmpty()) {
+            // If empty, return a view for empty data
+            if ($request->ajax()) {
+                return response()->json([
+                    'html' => view('home.anggota.komponen.data_kosong')->render(),
+                ]);
+            }
+
+            return view('home.tunjangan.komponen.buat_periode', compact('periodes'));
+        }
+
+        // Return AJAX response for pagination and filtered data
         if ($request->ajax()) {
             return response()->json([
                 'html' => view('home.tunjangan.komponen.pagination_periode', compact('periodes'))->render(),
@@ -409,8 +460,11 @@ class SuperAdminController extends Controller
             ]);
         }
 
+        // Return the normal view with data
         return view('home.tunjangan.komponen.buat_periode', compact('periodes'));
     }
+
+
 
 
 

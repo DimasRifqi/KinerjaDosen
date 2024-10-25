@@ -24,8 +24,8 @@
                             <label for="tipe_periode">Tipe Periode</label>
                             <select class="form-control" id="tipe_periode" name="tipe_periode" required>
                                 <option value="">Pilih Tipe</option>
-                                <option value="0">Semester</option>
-                                <option value="1">Bulanan</option>
+                                <option value="0">Bulanan</option>
+                                <option value="1">Semester</option>
                             </select>
                         </div>
 
@@ -71,8 +71,8 @@
                         <div class="form-group">
                             <label for="edit_tipe_periode">Tipe Periode</label>
                             <select class="form-control" id="edit_tipe_periode" name="tipe_periode" required>
-                                <option value="0">Semester</option>
-                                <option value="1">Bulanan</option>
+                                <option value="0">Bulanan</option>
+                                <option value="1">Semester</option>
                             </select>
                         </div>
 
@@ -191,12 +191,11 @@
                 }
             });
 
-            function fetch_data(page) {
+            function fetch_data(page, search = '') {
                 $.ajax({
-                    url: "?page=" + page,
+                    url: "?page=" + page + "&search=" + search,
                     type: "GET",
                     success: function(response) {
-
                         $('.table-responsive').html(response.html);
                     },
                     error: function(xhr) {
@@ -208,19 +207,20 @@
             $(document).on('click', '.pagination a', function(e) {
                 e.preventDefault();
                 var page = $(this).attr('href').split('page=')[1];
-                fetch_data(page);
+                var search = $('#search').val();
+                fetch_data(page, search);
             });
 
 
+            $('#searchForm').on('submit', function(e) {
+                e.preventDefault();
+                var search = $('#search').val();
+                fetch_data(1, search);
+            });
+
             $('#createPeriodeForm').on('submit', function(e) {
                 e.preventDefault();
-
-                $('#success-message').hide();
-                $('#error-message').hide();
-                $('#error-list').empty();
-
                 var formData = $(this).serialize();
-
                 $.ajax({
                     url: '{{ route('periode.create') }}',
                     method: 'POST',
@@ -260,21 +260,16 @@
                 $('#editModal').modal('show');
             });
 
-
             $('#editPeriodeForm').on('submit', function(e) {
                 e.preventDefault();
-
                 var formData = $(this).serialize();
                 var id = $('#edit_id_periode').val();
-
                 $.ajax({
-                    url: '{{ route('periode.update', '') }}/' +
-                        id,
+                    url: '{{ route('periode.update', '') }}/' + id,
                     method: 'PUT',
                     data: formData,
                     success: function(response) {
                         if (response.success) {
-
                             location.reload();
                         } else {
                             alert('Gagal mengubah data.');
@@ -285,9 +280,9 @@
                     }
                 });
             });
-
         });
     </script> --}}
+
     <script>
         $(document).ready(function() {
             $.ajaxSetup({
@@ -295,10 +290,11 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
-            function fetch_data(page, search = '') {
+            // Function to fetch filtered data
+            function fetch_data(page, search = '', tipe_periode = '', status = '') {
                 $.ajax({
-                    url: "?page=" + page + "&search=" + search,
+                    url: "?page=" + page + "&search=" + search + "&tipe_periode=" + tipe_periode +
+                        "&status=" + status,
                     type: "GET",
                     success: function(response) {
                         $('.table-responsive').html(response.html);
@@ -309,22 +305,45 @@
                 });
             }
 
-            // Event klik pada pagination link
+            // Pagination click handler
             $(document).on('click', '.pagination a', function(e) {
                 e.preventDefault();
-                var page = $(this).attr('href').split('page=')[1]; // Ambil nomor halaman
-                var search = $('#search').val(); // Ambil nilai pencarian
-                fetch_data(page, search); // Panggil fungsi fetch data dengan halaman dan pencarian
+                var page = $(this).attr('href').split('page=')[1];
+                var search = $('#search').val();
+                var tipe_periode = $('#tipePeriodeDropdown').data('selected');
+                var status = $('#statusDropdown').data('selected');
+                fetch_data(page, search, tipe_periode, status);
             });
 
-            // Event submit pada form pencarian
+            // Search form submit handler
             $('#searchForm').on('submit', function(e) {
                 e.preventDefault();
-                var search = $('#search').val(); // Ambil nilai pencarian
-                fetch_data(1, search); // Fetch data dari halaman 1 berdasarkan pencarian
+                var search = $('#search').val();
+                var tipe_periode = $('#tipePeriodeDropdown').data('selected');
+                var status = $('#statusDropdown').data('selected');
+                fetch_data(1, search, tipe_periode, status);
             });
 
-            // Logika untuk create dan edit periode tetap sama seperti sebelumnya
+            // Filter by Tipe Periode
+            $(document).on('click', '.tipe-filter-option', function(e) {
+                e.preventDefault();
+                var tipe_periode = $(this).data('tipe');
+                $('#tipePeriodeDropdown').data('selected', tipe_periode);
+                var search = $('#search').val();
+                var status = $('#statusDropdown').data('selected');
+                fetch_data(1, search, tipe_periode, status);
+            });
+
+            // Filter by Status
+            $(document).on('click', '.status-filter-option', function(e) {
+                e.preventDefault();
+                var status = $(this).data('status');
+                $('#statusDropdown').data('selected', status);
+                var search = $('#search').val();
+                var tipe_periode = $('#tipePeriodeDropdown').data('selected');
+                fetch_data(1, search, tipe_periode, status);
+            });
+            
             $('#createPeriodeForm').on('submit', function(e) {
                 e.preventDefault();
                 var formData = $(this).serialize();

@@ -1,6 +1,6 @@
 @extends('layouts.home.app')
 @section('title', 'Data Permohonan')
-@section('userTypeOnPage', 'SuperAdmin, Verifikator, Perencanaan, Keuangan')
+@section('userTypeOnPage', 'SuperAdmin, Verifikator')
 @section('content')
     <div class="content-wrapper">
         <div class="row">
@@ -41,23 +41,23 @@
                                                 <td>{{ $item->user->name }}</td>
                                                 <td>{{ $item->user->universitas->nama_universitas ?? '-' }}</td>
                                                 <!-- Asumsi ada relasi universitas -->
-                                                <td>{{ $item->permohonan }}</td>
+                                                <td class="permohonan-content">{{ $item->permohonan }}</td>
                                                 <td> <span class="badge bg-{{ $item->status ? 'success' : 'warning' }}">
                                                         {{ $item->status ? 'Selesai' : 'Proses' }} </span>
                                                 </td>
                                                 <td>{{ $item->created_at->format('d M Y') }}</td>
                                                 <td>
-                                                    <a href="{{ route('verifikator.permohonan.show', $item->id_permohonan) }}"
+                                                    <a href="{{ route('admin.permohonan.detail', $item->id_permohonan) }}"
                                                         class="btn btn-info btn-sm">
                                                         Lanjutkan</a>
-                                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#detailModal" 
+                                                    <!-- <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#detailModal" 
                                                             data-id="{{ $item->id_permohonan }}"
                                                             data-name="{{ $item->user->name }}"
                                                             data-universitas="{{ $item->user->universitas->nama_universitas }}"
                                                             data-permohonan="{{ $item->permohonan }}"
                                                             data-tanggal="{{ $item->timestamps }}">
                                                         Lihat Detail
-                                                    </button>
+                                                    </button> -->
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -70,4 +70,17 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            const maxChars = 10; // Atur batas karakter di sini
+
+            // Targetkan kolom permohonan di tabel dengan kelas 'permohonan-table'
+            document.querySelectorAll(".permohonan-table .permohonan-content").forEach((cell) => {
+                if (cell.textContent.length > maxChars) {
+                    cell.textContent = cell.textContent.slice(0, maxChars) + "..."; // Tambahkan ellipsis
+                }
+            });
+        });
+    </script>
 @endsection

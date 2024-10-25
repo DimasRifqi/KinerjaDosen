@@ -159,12 +159,18 @@ public function indexPermohonanOppt()
         } catch (\Throwable $th) {
             return response()->json(['err'=> $th->getMessage()]);
         }
-    }
+    } 
+
+    // public function detailPermohonanAdmin($id){
+    //     $permohonan = Permohonan::with('jabatan_fungsional')->findOrFail($id);
+    //    //return response()->json(['permohonan' => $permohonan]);
+    //     return view('testing.permohonan_baru.detail_permohonan_admin', ['permohonan' => $permohonan]);
+    // }
 
     public function detailPermohonanAdmin($id){
         $permohonan = Permohonan::with('jabatan_fungsional')->findOrFail($id);
        //return response()->json(['permohonan' => $permohonan]);
-        return view('testing.permohonan_baru.detail_permohonan_admin', ['permohonan' => $permohonan]);
+        return view('home.verifikasi.permohonan.admin_detail_permohonan', ['permohonan' => $permohonan]);
     }
 
     public function updatePermohonanAdmin($id, Request $request)

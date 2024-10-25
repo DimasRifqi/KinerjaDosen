@@ -23,7 +23,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('oppt.permohonan.store') }}" method="POST" enctype="multipart/form-data">
+                <form id="permohonanForm" action="{{ route('oppt.permohonan.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <div class="form-group">
@@ -69,7 +69,7 @@
                     <div class="form-group">
                         <label for="nidn_baru">NIDN</label>
                         <input type="text" class="form-control" id="nidn_baru" name="nidn_baru"
-                        value="{{ old('npwp_baru') }}">
+                        value="{{ old('nidn_baru') }}">
                     </div>
 
                     <div class="form-group">
@@ -97,8 +97,8 @@
 
                     <div class="form-group">
                         <label for="no_rek_baru">No Rekening</label>
-                        <input type="text" class="form-control" id="nama_rekening_baru" name="nama_rekening_baru"
-                        value="{{ old('nama_rekening_baru') }}" placeholder="No Rekening">
+                        <input type="text" class="form-control" id="no_rek_baru" name="no_rek_baru"
+                        value="{{ old('no_rek_baru') }}" placeholder="No Rekening">
                     </div>
 
                     <div class="form-group">
@@ -119,7 +119,7 @@
                             <input type="password" class="form-control" id="password_baru" name="password_baru"
                                 placeholder="Password" >
                             <span class="input-group-text"
-                                onclick="togglePassword('password', 'togglePasswordIcon1')">
+                                onclick="togglePassword('password_baru', 'togglePasswordIcon1')">
                                 <i class="mdi mdi-eye" id="togglePasswordIcon1"></i> <!-- Icon mata untuk password -->
                             </span>
                         </div>
@@ -131,7 +131,7 @@
                             <input type="password" class="form-control" id="password_baru_confirmation"
                                 name="password_baru_confirmation" placeholder="Konfirmasi Password">
                             <span class="input-group-text"
-                                onclick="togglePassword('password_confirmation', 'togglePasswordIcon2')">
+                                onclick="togglePassword('password_baru_confirmation', 'togglePasswordIcon2')">
                                 <i class="mdi mdi-eye" id="togglePasswordIcon2"></i>
                                 <!-- Icon mata untuk konfirmasi password -->
                             </span>
@@ -262,7 +262,7 @@
                         <textarea class="form-control" id="permohonan" name="permohonan" rows="3">{{ old('permohonan') }}</textarea>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary me-2">Kirim Permohonan</button>
+                    <button type="button" id="kirimPermohonanBtn" class="btn btn-primary">Kirim Permohonan</button>
                     <button class="btn btn-light">Cancel</button>
                 </form>
             </div>
@@ -283,36 +283,74 @@
     }
 </style>
 
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        
+        // Fungsi untuk memperbarui warna teks elemen select
+        function updateSelectColor(select) {
+            // Jika opsi yang dipilih bukan placeholder, atur warna teks menjadi hitam
+            select.style.color = select.value ? 'black' : '#6c757d'; // Warna abu-abu untuk placeholder
+        }
+
+        // Fungsi untuk memperbarui nama file yang dipilih
+        function updateFileName(input, targetId) {
+            const fileName = input.files.length > 1 
+                ? `${input.files.length} files selected` 
+                : input.files[0].name;
+            document.getElementById(targetId).textContent = fileName;
+        }
+
         // Ambil semua elemen select
         const selects = document.querySelectorAll('select');
-    
-        // Tambahkan event listener untuk setiap elemen select
+        
+        // Setel warna default ketika halaman dimuat dan tambahkan event listener untuk setiap select
         selects.forEach(select => {
+            updateSelectColor(select); // Set warna awal saat halaman dimuat
+
+            // Tambahkan event listener untuk mengubah warna saat opsi dipilih
             select.addEventListener('change', function () {
-                // Setel warna teks menjadi hitam jika opsi yang dipilih bukan placeholder
-                if (this.value) {
-                    this.style.color = 'black';
-                }
+                updateSelectColor(this);
             });
-    
-            // Setel warna default ketika halaman dimuat
-            if (select.value) {
-                select.style.color = 'black';
-            } else {
-                select.style.color = '#6c757d'; // Warna abu-abu untuk placeholder
-            }
         });
 
-        function updateFileName(input, infoId) {
-        const fileName = input.files.length > 0 ? input.files[0].name : '';
-        document.getElementById(infoId).value = fileName; // Update input text with file name
+        // Event Listener untuk tombol kirim permohonan dengan SweetAlert
+        const kirimPermohonanBtn = document.getElementById('kirimPermohonanBtn');
+        const permohonanForm = document.getElementById('permohonanForm');
+        
+        if (kirimPermohonanBtn && permohonanForm) {
+            kirimPermohonanBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                Swal.fire({
+                    title: 'Kirim permohonan edit data dosen?',
+                    text: "Apakah Anda yakin ingin mengajukan permohonan ini?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Ajukan!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Submit form
+                        permohonanForm.submit();
+                        
+                        // Optional: Tampilkan pesan sukses
+                        Swal.fire(
+                            'Terkirim!',
+                            'Permohonan Anda telah berhasil diajukan.',
+                            'success'
+                        );
+                    }
+                    // Tidak perlu aksi jika "Batal" ditekan, tetap di halaman
+                });
+            });
         }
     });
 </script>
+
 
 
 @endsection

@@ -46,7 +46,7 @@
                                             <td class="text-center">{{ $item->id_permohonan }}</td>
                                             <td class="text-center">{{ $item->user->name }}</td>
                                             <td class="text-center">{{ $item->status_permohonan }}</td>
-                                            <td class="text-center">{{ $item->permohonan }}</td>
+                                            <td class="text-center permohonan-content">{{ $item->permohonan }}</td>
                                             <td class="text-center">{{ $item->created_at }}</td>
                                             <td class="text-center">
                                             <form action="{{ route('permohonan.delete', $item->id_permohonan) }}" method="POST">
@@ -70,5 +70,18 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        const maxChars = 10; // Atur batas karakter di sini
+
+        // Targetkan kolom permohonan di tabel dengan kelas 'permohonan-table'
+        document.querySelectorAll(".permohonan-table .permohonan-content").forEach((cell) => {
+            if (cell.textContent.length > maxChars) {
+                cell.textContent = cell.textContent.slice(0, maxChars) + "..."; // Tambahkan ellipsis
+            }
+        });
+    });
+</script>
 
 @endsection

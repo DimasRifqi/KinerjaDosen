@@ -443,9 +443,12 @@ class SuperAdminController extends Controller
 
     public function indexPeriode(Request $request)
     {
+
         $search = $request->input('search');
         $tipe_periode = $request->input('tipe_periode');
         $status = $request->input('status');
+        $bkd = Periode::where('tipe_periode', false)->get();
+
 
         $periodes = Periode::when($search, function ($query) use ($search) {
                 return $query->where('nama_periode', 'like', "%{$search}%");
@@ -483,7 +486,7 @@ class SuperAdminController extends Controller
             ]);
         }
 
-        return view('home.tunjangan.komponen.buat_periode', compact('periodes'));
+        return view('home.tunjangan.komponen.buat_periode', compact('periodes', 'bkd'));
     }
 
 
@@ -531,24 +534,35 @@ class SuperAdminController extends Controller
     // }
 
 
-    public function CreatePeriode(Request $requset){
-        // $superAdmin = Auth::user();
-        $validateData = $requset->validate([
-            'nama_periode' => 'required',
-            'tipe_periode' => 'required',
-            'masa_periode_awal' => 'required|date',
-            'masa_periode_akhir' => 'required|date'
-        ]);
+    public function CreatePeriode(Request $request)
+{
+    // Validasi input
+    $validateData = $request->validate([
+        'nama_periode' => 'required',
+        'tipe_periode' => 'required',
+        'masa_periode_awal' => 'required|date',
+        'masa_periode_akhir' => 'required|date',
+        'id_child' => 'nullable'
+    ]);
 
-        $periode = Periode::create([
-            'nama_periode' => $validateData['nama_periode'],
-            'tipe_periode' => $validateData['tipe_periode'],
-            'masa_periode_awal' => $validateData['masa_periode_awal'],
-            'masa_periode_berakhir' => $validateData['masa_periode_akhir']
-        ]);
+    // Ambil semua data periode
+    $bkd = Periode::all();
 
-        return redirect()->back()->with('success', 'Periode telah dibuat');
-    }
+    // Tentukan nilai id_child berdasarkan kondisi $bkd
+    $idChildValue = $bkd->isEmpty() ? null : $validateData['id_child'];
+
+    // Buat data periode baru
+    $periode = Periode::create([
+        'nama_periode' => $validateData['nama_periode'],
+        'tipe_periode' => $validateData['tipe_periode'],
+        'masa_periode_awal' => $validateData['masa_periode_awal'],
+        'masa_periode_berakhir' => $validateData['masa_periode_akhir'],
+        'id_child' => $idChildValue
+    ]);
+
+    return redirect()->back()->with('success', 'Periode telah dibuat');
+}
+
 
     public function editPeriode($id){
         $periode = Periode::findOrFail($id);

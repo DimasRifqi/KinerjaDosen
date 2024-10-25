@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('masa_periode_awal');
             $table->date('masa_periode_berakhir');
             $table->boolean('status')->default(true);
+            $table->foreignId('id_child')->nullable()->constrained('periode', 'id_periode')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

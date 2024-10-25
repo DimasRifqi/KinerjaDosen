@@ -26,6 +26,8 @@ class DosenImport implements ToModel, WithHeadingRow
         return new User([
             'nidn' => $row['nidn'],
             'name' => $row['name'],
+            'npwp' => $row['npwp'] ?? null,
+            'no_rek' => $row['no_rek'] ?? null,
             'id_role' => 5,
             'id_jabatan_fungsional' => 1,
             'id_universitas' => 1,

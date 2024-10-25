@@ -39,7 +39,7 @@ class BkdImport implements ToModel, WithHeadingRow
         $user = User::where('nidn', $row['nidn'])->first();
 
         return new Bkd([
-            'id' => $user ? $user->id : null, // Set user_id jika ditemukan
+            'id' => $user ? $user->id : null, 
             'id_periode' => $this->id_periode ,
             'nidn' => $row['nidn'],
             'nama_dosen' => $row['nama_dosen'],

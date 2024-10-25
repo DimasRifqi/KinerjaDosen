@@ -21,4 +21,9 @@ class Periode extends Model
     {
         return $this->hasMany(Bkd::class, 'id_periode', 'id_periode');
     }
+
+    public function parentPeriode()
+    {
+    return $this->belongsTo(Periode::class, 'id_child', 'id_periode');
+        }
 }

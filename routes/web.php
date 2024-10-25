@@ -139,9 +139,11 @@ Route::get('/auditor/editauditor', function () {
     return view('home.anggota.auditor.edit_auditor');
 })->name('edit_auditor');
 
-Route::get('/anggota/dosen/datadosenbelajar', function () {
-    return view('home.anggota.dosen.data_dosen_belajar');
-})->name('datadosenbelajar');
+// Route::get('/anggota/dosen/datadosenbelajar', function () {
+//     return view('home.anggota.dosen.data_dosen_belajar');
+// })->name('datadosenbelajar');
+
+Route::get('/anggota/dosen/datadosenbelajar', [SuperAdminController::class, 'indexDosenBelajar'])->name('data.dosen.belajar'); // /create
 
 
 Route::group(['middleware' => ['auth', 'role:1|3|7']], function () {    // iki 7 dihapus yooo

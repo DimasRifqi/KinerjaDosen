@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -111,6 +112,9 @@ class UserSeeder extends Seeder
                     'gelar_belakang' => 'PhD',
                     'id_bank' => 1,
                     'name' => 'John Doe',
+                    'masa_kerja' => '5 Tahun 10 Bulan',
+                    'awal_belajar' => '2021-02-02',
+                    'akhir_belajar' => '2023-02-02',
                     'nama_rekening' => 'John D',
                     'no_rek' => '1234567890',
                     'npwp' => '0987654321',
@@ -118,7 +122,8 @@ class UserSeeder extends Seeder
                     'file_serdos' => null,
                     'tanggal_lahir' => '1985-01-01',
                     'tempat_lahir' => 'Jakarta',
-                    'status' => 'aktif',
+                    'tipe_dosen' => null,
+                    'status' => 'belajar',
                     'image' => null,
                     'email' => 'john.doe@example.com',
                     'email_verified_at' => now(),
@@ -256,6 +261,44 @@ class UserSeeder extends Seeder
                 ],
 
             ];
+
+            $firstNames = ['John', 'Jane', 'Michael', 'Sarah', 'David', 'Emily', 'Robert', 'Jessica', 'Daniel', 'Linda'];
+            $lastNames = ['Doe', 'Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Martinez', 'Rodriguez', 'Taylor'];
+
+            // Add 30 more dosen with role ID 5
+            for ($i = 1; $i <= 30; $i++) {
+                $firstName = $firstNames[array_rand($firstNames)];
+                $lastName = $lastNames[array_rand($lastNames)];
+                $fullName = $firstName . ' ' . $lastName;
+
+                $users[] = [
+                        'id_role' => 5,
+                        'id_jabatan_fungsional' => null,
+                        'id_universitas' => rand(1, 15), // Random university ID from 1 to 15
+                        'id_pangkat_dosen' => null,
+                        'gelar_depan' => 'Dr.', // You can randomize this if needed
+                        'gelar_belakang' => 'PhD', // You can randomize this if needed
+                        'id_bank' => 1,
+                        'name' => $fullName,
+                        'masa_kerja' => rand(1, 10) . ' Tahun ' . rand(1, 12) . ' Bulan',
+                        'awal_belajar' => Carbon::create(rand(2018, 2021), rand(1, 12), rand(1, 28))->toDateString(),
+                        'akhir_belajar' => Carbon::create(rand(2022, 2025), rand(1, 12), rand(1, 28))->toDateString(),
+                        'nama_rekening' => $fullName,
+                        'no_rek' => '123456789' . rand(0, 9),
+                        'npwp' => '098765432' . rand(0, 9),
+                        'nidn' => '012345678' . rand(0, 9),
+                        'file_serdos' => null,
+                        'tanggal_lahir' => Carbon::create(rand(1970, 1990), rand(1, 12), rand(1, 28))->toDateString(),
+                        'tempat_lahir' => 'Jakarta',
+                        'tipe_dosen' => null,
+                        'status' => 'belajar', // Fixed status
+                        'image' => null,
+                        'email' => strtolower($firstName . '.' . $lastName . $i . '@example.com'),
+                        'email_verified_at' => now(),
+                        'password' => Hash::make('password'),
+                        'remember_token' => null,
+                    ];
+            }
 
             foreach ($users as $user) {
                 User::create($user);

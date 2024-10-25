@@ -149,7 +149,7 @@ class SuperAdminController extends Controller
                 'tipe_dosen' => $request->tipe_dosen,
                 'file_serdos' => $serdosFileName,
                 'no_serdos' => $request->no_serdos,
-                'status' => $request->status ?? 'aktif',
+                'status' => (!empty($request->awal_belajar) || !empty($request->akhir_belajar)) ? 'belajar' : 'aktif',
                 'image' => $fileName,
             ]);
 
@@ -697,6 +697,36 @@ class SuperAdminController extends Controller
 
         $pdos->update($validateData);
         return redirect()->route('index.pangkat')->with('success', 'Pangkat berhasil diubah');
+    }
+
+    public function indexDosenBelajar(Request $request){
+        $search = $request->input('search');
+        $user = Auth::user();
+
+        $dosen = User::with('universitas')
+                    ->where('id_role', 5) // Ensure the 'universitas' relation is loaded
+                    ->when($search, function ($query) use ($search) {
+                        $query->where('name', 'like', "%{$search}%") // Search for dose$dosen by name
+                            ->orWhereHas('universitas', function ($query) use ($search) {
+                                // Search for dose$dosen related to a university where university name matches
+                                $query->where('nama_universitas', 'like', "%{$search}%");
+                            });
+                    })
+            ->orderBy('created_at', 'desc')
+            ->paginate(10); // Paginate the result
+
+        if ($request->ajax()) {
+            if ($dosen->isEmpty()) {
+
+                return response()->json(['html' => view('home.anggota.komponen.data_kosong')->render()]);
+            } else {
+
+                return response()->json(['html' => view('home.anggota.dosen.pagination_dosen_belajar', compact('dosen'))->render()]);
+            }
+        }
+
+
+        return view('home.anggota.dosen.data_dosen_belajar', compact('dosen'));
     }
 
 

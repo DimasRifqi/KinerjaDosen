@@ -1,4 +1,3 @@
-<div class="table-responsive">
     <table class="table table-striped">
         <thead>
             <tr>
@@ -7,7 +6,20 @@
                 <th>Email</th>
                 <th>NIDN</th>
                 <th>Universitas</th>
-                <th>Status</th>
+                <th>
+                     <div class="dropdown">
+                        <a href="#" id="statusDropdown" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none; color: inherit;">
+                            Status
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="statusDropdown">
+                            <li><a class="dropdown-item status-filter-option" href="#" data-status="">Semua Status</a></li>
+                            <li><a class="dropdown-item status-filter-option" href="#" data-status="aktif">Aktif</a></li>
+                            <li><a class="dropdown-item status-filter-option" href="#" data-status="non-aktif">Non Aktif</a></li>
+                            <li><a class="dropdown-item status-filter-option" href="#" data-status="pensiun">Pensiun</a></li>
+                            <li><a class="dropdown-item status-filter-option" href="#" data-status="belajar">Belajar</a></li>
+                        </ul>
+                    </div>
+                </th>
                 <th>Aksi</th>
                 <th>Edit</th>
                 <th>Riwayat</th>
@@ -57,8 +69,6 @@
             @endforeach
         </tbody>
     </table>
-    <div class="pagination-links">
-        {{ $dosen->links() }}
-        {{-- {{ $dosen->appends(request()->except('page'))->links() }} --}}
-    </div>
-</div>
+        {{-- {{ $dosen->links() }} --}}
+        {{ $dosen->appends(request()->except('page'))->links() }}
+    

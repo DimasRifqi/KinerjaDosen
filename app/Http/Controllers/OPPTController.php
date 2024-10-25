@@ -47,37 +47,53 @@ class OPPTController extends Controller
 
     public function allDosen(Request $request)
     {
+        $statusFilter = $request->input('status');
+
+        // dd($request->ajax());
         $oppt = Auth::user();
 
+        // Role-based filtering for the dosen data
         if (in_array($oppt->id_role, [1, 2, 3])) {
             $dosen = User::where('id_role', 5)
-                        ->orderBy('created_at', 'desc')
-                        ->paginate(4);
+                ->when(isset($statusFilter) && ($statusFilter === 'aktif' || $statusFilter === 'non-aktif' || $statusFilter === 'pensiun' || $statusFilter === 'belajar'), function ($query) use ($statusFilter) {
+                    $query->where('status', $statusFilter);  // Conditional filtering based on status
+                })
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
 
             if ($request->ajax()) {
-                return response()->json([
-                    'html' => view('home.anggota.dosen.pagination_dosen_oppt', compact('dosen'))->render(),
-                    'pagination' => $dosen->links()->render(),
-                ]);
+                if ($dosen->isEmpty()) {
+                    return response()->json(['html' => view('home.anggota.komponen.data_kosong')->render()]);
+                } else {
+                    return response()->json([
+                        'html' => view('home.anggota.dosen.pagination_dosen_oppt', compact('dosen'))->render(),
+                    ]);
+                }
             }
         }
 
         if ($oppt->id_role == 7) {
             $dosen = User::where('id_universitas', $oppt->id_universitas)
-                        ->orderBy('created_at', 'desc')
-                        ->paginate(4);
+                ->when(isset($statusFilter) && ($statusFilter === 'aktif' || $statusFilter === 'non-aktif' || $statusFilter === 'pensiun' || $statusFilter === 'belajar'), function ($query) use ($statusFilter) {
+                    $query->where('status', $statusFilter);  // Conditional filtering based on status
+                })
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
 
             if ($request->ajax()) {
-                return response()->json([
-                    'html' => view('home.anggota.dosen.pagination_dosen_oppt', compact('dosen'))->render(),
-                    'pagination' => $dosen->links()->render(),
-                ]);
+                if ($dosen->isEmpty()) {
+                    return response()->json(['html' => view('home.anggota.komponen.data_kosong')->render()]);
+                } else {
+                    return response()->json([
+                        'html' => view('home.anggota.dosen.pagination_dosen_oppt', compact('dosen'))->render(),
+                    ]);
+                }
             }
         }
 
-
         return view('home.anggota.dosen.data_dosen_oppt', ['dosen' => $dosen]);
     }
+
 
 
 

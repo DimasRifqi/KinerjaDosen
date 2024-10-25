@@ -101,8 +101,8 @@
                             <!-- Upload Foto -->
                             <div class="form-group">
                                 <label for="image">Foto Profil</label>
-                                <input type="file" name="image" class="form-control">
-                               
+                                <input type="file" name="image" class="form-control" accept="image/*" onchange="previewImage(event)">
+                                <img id="profileImagePreview" style="display:none; width:150px; margin-top:10px;" />
                             </div>
 
                             <div class="form-group">
@@ -123,7 +123,10 @@
                             <!-- Upload Sertifikasi Dosen -->
                             <div class="form-group">
                                 <label for="file_serdos">File Sertifikasi Dosen</label>
-                                <input type="file" name="file_serdos" class="form-control" accept="application/pdf">                               
+                                <input type="file" name="file_serdos" class="form-control" accept="application/pdf" onchange="previewPDFLink(event)">
+                                <div id="pdfPreviewLink" style="display:none; margin-top:10px;">
+                                    <a id="pdfLink" href="#" target="_blank">Lihat Dokumen</a>
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -200,5 +203,30 @@
             icon.classList.add("mdi-eye");
         }
     }
+
+    // Function to preview the image
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('profileImagePreview');
+            output.src = reader.result;  // Set the image source
+            output.style.display = 'block';  // Make the image visible
+        };
+        reader.readAsDataURL(event.target.files[0]);  // Read the file as data URL
+    }
+
+    // Function to preview the PDF
+    function previewPDFLink(event) {
+        var file = event.target.files[0];
+        if (file.type === "application/pdf") {
+            var fileURL = URL.createObjectURL(file);  // Create object URL for PDF
+            var pdfLink = document.getElementById('pdfLink');
+            pdfLink.href = fileURL;  // Set the link href to the PDF URL
+            document.getElementById('pdfPreviewLink').style.display = 'block';  // Show the preview link
+        } else {
+            alert("Please select a PDF file.");
+        }
+    }
+
 </script>
 @endsection

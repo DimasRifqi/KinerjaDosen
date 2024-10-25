@@ -137,7 +137,7 @@
                                 <label for="image">Foto Profil</label>
                                 <input type="file" name="image" class="form-control">
                                 @if ($dosen->image)
-                                    <p>Foto saat ini: <img src="{{ asset('storage/'.$dosen->image) }}" alt="Foto Dosen" width="150"></p>
+                                    <p>Foto saat ini: <img src="{{ asset('storage/img/foto_users/'.$dosen->image) }}" alt="Foto Dosen" width="150"></p>
                                 @endif
                                 @error('image')
                                     <span class="text-danger">{{ $message }}</span>
@@ -148,7 +148,7 @@
                                 <label for="file_serdos">File Serdos (PDF)</label>
                                 <input type="file" name="file_serdos" class="form-control">
                                 @if ($dosen->file_serdos)
-                                    <p>File saat ini: <a href="{{ asset('storage/'.$dosen->file_serdos) }}" target="_blank">Lihat File</a></p>
+                                    <p>File saat ini: <a href="{{ asset('storage/file/file_serdos/'.$dosen->file_serdos) }}" target="_blank">Lihat File</a></p>
                                 @endif
                                 @error('file_serdos')
                                     <span class="text-danger">{{ $message }}</span>

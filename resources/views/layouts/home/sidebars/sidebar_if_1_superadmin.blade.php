@@ -8,7 +8,7 @@
             </a>
         </li>
         <li class="nav-item nav-category">Verifikasi</li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#verifikasi" aria-expanded="false"
                 aria-controls="verifikasi">
                 <i class="menu-icon mdi mdi-account-multiple-outline"></i>
@@ -25,7 +25,7 @@
                     </li>
                 </ul>
             </div>
-        </li>
+        </li> -->
 
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#permohonan" aria-expanded="false"

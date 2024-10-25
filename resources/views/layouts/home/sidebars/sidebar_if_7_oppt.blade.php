@@ -11,7 +11,8 @@
 
         <li class="nav-item nav-category">Verifikasi</li>
         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#verifikasi" aria-expanded="false"
+
+            <!-- <a class="nav-link" data-bs-toggle="collapse" href="#verifikasi" aria-expanded="false"
                 aria-controls="verifikasi">
                 <i class="menu-icon mdi mdi-account-multiple-outline"></i>
                 <span class="menu-title">Anggota</span>
@@ -23,7 +24,8 @@
                         <a class="nav-link" href="{{ route('oppt.indexPermohonan.dosen') }}">Dosen (OPPT)</a>
                     </li>
                 </ul>
-            </div>
+            </div> -->
+
             <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#permohonan" aria-expanded="false"
                 aria-controls="permohonan">

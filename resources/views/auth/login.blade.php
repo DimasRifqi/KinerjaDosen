@@ -1,3 +1,4 @@
+HTML login Blade
 @extends('layouts.auth.app')
 @section('title', 'Masuk')
 @section('content')
@@ -33,7 +34,6 @@
                                 <input type="password" name="password" class="form-control form-control-lg @error('password') is-invalid @enderror" id="password" placeholder="Kata Sandi"
                                 required autocomplete="current-password">
                                 
-                                <!-- Tombol toggle password, menggunakan flex-grow agar ukurannya sama dengan input -->
                                 <button type="button" class="btn btn-light toggle-password-btn" onclick="togglePassword()">
                                     <i class="mdi mdi-eye" id="togglePasswordIcon"></i>
                                 </button>
@@ -48,18 +48,18 @@
 
 
                             <div class="my-2 d-flex justify-content-between align-items-center">
-                                <div class="form-check">
-                                    <label class="form-check-label text-muted" for="remember"> {{ __('Ingat Saya') }}
-                                        <input type="checkbox" class="form-check-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                    </label>
+                                <div class="form-check d-flex align-items-center">
+                                    <input type="checkbox" class="form-check-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                    <label class="form-check-label text-muted" for="remember" style="margin-left: 5px;">Ingat Saya</label> <!-- Atur jarak secara manual -->
                                 </div>
+                                                    
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Lupa Kata Sandi?') }}
                                     </a>
                                 @endif
                             </div>
-
+                            
                             <div class="mt-2">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Masuk') }}

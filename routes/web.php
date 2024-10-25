@@ -344,17 +344,17 @@ Route::get('/auditor', [AuthApiController::class, 'auditor']);
 // Super / Verif / OPPT permohonan new
 
 Route::group(['prefix' => 'permohonan'], function () {
-    Route::get('index', [PermohonanController::class, 'indexPermohonanOppt'])->name('oppt.permohonan.index');
+    Route::get('/index-data-dosen', [PermohonanController::class, 'indexPermohonanOppt'])->name('oppt.permohonan.index');
     Route::get('create', [PermohonanController::class, 'createPermohonanOppt'])->name('oppt.permohonan.create');
     Route::post('store', [PermohonanController::class, 'storePermohonanOppt'])->name('oppt.permohonan.store');
     Route::get('/admin/index-permohonan', [PermohonanController::class, 'indexPermohonanAdmin'])->name('admin.permohonan.index');
+    Route::get('/admin/index-permohonan-new', [PermohonanController::class, 'indexPermohonanAdminNew'])->name('admin.permohonannew.index');
     Route::get('/admin/{id}/detail', [PermohonanController::class, 'detailPermohonanAdmin'])->name('admin.permohonan.detail');
     Route::put('/admin/{id}/update', [PermohonanController::class, 'updatePermohonanAdmin'])->name('admin.permohonan.update');
     Route::put('/admin/{id}tolak', [PermohonanController::class, 'tolakPermohonanAdmin'])->name('admin.permohonan.tolak');
     Route::delete('/{id}/delete', [PermohonanController::class, 'deletePermohonan'])->name('permohonan.delete');
 
 });
-
 
 
 Route::get('/template-surat-keaslian-dokumen', function () {

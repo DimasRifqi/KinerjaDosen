@@ -41,6 +41,19 @@
                                 required>
                         </div>
 
+                        <div class="form-group">
+                        <label for="masa_periode_akhir">Pilih Periode BKD</label>
+                        <select name="id_child" id="id_child">
+                            <option value="">Pilih BKD</option>
+                                <option class="text text-danger" value=''>BKD baru</option>
+                        @foreach ($bkd as $bkd)
+
+
+                                <option value="{{$bkd->id_periode }}">{{ $bkd->nama_periode }}</option>
+
+                        @endforeach
+                    </select>
+                    </div>
                         <button type="submit" class="btn btn-primary text-white">Simpan</button>
                     </form>
 

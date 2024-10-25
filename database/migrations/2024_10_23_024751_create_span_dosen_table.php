@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nama_penerima')->nullable();
             $table->string('npwp')->nullable();
             $table->string('nama_pemilik_rekening')->nullable();
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

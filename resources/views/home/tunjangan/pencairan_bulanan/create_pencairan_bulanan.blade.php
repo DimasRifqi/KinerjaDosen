@@ -17,17 +17,7 @@
                     <div class="card-body d-flex flex-column"> <!-- Use flexbox for column layout -->
                         <h4 class="card-title mb-4">Buat Pengajuan Tunjangan : {{ $periode->nama_periode }} Id : {{ $periode->id_periode }}</h4>
 
-                        <form action="{{ route('search.nama.dosen') }}" method="POST" class="mb-4"> <!-- Change to GET method -->
-                            @csrf
-                            <!-- Search input -->
-                            <div class="form-group">
-                                <label for="search" class="form-label">Cari Dosen</label>
-                                <input type="text" class="form-control " name="search" id="search" placeholder="Masukkan Nama Dosen / NIDN" value="{{ request('search') }}">
-                            </div>
 
-                            <!-- Submit button -->
-                            <button type="submit" class="btn btn-primary">Cari</button>
-                        </form>
 
                         <form action="{{ route('oppt.ajukan.dosen', $periode->id_periode) }}" method="POST">
                             @csrf
@@ -65,6 +55,7 @@
                                                         <td>{{ $dosenItem->bkd->first()->periode->nama_periode }}</td>
                                                         <td>
                                                             <input type="checkbox" name="dosen_ids[]" value="{{ $dosenItem->id }}" class="dosen-checkbox">
+
                                                         </td>
                                                         <td>{{ $dosenItem->name }}</td>
                                                         <td>{{ $dosenItem->nidn }}</td>
@@ -85,11 +76,14 @@
                         </form>
                     </div>
                 </div>
+
+
+
+
             </div>
         </div>
     </div>
 
-    <!-- JavaScript to handle select all functionality -->
     <script>
         document.getElementById('select-all').addEventListener('change', function(e) {
             const checkboxes = document.querySelectorAll('.dosen-checkbox');

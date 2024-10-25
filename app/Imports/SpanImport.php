@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Span;
+use App\Models\User;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -11,7 +12,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 class SpanImport implements ToModel, WithHeadingRow
 {
     private $rowCount = 0;
-    private $maxRows = 10;
+    private $maxRows = 100;
 
     public function model(array $row)
     {
@@ -20,6 +21,7 @@ class SpanImport implements ToModel, WithHeadingRow
         // }
 
         // $this->rowCount++;
+
 
         return new Span([
             'no_rekening' => $row['no_rekening'],

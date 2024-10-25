@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PermohonanController;
+use App\Http\Controllers\SpanController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -374,3 +375,6 @@ Route::post('import-span', [BkdController::class, 'importExcelSpan'])->name('spa
 Route::post('import-univ', [BkdController::class, 'importExcelUniv'])->name('univ.import');
 
 Route::get('/pengajuan/pilih-periode', [OPPTController::class, 'pilihPeriodePengajuan'])->name('oppt.pilih.periode');
+
+Route::get('/update/span/data', [SpanController::class, 'updateSpanDosen']);
+Route::put('/update/span/data', [SpanController::class, 'updateSpanDosen']);

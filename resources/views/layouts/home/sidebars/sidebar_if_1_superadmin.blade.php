@@ -26,6 +26,24 @@
                 </ul>
             </div>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#permohonan" aria-expanded="false"
+                aria-controls="permohonan">
+                <i class="menu-icon mdi mdi-account-multiple-outline"></i>
+                <span class="menu-title">Permohonan</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="permohonan">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link"
+                        href="{{ route('admin.permohonannew.index') }}">Data Permohonan Dosen</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
                 <i class="menu-icon mdi mdi mdi-file"></i>

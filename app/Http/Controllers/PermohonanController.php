@@ -17,7 +17,21 @@ use Illuminate\Support\Facades\Auth;
 
 class PermohonanController extends Controller
 {
-    public function indexPermohonanOppt()
+
+//     public function indexPermohonanOppt()
+// {
+//     $oppt = Auth::user();
+
+//     // Mengambil data permohonan dengan id_user yang id_universitas-nya sama dengan oppt
+//     $permohonan = Permohonan::whereHas('user', function($query) use ($oppt) {
+//         $query->where('id_universitas', $oppt->id_universitas);
+//     })->orderBy('id_permohonan', 'DESC')
+//     ->get();
+
+//     return view('testing.permohonan_baru.index_permohonan_oppt', ['permohonan' => $permohonan]);
+// }
+
+public function indexPermohonanOppt()
 {
     $oppt = Auth::user();
 
@@ -27,7 +41,7 @@ class PermohonanController extends Controller
     })->orderBy('id_permohonan', 'DESC')
     ->get();
 
-    return view('testing.permohonan_baru.index_permohonan_oppt', ['permohonan' => $permohonan]);
+    return view('home.verifikasi.permohonan.oppt_index_permohonan', ['permohonan' => $permohonan]);
 }
 
 
@@ -40,8 +54,20 @@ class PermohonanController extends Controller
     public function indexPermohonanAdminNew(){
         $permohonan = Permohonan::orderBy('created_at', 'desc')->get();
         //return response()->json(['permohonan' => $permohonan]);
-        return view('home.permohonan-new.admin_index_permohonan', ['permohonan' => $permohonan]);
+        return view('home.verifikasi.permohonan.admin_index_permohonan', ['permohonan' => $permohonan]);
     }
+
+    // public function createPermohonanOppt()
+    // {
+    //     $oppt = Auth::user();
+    //     $jabatanFungsional = Jabatan_Fungsional::all();
+    //     $universitas = Universitas::all();
+    //     $pangkatDosen = Pangkat_Dosen::all();
+    //     $bank = Bank::all();
+    //     $dosen = User::where('id_universitas', $oppt->id_universitas)->where('id_role', 5)->get();
+
+    //     return view('testing.permohonan_baru.create_permohonan', compact('dosen', 'jabatanFungsional', 'universitas', 'pangkatDosen', 'bank'));
+    // }
 
     public function createPermohonanOppt()
     {
@@ -52,7 +78,7 @@ class PermohonanController extends Controller
         $bank = Bank::all();
         $dosen = User::where('id_universitas', $oppt->id_universitas)->where('id_role', 5)->get();
 
-        return view('testing.permohonan_baru.create_permohonan', compact('dosen', 'jabatanFungsional', 'universitas', 'pangkatDosen', 'bank'));
+        return view('home.verifikasi.permohonan.oppt_create_permohonan', compact('dosen', 'jabatanFungsional', 'universitas', 'pangkatDosen', 'bank'));
     }
 
     public function storePermohonanOppt(Request $request){

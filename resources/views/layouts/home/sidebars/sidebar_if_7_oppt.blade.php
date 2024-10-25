@@ -1,12 +1,14 @@
 <!-- partial:partials/_sidebar.html -->
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
+
         <li class="nav-item">
             <a class="nav-link" href="{{ route('home') }}">
                 <i class="mdi mdi-grid-large menu-icon"></i>
                 <span class="menu-title">Dasbor</span>
             </a>
         </li>
+
         <li class="nav-item nav-category">Verifikasi</li>
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#verifikasi" aria-expanded="false"
@@ -22,7 +24,27 @@
                     </li>
                 </ul>
             </div>
+            <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#permohonan" aria-expanded="false"
+                aria-controls="permohonan">
+                <i class="menu-icon mdi mdi-account-multiple-outline"></i>
+                <span class="menu-title">Permohonan</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="permohonan">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link"
+                            href="{{ route('oppt.permohonan.create') }}">Buat Permohonan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('oppt.permohonan.index') }}">Data Permohonan Dosen</a> 
+                        {{-- viewpage terpisah yang ada filter univ --}}
+                    </li>
+                </ul>
+            </div>
         </li>
+        </li>
+
         <li class="nav-item nav-category">Anggota</li>
         <li class="nav-item">
         <li class="nav-item">

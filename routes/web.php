@@ -143,7 +143,6 @@ Route::get('/auditor/editauditor', function () {
 //     return view('home.anggota.dosen.data_dosen_belajar');
 // })->name('datadosenbelajar');
 
-Route::get('/anggota/dosen/datadosenbelajar', [SuperAdminController::class, 'indexDosenBelajar'])->name('data.dosen.belajar'); // /create
 
 
 Route::group(['middleware' => ['auth', 'role:1|3|7']], function () {    // iki 7 dihapus yooo
@@ -275,6 +274,9 @@ Route::group(['middleware' => ['auth', 'role:1|3|7']], function () {    // iki 7
         Route::put('update/{id}', [InformasiController::class, 'updateInformasi'])->name('admin.informasi.update');
         Route::delete('delete/{id}', [InformasiController::class, 'deleteInformasi'])->name('admin.informasi.delete');
     });
+
+    Route::get('/anggota/dosen/datadosenbelajar', [SuperAdminController::class, 'indexDosenBelajar'])->name('data.dosen.belajar'); // /create
+
 });
 
 Route::group(['middleware' => ['auth', 'role:7|1']], function () {

@@ -1,7 +1,7 @@
 /*------------------------------------------------------------------
  [Master Stylesheet]
 
-  Project:	Star Admin2 
+  Project:	Star Admin2
   Version:	1.2.1
 -------------------------------------------------------------------*/
 /*-------------------------------------------------------------------
@@ -30764,6 +30764,10 @@ div.tagsinput span.tag a {
   #settings-trigger {
     display: none;
   }
+}
+.form-control {
+    background-color: white !important;
+    color: black !important;
 }
 
 /*# sourceMappingURL=../maps/vertical-layout-light/style.css.map */

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bank;
+use App\Models\Gapok;
 use App\Models\Jabatan_Fungsional;
 use App\Models\Pangkat_Dosen;
 use App\Models\Kota;
@@ -166,7 +167,7 @@ class SuperAdminController extends Controller
         $jabatanFungsional = Jabatan_Fungsional::all();
         $universitas = Universitas::all();
         $pangkatDosen = Pangkat_Dosen::all();
-        return view('home.anggota.all_user.pendaftaran_all_user', compact('roles', 'jabatanFungsional', 'universitas', 'prodi', 'pangkatDosen', 'gelarDepan', 'gelarBelakang'));
+        return view('home.anggota.all_user.pendaftaran_all_user', compact('roles', 'jabatanFungsional', 'universitas', 'pangkatDosen'));
     }
 
     // public function create()
@@ -303,8 +304,10 @@ class SuperAdminController extends Controller
         $jabatanFungsional = Jabatan_Fungsional::all();
         $universitas = Universitas::all();
         $pangkatDosen = Pangkat_Dosen::all();
+        $banks = Bank::all();
+        $gapoks = Gapok::all();
 
-        return view('home.anggota.dosen.edit_dosen', compact('user', 'roles', 'jabatanFungsional', 'universitas', 'pangkatDosen',));
+        return view('home.anggota.dosen.edit_alluser', compact('gapoks','banks','user', 'roles', 'jabatanFungsional', 'universitas', 'pangkatDosen',));
     } /////return view edit dosen superadmin, admin
 
     // public function edit($id)
@@ -325,11 +328,16 @@ class SuperAdminController extends Controller
     {
         $request->validate([
             'id_role' => 'required|exists:role,id_role',
-            'id_jabatan_fungsional' => 'required|exists:jabatan_fungsional,id_jabatan_fungsional',
-            'id_universitas' => 'required|exists:universitas,id_universitas',
-            'id_pangkat_dosen' => 'required|exists:pangkat_dosen,id_pangkat_dosen',
+            'id_jabatan_fungsional' => 'nullable|exists:jabatan_fungsional,id_jabatan_fungsional',
+            'id_universitas' => 'nullable|exists:universitas,id_universitas',
+            'id_pangkat_dosen' => 'nullable|exists:pangkat_dosen,id_pangkat_dosen',
+            'id_gapok' => 'nullable|exists:gapok,id_gapok',
+            'id_bank' => 'nullable|exists:bank,id_bank',
             'gelar_depan' => 'nullable|string',
             'gelar_belakang' => 'nullable|string',
+            'masa_kerja' => 'nullable|string',
+            'awal_belajar' => 'nullable|string',
+            'akhir_belajar' => 'nullable|string',
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'nullable|string|min:8|confirmed',
@@ -340,6 +348,7 @@ class SuperAdminController extends Controller
             'nidn' => 'nullable|string',
             'file_serdos' => 'nullable|mimes:pdf|max:2048',
             'status' => 'nullable|in:aktif,non-aktif,pensiun,belajar',
+            'tipe_dosen' => 'nullable|in:pns-gb,pns-profesi,non-gb,non-profesi',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -367,8 +376,13 @@ class SuperAdminController extends Controller
         $user->id_jabatan_fungsional = $request->id_jabatan_fungsional;
         $user->id_universitas = $request->id_universitas;
         $user->id_pangkat_dosen = $request->id_pangkat_dosen;
+        $user->id_gapok = $request->id_gapok;
+        $user->id_bank = $request->id_bank;
         $user->gelar_depan = $request->gelar_depan;
         $user->gelar_belakang = $request->gelar_belakang;
+        $user->masa_kerja = $request->masa_kerja;
+        $user->awal_belajar = $request->awal_belajar;
+        $user->akhir_belajar = $request->akhir_belajar;
         $user->name = $request->name;
         $user->email = $request->email;
         if ($request->filled('password')) {
@@ -379,7 +393,8 @@ class SuperAdminController extends Controller
         $user->no_rek = $request->no_rek;
         $user->npwp = $request->npwp;
         $user->nidn = $request->nidn;
-        $user->status = $request->status ?? 'aktif';
+        $user->status = $request->status;
+        $user->tipe_dosen = $request->tipe_dosen;
 
         $user->save();
 
@@ -414,12 +429,10 @@ class SuperAdminController extends Controller
 
     public function indexPeriode(Request $request)
     {
-        // Retrieve input values
         $search = $request->input('search');
         $tipe_periode = $request->input('tipe_periode');
         $status = $request->input('status');
 
-        // Query for Periode with dynamic filters
         $periodes = Periode::when($search, function ($query) use ($search) {
                 return $query->where('nama_periode', 'like', "%{$search}%");
             })
@@ -432,17 +445,14 @@ class SuperAdminController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(4);
 
-        // Update the status of expired periodes
         foreach ($periodes as $periode) {
             if (Carbon::now()->greaterThan($periode->masa_periode_berakhir)) {
-                $periode->status = false;
+                $periode->status = 0;
                 $periode->save();
             }
         }
 
-        // Check if the data is empty
         if ($periodes->isEmpty()) {
-            // If empty, return a view for empty data
             if ($request->ajax()) {
                 return response()->json([
                     'html' => view('home.anggota.komponen.data_kosong')->render(),
@@ -452,7 +462,6 @@ class SuperAdminController extends Controller
             return view('home.tunjangan.komponen.buat_periode', compact('periodes'));
         }
 
-        // Return AJAX response for pagination and filtered data
         if ($request->ajax()) {
             return response()->json([
                 'html' => view('home.tunjangan.komponen.pagination_periode', compact('periodes'))->render(),
@@ -460,7 +469,6 @@ class SuperAdminController extends Controller
             ]);
         }
 
-        // Return the normal view with data
         return view('home.tunjangan.komponen.buat_periode', compact('periodes'));
     }
 

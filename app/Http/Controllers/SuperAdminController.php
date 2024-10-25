@@ -26,7 +26,7 @@ class SuperAdminController extends Controller
 
     public function index()
     {
-        $admin = User::all();
+        $admin = User::orderBy('created_at', 'desc')->get();
         return view('home.anggota.all_user.data_all_user', compact('admin'));
     }
 
@@ -202,26 +202,30 @@ class SuperAdminController extends Controller
         $jabatanFungsional = Jabatan_Fungsional::all();
         $universitas = Universitas::all();
         $pangkatDosen = Pangkat_Dosen::all();
+        $banks = Bank::all();
+        $gapoks = Gapok::all();
 
-        return view('home.anggota.lldikti.pendaftaran_lldikti', compact('roles', 'jabatanFungsional', 'universitas', 'pangkatDosen'));
+        return view('home.anggota.lldikti.pendaftaran_lldikti', compact('gapoks','banks','roles', 'jabatanFungsional', 'universitas', 'pangkatDosen'));
     }
-
-
-    ///view page pendaftaran Operator
 
     public function store(Request $request)
     {
         try {
             $request->validate([
-                'id_role' => 'nullable|exists:role,id_role',
+                'id_role' => 'required|exists:role,id_role',
                 'id_jabatan_fungsional' => 'nullable|exists:jabatan_fungsional,id_jabatan_fungsional',
                 'id_universitas' => 'nullable|exists:universitas,id_universitas',
                 'id_pangkat_dosen' => 'nullable|exists:pangkat_dosen,id_pangkat_dosen',
+                'id_gapok' => 'nullable|exists:gapok,id_gapok',
+                'id_bank' => 'nullable|exists:bank,id_bank',
                 'gelar_depan' => 'nullable|string',
                 'gelar_belakang' => 'nullable|string',
+                'masa_kerja' => 'nullable|string',
+                'awal_belajar' => 'nullable|string',
+                'akhir_belajar' => 'nullable|string',
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users,email',
-                'password' => 'required|string|min:8|confirmed',
+                'password' => 'nullable|string|min:8|confirmed',
                 'tanggal_lahir' => 'nullable|date',
                 'tempat_lahir' => 'nullable|string|max:255',
                 'no_rek' => 'nullable|string',
@@ -229,27 +233,36 @@ class SuperAdminController extends Controller
                 'nidn' => 'nullable|string',
                 'file_serdos' => 'nullable|mimes:pdf|max:2048',
                 'status' => 'nullable|in:aktif,non-aktif,pensiun,belajar',
+                'tipe_dosen' => 'nullable|in:pns-gb,pns-profesi,non-gb,non-profesi',
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
 
+            // Handle image file upload
             $fileName = null;
             if ($request->hasFile('image')) {
                 $fileName = 'image-' . uniqid() . '.' . $request->image->extension();
                 $request->image->move(public_path('storage/img/foto_users'), $fileName);
             }
 
+            // Handle sertifikasi dosen file upload
             $serdosFileName = $request->file_serdos ? 'serdos-' . uniqid() . '.' . $request->file_serdos->extension() : null;
             if ($serdosFileName) {
                 $request->file_serdos->move(public_path('storage/file/file_serdos'), $serdosFileName);
             }
 
+            // Create new user
             User::create([
                 'id_role' => $request->id_role,
                 'id_jabatan_fungsional' => $request->id_jabatan_fungsional,
                 'id_universitas' => $request->id_universitas,
                 'id_pangkat_dosen' => $request->id_pangkat_dosen,
+                'id_gapok' => $request->id_gapok,
+                'id_bank' => $request->id_bank,
                 'gelar_depan' => $request->gelar_depan,
                 'gelar_belakang' => $request->gelar_belakang,
+                'masa_kerja' => $request->masa_kerja,
+                'awal_belajar' => $request->awal_belajar,
+                'akhir_belajar' => $request->akhir_belajar,
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
@@ -263,11 +276,12 @@ class SuperAdminController extends Controller
                 'image' => $fileName,
             ]);
 
-            return redirect()->back()->with('success', 'success allhamdulilah');
+            return redirect()->route('admin.index')->with('success', 'Data berhasil disimpan!');
         } catch (\Throwable $th) {
             return response()->json(['err'=> $th->getMessage()]);
         }
     }
+
 
     // public function edit($id)
     // {

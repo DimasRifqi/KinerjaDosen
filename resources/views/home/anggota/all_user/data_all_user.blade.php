@@ -8,8 +8,6 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Data All User</h4>
-                        <p class="card-description">
-                            Lorem ipsum dolor sit </p>
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
@@ -39,7 +37,7 @@
                                             <td>{{ $user->role->nama_role }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>
-                                                <!-- Tombol Edit yang mengarah ke halaman edit -->
+
                                                 <a href="{{ route('admin.edit', $user->id) }}"
                                                     class="btn btn-warning btn-sm">Edit</a>
                                             </td>

@@ -16,9 +16,18 @@
                                 <h5 class="mb-3">Informasi Pribadi</h5>
 
                                 <div class="form-group">
+                                    <label for="gelar_depan">Gelar Depan</label>
+                                    <input type="text" class="form-control" id="gelar_depan" name="gelar_depan" placeholder="Gelar Depan">
+                                </div>
+
+                                <div class="form-group">
                                     <label for="name">Nama Lengkap</label>
-                                    <input type="text" class="form-control" id="name" name="name"
-                                        placeholder="Nama Lengkap" required>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Nama Lengkap" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="gelar_belakang">Gelar Belakang</label>
+                                    <input type="text" class="form-control" id="gelar_belakang" name="gelar_belakang" placeholder="Gelar Belakang">
                                 </div>
 
                                 <div class="form-group">
@@ -28,14 +37,12 @@
 
                                 <div class="form-group">
                                     <label for="tempat_lahir">Tempat Lahir</label>
-                                    <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir"
-                                        placeholder="Tempat Lahir">
+                                    <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Tempat Lahir">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email"
-                                        required>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                                 </div>
 
                                 <div class="form-group">
@@ -81,7 +88,7 @@
 
                                 <div class="form-group">
                                     <label for="id_universitas">Universitas</label>
-                                    <select class="form-control" id="id_universitas" name="id_universitas">
+                                    <select class="form-control" id="id_universitas" name="id_universitas" required>
                                         <option value="">Pilih Universitas</option>
                                         @foreach ($universitas as $univ)
                                             <option value="{{ $univ->id_universitas }}">{{ $univ->nama_universitas }}</option>
@@ -91,7 +98,7 @@
 
                                 <div class="form-group">
                                     <label for="id_pangkat_dosen">Pangkat Dosen</label>
-                                    <select class="form-control" id="id_pangkat_dosen" name="id_pangkat_dosen">
+                                    <select class="form-control" id="id_pangkat_dosen" name="id_pangkat_dosen" required>
                                         <option value="">Pilih Pangkat Dosen</option>
                                         @foreach ($pangkatDosen as $pangkat)
                                             <option value="{{ $pangkat->id_pangkat_dosen }}">{{ $pangkat->nama_pangkat }}</option>
@@ -101,8 +108,7 @@
 
                                 <div class="form-group">
                                     <label for="no_rek">No Rekening</label>
-                                    <input type="text" class="form-control" id="no_rek" name="no_rek"
-                                        placeholder="No Rekening">
+                                    <input type="text" class="form-control" id="no_rek" name="no_rek" placeholder="No Rekening">
                                 </div>
 
                                 <div class="form-group">
@@ -112,14 +118,27 @@
 
                                 <div class="form-group">
                                     <label for="nidn">NIDN</label>
-                                    <input type="text" class="form-control" id="nidn" name="nidn"
-                                        placeholder="NIDN">
+                                    <input type="text" class="form-control" id="nidn" name="nidn" placeholder="NIDN">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="file_serdos">File Sertifikasi Dosen (PDF)</label>
-                                    <input type="file" class="form-control" id="file_serdos" name="file_serdos"
-                                        accept=".pdf">
+                                    <input type="file" class="form-control" id="file_serdos" name="file_serdos" accept=".pdf">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="masa_kerja">Masa Kerja</label>
+                                    <input type="text" class="form-control" id="masa_kerja" name="masa_kerja" placeholder="Masa Kerja">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="awal_belajar">Awal Belajar</label>
+                                    <input type="date" class="form-control" id="awal_belajar" name="awal_belajar" placeholder="Awal Belajar">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="akhir_belajar">Akhir Belajar</label>
+                                    <input type="date" class="form-control" id="akhir_belajar" name="akhir_belajar" placeholder="Akhir Belajar">
                                 </div>
                             </div>
                         </div>
@@ -131,8 +150,7 @@
                                 <div class="form-group">
                                     <label for="password">Kata Sandi</label>
                                     <div class="input-group">
-                                        <input type="password" class="form-control" id="password" name="password"
-                                            placeholder="Password" required>
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                                         <span class="input-group-text" onclick="togglePassword('password', 'togglePasswordIcon1')">
                                             <i class="mdi mdi-eye" id="togglePasswordIcon1"></i>
                                         </span>
@@ -144,8 +162,7 @@
                                 <div class="form-group">
                                     <label for="password_confirmation">Konfirmasi Kata Sandi</label>
                                     <div class="input-group">
-                                        <input type="password" class="form-control" id="password_confirmation"
-                                            name="password_confirmation" placeholder="Konfirmasi Password" required>
+                                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Password" required>
                                         <span class="input-group-text" onclick="togglePassword('password_confirmation', 'togglePasswordIcon2')">
                                             <i class="mdi mdi-eye" id="togglePasswordIcon2"></i>
                                         </span>
